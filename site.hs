@@ -33,7 +33,7 @@ postCtx =
 siteCtx :: Context String
 siteCtx =
     --   constField "baseUrl" "file:///Users/rjhala/teaching/130-web/_site/" `mappend`
-    constField "baseUrl"            "https://nadia-polikarpova.github.io/cse130-sp18/"     `mappend`
+    constField "baseUrl"            "https://nadia-polikarpova.github.io/cse130-sp18"     `mappend`
     constField "site_name"          "cse130"                    `mappend`
     constField "site_description"   "UCSD CSE 130"              `mappend`
     -- constField "instagram_username" "ranjitjhala"               `mappend`
