@@ -1,14 +1,14 @@
 # 130-web
 
-Public course materials for [UCSD CSE 130](https://ucsd-cse130.github.io/web)
+Public course materials for [UCSD CSE 130](https://nadia-polikarpova.github.io/cse130-sp18/)
 
 ## Install
 
 You too, can build this webpage locally, like so:
 
 ```bash
-$ git clone https://github.com/ucsd-progsys/131-web.git
-$ cd 131-web
+$ git clone git@github.com:nadia-polikarpova/cse130-sp18.git
+$ cd cse130-sp18
 $ make
 ```
 
