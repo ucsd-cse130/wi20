@@ -41,7 +41,7 @@ siteCtx =
     constField "twitter_username"   "polikarn"               `mappend`
     constField "github_username"    "nadia-polikarpova"      `mappend`
     constField "google_username"    "npolikarpova@eng.ucsd.edu"       `mappend`
-    constField "google_userid"      "u/0/106612421534244742464" `mappend`
+    constField "google_userid"      "u/0/104385825850161331469" `mappend`
     constField "piazza_classid"     "ucsd/spring2018/cse130/home" `mappend`
     defaultContext
 
