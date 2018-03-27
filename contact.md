@@ -5,7 +5,7 @@ headerImg: world-map.jpg
 
 ## Co-ordinates
 
-- **Course ID:**         903734  
+- **Course ID:**         938599
 - **Lectures:**          MWF 1:00-1:50pm in CENTR 119
 - **Section:**           W 9:00-9:50pm in CENTR 115
 - **Final:**             Monday June 11 7-10pm
@@ -18,10 +18,12 @@ headerImg: world-map.jpg
 
 ## Teaching Assistants
 
-* [Valentin Robert](http://www.cs.ucsd.edu/~vrobert)
+* [Sourav Anand](https://www.linkedin.com/in/soanand14/)
 * Joseph Geumlek
-* Sourav Anand
+* [Valentin Robert](http://www.cs.ucsd.edu/~vrobert)
+
 
 ## Tutors
-* Purag Moumdjan
-* David Justo
+* [David Justo](https://www.linkedin.com/in/david-justo-068a88a9/)
+* [Purag Moumdjian](https://purag.me/)
+
