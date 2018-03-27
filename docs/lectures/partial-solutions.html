@@ -232,8 +232,122 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<h2 id="final-fall-06">Final Fall 06</h2>
-<p> ### 6 (a)  <sub><sub><sub><del>{.scala} def elementAndRest<a href="xs:%20List%5BA%5D">A</a>: Iterator[(A, List[A])] = { for (i &lt;- (0 until xs.length).iterator) yield (xs(i), xs.slice(0, i) ++ xs.slice(i+1, xs.length)) }</del></sub></sub></sub>  ### 6 (b)  <sub><sub><sub><del>{.scala} def permutations<a href="xs:%20List%5BA%5D">A</a>: Iterator[List[A]] = xs match { case Nil =&gt; Iterator(List()) case x::rest =&gt; for ( ys &lt;- permutations(rest) ; i &lt;- 0 until xs.length) yield ys.slice(0, i) ++ List(x) ++ ys.slice(i, ys.length) }</del></sub></sub></sub>  ## Fall 07  ### 6 (d)  <sub><sub><sub><del>{.scala} object tick { private var ctr = 0 def apply() = { ctr += 1 ctr } }</del></sub></sub></sub>  ### 7 (a)  <sub>~</sub>~~{.scala} def valid(es:List[(Int, Int)], c: List[Int]): Boolean = es.forall(e =&gt; c(e._1) != c(e._2)) <sub>~</sub>~~   ### 7 (b)  <sub><sub><sub><del>{.scala} def colorings(n: Int, k: Int): List[List[Int]] = { if (n &lt;= 0) List(List()) else { for ( cs &lt;- colorings(n-1, k) ; c &lt;- 0 until k) yield (c::cs) } } </del></sub></sub></sub>  ### 7 (c)  <sub><sub><sub><del>{.scala} def initColoring(n: Int) = (0 until n).toList.map(x =&gt; 0)  def lastColoring(xs: List[Int], k: Int) = xs.forall(_ == k-1)  def nextColoring(xs: List[Int], k: Int) = { var res : List[Int] = List() var carry = 1 for (i &lt;- (xs.length - 1) to 0 by -1) { val sum = carry + xs(i) val dig = sum % k carry = sum / k res = dig :: res } res }</del></sub></sub></sub>   ## Midterm Spring 12  ### 1 (a)  <sub><sub><sub><del>{.ocaml} val (&lt;.&gt;) : (’b -&gt; ’c) -&gt; (’a -&gt; ’b) -&gt; (’a -&gt; ’c)</del></sub></sub></sub>  ### 1 (b)  <sub><sub><sub><del>{.ocaml} 10</del></sub></sub></sub>  ### 1 (c)  <sub>~</sub>~~{.scala} let giftList = let rec helper acc xs = match xs with | [] -&gt; acc^&quot; and thats what I want for Christmas!“ | x::xs’ -&gt; helper (acc ^” and “) xs’ in helper”“ <sub>~</sub>~~  ### 2 (a)  <sub><sub><sub><del>{.ocaml} val getEven : int list -&gt; int option</del></sub></sub></sub>  ### 2 (b)   <sub><sub><sub><del>{.ocaml} let rec find_first f xs = match xs with | [] -&gt; None | x::xs’ -&gt; if f x then Some x else find_first f xs’</del></sub></sub></sub>  ### 2 (c)  <sub><sub><sub><del>{.ocaml} val tree_to_string: string tree -&gt; string</del></sub></sub></sub>  ### 2 (d)  <sub><sub><sub><del>{.ocaml} let rec post_fold f b t = match t with | Leaf -&gt; b | Node (x, l, r) -&gt; f x (post_fold f b l) (post_fold f b r)</del></sub></sub></sub>  ### 2 (e)  <sub><sub><sub><del>{.ocaml} let rec in_fold f b t = match t with | Leaf -&gt; b | Node (x, l, r) -&gt; let bl = in_fold f b l in let bx = f bl x in let br = in_fold f bx r in br</del></sub></sub></sub>   ### 3 (a)  <sub><sub><sub><del>{.ocaml} Left 3</del></sub></sub></sub>  ### 3 (b)  <sub><sub><sub><del>{.ocaml} Right “monkey”</del></sub></sub></sub>   ### 3 (c)  <sub><sub><sub><del>{.ocaml} let rec assoc key kvs = match kvs with | (k, v)::rest -&gt; if key = k then Right v else assoc key rest | [] -&gt; Left key</del></sub></sub></sub>  ### 3 (d)  <sub><sub><sub><del>{.ocaml} let map f e = match e with | Left l -&gt; Left l | Right r -&gt; Right (f r)</del></sub></sub></sub>  ### 3 (e)  <sub>~</sub>~~{.ocaml} let map2 f e1 e2 = match (e1, e2) with | Right r1, Right r2 -&gt; Right (f r1 r2) | Left l, _ -&gt; Left l | <em>, Left l -&gt; Left l <sub>~</sub>~~   ### 4 (a)  <sub><sub><sub><del>{.ocaml} let lookup x env = match assoc x env with | Left z -&gt; Left (UnboundVariable z) | Right i -&gt; Right i</del></sub></sub></sub>  ### 4 (b)  <sub><sub><sub><del>{.ocaml} let safeDiv n m = if m != 0 then Right (n / m) else Left DivideByZero</del></sub></sub></sub>  ### 4 (c)  <sub>~</sub>~~{.ocaml} let rec eval env e = match e with | Const i -&gt; Right i | Var v -&gt; lookup v env | Bin (e1, Plus, e2) -&gt; map2 (+) (eval env e1) (eval env e2) | Bin (e1, Div, e2) -&gt; (match (eval env e1) (eval env e2) with | </em>, Right 0 -&gt; Left DivideByZero | Right i1, Right i2 -&gt; Right (i1/ i2) | Left l, _ | _, Left l -&gt; Left l) <sub>~</sub>~~</p>
+			<h2 id="final-fall-06">Final Fall 06</h2>
+<h3 id="a">6 (a)</h3>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> elementAndRest[A](xs: List[A]): Iterator[(A, List[A])] = {
+  <span class="kw">for</span> (i &lt;- (<span class="dv">0</span> until xs.<span class="fu">length</span>).<span class="fu">iterator</span>)
+    <span class="kw">yield</span> (<span class="fu">xs</span>(i), xs.<span class="fu">slice</span>(<span class="dv">0</span>, i) ++ xs.<span class="fu">slice</span>(i<span class="dv">+1</span>, xs.<span class="fu">length</span>))
+}</code></pre></div>
+<h3 id="b">6 (b)</h3>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> permutations[A](xs: List[A]): Iterator[List[A]] =
+  xs <span class="kw">match</span> {
+    <span class="kw">case</span> Nil     =&gt;
+      Iterator(List())
+    <span class="kw">case</span> x::rest =&gt;
+      <span class="kw">for</span> ( ys &lt;- <span class="fu">permutations</span>(rest)
+          ; i  &lt;- <span class="dv">0</span> until xs.<span class="fu">length</span>)
+      <span class="kw">yield</span> ys.<span class="fu">slice</span>(<span class="dv">0</span>, i) ++ List(x) ++ ys.<span class="fu">slice</span>(i, ys.<span class="fu">length</span>)
+  }</code></pre></div>
+<h2 id="fall-07">Fall 07</h2>
+<h3 id="d">6 (d)</h3>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">object</span> tick {
+  <span class="kw">private</span> <span class="kw">var</span> ctr = <span class="dv">0</span>
+  <span class="kw">def</span> <span class="fu">apply</span>() = {
+    ctr += <span class="dv">1</span>
+    ctr
+  }
+}</code></pre></div>
+<h3 id="a-1">7 (a)</h3>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">valid</span>(es:List[(Int, Int)], c: List[Int]): Boolean =
+  es.<span class="fu">forall</span>(e =&gt; <span class="fu">c</span>(e.<span class="fu">_1</span>) != <span class="fu">c</span>(e.<span class="fu">_2</span>))</code></pre></div>
+<h3 id="b-1">7 (b)</h3>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">colorings</span>(n: Int, k: Int): List[List[Int]] = {
+  <span class="kw">if</span> (n &lt;= <span class="dv">0</span>) List(List())
+  <span class="kw">else</span> { <span class="kw">for</span> ( cs &lt;- <span class="fu">colorings</span>(n<span class="dv">-1</span>, k)
+             ;  c &lt;- <span class="dv">0</span> until k)
+         <span class="kw">yield</span> (c::cs) }
+}</code></pre></div>
+<h3 id="c">7 (c)</h3>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">initColoring</span>(n: Int) =
+  (<span class="dv">0</span> until n).<span class="fu">toList</span>.<span class="fu">map</span>(x =&gt; <span class="dv">0</span>)
+
+<span class="kw">def</span> <span class="fu">lastColoring</span>(xs: List[Int], k: Int) =
+  xs.<span class="fu">forall</span>(_ == k<span class="dv">-1</span>)
+
+<span class="kw">def</span> <span class="fu">nextColoring</span>(xs: List[Int], k: Int) = {
+  <span class="kw">var</span> res : List[Int] = List()
+  <span class="kw">var</span> carry = <span class="dv">1</span>
+  <span class="kw">for</span> (i &lt;- (xs.<span class="fu">length</span> - <span class="dv">1</span>) to <span class="dv">0</span> by -<span class="dv">1</span>) {
+    <span class="kw">val</span> sum = carry + <span class="fu">xs</span>(i)
+    <span class="kw">val</span> dig = sum % k
+    carry   = sum / k
+    res     = dig :: res
+  }
+  res
+}</code></pre></div>
+<h2 id="midterm-spring-12">Midterm Spring 12</h2>
+<h3 id="a-2">1 (a)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> (&lt;.&gt;) : ('b -&gt; 'c) -&gt; ('a -&gt; 'b) -&gt; ('a -&gt; 'c)</code></pre></div>
+<h3 id="b-2">1 (b)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dv">10</span></code></pre></div>
+<h3 id="c-1">1 (c)</h3>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">let giftList =
+  let rec helper acc xs = <span class="kw">match</span> xs <span class="kw">with</span>
+    | []     -&gt; acc^<span class="st">&quot; and thats what I want for Christmas!&quot;</span>
+    | x::xs' -&gt; <span class="fu">helper</span> (acc ^ <span class="st">&quot; and &quot;</span>) xs'
+  in helper <span class="st">&quot;&quot;</span></code></pre></div>
+<h3 id="a-3">2 (a)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> getEven : <span class="dt">int</span> <span class="dt">list</span> -&gt; <span class="dt">int</span> <span class="dt">option</span></code></pre></div>
+<h3 id="b-3">2 (b)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> find_first f xs = <span class="kw">match</span> xs <span class="kw">with</span>
+  | []     -&gt; <span class="dt">None</span>
+  | x::xs' -&gt; <span class="kw">if</span> f x <span class="kw">then</span> <span class="dt">Some</span> x <span class="kw">else</span> find_first f xs'</code></pre></div>
+<h3 id="c-2">2 (c)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> tree_to_string: <span class="dt">string</span> tree -&gt; <span class="dt">string</span></code></pre></div>
+<h3 id="d-1">2 (d)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> post_fold f b t = <span class="kw">match</span> t <span class="kw">with</span>
+  | <span class="dt">Leaf</span>           -&gt; b
+  | <span class="dt">Node</span> (x, l, r) -&gt; f x (post_fold f b l) (post_fold f b r)</code></pre></div>
+<h3 id="e">2 (e)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> in_fold f b t = <span class="kw">match</span> t <span class="kw">with</span>
+  | <span class="dt">Leaf</span>           -&gt; b
+  | <span class="dt">Node</span> (x, l, r) -&gt; <span class="kw">let</span> bl = in_fold f b l  <span class="kw">in</span>
+                      <span class="kw">let</span> bx = f bl x         <span class="kw">in</span>
+                      <span class="kw">let</span> br = in_fold f bx r <span class="kw">in</span>
+                      br</code></pre></div>
+<h3 id="a-4">3 (a)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dt">Left</span> <span class="dv">3</span></code></pre></div>
+<h3 id="b-4">3 (b)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dt">Right</span> <span class="st">&quot;monkey&quot;</span></code></pre></div>
+<h3 id="c-3">3 (c)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> assoc key kvs = <span class="kw">match</span> kvs <span class="kw">with</span>
+  | (k, v)::rest -&gt; <span class="kw">if</span> key = k <span class="kw">then</span> <span class="dt">Right</span> v <span class="kw">else</span> assoc key rest
+  | []           -&gt; <span class="dt">Left</span> key</code></pre></div>
+<h3 id="d-2">3 (d)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> map f e = <span class="kw">match</span> e <span class="kw">with</span>
+  | <span class="dt">Left</span> l -&gt; <span class="dt">Left</span> l
+  | <span class="dt">Right</span> r -&gt; <span class="dt">Right</span> (f r)</code></pre></div>
+<h3 id="e-1">3 (e)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> map2 f e1 e2 = <span class="kw">match</span> (e1, e2) <span class="kw">with</span>
+  | <span class="dt">Right</span> r1, <span class="dt">Right</span> r2 -&gt; <span class="dt">Right</span> (f r1 r2)
+  | <span class="dt">Left</span> l, _  -&gt; <span class="dt">Left</span> l
+  | _, <span class="dt">Left</span> l  -&gt; <span class="dt">Left</span> l</code></pre></div>
+<h3 id="a-5">4 (a)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> lookup x env = <span class="kw">match</span> assoc x env <span class="kw">with</span>
+  | <span class="dt">Left</span> z  -&gt; <span class="dt">Left</span> (<span class="dt">UnboundVariable</span> z)
+  | <span class="dt">Right</span> i -&gt; <span class="dt">Right</span> i</code></pre></div>
+<h3 id="b-5">4 (b)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> safeDiv n m =
+  <span class="kw">if</span> m != <span class="dv">0</span> <span class="kw">then</span> <span class="dt">Right</span> (n / m) <span class="kw">else</span> <span class="dt">Left</span> <span class="dt">DivideByZero</span></code></pre></div>
+<h3 id="c-4">4 (c)</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> eval env e = <span class="kw">match</span> e <span class="kw">with</span>
+  | <span class="dt">Const</span> i            -&gt; <span class="dt">Right</span> i
+  | <span class="dt">Var</span> v              -&gt; lookup v env
+  | <span class="dt">Bin</span> (e1, <span class="dt">Plus</span>, e2) -&gt; map2 (+) (eval env e1) (eval env e2)
+  | <span class="dt">Bin</span> (e1, <span class="dt">Div</span>, e2)  -&gt; (<span class="kw">match</span> (eval env e1) (eval env e2) <span class="kw">with</span>
+                           | _, <span class="dt">Right</span> <span class="dv">0</span> -&gt; <span class="dt">Left</span> <span class="dt">DivideByZero</span>
+                           | <span class="dt">Right</span> i1, <span class="dt">Right</span> i2 -&gt; <span class="dt">Right</span> (i1/ i2)
+                           | <span class="dt">Left</span> l, _ | _, <span class="dt">Left</span> l -&gt; <span class="dt">Left</span> l)</code></pre></div>
                 <hr>
             </div>
         </div>

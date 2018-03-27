@@ -232,8 +232,41 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<h2 id="entering-the-prolog-shell">Entering the Prolog Shell</h2>
-<p> Here is a sample session. We use <code>$</code> for the Unix shell prompt, and <code>?-</code> for the Prolog shell prompt.  <sub><sub><sub><del>{.prolog} $ rlwrap swipl  130f@ieng6-202]:~:501$ swipl Welcome to SWI-Prolog (Multi-threaded, 32 bits, Version 5.10.5) Copyright (c) 1990-2011 University of Amsterdam, VU Amsterdam SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions. Please visit http://www.swi-prolog.org for details.  For help, use ?- help(Topic). or ?- apropos(Word).  ?- X = cat. X = cat.  ?- X = Y. X = Y.  ?- halt.</del></sub></sub></sub>  To <strong>load</strong> a program <a href="../lectures/lec-prolog.pl">lec-prolog.pl</a> from disk use the <code>consult</code> command like so:  <sub><sub><sub><del>{.prolog} ?- consult(‘lec-prolog.pl’). % foo.pl compiled 0.00 sec, 10,640 bytes true.  ?- parent(albert, z). false.  ?- parent(albert, Z). Z = felix ; Z = dana.  ?- parent(Z, dana). Z = albert ; false.</del></sub></sub></sub></p>
+			<h2 id="entering-the-prolog-shell">Entering the Prolog Shell</h2>
+<p>Here is a sample session. We use <code>$</code> for the Unix shell prompt, and <code>?-</code> for the Prolog shell prompt.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">$ rlwrap swipl
+
+<span class="er">130</span>f<span class="fu">@</span>ieng6<span class="dv">-202</span><span class="er">]</span>:~:<span class="dv">501</span>$ swipl
+<span class="dt">Welcome</span> to <span class="dt">SWI</span><span class="fu">-</span><span class="dt">Prolog</span> (<span class="dt">Multi</span><span class="fu">-</span>threaded<span class="kw">,</span> <span class="dv">32</span> bits<span class="kw">,</span> <span class="dt">Version</span> <span class="fl">5.10</span><span class="al">.</span><span class="dv">5</span>)
+<span class="dt">Copyright</span> (c) <span class="dv">1990-2011</span> <span class="dt">University</span> of <span class="dt">Amsterdam</span><span class="kw">,</span> <span class="dt">VU</span> <span class="dt">Amsterdam</span>
+<span class="dt">SWI</span><span class="fu">-</span><span class="dt">Prolog</span> comes with <span class="dt">ABSOLUTELY</span> <span class="dt">NO</span> <span class="dt">WARRANTY</span><span class="kw">.</span> <span class="dt">This</span> <span class="dt">is</span> free software<span class="kw">,</span>
+and you are welcome to redistribute it under certain conditions<span class="kw">.</span>
+<span class="dt">Please</span> visit http://www<span class="kw">.</span>swi<span class="fu">-</span>prolog<span class="kw">.</span>org for details<span class="kw">.</span>
+
+<span class="dt">For</span> help<span class="kw">,</span> use <span class="fu">?-</span> help(<span class="dt">Topic</span>)<span class="kw">.</span> or <span class="fu">?-</span> apropos(<span class="dt">Word</span>)<span class="kw">.</span>
+
+<span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> cat<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> cat<span class="kw">.</span>
+
+<span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span>
+
+<span class="fu">?-</span> halt<span class="kw">.</span></code></pre></div>
+<p>To <strong>load</strong> a program <a href="../lectures/lec-prolog.pl">lec-prolog.pl</a> from disk use the <code>consult</code> command like so:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> consult('<span class="er">lec</span>-<span class="er">prolog</span>.<span class="er">pl</span>')<span class="kw">.</span>
+<span class="co">% foo.pl compiled 0.00 sec, 10,640 bytes</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> parent(albert<span class="kw">,</span> z)<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> parent(albert<span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span>
+<span class="dt">Z</span> <span class="kw">=</span> felix <span class="kw">;</span>
+<span class="dt">Z</span> <span class="kw">=</span> dana<span class="kw">.</span>
+
+<span class="fu">?-</span> parent(<span class="dt">Z</span><span class="kw">,</span> dana)<span class="kw">.</span>
+<span class="dt">Z</span> <span class="kw">=</span> albert <span class="kw">;</span>
+<span class="kw">false.</span></code></pre></div>
                 <hr>
             </div>
         </div>

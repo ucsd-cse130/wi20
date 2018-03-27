@@ -232,8 +232,122 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<h2 id="due-by-1159-pm-on-monday-may-1st-2017.">Due by 11:59 pm on Monday, May 1st, 2017.</h2>
-<p> <strong>NOTE:</strong> To get the code provided for problem 2 to work on Windows/Mac please <a href="http://www.imagemagick.org/script/download.php">install ImageMagick</a> Remember that this is only to enable you to play with the assignment at home.  ## Overview  The objective of this assignment is for you to have fun learning about recursion, recursive datatypes, and make some pretty cool pictures.All the problems require relatively little code ranging from 2 to 10 lines. If any function requires more than that, you can be sure that you need to rethink your solution.  The assignment is in the single file  - <a href="../static/raw/hw2.ml">hw2.ml</a>  that you need to download, if you wish, by using <code>wget</code>:  <code>bash $ wget https://ucsd-cse130.github.io/web/static/raw/hw2.ml</code>  The file contains:  1. <strong>skeleton functions</strong> with missing bodies that you will fill in, 2. <strong>sample tests</strong>, and, 3. <strong>testing code</strong> that you will use to check your assignments before submitting.  As before, your task is to replace each expression of the form  <sub><sub><sub><del>{.ocaml} failwith “to be written”</del></sub></sub></sub>  with the the appropriate OCaml code for each of those expressions.  <strong>Note:</strong> All the solutions can be done using the purely functional fragment of OCaml, using constructs covered in class, and most require the use of <strong>recursion</strong>. Solutions using imperative features such as references, while loops or library functions will receive <strong>no credit</strong> It is a good idea to start this assignment early; ML programming, while quite simple (when you know how), often seems somewhat foreign at first, particularly when it comes to recursion and list manipulation.   ## Assignment Testing and Evaluation  Your functions/programs <strong>must</strong> compile and run with <code>ocaml</code> on <code>ieng6.ucsd.edu</code>.  Most of the points, will be awarded automatically, by <strong>evaluating your functions against a given test suite</strong>. <a href="../static/raw/hw1.ml">hw1.ml</a> contains a very small suite of tests which gives you a flavor of of these tests.  At any point, on the bash shell, enter:  <code>ocaml $ ocaml hw2.ml</code>  or if you are in the Ocaml REPL enter:  <code>ocaml # #use &quot;hw2.ml&quot; ;;</code>  to get a report on how your code stacks up against the simple tests.  The last line of the shell must look like:  <sub>~</sub>~~ 130&gt;&gt;Compiled  - : int * int = (SCORE, TOTAL) <sub>~</sub>~~  where <code>SCORE</code> and <code>TOTAL</code> are a pair of integers, reflecting your score and the max possible score on the sample tests.  <strong>If instead an error message appears, your code will receive a zero.</strong>  If for some problem, you cannot get the code to compile, leave it as is with the <code>failwith ...</code> with your partial solution enclosed below as a comment.  The other lines will give you a readout for each test. You are encouraged to try to understand the testing code, but you will not be graded on this.  ## Submission Instructions  To submit your homework (on <code>ieng6</code>), enter:  <code>bash $ tar -zcvf hw2.tgz *.ml *.jpg *.png $ turnin -c cs130s -p 02 hw2.tgz</code>  <code>turnin</code> will provide you with a confirmation of the submission process; make sure that the size of the file indicated by <code>turnin</code> matches the size of your file. See the ACS Web page on <a href="http://acs.ucsd.edu/info/turnin.php">turnin</a> for more information on the operation of the program.   ## Problem #1: Tail Recursion  We say that a function is <em>tail recursive</em> if every recursive call is a <a href="http://en.wikipedia.org/wiki/Tail_call">tail call</a> whose value is immediately returned by the procedure. See <a href="../static/tailrecursion.txt">these</a> <a href="../static/tailrecursion.pdf">two</a> handouts for more details on what a tail-recursive function is in Ocaml.  ### (a) 15 points  Without using any built-in ML functions, write a <em>tail-recursive</em> Ocaml function  <sub><sub><sub><del>{.ocaml} val assoc : int * string * (string * int) list -&gt; int</del></sub></sub></sub>  or more generally,  <sub><sub><sub><del>{.ocaml} val assoc : ’a * ’b * (’b * ’a) list -&gt; ’a</del></sub></sub></sub>  that takes a triple <code>(v, k, [(k1,v1);...;(kn,vn)])</code> and finds the first <code>ki</code> that equals <code>k</code>. If such a <code>ki</code> is found, then the function should return <code>vi</code>, otherwise, the default value <code>v</code> is returned.  Once you have implemented the function, you should get the following behavior at the ML prompt:  <sub><sub><sub><del>{.ocaml} # assoc (-1,“william”,[(“ranjit”,85);(“william”,23);(“moose”,44)]);;  - : int = 23  # assoc (-1,“bob”,[(“ranjit”,85);(“william”,23);(“moose”,44)]);; - : int = -1</del></sub></sub></sub>  ### (b) 15 points  Without using any built-in ML functions, <strong>modify the skeleton</strong> for <code>removeDuplicates</code> to obtain a function of type  <sub><sub><sub><del>{.ocaml} val removeDuplicates : int list -&gt; int list</del></sub></sub></sub>  or more generally,  <sub><sub><sub><del>{.ocaml} val removeDuplicates : ’a list -&gt; ’a list</del></sub></sub></sub>  such that <code>removeDuplicates xs</code> returns the list of elements of <code>xs</code> with the duplicates, i.e. second, third, etc. occurrences, removed, and where the remaining elements appear in the same order as in <code>xs</code>.  For this function only, you may use the library functions <code>List.rev</code> and <code>List.mem</code>. Once you have implemented the function, you should get the following behavior at the ML prompt:  <sub><sub><sub><del>{.ocaml} # removeDuplicates [1;6;2;4;12;2;13;6;9];; - : int list = [1;6;2;4;12;13;9]</del></sub></sub></sub>  ### (c) 20 points  Without using any built-in ML functions, or the <code>while</code> or <code>for</code> construct, write a tail-recursive ML function:  <sub><sub><sub><del>{.ocaml} val wwhile : (int -&gt; int * bool) * int -&gt; int</del></sub></sub></sub>  or more generally,  <sub><sub><sub><del>{.ocaml} val wwhile : (’a -&gt; ’a * bool) * ’a -&gt; ’a</del></sub></sub></sub>  such that <code>wwhile (f, x)</code> returns <code>x'</code> where there exist values <code>v_0</code>,…,<code>v_n</code> such that  - <code>x</code> is equal to <code>v_0</code> - <code>x'</code> is equal to <code>v_n</code> - for each <code>i</code> between <code>0</code> and <code>n-2</code>, we have <code>f v_i</code> equals <code>(v_i+1, true)</code> - <code>f v_n-1</code> equals <code>(v_n, false)</code>.  Your function should be tail recursive. Once you have implemented the function, you should get the following behavior at the ML prompt:  <sub><sub><sub><del>{.ocaml}  # let f x = let xx = x<em>x</em>x in (xx, xx &lt; 100) in wwhile (f,2);; - : int = 512</del></sub></sub></sub>  ### (d) 20 points  Without using any built-in ML functions, <strong>modify the skeleton</strong> for <code>fixpoint</code> to obtain a function  <sub><sub><sub><del>{.ocaml} val fixpoint: (int -&gt; int) * int -&gt; int</del></sub></sub></sub>  or more generally,  <sub><sub><sub><del>{.ocaml} val fixpoint: (’a -&gt; ’a) * ’a -&gt; ’a</del></sub></sub></sub>  such that <code>fixpoint (f, x0)</code> returns the first <code>xi</code> where  - <code>xi</code> is equal tyo <code>f x_i-1</code>, and, furthermore, - <code>f xi</code> is equal to <code>xi</code>   Once you have implemented the function, you should get the following behavior at the ML prompt:  <sub>~</sub>~~{.ocaml} # let g x = truncate (1e6 <em>. cos (1e-6 </em>. float x));; val f : int -&gt; int = fn  # fixpoint (g, 0);; - : int = 739085  # let collatz n = match n with 1 -&gt; 1 | _ when n mod 2 = 0 -&gt; n/2 | _ -&gt; 3*n + 1;; val collatz: int -&gt; int = fn  # fixpoint (collatz, 1) ;; - : int = 1 # fixpoint (collatz, 3) ;; - : int = 1 # fixpoint (collatz, 48) ;; - : int = 1 # fixpoint (collatz, 107) ;; - : int = 1 # fixpoint (collatz, 9001) ;; - : int = 1 <sub>~</sub>~~  ## Problem #2: Random Art At the end of this assignment, you should be able to produce pictures of the kind shown below. To do so, we shall devise a grammar for a certain class of expressions, design an ML datatype whose values correspond to such expressions, write code to evaluate the expressions, and then write a function that randomly generates such expressions and plots them thus producing random psychedelic art.  <strong>Color Images</strong>  <img src="../static/img/color1.jpg" /> <img src="../static/img/color2.jpg" /> <img src="../static/img/color3.jpg" />  <strong>Gray Scale Images</strong>  <img src="../static/img/art_g_sample.jpg" /> <img src="../static/img/gray2.jpg" /> <img src="../static/img/gray3.jpg" />  <!--
+			<h2 id="due-by-1159-pm-on-monday-may-1st-2017.">Due by 11:59 pm on Monday, May 1st, 2017.</h2>
+<p><strong>NOTE:</strong> To get the code provided for problem 2 to work on Windows/Mac please <a href="http://www.imagemagick.org/script/download.php">install ImageMagick</a> Remember that this is only to enable you to play with the assignment at home.</p>
+<h2 id="overview">Overview</h2>
+<p>The objective of this assignment is for you to have fun learning about recursion, recursive datatypes, and make some pretty cool pictures.All the problems require relatively little code ranging from 2 to 10 lines. If any function requires more than that, you can be sure that you need to rethink your solution.</p>
+<p>The assignment is in the single file</p>
+<ul>
+<li><a href="../static/raw/hw2.ml">hw2.ml</a></li>
+</ul>
+<p>that you need to download, if you wish, by using <code>wget</code>:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">wget</span> https://ucsd-cse130.github.io/web/static/raw/hw2.ml</code></pre></div>
+<p>The file contains:</p>
+<ol style="list-style-type: decimal">
+<li><strong>skeleton functions</strong> with missing bodies that you will fill in,</li>
+<li><strong>sample tests</strong>, and,</li>
+<li><strong>testing code</strong> that you will use to check your assignments before submitting.</li>
+</ol>
+<p>As before, your task is to replace each expression of the form</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">failwith <span class="st">&quot;to be written&quot;</span></code></pre></div>
+<p>with the the appropriate OCaml code for each of those expressions.</p>
+<p><strong>Note:</strong> All the solutions can be done using the purely functional fragment of OCaml, using constructs covered in class, and most require the use of <strong>recursion</strong>. Solutions using imperative features such as references, while loops or library functions will receive <strong>no credit</strong> It is a good idea to start this assignment early; ML programming, while quite simple (when you know how), often seems somewhat foreign at first, particularly when it comes to recursion and list manipulation.</p>
+<h2 id="assignment-testing-and-evaluation">Assignment Testing and Evaluation</h2>
+<p>Your functions/programs <strong>must</strong> compile and run with <code>ocaml</code> on <code>ieng6.ucsd.edu</code>.</p>
+<p>Most of the points, will be awarded automatically, by <strong>evaluating your functions against a given test suite</strong>. <a href="../static/raw/hw1.ml">hw1.ml</a> contains a very small suite of tests which gives you a flavor of of these tests.</p>
+<p>At any point, on the bash shell, enter:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">$ ocaml hw2.ml</code></pre></div>
+<p>or if you are in the Ocaml REPL enter:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"># #use <span class="st">&quot;hw2.ml&quot;</span> ;;</code></pre></div>
+<p>to get a report on how your code stacks up against the simple tests.</p>
+<p>The last line of the shell must look like:</p>
+<pre><code>130&gt;&gt;Compiled
+
+- : int * int = (SCORE, TOTAL)</code></pre>
+<p>where <code>SCORE</code> and <code>TOTAL</code> are a pair of integers, reflecting your score and the max possible score on the sample tests.</p>
+<p><strong>If instead an error message appears, your code will receive a zero.</strong></p>
+<p>If for some problem, you cannot get the code to compile, leave it as is with the <code>failwith ...</code> with your partial solution enclosed below as a comment.</p>
+<p>The other lines will give you a readout for each test. You are encouraged to try to understand the testing code, but you will not be graded on this.</p>
+<h2 id="submission-instructions">Submission Instructions</h2>
+<p>To submit your homework (on <code>ieng6</code>), enter:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">tar</span> -zcvf hw2.tgz *.ml *.jpg *.png
+$ <span class="kw">turnin</span> -c cs130s -p 02 hw2.tgz</code></pre></div>
+<p><code>turnin</code> will provide you with a confirmation of the submission process; make sure that the size of the file indicated by <code>turnin</code> matches the size of your file. See the ACS Web page on <a href="http://acs.ucsd.edu/info/turnin.php">turnin</a> for more information on the operation of the program.</p>
+<h2 id="problem-1-tail-recursion">Problem #1: Tail Recursion</h2>
+<p>We say that a function is <em>tail recursive</em> if every recursive call is a <a href="http://en.wikipedia.org/wiki/Tail_call">tail call</a> whose value is immediately returned by the procedure. See <a href="../static/tailrecursion.txt">these</a> <a href="../static/tailrecursion.pdf">two</a> handouts for more details on what a tail-recursive function is in Ocaml.</p>
+<h3 id="a-15-points">(a) 15 points</h3>
+<p>Without using any built-in ML functions, write a <em>tail-recursive</em> Ocaml function</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> assoc : <span class="dt">int</span> * <span class="dt">string</span> * (<span class="dt">string</span> * <span class="dt">int</span>) <span class="dt">list</span> -&gt; <span class="dt">int</span></code></pre></div>
+<p>or more generally,</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> assoc : 'a * 'b * ('b * 'a) <span class="dt">list</span> -&gt; 'a</code></pre></div>
+<p>that takes a triple <code>(v, k, [(k1,v1);...;(kn,vn)])</code> and finds the first <code>ki</code> that equals <code>k</code>. If such a <code>ki</code> is found, then the function should return <code>vi</code>, otherwise, the default value <code>v</code> is returned.</p>
+<p>Once you have implemented the function, you should get the following behavior at the ML prompt:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"># assoc (<span class="dv">-1</span>,<span class="st">&quot;william&quot;</span>,[(<span class="st">&quot;ranjit&quot;</span>,<span class="dv">85</span>);(<span class="st">&quot;william&quot;</span>,<span class="dv">23</span>);(<span class="st">&quot;moose&quot;</span>,<span class="dv">44</span>)]);;    
+- : <span class="dt">int</span> = <span class="dv">23</span>
+
+# assoc (<span class="dv">-1</span>,<span class="st">&quot;bob&quot;</span>,[(<span class="st">&quot;ranjit&quot;</span>,<span class="dv">85</span>);(<span class="st">&quot;william&quot;</span>,<span class="dv">23</span>);(<span class="st">&quot;moose&quot;</span>,<span class="dv">44</span>)]);;
+- : <span class="dt">int</span> = <span class="dv">-1</span></code></pre></div>
+<h3 id="b-15-points">(b) 15 points</h3>
+<p>Without using any built-in ML functions, <strong>modify the skeleton</strong> for <code>removeDuplicates</code> to obtain a function of type</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> removeDuplicates : <span class="dt">int</span> <span class="dt">list</span> -&gt; <span class="dt">int</span> <span class="dt">list</span></code></pre></div>
+<p>or more generally,</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> removeDuplicates : 'a <span class="dt">list</span> -&gt; 'a <span class="dt">list</span></code></pre></div>
+<p>such that <code>removeDuplicates xs</code> returns the list of elements of <code>xs</code> with the duplicates, i.e. second, third, etc. occurrences, removed, and where the remaining elements appear in the same order as in <code>xs</code>.</p>
+<p>For this function only, you may use the library functions <code>List.rev</code> and <code>List.mem</code>. Once you have implemented the function, you should get the following behavior at the ML prompt:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"># removeDuplicates [<span class="dv">1</span>;<span class="dv">6</span>;<span class="dv">2</span>;<span class="dv">4</span>;<span class="dv">12</span>;<span class="dv">2</span>;<span class="dv">13</span>;<span class="dv">6</span>;<span class="dv">9</span>];;
+- : <span class="dt">int</span> <span class="dt">list</span> = [<span class="dv">1</span>;<span class="dv">6</span>;<span class="dv">2</span>;<span class="dv">4</span>;<span class="dv">12</span>;<span class="dv">13</span>;<span class="dv">9</span>]</code></pre></div>
+<h3 id="c-20-points">(c) 20 points</h3>
+<p>Without using any built-in ML functions, or the <code>while</code> or <code>for</code> construct, write a tail-recursive ML function:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> wwhile : (<span class="dt">int</span> -&gt; <span class="dt">int</span> * <span class="dt">bool</span>) * <span class="dt">int</span> -&gt; <span class="dt">int</span></code></pre></div>
+<p>or more generally,</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> wwhile : ('a -&gt; 'a * <span class="dt">bool</span>) * 'a -&gt; 'a</code></pre></div>
+<p>such that <code>wwhile (f, x)</code> returns <code>x'</code> where there exist values <code>v_0</code>,…,<code>v_n</code> such that</p>
+<ul>
+<li><code>x</code> is equal to <code>v_0</code></li>
+<li><code>x'</code> is equal to <code>v_n</code></li>
+<li>for each <code>i</code> between <code>0</code> and <code>n-2</code>, we have <code>f v_i</code> equals <code>(v_i+1, true)</code></li>
+<li><code>f v_n-1</code> equals <code>(v_n, false)</code>.</li>
+</ul>
+<p>Your function should be tail recursive. Once you have implemented the function, you should get the following behavior at the ML prompt:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"># <span class="kw">let</span> f x = <span class="kw">let</span> xx = x*x*x <span class="kw">in</span> (xx, xx &lt; <span class="dv">100</span>) <span class="kw">in</span> wwhile (f,<span class="dv">2</span>);;
+- : <span class="dt">int</span> = <span class="dv">512</span></code></pre></div>
+<h3 id="d-20-points">(d) 20 points</h3>
+<p>Without using any built-in ML functions, <strong>modify the skeleton</strong> for <code>fixpoint</code> to obtain a function</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> fixpoint: (<span class="dt">int</span> -&gt; <span class="dt">int</span>) * <span class="dt">int</span> -&gt; <span class="dt">int</span></code></pre></div>
+<p>or more generally,</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> fixpoint: ('a -&gt; 'a) * 'a -&gt; 'a</code></pre></div>
+<p>such that <code>fixpoint (f, x0)</code> returns the first <code>xi</code> where</p>
+<ul>
+<li><code>xi</code> is equal tyo <code>f x_i-1</code>, and, furthermore,</li>
+<li><code>f xi</code> is equal to <code>xi</code></li>
+</ul>
+<p>Once you have implemented the function, you should get the following behavior at the ML prompt:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"># <span class="kw">let</span> g x = truncate (<span class="fl">1e6</span> *. cos (<span class="fl">1e-6</span> *. float x));;
+<span class="kw">val</span> f : <span class="dt">int</span> -&gt; <span class="dt">int</span> = fn
+
+# fixpoint (g, <span class="dv">0</span>);;
+- : <span class="dt">int</span> = <span class="dv">739085</span>
+
+# <span class="kw">let</span> collatz n = <span class="kw">match</span> n <span class="kw">with</span> <span class="dv">1</span> -&gt; <span class="dv">1</span> | _ <span class="kw">when</span> n <span class="kw">mod</span> <span class="dv">2</span> = <span class="dv">0</span> -&gt; n/<span class="dv">2</span> | _ -&gt; <span class="dv">3</span>*n + <span class="dv">1</span>;;
+<span class="kw">val</span> collatz: <span class="dt">int</span> -&gt; <span class="dt">int</span> = fn
+
+# fixpoint (collatz, <span class="dv">1</span>) ;;
+- : <span class="dt">int</span> = <span class="dv">1</span>
+# fixpoint (collatz, <span class="dv">3</span>) ;;
+- : <span class="dt">int</span> = <span class="dv">1</span>
+# fixpoint (collatz, <span class="dv">48</span>) ;;
+- : <span class="dt">int</span> = <span class="dv">1</span>
+# fixpoint (collatz, <span class="dv">107</span>) ;;
+- : <span class="dt">int</span> = <span class="dv">1</span>
+# fixpoint (collatz, <span class="dv">9001</span>) ;;
+- : <span class="dt">int</span> = <span class="dv">1</span></code></pre></div>
+<h2 id="problem-2-random-art">Problem #2: Random Art</h2>
+<p>At the end of this assignment, you should be able to produce pictures of the kind shown below. To do so, we shall devise a grammar for a certain class of expressions, design an ML datatype whose values correspond to such expressions, write code to evaluate the expressions, and then write a function that randomly generates such expressions and plots them thus producing random psychedelic art.</p>
+<p><strong>Color Images</strong></p>
+<p><img src="../static/img/color1.jpg" /> <img src="../static/img/color2.jpg" /> <img src="../static/img/color3.jpg" /></p>
+<p><strong>Gray Scale Images</strong></p>
+<p><img src="../static/img/art_g_sample.jpg" /> <img src="../static/img/gray2.jpg" /> <img src="../static/img/gray3.jpg" /></p>
+<!--
   <div>
   <table cellpadding="2" cellspacing="20" border="10" >
     <tbody>
@@ -257,7 +371,69 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     </tbody>
   </table>
   </div>
--->  ### (a) 15 points  The expressions described by the grammar:  <sub><sub><sub><del>{.ocaml} e ::= x | y | sin (pi<em>e) | cos (pi</em>e) | ((e + e)/2) | e * e | (e<e ? e : e) ~~~~~ where pi stands for the constant 3.142, are functions over the variables x,y, which are guaranteed to produce a value in the range [-1,1] when x and y are in that range. We can represent expressions of this grammar in ML using values of the following datatype: ~~~~~{.ocaml} type expr="VarX" | VarY | Sine of expr | Cosine of expr | Average of expr * expr | Times of expr * expr | Thresh of expr * expr * expr * expr ~~~~~ First, write a function ~~~~~{.ocaml} val exprToString : expr -> string</del></sub></sub></sub>  to enable the printing of expressions. Once you have implemented the function, you should get the following behavior at the ML prompt:  <sub>~</sub>~~{.ocaml} # let sampleExpr1 = Thresh(VarX,VarY,VarX,(Times(Sine(VarX),Cosine(Average(VarX,VarY)))));; - : expr = …  # exprToString sampleExpr1 - : string = “(x&lt;y?x:sin(pi<em>x)</em>cos(pi*((x+y)/2)))“ <sub>~</sub>~~  ### (b) 15 points  Next, write a function  <sub><sub><sub><del>{.ocaml} val eval : expr * float * float -&gt; float</del></sub></sub></sub>  such that <code>eval (e, vx, vy)</code> returns the result of evaluating the expression <code>e</code> at the point <code>(vx, vy)</code> that is, evaluating the result of <code>e</code> when <code>VarX</code> has the value <code>vx</code> and <code>VarY</code> has the value <code>vy</code>. You should use Ocaml functions like, <code>sin</code>, and <code>cos</code> to build your evaluator. Recall that <code>Sine(VarX)</code> corresponds to the expression <code>sin(pi*x)</code>  Once you have implemented the function, you should get the following behavior at the ML prompt:  <sub><sub><sub><del>{.ocaml} # eval (Sine(Average(VarX,VarY)),0.5,-0.5);; - : float = 0.0  # eval (Sine(Average(VarX,VarY)),0.3,0.3);; - : float = 0.809016994375  # eval (sampleExpr,0.5,0.2);; - : float = 0.118612572815</del></sub></sub></sub>  Uncomment and execute the line:  <sub><sub><sub><del>{.ocaml} let _ = emitGrayscale (eval_fn sampleExpr, 150, “sample”) ;;</del></sub></sub></sub>  to generate the grayscale image <code>art_g_sample.jpg</code> in your working directory. To receive full credit, this image must look like the leftmost grayscale image displayed above. Note that this requires your implementation <code>eval</code> to work correctly. A message <code>Uncaught exception ...</code> is an indication that your <code>eval</code> is returning a value outside the valid range <code>[-1.0,1.0]</code>.  ### (c) 20 points Next, you must fill in an implementation for the function  <sub><sub><sub><del>{.ocaml} val build: ((int * int -&gt; int) * int) -&gt; expr</del></sub></sub></sub>  The function <code>build</code> is called with the pair of arguments <code>(rand, depth)</code>.  - <code>rand</code> is a random number generator of type <code>int * int -&gt; int</code>. Each call <code>rand (i,j)</code> returns a random integer between <code>i</code> and <code>j</code> inclusive. Use this function to randomly select operators when composing subexpressions to build up larger expressions.  - <code>depth</code> is a a maximum nesting dept; a random expression of depth <code>d</code> is built by randomly composing sub-expressions of depth <code>d-1</code> and the only expressions of depth <code>0</code> are <code>VarX</code> and <code>VarY</code>.   With this in place you can generate random art using the functions  <sub><sub><sub><del>{.ocaml} val doRandomGray : int * int * int -&gt; unit val doRandomColor : int * int * int -&gt; unit</del></sub></sub></sub>  Each function takes as a parameter a triple <code>(depth, seed1, seed2)</code> where <code>depth</code> is the depth of the expression to be generated and <code>seed1</code>, <code>seed2</code> are two seeds for the random number generator. The functions generate JPEG files called <code>art_g_&lt;depth&gt;_&lt;seed1&gt;_&lt;seed2&gt;.jpg</code> and <code>art_c_&lt;depth&gt;_&lt;seed1&gt;_&lt;seed2&gt;.jpg</code> respectively. The first is a gray scale image, built by mapping out a single randomly generated expression over the plane, and the second is a color image built using three functions for the intensities of red, green and blue.  Play around with how you generate the expressions, using the tips below.  - Depths of 8-12 produce interesting pictures, but play around! - Make sure your expressions don’t get <em>cut-off</em> early with <code>VarX</code>, <code>VarY</code> as small expressions give simple pictures. - Play around to bias the generation towards more interesting operators.  Save the parameters (i.e. the depth and the seeds) for your best three color images in the bodies of <code>c1</code>, <code>c2</code>, <code>c3</code> respectively, and best three gray images in <code>g1</code>, <code>g2</code> , <code>g3</code>.  ### (d) 20 points Finally, add <strong>two</strong> new operators to the grammar, i.e. to the datatype, by introducing two new datatype constructors, and adding the corresponding cases to <code>exprToString</code>, <code>eval</code>, and <code>build</code>. The only requirements are that the operators must return values in the range <code>[-1.0,1.0]</code> if their arguments (ie <code>VarX</code> and <code>VarY</code>) are in that range, and that one of the operators take <strong>three</strong> arguments, i.e. one of the datatype constructors is of the form: <code>C of expr * expr * expr</code> You can include images generated with these new operators when choosing your best images for part (c).</p>
+-->
+<h3 id="a-15-points-1">(a) 15 points</h3>
+<p>The expressions described by the grammar:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">e ::= x
+    | y
+    | sin (pi*e)
+    | cos (pi*e)
+    | ((e + e)/<span class="dv">2</span>)
+    | e * e
+    | (e&lt;e ? e : e)</code></pre></div>
+<p>where pi stands for the constant 3.142, are functions over the variables x,y, which are guaranteed to produce a value in the range [-1,1] when x and y are in that range. We can represent expressions of this grammar in ML using values of the following datatype:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> expr = <span class="dt">VarX</span>
+          | <span class="dt">VarY</span>
+          | <span class="dt">Sine</span> <span class="kw">of</span> expr
+          | <span class="dt">Cosine</span> <span class="kw">of</span> expr
+          | <span class="dt">Average</span> <span class="kw">of</span> expr * expr
+          | <span class="dt">Times</span> <span class="kw">of</span> expr * expr
+          | <span class="dt">Thresh</span> <span class="kw">of</span> expr * expr * expr * expr</code></pre></div>
+<p>First, write a function</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> exprToString : expr -&gt; <span class="dt">string</span></code></pre></div>
+<p>to enable the printing of expressions. Once you have implemented the function, you should get the following behavior at the ML prompt:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"># <span class="kw">let</span> sampleExpr1 = <span class="dt">Thresh</span>(<span class="dt">VarX</span>,<span class="dt">VarY</span>,<span class="dt">VarX</span>,(<span class="dt">Times</span>(<span class="dt">Sine</span>(<span class="dt">VarX</span>),<span class="dt">Cosine</span>(<span class="dt">Average</span>(<span class="dt">VarX</span>,<span class="dt">VarY</span>)))));;
+- : expr =  ...
+
+# exprToString sampleExpr1
+- : <span class="dt">string</span> = <span class="st">&quot;(x&lt;y?x:sin(pi*x)*cos(pi*((x+y)/2)))&quot;</span></code></pre></div>
+<h3 id="b-15-points-1">(b) 15 points</h3>
+<p>Next, write a function</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> eval : expr * float * float -&gt; float</code></pre></div>
+<p>such that <code>eval (e, vx, vy)</code> returns the result of evaluating the expression <code>e</code> at the point <code>(vx, vy)</code> that is, evaluating the result of <code>e</code> when <code>VarX</code> has the value <code>vx</code> and <code>VarY</code> has the value <code>vy</code>. You should use Ocaml functions like, <code>sin</code>, and <code>cos</code> to build your evaluator. Recall that <code>Sine(VarX)</code> corresponds to the expression <code>sin(pi*x)</code></p>
+<p>Once you have implemented the function, you should get the following behavior at the ML prompt:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"># eval (<span class="dt">Sine</span>(<span class="dt">Average</span>(<span class="dt">VarX</span>,<span class="dt">VarY</span>)),<span class="fl">0.5</span>,<span class="fl">-0.5</span>);;
+- : float = <span class="fl">0.0</span>
+
+# eval (<span class="dt">Sine</span>(<span class="dt">Average</span>(<span class="dt">VarX</span>,<span class="dt">VarY</span>)),<span class="fl">0.3</span>,<span class="fl">0.3</span>);;
+- : float = <span class="fl">0.809016994375</span>
+
+# eval (sampleExpr,<span class="fl">0.5</span>,<span class="fl">0.2</span>);;
+- : float = <span class="fl">0.118612572815</span></code></pre></div>
+<p>Uncomment and execute the line:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> _ = emitGrayscale (eval_fn sampleExpr, <span class="dv">150</span>, <span class="st">&quot;sample&quot;</span>) ;;</code></pre></div>
+<p>to generate the grayscale image <code>art_g_sample.jpg</code> in your working directory. To receive full credit, this image must look like the leftmost grayscale image displayed above. Note that this requires your implementation <code>eval</code> to work correctly. A message <code>Uncaught exception ...</code> is an indication that your <code>eval</code> is returning a value outside the valid range <code>[-1.0,1.0]</code>.</p>
+<h3 id="c-20-points-1">(c) 20 points</h3>
+<p>Next, you must fill in an implementation for the function</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> build: ((<span class="dt">int</span> * <span class="dt">int</span> -&gt; <span class="dt">int</span>) * <span class="dt">int</span>) -&gt; expr</code></pre></div>
+<p>The function <code>build</code> is called with the pair of arguments <code>(rand, depth)</code>.</p>
+<ul>
+<li><p><code>rand</code> is a random number generator of type <code>int * int -&gt; int</code>. Each call <code>rand (i,j)</code> returns a random integer between <code>i</code> and <code>j</code> inclusive. Use this function to randomly select operators when composing subexpressions to build up larger expressions.</p></li>
+<li><p><code>depth</code> is a a maximum nesting dept; a random expression of depth <code>d</code> is built by randomly composing sub-expressions of depth <code>d-1</code> and the only expressions of depth <code>0</code> are <code>VarX</code> and <code>VarY</code>.</p></li>
+</ul>
+<p>With this in place you can generate random art using the functions</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> doRandomGray : <span class="dt">int</span> * <span class="dt">int</span> * <span class="dt">int</span> -&gt; <span class="dt">unit</span>
+<span class="kw">val</span> doRandomColor : <span class="dt">int</span> * <span class="dt">int</span> * <span class="dt">int</span> -&gt; <span class="dt">unit</span></code></pre></div>
+<p>Each function takes as a parameter a triple <code>(depth, seed1, seed2)</code> where <code>depth</code> is the depth of the expression to be generated and <code>seed1</code>, <code>seed2</code> are two seeds for the random number generator. The functions generate JPEG files called <code>art_g_&lt;depth&gt;_&lt;seed1&gt;_&lt;seed2&gt;.jpg</code> and <code>art_c_&lt;depth&gt;_&lt;seed1&gt;_&lt;seed2&gt;.jpg</code> respectively. The first is a gray scale image, built by mapping out a single randomly generated expression over the plane, and the second is a color image built using three functions for the intensities of red, green and blue.</p>
+<p>Play around with how you generate the expressions, using the tips below.</p>
+<ul>
+<li>Depths of 8-12 produce interesting pictures, but play around!</li>
+<li>Make sure your expressions don’t get <em>cut-off</em> early with <code>VarX</code>, <code>VarY</code> as small expressions give simple pictures.</li>
+<li>Play around to bias the generation towards more interesting operators.</li>
+</ul>
+<p>Save the parameters (i.e. the depth and the seeds) for your best three color images in the bodies of <code>c1</code>, <code>c2</code>, <code>c3</code> respectively, and best three gray images in <code>g1</code>, <code>g2</code> , <code>g3</code>.</p>
+<h3 id="d-20-points-1">(d) 20 points</h3>
+<p>Finally, add <strong>two</strong> new operators to the grammar, i.e. to the datatype, by introducing two new datatype constructors, and adding the corresponding cases to <code>exprToString</code>, <code>eval</code>, and <code>build</code>. The only requirements are that the operators must return values in the range <code>[-1.0,1.0]</code> if their arguments (ie <code>VarX</code> and <code>VarY</code>) are in that range, and that one of the operators take <strong>three</strong> arguments, i.e. one of the datatype constructors is of the form: <code>C of expr * expr * expr</code> You can include images generated with these new operators when choosing your best images for part (c).</p>
                 <hr>
             </div>
         </div>

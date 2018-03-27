@@ -232,8 +232,266 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<h2 id="installing-prolog">Installing Prolog</h2>
-<p> To run SWI-Prolog in the lab see <a href="../lectures/info_prolog.html">this page</a>  To download and install SWI-Prolog on your home machines see <a href="http://www.swi-prolog.org">this page</a>. Remember that this is only to enable you to play with the assignment at home: The final version turned in must work on the ACS Linux machines. While you can use Windows to begin working with Prolog, the code you turn in must be that required for the ACS Linux environment.  ## Overview  The overall objective of this assignment is for you to gain some hands-on experience with problem solving using Prolog, using simple facts and rules, recursion, and database handling capabilities of the language. So as not to make the code overly long, it is not required that you deal with user errors: you can assume that the user always types valid commands (e.g., if a predicate is supposed to take an atom as argument, you do not have to check whether the argument is instead a list and throw an error). Note that the Prolog interpreter catches a good number of user errors anyway.  <strong>Download</strong> the assignment as this single file  - <a href="../static/raw/hw5.zip">hw5.zip</a>  When you unzip it, you should see two files  - <a href="../static/raw/hw5/misc.pl">misc.pl</a> which contains several skeleton Prolog rules with missing bodies that you have to fill in (that is, replace <code>throw(to_be_done)</code> with the definitions for the predicate.  - <a href="../static/raw/hw5/test.pl">test.pl</a> which contains a very small suite of tests which gives you a flavor of of these tests.  ## Assignment Testing and Evaluation  Your functions/programs <strong>must</strong> compile and/or run on a <strong>ACS Linux</strong> machine (e.g. <code>ieng6.ucsd.edu</code>) as this is where your solutions will be checked. While you may develop your code on any system, ensure that your code runs as expected on an ACS machine prior to submission. You should test your code in the directories from which the zip files (see below) will be created, as this will approximate the environment used for grading the assignment.   ## Submission Instructions  You will turn in your solution, by filling in the template file <a href="../static/pa7/misc.pl">misc.pl</a>. This file is submitted using <code>turnin</code> as follows:  <sub><sub><sub><del>{.bash} turnin -c cs130s -p 05 misc.pl</del></sub></sub></sub>  <code>turnin</code> will provide you with a confirmation of the submission process; make sure that the size of the file indicated by <code>turnin</code> matches the size of your zip file. See the ACS Web page on <a href="http://acs.ucsd.edu/info/turnin.php">turnin</a> for more information on the operation of the program.  ## Hints  Read the Prolog documentation shown <a href="../links.html">here</a>, and you should use the functions <code>isin</code>, <code>append</code>, <code>reverse</code> and <code>bagof</code> judiciously.  ## Problem 1: Lists  ### (a) 5 points Write a Prolog predicate <code>zip(L1,L2,L3)</code> that is true if the <em>list</em> <code>L3</code> is obtained by zipping (i.e. <code>shuffling&quot;, or</code>interleaving“) the elements of the lists <code>L1</code> and <code>L2</code>, which can have different lengths. For instance, when you are done, you should get the following behavior:  <sub><sub><sub><del>{.prolog} ?- zip([1,2],[a,b],[1,a,2,b]). true.  ?- zip([1,2],[a,b],X). X = [1, 2, a, b] ; X = [1, 2, a, b] ; X = [1, a, 2, b] ; X = [1, a, b, 2] ; X = [a, 1, 2, b] ; X = [a, 1, b, 2] ; X = [a, b, 1, 2] ; X = [a, b, 1, 2] ; false.  ?- zip([1,2],[a,b],[1,2,a,b]). true.  ?- zip(X,[a,b],[1,a,2,b]). X = [1,2] true.  ?- zip([1,2],X,[1,a,2,b]). X = [a,b] true.</del></sub></sub></sub>  ### (b) 10 points  Next, implement <em>associative lists</em> (i.e. lookup tables) in Prolog. Write a Prolog predicate <code>assoc(L,X,Y)</code>, such that <code>assoc([[k1,v1],[k2,v2],...,[kn,vn]],X,Y)</code> is true if <code>X</code> equals some <code>ki</code> and <code>Y</code> equals the corresponding <code>vi</code>. When you are done, you should get the following behavior:  <sub><sub><sub><del>{.prolog} ?- assoc([[a,1],[b,2],[c,3],[d,4],[b,5]],c,3). true.  ?- assoc([[a,1],[b,2],[c,3],[d,4],[b,5]],f,Y). false.  ?- assoc([[a,1],[b,2],[c,3],[d,4],[b,5]],X,99). false.  ?- assoc([[a,1],[b,2],[c,3],[d,4],[b,5]],b,Y). Y = 2 ; Y = 5 false.  ?- assoc([[a,1],[b,2],[c,3],[d,1],[b,5]],X,1). X = a ; X = d false.</del></sub></sub></sub>  ### (c) 20 points  Write a Prolog predicate <code>remove_duplicates(L1,L2)</code> that is true if <code>L2</code> is equal to the result of removing all duplicate elements from <code>L1</code>. In the result, the order of the elements must be the same as the order in which the (first occurences of the) elements appear in <code>L1</code>. When you are done, you should get the following behavior:  <sub><sub><sub><del>{.prolog} ?- remove_duplicates([1,2,3,4,2,3],[1,2,3,4]). true.  ?- remove_duplicates([1,2,3,4,2,3],[1,4,2,3]). false.  ?- remove_duplicates([1,2,3,4,2,3], X). X = [1,2,3,4]</del></sub></sub></sub>   ### (d) 10 points  Write a Prolog predicate <code>union(L1,L2,L3)</code> that is true if <code>L3</code> is equal to the list containing the <em>union</em> of the elements in <code>L1</code> and <code>L2</code> without any duplicates. In other words, the elements of <code>L3</code> are those that occur in either <code>L1</code> or in <code>L2</code>. When you are done, you should get the following behavior:  <sub><sub><sub><del>{.prolog} ?- union([1,2,3,4],[1,3,5,6],[1,2,3,4,5,6]). true.  ?- union([1,2,3,4],[1,3,5,6],X). X = [1,2,3,4,5,6].  ?- union([1,2,3,4],[1,3,5,6],X). X = [1,2,3,4,5,6].  ?- union([1,2,3],[4,3],[1,2,3]). false.</del></sub></sub></sub>  As shown in in the third example above, your predicate may be true only for one particular order of the elements of <code>L3</code> (i.e. it need not cycle through all permutations of the elements.)   ### (e) (20 Points)  Write a Prolog predicate <code>intersection(L1,L2,L3)</code> that is true if <code>L3</code> is equal to the list containing intersection of the elements in <code>L1</code> and <code>L2</code> without any duplicates. In other words, <code>L3</code> should contain the elements that both in <code>L1</code> and in <code>L2</code>. As for <code>union</code> the predicate must be true for <em>some</em>  order of elements of the intersection (but not necessarily all). When you are done, you should get the following behavior:  <sub><sub><sub><del>{.prolog} ?- intersection([1,2,3,4],[1,3,5,6],[1,3]). true.  ?- intersection([1,2,3,4],[1,3,5,6],X). X = [1,3].  ?- intersection([1,2,3,4],[1,3,5,6], X). X = [1,3] ; false. ?- intersection([1,2,3],[4,3],[1]). false.</del></sub></sub></sub>  As shown in in the third example above, your predicate may be true only for one particular order of the elements of <code>L3</code>.  ## Problem 2: Taqueria Database  Prolog can be used as a sophisticated database system in which data is stored in the form of structured predicates. In this problem we consider a database of taquerias that sell various items, for a variety of budgets and palates. First, we have a set of facts that encode the price of different ingredients. For example, the first fact stipulates that a serving of carne asada costs 6 dollars (this is high-quality, organic, grass-fed beef).  <sub><sub><sub><del>{.prolog} cost(carne_asada,6). cost(lengua,2). cost(birria,2). cost(carnitas,2). cost(adobado,2). cost(al_pastor,2). cost(guacamole,1). cost(rice,1). cost(beans,1). cost(salsa,1). cost(cheese,1). cost(sour_cream,1). cost(taco,1). cost(tortilla,1).</del></sub></sub></sub>  Next, we have a list of menu items, and for each item, we have a fact that tells us which ingredients go into the item. For example, the carnitas taco, is a tasty snack comprising carnitas, salsa and guacamole, generously stuffed into a fresh taco.  <sub><sub><sub><del>{.prolog} ingredients(carnitas_taco, [taco,carnitas, salsa, guacamole]). ingredients(birria_taco, [taco,birria, salsa, guacamole]). ingredients(al_pastor_taco, [taco,al_pastor, salsa, guacamole, cheese]). ingredients(guacamole_taco, [taco,guacamole, salsa,sour_cream]). ingredients(al_pastor_burrito, [tortilla,al_pastor, salsa]). ingredients(carne_asada_burrito, [tortilla,carne_asada, guacamole, rice, beans]). ingredients(adobado_burrito, [tortilla,adobado, guacamole, rice, beans]). ingredients(carnitas_sopa, [sopa,carnitas, guacamole, salsa,sour_cream]). ingredients(lengua_sopa, [sopa,lengua, salsa, beans,sour_cream]). ingredients(combo_plate, [al_pastor, carne_asada,rice, tortilla, beans, salsa, guacamole, cheese]). ingredients(adobado_plate, [adobado, guacamole, rice, tortilla, beans, cheese]).</del></sub></sub></sub>  Finally, we the database has a set of facts specifying the different taqueries, and for each taqueria, the list of employees, and the list of delectable comestibles available for purchase at the taqueria.  <sub><sub><sub><del>{.prolog} taqueria(el_cuervo, [ana,juan,maria], [carnitas_taco, combo_plate, al_pastor_taco, carne_asada_burrito]).  taqueria(la_posta, [victor,maria,carla], [birria_taco, adobado_burrito, carnitas_sopa, combo_plate, adobado_plate]).  taqueria(robertos, [hector,carlos,miguel], [adobado_plate, guacamole_taco, al_pastor_burrito, carnitas_taco, carne_asada_burrito]).  taqueria(la_milpas_quatros, [jiminez, martin, antonio, miguel],  [lengua_sopa, adobado_plate, combo_plate]).</del></sub></sub></sub>  The first store has three employees and sells four different items, the second store has three employees and sells five different items, and so on. You can assume that there are no duplicates (eg <code>carnitas</code> is not listed twice in any ingredient list, <code>maria</code> is not listed twice in any employee list, the same menu item is is not listed twice in any store menu, etc.). Given a database of facts, the questions below have you write predicates that implement queries to the database.  ### (a) (5 Points)  Write a Prolog predicate <code>available_at(X,Y)</code> that is true if the item <code>X</code> is available at the taqueria <code>Y</code>. When you are done, you should get the following behavior:  <sub><sub><sub><del>{.prolog} ?- available_at(lengua_sopa,el_cuervo). false.  ?- available_at(X,Y). X = carnitas_taco Y = el_cuervo;   X = combo_plate Y = el_cuervo ;  X = al_pastor_taco Y = el_cuervo ;  X = carne_asada_burrito Y = el_cuervo ;  X = birria_taco Y = la_posta ;  X = adobado_burrito Y = la_posta.</del></sub></sub></sub>  Similarly, if one has a hankering for a carnitas taco, one can query the database thus:  <sub><sub><sub><del>{.prolog} ?- available_at(carnitas_taco,Y). Y = el_cuervo ; Y = robertos.</del></sub></sub></sub>  ### (b) 7 Points  Write a Prolog predicate <code>multi_available(X)</code> that is true if the item <code>X</code> is available at more than one place. For example:  <sub><sub><sub><del>{.prolog} ?- multi_available(carnitas_taco). true.  ?- multi_available(lengua_sopa). false.  ?- multi_available(X). X = carnitas_taco ; X = carne_asada_burrito ; X = adobado_plate ; X = combo_plate .</del></sub></sub></sub>   ### (c) 8 Points Write a Prolog predicate <code>overworked(X)</code> that is true the person <code>X</code> works at more than one taqueria. For instance:  <sub><sub><sub><del>{.prolog} ?- overworked(maria). true.  ?- overworked(carlos). false.  ?- overworked(X). X = maria ; X = miguel .</del></sub></sub></sub>   ### (d) 15 Points  Write a Prolog predicate <code>total_cost(X,K)</code> that is true if the sum of the costs of the ingredients of item <code>X</code> is equal to <code>K</code>. When you are done, you should get the following:  <sub><sub><sub><del>{.prolog} ?- total_cost(carnitas_taco,3). false.  ?- total_cost(carnitas_taco,X). X = 5.  ?- total_cost(X,5). X = carnitas_taco ; X = birria_taco.</del></sub></sub></sub>  ### (e) 15 Points Write a Prolog predicate <code>has_ingredients(X,L)</code> that is true if the item <code>X</code> has all the ingredients listed in <code>L</code>. When you are done, you should get the following:  <sub><sub><sub><del>{.prolog} ?- has_ingredients(lengua_sopa,[cheese,lengua]). false.  ?- has_ingredients(X,[salsa,guacamole,cheese]).</font><br> X = al_pastor_taco ; X = combo_plate.</del></sub></sub></sub>  ### (f) 15 Points  Write a Prolog predicate <code>avoids_ingredients(X,L)</code> that is true if the item <code>X</code> does not have <em>any of</em> the ingredients listed in <code>L</code>. When you are done, you should get the following:  <sub><sub><sub><del>{.prolog} ?-avoids_ingredients(lengua_sopa,[cheese,lengua]). false.  ?- avoids_ingredients(lengua_sopa,[cheese,tortilla]). true.  ?- avoids_ingredients(X,[guacamole]). X = al_pastor_burrito ; X = lengua_sopa.  ?- avoids_ingredients(X,[salsa,guacamole]). X = lengua_sopa.</del></sub></sub></sub>   ### (g) 10 + 10 Points  In the given file, we have filled in an implementation for a predicate <code>find_items(L,X,Y)</code> that is true if <code>L</code> is the list of <em>all items</em> that contain all the ingredients in <code>X</code> and do not contain any of the ingredients in <code>Y</code>. This predicate is specified using two helper predicates <code>p1</code>, <code>p2</code> that <em>you</em> must implement, to obtain a complete specification for <code>find_items</code>. When you are done, you should obtain the following results:  <sub><sub><sub><del>{.prolog} ?- find_items(X,[taco,guacamole],[cheese]). X = [carnitas_taco, birria_taco, guacamole_taco].  ?- find_items(X,[tortilla],[rice]). X = [al_pastor_burrito].  ?- find_items(X,[],[rice,guacamole]). X = [al_pastor_burrito, lengua_sopa].  ?- find_items(X,[rice,guacamole],[salsa]). X = [carne_asada_burrito, adobado_burrito, adobado_plate].  ?- find_items(X,[guacamole,cheese,salsa],[]). X = [al_pastor_taco,combo_plate].</del></sub></sub></sub></p>
+			<h2 id="installing-prolog">Installing Prolog</h2>
+<p>To run SWI-Prolog in the lab see <a href="../lectures/info_prolog.html">this page</a></p>
+<p>To download and install SWI-Prolog on your home machines see <a href="http://www.swi-prolog.org">this page</a>. Remember that this is only to enable you to play with the assignment at home: The final version turned in must work on the ACS Linux machines. While you can use Windows to begin working with Prolog, the code you turn in must be that required for the ACS Linux environment.</p>
+<h2 id="overview">Overview</h2>
+<p>The overall objective of this assignment is for you to gain some hands-on experience with problem solving using Prolog, using simple facts and rules, recursion, and database handling capabilities of the language. So as not to make the code overly long, it is not required that you deal with user errors: you can assume that the user always types valid commands (e.g., if a predicate is supposed to take an atom as argument, you do not have to check whether the argument is instead a list and throw an error). Note that the Prolog interpreter catches a good number of user errors anyway.</p>
+<p><strong>Download</strong> the assignment as this single file</p>
+<ul>
+<li><a href="../static/raw/hw5.zip">hw5.zip</a></li>
+</ul>
+<p>When you unzip it, you should see two files</p>
+<ul>
+<li><p><a href="../static/raw/hw5/misc.pl">misc.pl</a> which contains several skeleton Prolog rules with missing bodies that you have to fill in (that is, replace <code>throw(to_be_done)</code> with the definitions for the predicate.</p></li>
+<li><p><a href="../static/raw/hw5/test.pl">test.pl</a> which contains a very small suite of tests which gives you a flavor of of these tests.</p></li>
+</ul>
+<h2 id="assignment-testing-and-evaluation">Assignment Testing and Evaluation</h2>
+<p>Your functions/programs <strong>must</strong> compile and/or run on a <strong>ACS Linux</strong> machine (e.g. <code>ieng6.ucsd.edu</code>) as this is where your solutions will be checked. While you may develop your code on any system, ensure that your code runs as expected on an ACS machine prior to submission. You should test your code in the directories from which the zip files (see below) will be created, as this will approximate the environment used for grading the assignment.</p>
+<h2 id="submission-instructions">Submission Instructions</h2>
+<p>You will turn in your solution, by filling in the template file <a href="../static/pa7/misc.pl">misc.pl</a>. This file is submitted using <code>turnin</code> as follows:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"> <span class="kw">turnin</span> -c cs130s -p 05 misc.pl</code></pre></div>
+<p><code>turnin</code> will provide you with a confirmation of the submission process; make sure that the size of the file indicated by <code>turnin</code> matches the size of your zip file. See the ACS Web page on <a href="http://acs.ucsd.edu/info/turnin.php">turnin</a> for more information on the operation of the program.</p>
+<h2 id="hints">Hints</h2>
+<p>Read the Prolog documentation shown <a href="../links.html">here</a>, and you should use the functions <code>isin</code>, <code>append</code>, <code>reverse</code> and <code>bagof</code> judiciously.</p>
+<h2 id="problem-1-lists">Problem 1: Lists</h2>
+<h3 id="a-5-points">(a) 5 points</h3>
+<p>Write a Prolog predicate <code>zip(L1,L2,L3)</code> that is true if the <em>list</em> <code>L3</code> is obtained by zipping (i.e. <code>shuffling&quot;, or</code>interleaving“) the elements of the lists <code>L1</code> and <code>L2</code>, which can have different lengths. For instance, when you are done, you should get the following behavior:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> zip([<span class="dv">1</span>,<span class="dv">2</span>]<span class="kw">,</span>[a,b]<span class="kw">,</span>[<span class="dv">1</span>,a,<span class="dv">2</span>,b])<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> zip([<span class="dv">1</span>,<span class="dv">2</span>]<span class="kw">,</span>[a,b]<span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, a, b] <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, a, b] <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>, a, <span class="dv">2</span>, b] <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>, a, b, <span class="dv">2</span>] <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> [a, <span class="dv">1</span>, <span class="dv">2</span>, b] <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> [a, <span class="dv">1</span>, b, <span class="dv">2</span>] <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> [a, b, <span class="dv">1</span>, <span class="dv">2</span>] <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> [a, b, <span class="dv">1</span>, <span class="dv">2</span>] <span class="kw">;</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> zip([<span class="dv">1</span>,<span class="dv">2</span>]<span class="kw">,</span>[a,b]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">2</span>,a,b])<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> zip(<span class="dt">X</span><span class="kw">,</span>[a,b]<span class="kw">,</span>[<span class="dv">1</span>,a,<span class="dv">2</span>,b])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> zip([<span class="dv">1</span>,<span class="dv">2</span>]<span class="kw">,</span><span class="dt">X</span><span class="kw">,</span>[<span class="dv">1</span>,a,<span class="dv">2</span>,b])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [a,b]
+<span class="kw">true.</span></code></pre></div>
+<h3 id="b-10-points">(b) 10 points</h3>
+<p>Next, implement <em>associative lists</em> (i.e. lookup tables) in Prolog. Write a Prolog predicate <code>assoc(L,X,Y)</code>, such that <code>assoc([[k1,v1],[k2,v2],...,[kn,vn]],X,Y)</code> is true if <code>X</code> equals some <code>ki</code> and <code>Y</code> equals the corresponding <code>vi</code>. When you are done, you should get the following behavior:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> assoc([[a,<span class="dv">1</span>],[b,<span class="dv">2</span>],[c,<span class="dv">3</span>],[d,<span class="dv">4</span>],[b,<span class="dv">5</span>]]<span class="kw">,</span>c<span class="kw">,</span><span class="dv">3</span>)<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> assoc([[a,<span class="dv">1</span>],[b,<span class="dv">2</span>],[c,<span class="dv">3</span>],[d,<span class="dv">4</span>],[b,<span class="dv">5</span>]]<span class="kw">,</span>f<span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> assoc([[a,<span class="dv">1</span>],[b,<span class="dv">2</span>],[c,<span class="dv">3</span>],[d,<span class="dv">4</span>],[b,<span class="dv">5</span>]]<span class="kw">,</span><span class="dt">X</span><span class="kw">,</span><span class="dv">99</span>)<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> assoc([[a,<span class="dv">1</span>],[b,<span class="dv">2</span>],[c,<span class="dv">3</span>],[d,<span class="dv">4</span>],[b,<span class="dv">5</span>]]<span class="kw">,</span>b<span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+<span class="dt">Y</span> <span class="kw">=</span> <span class="dv">2</span> <span class="kw">;</span>
+<span class="dt">Y</span> <span class="kw">=</span> <span class="dv">5</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> assoc([[a,<span class="dv">1</span>],[b,<span class="dv">2</span>],[c,<span class="dv">3</span>],[d,<span class="dv">1</span>],[b,<span class="dv">5</span>]]<span class="kw">,</span><span class="dt">X</span><span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> a <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> d
+<span class="kw">false.</span></code></pre></div>
+<h3 id="c-20-points">(c) 20 points</h3>
+<p>Write a Prolog predicate <code>remove_duplicates(L1,L2)</code> that is true if <code>L2</code> is equal to the result of removing all duplicate elements from <code>L1</code>. In the result, the order of the elements must be the same as the order in which the (first occurences of the) elements appear in <code>L1</code>. When you are done, you should get the following behavior:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> remove_duplicates([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> remove_duplicates([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>])<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> remove_duplicates([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</code></pre></div>
+<h3 id="d-10-points">(d) 10 points</h3>
+<p>Write a Prolog predicate <code>union(L1,L2,L3)</code> that is true if <code>L3</code> is equal to the list containing the <em>union</em> of the elements in <code>L1</code> and <code>L2</code> without any duplicates. In other words, the elements of <code>L3</code> are those that occur in either <code>L1</code> or in <code>L2</code>. When you are done, you should get the following behavior:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> union([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>])<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> union([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>]<span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>]<span class="kw">.</span>
+
+<span class="fu">?-</span> union([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>]<span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>]<span class="kw">.</span>
+
+<span class="fu">?-</span> union([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">,</span>[<span class="dv">4</span>,<span class="dv">3</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])<span class="kw">.</span>
+<span class="kw">false.</span></code></pre></div>
+<p>As shown in in the third example above, your predicate may be true only for one particular order of the elements of <code>L3</code> (i.e. it need not cycle through all permutations of the elements.)</p>
+<h3 id="e-20-points">(e) (20 Points)</h3>
+<p>Write a Prolog predicate <code>intersection(L1,L2,L3)</code> that is true if <code>L3</code> is equal to the list containing intersection of the elements in <code>L1</code> and <code>L2</code> without any duplicates. In other words, <code>L3</code> should contain the elements that both in <code>L1</code> and in <code>L2</code>. As for <code>union</code> the predicate must be true for <em>some</em><br />
+order of elements of the intersection (but not necessarily all). When you are done, you should get the following behavior:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> intersection([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">3</span>])<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> intersection([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>]<span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">3</span>]<span class="kw">.</span>
+
+<span class="fu">?-</span> intersection([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>]<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">3</span>] <span class="kw">;</span>
+<span class="kw">false.</span>
+<span class="fu">?-</span> intersection([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">,</span>[<span class="dv">4</span>,<span class="dv">3</span>]<span class="kw">,</span>[<span class="dv">1</span>])<span class="kw">.</span>
+<span class="kw">false.</span></code></pre></div>
+<p>As shown in in the third example above, your predicate may be true only for one particular order of the elements of <code>L3</code>.</p>
+<h2 id="problem-2-taqueria-database">Problem 2: Taqueria Database</h2>
+<p>Prolog can be used as a sophisticated database system in which data is stored in the form of structured predicates. In this problem we consider a database of taquerias that sell various items, for a variety of budgets and palates. First, we have a set of facts that encode the price of different ingredients. For example, the first fact stipulates that a serving of carne asada costs 6 dollars (this is high-quality, organic, grass-fed beef).</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">cost(carne_asada<span class="kw">,</span><span class="dv">6</span>)<span class="kw">.</span>
+cost(lengua<span class="kw">,</span><span class="dv">2</span>)<span class="kw">.</span>
+cost(birria<span class="kw">,</span><span class="dv">2</span>)<span class="kw">.</span>
+cost(carnitas<span class="kw">,</span><span class="dv">2</span>)<span class="kw">.</span>
+cost(adobado<span class="kw">,</span><span class="dv">2</span>)<span class="kw">.</span>
+cost(al_pastor<span class="kw">,</span><span class="dv">2</span>)<span class="kw">.</span>
+cost(guacamole<span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span>
+cost(rice<span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span>
+cost(beans<span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span>
+cost(salsa<span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span>
+cost(cheese<span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span>
+cost(sour_cream<span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span>
+cost(taco<span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span>
+cost(tortilla<span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span></code></pre></div>
+<p>Next, we have a list of menu items, and for each item, we have a fact that tells us which ingredients go into the item. For example, the carnitas taco, is a tasty snack comprising carnitas, salsa and guacamole, generously stuffed into a fresh taco.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ingredients(carnitas_taco<span class="kw">,</span>
+            [taco,carnitas, salsa, guacamole])<span class="kw">.</span>
+ingredients(birria_taco<span class="kw">,</span>
+            [taco,birria, salsa, guacamole])<span class="kw">.</span>
+ingredients(al_pastor_taco<span class="kw">,</span>
+            [taco,al_pastor, salsa, guacamole, cheese])<span class="kw">.</span>
+ingredients(guacamole_taco<span class="kw">,</span>
+            [taco,guacamole, salsa,sour_cream])<span class="kw">.</span>
+ingredients(al_pastor_burrito<span class="kw">,</span>
+            [tortilla,al_pastor, salsa])<span class="kw">.</span>
+ingredients(carne_asada_burrito<span class="kw">,</span>
+            [tortilla,carne_asada, guacamole, rice, beans])<span class="kw">.</span>
+ingredients(adobado_burrito<span class="kw">,</span>
+            [tortilla,adobado, guacamole, rice, beans])<span class="kw">.</span>
+ingredients(carnitas_sopa<span class="kw">,</span>
+            [sopa,carnitas, guacamole, salsa,sour_cream])<span class="kw">.</span>
+ingredients(lengua_sopa<span class="kw">,</span>
+            [sopa,lengua, salsa, beans,sour_cream])<span class="kw">.</span>
+ingredients(combo_plate<span class="kw">,</span>
+            [al_pastor, carne_asada,rice, tortilla, beans, salsa, guacamole, cheese])<span class="kw">.</span>
+ingredients(adobado_plate<span class="kw">,</span>
+            [adobado, guacamole, rice, tortilla, beans, cheese])<span class="kw">.</span></code></pre></div>
+<p>Finally, we the database has a set of facts specifying the different taqueries, and for each taqueria, the list of employees, and the list of delectable comestibles available for purchase at the taqueria.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">taqueria(el_cuervo<span class="kw">,</span> [ana,juan,maria]<span class="kw">,</span>
+        [carnitas_taco, combo_plate, al_pastor_taco, carne_asada_burrito])<span class="kw">.</span>
+
+taqueria(la_posta<span class="kw">,</span>
+        [victor,maria,carla]<span class="kw">,</span> [birria_taco, adobado_burrito, carnitas_sopa, combo_plate, adobado_plate])<span class="kw">.</span>
+
+taqueria(robertos<span class="kw">,</span> [hector,carlos,miguel]<span class="kw">,</span>
+        [adobado_plate, guacamole_taco, al_pastor_burrito, carnitas_taco, carne_asada_burrito])<span class="kw">.</span>
+
+taqueria(la_milpas_quatros<span class="kw">,</span> [jiminez, martin, antonio, miguel]<span class="kw">,</span>  
+        [lengua_sopa, adobado_plate, combo_plate])<span class="kw">.</span></code></pre></div>
+<p>The first store has three employees and sells four different items, the second store has three employees and sells five different items, and so on. You can assume that there are no duplicates (eg <code>carnitas</code> is not listed twice in any ingredient list, <code>maria</code> is not listed twice in any employee list, the same menu item is is not listed twice in any store menu, etc.). Given a database of facts, the questions below have you write predicates that implement queries to the database.</p>
+<h3 id="a-5-points-1">(a) (5 Points)</h3>
+<p>Write a Prolog predicate <code>available_at(X,Y)</code> that is true if the item <code>X</code> is available at the taqueria <code>Y</code>. When you are done, you should get the following behavior:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> available_at(lengua_sopa<span class="kw">,</span>el_cuervo)<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> available_at(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> carnitas_taco
+<span class="dt">Y</span> <span class="kw">=</span> el_cuervo<span class="kw">;</span>  
+
+<span class="dt">X</span> <span class="kw">=</span> combo_plate
+<span class="dt">Y</span> <span class="kw">=</span> el_cuervo <span class="kw">;</span>
+
+<span class="dt">X</span> <span class="kw">=</span> al_pastor_taco
+<span class="dt">Y</span> <span class="kw">=</span> el_cuervo <span class="kw">;</span>
+
+<span class="dt">X</span> <span class="kw">=</span> carne_asada_burrito
+<span class="dt">Y</span> <span class="kw">=</span> el_cuervo <span class="kw">;</span>
+
+<span class="dt">X</span> <span class="kw">=</span> birria_taco
+<span class="dt">Y</span> <span class="kw">=</span> la_posta <span class="kw">;</span>
+
+<span class="dt">X</span> <span class="kw">=</span> adobado_burrito
+<span class="dt">Y</span> <span class="kw">=</span> la_posta<span class="kw">.</span></code></pre></div>
+<p>Similarly, if one has a hankering for a carnitas taco, one can query the database thus:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> available_at(carnitas_taco<span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+<span class="dt">Y</span> <span class="kw">=</span> el_cuervo <span class="kw">;</span>
+<span class="dt">Y</span> <span class="kw">=</span> robertos<span class="kw">.</span></code></pre></div>
+<h3 id="b-7-points">(b) 7 Points</h3>
+<p>Write a Prolog predicate <code>multi_available(X)</code> that is true if the item <code>X</code> is available at more than one place. For example:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> multi_available(carnitas_taco)<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> multi_available(lengua_sopa)<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> multi_available(<span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> carnitas_taco <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> carne_asada_burrito <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> adobado_plate <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> combo_plate <span class="kw">.</span></code></pre></div>
+<h3 id="c-8-points">(c) 8 Points</h3>
+<p>Write a Prolog predicate <code>overworked(X)</code> that is true the person <code>X</code> works at more than one taqueria. For instance:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> overworked(maria)<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> overworked(carlos)<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> overworked(<span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> maria <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> miguel <span class="kw">.</span></code></pre></div>
+<h3 id="d-15-points">(d) 15 Points</h3>
+<p>Write a Prolog predicate <code>total_cost(X,K)</code> that is true if the sum of the costs of the ingredients of item <code>X</code> is equal to <code>K</code>. When you are done, you should get the following:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> total_cost(carnitas_taco<span class="kw">,</span><span class="dv">3</span>)<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> total_cost(carnitas_taco<span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">5</span><span class="kw">.</span>
+
+<span class="fu">?-</span> total_cost(<span class="dt">X</span><span class="kw">,</span><span class="dv">5</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> carnitas_taco <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> birria_taco<span class="kw">.</span></code></pre></div>
+<h3 id="e-15-points">(e) 15 Points</h3>
+<p>Write a Prolog predicate <code>has_ingredients(X,L)</code> that is true if the item <code>X</code> has all the ingredients listed in <code>L</code>. When you are done, you should get the following:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> has_ingredients(lengua_sopa<span class="kw">,</span>[cheese,lengua])<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> has_ingredients(<span class="dt">X</span><span class="kw">,</span>[salsa,guacamole,cheese]).&lt;/font&gt;&lt;br<span class="dt">&gt;</span>
+<span class="dt">X</span> <span class="kw">=</span> al_pastor_taco <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> combo_plate<span class="kw">.</span></code></pre></div>
+<h3 id="f-15-points">(f) 15 Points</h3>
+<p>Write a Prolog predicate <code>avoids_ingredients(X,L)</code> that is true if the item <code>X</code> does not have <em>any of</em> the ingredients listed in <code>L</code>. When you are done, you should get the following:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span>avoids_ingredients(lengua_sopa<span class="kw">,</span>[cheese,lengua])<span class="kw">.</span>
+<span class="kw">false.</span>
+
+<span class="fu">?-</span> avoids_ingredients(lengua_sopa<span class="kw">,</span>[cheese,tortilla])<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> avoids_ingredients(<span class="dt">X</span><span class="kw">,</span>[guacamole])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> al_pastor_burrito <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> lengua_sopa<span class="kw">.</span>
+
+<span class="fu">?-</span> avoids_ingredients(<span class="dt">X</span><span class="kw">,</span>[salsa,guacamole])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> lengua_sopa<span class="kw">.</span></code></pre></div>
+<h3 id="g-10-10-points">(g) 10 + 10 Points</h3>
+<p>In the given file, we have filled in an implementation for a predicate <code>find_items(L,X,Y)</code> that is true if <code>L</code> is the list of <em>all items</em> that contain all the ingredients in <code>X</code> and do not contain any of the ingredients in <code>Y</code>. This predicate is specified using two helper predicates <code>p1</code>, <code>p2</code> that <em>you</em> must implement, to obtain a complete specification for <code>find_items</code>. When you are done, you should obtain the following results:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> find_items(<span class="dt">X</span><span class="kw">,</span>[taco,guacamole]<span class="kw">,</span>[cheese])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [carnitas_taco, birria_taco, guacamole_taco]<span class="kw">.</span>
+
+<span class="fu">?-</span> find_items(<span class="dt">X</span><span class="kw">,</span>[tortilla]<span class="kw">,</span>[rice])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [al_pastor_burrito]<span class="kw">.</span>
+
+<span class="fu">?-</span> find_items(<span class="dt">X</span><span class="kw">,</span>[]<span class="kw">,</span>[rice,guacamole])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [al_pastor_burrito, lengua_sopa]<span class="kw">.</span>
+
+<span class="fu">?-</span> find_items(<span class="dt">X</span><span class="kw">,</span>[rice,guacamole]<span class="kw">,</span>[salsa])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [carne_asada_burrito, adobado_burrito, adobado_plate]<span class="kw">.</span>
+
+<span class="fu">?-</span> find_items(<span class="dt">X</span><span class="kw">,</span>[guacamole,cheese,salsa]<span class="kw">,</span>[])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> [al_pastor_taco,combo_plate]<span class="kw">.</span></code></pre></div>
                 <hr>
             </div>
         </div>

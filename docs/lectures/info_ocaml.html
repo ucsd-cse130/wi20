@@ -232,8 +232,31 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<h2 id="entering-the-ocaml-shell">Entering the Ocaml Shell</h2>
-<p> You need to type <code>prep cs130s</code> before you can run <code>Ocaml</code>.  Here is a sample session.  <code>bash $ prep cs130s  $ ocaml         OCaml version 4.02.3  # 2 + 3;; - : int = 5  # Printf.printf &quot;Hello, %s \n&quot; &quot;world&quot; ;; Hello, world - : unit = ()</code>  If you run <code>Ocaml</code> on your <em>own</em> machine, then do   <code>bash $ rlwrap ocaml</code>  The <code>rlwrap</code> is <strong>optional</strong> but rather nice as it lets you hit the up/down cursors to go to your old commands (to avoid typing them out again.) We have used <code>alias</code> so you don’t have to type it out on <code>ieng6</code>.   ## Loading Files  Enter  <code>ocaml #use &quot;foo.ml&quot;;;</code>  to <code>load</code> the file <code>foo.ml</code>. This has the same effect as typing out the file at the prompt, but its usually more convenient to type and edit the file with Vim/Emacs/Atom and load it in like this. (A more convenient option is the OCaml-mode for Emacs.)  Press <code>Ctrl-D</code> to exit OCaml.  ## Directly Running Ocaml from Bash  You can directly <em>run</em> the file, i.e. send the file <code>foo.ml</code> into OCaml and get the output piped to <code>stdout</code> by typing:  <code>bash $ ocaml foo.ml</code></p>
+			<h2 id="entering-the-ocaml-shell">Entering the Ocaml Shell</h2>
+<p>You need to type <code>prep cs130s</code> before you can run <code>Ocaml</code>.</p>
+<p>Here is a sample session.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">prep</span> cs130s
+
+$ <span class="kw">ocaml</span>
+        <span class="kw">OCaml</span> version 4.02.3
+
+<span class="co"># 2 + 3;;</span>
+<span class="kw">-</span> : int = 5
+
+<span class="co"># Printf.printf &quot;Hello, %s \n&quot; &quot;world&quot; ;;</span>
+<span class="kw">Hello</span>, world
+<span class="kw">-</span> : unit = ()</code></pre></div>
+<p>If you run <code>Ocaml</code> on your <em>own</em> machine, then do</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">rlwrap</span> ocaml</code></pre></div>
+<p>The <code>rlwrap</code> is <strong>optional</strong> but rather nice as it lets you hit the up/down cursors to go to your old commands (to avoid typing them out again.) We have used <code>alias</code> so you don’t have to type it out on <code>ieng6</code>.</p>
+<h2 id="loading-files">Loading Files</h2>
+<p>Enter</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">#use &quot;foo.ml&quot;;;</span></code></pre></div>
+<p>to <code>load</code> the file <code>foo.ml</code>. This has the same effect as typing out the file at the prompt, but its usually more convenient to type and edit the file with Vim/Emacs/Atom and load it in like this. (A more convenient option is the OCaml-mode for Emacs.)</p>
+<p>Press <code>Ctrl-D</code> to exit OCaml.</p>
+<h2 id="directly-running-ocaml-from-bash">Directly Running Ocaml from Bash</h2>
+<p>You can directly <em>run</em> the file, i.e. send the file <code>foo.ml</code> into OCaml and get the output piped to <code>stdout</code> by typing:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ocaml</span> foo.ml</code></pre></div>
                 <hr>
             </div>
         </div>

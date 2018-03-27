@@ -232,8 +232,1399 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<h2 id="news">News</h2>
-<p> - HW 5 is out, due Sun 6/11       ## Logic Programming  ### Traditional Languages  - <strong>Program</strong> = <strong>Algorithm</strong> + <strong>Data Structures</strong>  - <strong>Execute</strong>  ### Prolog  - <strong>Program</strong> = <strong>Facts</strong> + <strong>Rules</strong>  - <strong>Query</strong>  ## Logic Programming  <img src="../static/img/spock_logic.jpg" alt="Logic Programming" id="fig:spock" class="align-center" style="width:45.0%" />  ## Prolog History  - 1970s: Logic + Automated Theorem Proving  - Developed for <strong>Artificial Intelligence</strong>  ## Prolog : Original Vision “Expert Systems”  ### Collection of Facts  - <em>Carnitas is Mexican</em> isMexican(carnitas)  ### Collection of Rules  - <em>Mexican food is delicious</em> if isMexican(X) then isDelicious(X)  ### Queries  - <em>What is a delicious food ?</em> hey! solve for Y. s.t. isDelicious(Y)  ### Deductions  - <em>Carnitas!</em>  # You don’t RUN Prolog, you ASK it QUESTIONS  ## Declarative Programming  - Specify <strong>what</strong> you want  - Specify <strong>desired properties</strong> of result  - Not <strong>how</strong> to obtain result   # Declarative: Ideal for SEARCHING For Results  ## Declarative Programming  Ideal for Searching Large Space of Results  ### Philosophy  - It is often <strong>hard</strong> to specify <strong>search</strong> algorithm  - But <strong>easy</strong> to specify the characteristics of the solution.  # Declarative Programming Examples…  ## Declarative Programming: Orbitz/Expedia/etc.  ### Collection of Facts  - Airports, Flights, Times, Durations, Costs  ### Collection of Rules  - <strong>If</strong> travel from <code>A</code> to <code>B</code> with price (<code>P1</code>) <strong>AND</strong> <code>B</code> to <code>C</code> with price (<code>P2</code>)…  <strong>Then</strong>  - travel from <code>A</code> to <code>C</code> with price (<code>P1 + P2</code>) …  ### Queries  - What is cheapest flight from SAN to JFK with duration &lt; 6 Hrs ?   ## Declarative Programming: Linear Programming  ### Collection of Facts  - <strong>El Cuervo</strong> makes CA Burrito (profit = <code>$2</code>), Fish Taco (profit = <code>$1</code>)  ### Collection of Rules  - Burrito Capacity &lt; <code>200</code> - Taco Capacity &lt; <code>400</code> - Total Capacity &lt; <code>300</code>  ### Query: How many burritos and tacos to <strong>maximize</strong> profit?  <sub><sub><sub><del>{.scala} max 2.burr + 1.taco /* profit <em>/ s.t. burr &lt; 200 /</em> burrito capacity <em>/ taco &lt; 400 /</em> taco capacity <em>/ burr+taco &lt; 300 /</em> total capacity <em>/ 0 &lt;= burr 0 &lt;= taco /</em> must produce! <em>/  <sub>~</sub>~~  ## Declarative Programming  Used heavily in many domains (together with statistical methods)  - Scheduling - Travel, Sports, …  - Rule-based Anomaly detection - Credit card fraud!  - SQL (and similar DB Query Languages) - Find all pairs of stocks, with same price on same day, - More than 50 times last year  - Many of these are inspired-by / subsets of Prolog …  # Prolog: New Way To Think About Programming …  # Prolog: … Programming As Proving!  ## Plan  ### Language  1. Terms 2. Facts 3. Queries (Implementation: Unification) 4. Rules 5. Programs (Implementation: Backtracking Search)  ### Programming  - Numeric Computation - Data Structures - Puzzle Solving  ## Language: Terms  Prolog Program  - <strong>Facts</strong> - <strong>Rules</strong>  … but facts and rules <strong>about what</strong> ?  - Terms   ## Terms are Prolog’s way of representing Data  “Tree-like” values, similar to Ocaml ADTs  ### Four Kinds of Terms  1. <strong>Constants</strong>  2. <strong>Atoms</strong>  3. <strong>Variables</strong>  4. <strong>Compound Terms</strong>  ## Prolog Terms: Constants  <strong>Constants</strong> the simplest term, representing primitive values  - Basic types like integers, reals  - Examples: <code>1</code>, <code>92</code>, <code>4.4</code>    ## Prolog Terms: Atoms  <strong>Atom:</strong> any identifier starting with <strong>lower</strong>-case  - <code>x</code>, <code>alice</code>, <code>taco</code>, <code>giraffe</code>, <code>appleSauce</code>  # Atoms are NOT variables  ## Prolog Terms: Atoms  <strong>Atom:</strong> any identifier starting with <strong>lower</strong>-case  - <code>x</code>, <code>alice</code>, <code>taco</code>, <code>giraffe</code>, <code>appleSauce</code>  ### Atoms are not variables  - Elements of a single mega <strong>enum</strong> type  - Similar to tags used in ML types (except ML tags are uppercase)  - <code>type atoms = x | alice | taco | giraffe | appleSauce | ...</code>  ## Prolog Terms: Atoms  <strong>Atom:</strong> any identifier starting with <strong>lower</strong>-case  - <code>x</code>, <code>alice</code>, <code>taco</code>, <code>giraffe</code>, <code>appleSauce</code>  ### Atoms are Uninterpreted Constants (Names)  - Prolog knows <strong>NOTHING</strong> about the tags, they are just <strong>names</strong>  - Each tag is <strong>equal to</strong> itself (more later…) - <code>alice = alice</code> - <code>taco = taco</code>  - Each tag is <strong>disequal to</strong> every <strong>other</strong> tag - <code>alice = taco</code> <strong>never</strong> holds in Prolog  ## Prolog Terms: Variables  <strong>Variables:</strong> any identifier starting with <strong>upper</strong>-case  - <code>X</code>, <code>Y</code>, <code>Z</code>, <code>Head</code>, <code>Tail</code>, <code>Taco</code>, <code>Burrito</code>, <code>Alice</code>, <code>Bob</code>  - <code>_</code> is the <strong>wildcard</strong> variable, similar to <code>ML</code>   ### Variables are quite special …  - Even though <code>x = a</code> makes <strong>no sense</strong> to Prolog …  - … <code>X = a</code> does have a meaning but <strong>not</strong> what you might think!   # Warning: Upper vs. Lowercase leads to errors  ## Prolog Terms: Compound Terms  <strong>Compound</strong> terms are of form <code>atom(term1, term2, term3, ...)</code>  Where each <code>term</code> is <strong>one-of</strong>  - constant - atom - variable - compound term  ## Prolog Terms: Compound Terms  <strong>Compound</strong> terms are of form <code>atom(term1, term2, term3, ...)</code>  Where each <code>term</code> is <strong>one-of</strong>  - constant - atom - variable - compound term  ### Examples  <sub><sub><sub><del>{.prolog} x(y, z) % y, z are atoms parent(alice, bob) % alice, bob are atoms parent(alice, Child) % alice is an atom, Child is a variable</del></sub></sub></sub>   # Prolog Terms ARE NOT function calls  ## Prolog Compound Terms  - Terms are NOT Function Calls!  - More like <strong>trees</strong>  <img src="../static/img/prolog_tree1.png" width="400" align="middle" />   ## Prolog Terms: Compound Terms  <strong>Compound</strong> terms are of form <code>atom(term1, term2, term3, ...)</code>  Each <code>term</code> is <strong>one-of</strong>  - constant - atom - variable - compound term  ### An Ocaml Type For Prolog Terms  <sub><sub><sub><del>{.ocaml} type term = Constant of int | Atom of string | Variable of string | Compound of string * term list</del></sub></sub></sub>  ## QUIZ: An Ocaml Type For Prolog Terms  <sub><sub><sub><del>{.ocaml} type term = Constant of int | Atom of string | Variable of string | Compound of string * term list</del></sub></sub></sub>  (Hint: <strong>atom</strong> = lowercase, <strong>variable</strong> = uppercase)  Which <strong>Ocaml</strong> value of type <code>term</code> represents <strong>Prolog</strong> term  <code>parent(alice, bob)</code> ?  <strong>A.</strong> <code>parent (&quot;alice&quot;, &quot;bob&quot;)</code>  <strong>B.</strong> <code>parent (Atom &quot;alice&quot;, Atom &quot;bob&quot;)</code>  <strong>C.</strong> <code>[Atom &quot;parent&quot;; Atom &quot;alice&quot;; Atom &quot;bob&quot;]</code>  <strong>D.</strong> <code>Compound (&quot;parent&quot;, [Atom &quot;alice&quot;; Atom &quot;bob&quot;])</code>  <strong>E.</strong> <code>Compound (Atom &quot;parent&quot;, [Atom &quot;alice&quot;; Atom &quot;bob&quot;])</code>  ## Prolog Compound Terms  Prolog term <code>parent(alice, Charlie)</code> is represented by:  ### Ocaml Value  <sub><sub><sub><del>{.ocaml} Compound (“parent”, [Atom “alice”; Var “Charlie”])</del></sub></sub></sub>  ### Tree  <img src="../static/img/prolog_tree2.png" width="300" align="middle" />  ## QUIZ: An Ocaml Type For Prolog Terms  <sub><sub><sub><del>{.ocaml} type term = Constant of int | Atom of string | Variable of string | Compound of string * term list</del></sub></sub></sub>  (Hint: <strong>atom</strong> = lowercase, <strong>variable</strong> = uppercase)  What Ocaml value of type <code>term</code> represents Prolog term <code>factorial(5)</code> ?  <strong>A.</strong> <code>factorial(5)</code>  <strong>B.</strong> <code>factorial(Atom 5)</code>  <strong>C.</strong> <code>120</code>  <strong>D.</strong> <code>Constant 120</code>  <strong>E.</strong> <code>Compound (&quot;factorial&quot;, [Constant 5])</code>   ## Prolog Terms  Prolog term <code>factorial(5)</code> is simply the tree <img src="../static/img/prolog_tree3.png" width="200" align="middle" />  - The term is just a box containing <code>5</code> labeled <code>factorial</code>  ### Function Symbols  - <code>factorial</code> just a <strong>label</strong> called a <strong>function symbol</strong>  - Prolog has <strong>no idea</strong> about <strong>implementation</strong> of function …   # Prolog Terms = (Tree) Structured Data  ## Plan  ### Language  1. Terms 2. <strong>Facts</strong> 3. Queries (Implementation: Unification) 4. Rules 5. Programs (Implementation: Backtracking Search)  ### Programming  - Numeric Computation - Data Structures - Puzzle Solving  # Language: Facts  ## Language: Facts  ### Example  The following facts specify a list of <strong>parent-child</strong> relationships  <sub><sub><sub><del>{.prolog} parent(kim, holly).  parent(margaret, kim).  parent(herbert, margaret). parent(john, kim). parent(felix, john).  parent(albert, felix).</del></sub></sub></sub>  - <strong>Note</strong> <code>kim</code>, <code>holly</code>, <code>margaret</code> etc. are all <strong>atoms</strong>  - Facts are just terms (typically without variables.)  - Specified by term followed by <code>.</code>  ### Prolog maintains a Database of facts  - You can make up and add new facts to the collection  - We will be able to ask Prolog <strong>queries</strong> over these facts  ### Predicates = Function Symbols Used For Facts  - Represent functions that evaluate to a boolean  - e.g. <code>parent</code> is a predicate of <strong>arity</strong> 2 (that takes 2 arguments)  ### Predicates Are Just Names: No Meaning Or Implementation  - <code>parent</code> is a predicate of <strong>arity</strong> 2 (that takes two arguments)  - Programmer <strong>mentally</strong> notes that: - <code>parent(kim, holly)</code> <strong>means</strong> <code>kim</code> is a “parent-of” <code>holly</code> - <code>parent(margaret, kim)</code> <strong>means</strong> <code>margaret</code> is a “parent-of” <code>kim</code> - etc.  ## Plan  ### Language  1. Terms 2. Facts 3. <strong>Queries</strong> (Implementation: Unification) 4. Rules 5. Programs (Implementation: Backtracking Search)  ### Programming  - Numeric Computation - Data Structures - Puzzle Solving  # Running Prolog via Queries  ## Language: Queries  Standard interface is a REPL shell  <sub><sub><sub><del>{.prolog} $ rlwrap swipl  130f@ieng6-202]:~:501$ swipl Welcome to SWI-Prolog (Multi-threaded, 32 bits, Version 5.10.5) Copyright (c) 1990-2011 University of Amsterdam, VU Amsterdam SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions. Please visit http://www.swi-prolog.org for details.  For help, use ?- help(Topic). or ?- apropos(Word).  ?-</del></sub></sub></sub>  ## Language: Queries  Suppose we have a collection of facts saved in <a href="../lectures/lec-prolog.pl">lec-prolog.pl</a>  You can <strong>load</strong> the facts in …  <sub><sub><sub><del>{.prolog} ?- consult(‘lec-prolog.pl’). % foo.pl compiled 0.00 sec, 10,640 bytes true.</del></sub></sub></sub>  … or you can <strong>add</strong> them one-at-a-time  <sub><sub><sub><del>{.prolog} ?- assert(parent(margaret, kim)).</del></sub></sub></sub>  ## Language: Queries  Once facts are loaded, you <strong>query</strong> Prolog as follows:  1. <strong>Plg:</strong> Prompts you to type a query  2. <strong>You:</strong> Type a query  3. <strong>Plg:</strong> Tries to </em>prove* your query  4. <strong>Plg:</strong> Prints out the result (or <code>failure</code>)  5. Repeat (go to 1)   # Lets ask some questions!  ## Language: Queries  The simplest possible query … </del></sub></sub></sub>{.prolog} ?- parent(margaret, john).  <sub>~</sub>~~  … a <strong>fact</strong> but typed at the prompt.  ## Language: Queries  The simplest possible query …  <sub><sub><sub><del>{.prolog} ?- parent(margaret, john). </del></sub></sub></sub>  … a <strong>fact</strong> but typed at the prompt.  ### Meaning  O Prolog, is this fact <strong>in</strong> your Database … or can it be <strong>inferred</strong> from your database?  ## Language: Queries  The simplest possible query …  <sub><sub><sub><del>{.prolog} ?- parent(margaret, john). </del></sub></sub></sub>  … a <strong>fact</strong> but typed at the prompt.  ### Meaning  O Prolog, is this fact <strong>in</strong> your database … or can it be <strong>inferred</strong> from your database?  ### Prolog Replies  <sub><sub><sub><del>{.prolog} ?- parent(margaret, john). false.</del></sub></sub></sub>  - This is <strong>not</strong> one of the facts we gave it, and, - We are yet to supply it with <strong>rules</strong> for inferring <strong>new facts</strong>.  ## Language: Queries  A slightly different query yields a different result.  ## Language: Queries  A slightly different query yields a different result.  <sub><sub><sub><del>{.prolog} ?- parent(margaret, kim).  true.</del></sub></sub></sub>  - As this was indeed one of the facts loaded in <a href="../lectures/lec-prolog.pl">lec-prolog</a>  # Pfft. Big deal? Is Prolog just a table lookup?!  # Things get more interesting when queries have variables …  ## Queries With Variables  This is where Prolog starts to depart radically from other paradigms…  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X).</del></sub></sub></sub>  <br>  ### Meaning  O Prolog, for <strong>which value(s)</strong> of <code>X</code> is the fact <strong>provable</strong> ?  ## Queries With Variables  This is where Prolog starts to depart radically from other paradigms…  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X).</del></sub></sub></sub>  <br>  ### Meaning  O Prolog, for <strong>which value(s)</strong> of <code>X</code> is the fact <strong>provable</strong> ?   ### Prolog Replies  <sub><sub><sub><del>{.prolog} X = kim.</del></sub></sub></sub>  As when prolog <strong>plugs-in</strong> <code>kim</code> for <code>X</code>,  - It can infer <code>parent(margaret, kim)</code>.  ## Queries With Variables  Suppose we <em>flip</em> the query.  <sub><sub><sub><del>{.prolog} ?- parent(X, kim).</del></sub></sub></sub>  O Prolog, for <strong>which value(s)</strong> of <code>X</code> is <code>parent(X, kim)</code> <strong>provable</strong> ?  ## Queries With Variables  Suppose we <em>flip</em> the query.  <sub><sub><sub><del>{.prolog} ?- parent(X, kim).</del></sub></sub></sub>  O Prolog, who are the <strong>parents-of</strong> <code>kim</code>?  ## Queries With Variables  Suppose we <em>flip</em> the query.  <sub><sub><sub><del>{.prolog} ?- parent(X, kim).</del></sub></sub></sub>  O Prolog, who are the <strong>parents-of</strong> <code>kim</code>?  ### Prolog Replies  <sub><sub><sub><del>{.prolog} ?- parent(X, kim). X = margaret ; % [press ‘;’ if you want another solution] X = john ; % [press ‘;’ if you want another solution] false. % [thats all folks, no more solutions ]</del></sub></sub></sub>  <br>  Returns <strong>all solutions</strong> for <code>X</code> that make <code>parent(X, kim)</code> provable.  ## Queries With Variables  We can write queries with <em>multiple</em> variables.  <sub><sub><sub><del>{.prolog} ?- parent(X, Y).</del></sub></sub></sub>  O Prolog, for which pairs <code>X</code>, <code>Y</code> is <code>parent(X, Y)</code> provable?  ## Queries With Variables  We can write queries with <em>multiple</em> variables.  <sub><sub><sub><del>{.prolog} ?- parent(X, Y).</del></sub></sub></sub>  O Prolog, for which pairs <code>X</code>, <code>Y</code> is <code>parent(X, Y)</code> provable?  ### Prolog Replies  <sub><sub><sub><del>{.prolog} ?- parent(X, Y). X = kim, Y = holly ; X = margaret, Y = kim ; X = herbert, Y = margaret; X = john, Y = kim ; X = felix, Y = john ; X = albert, Y = felix ; X = albert, Y = dana ; X = felix, Y = maya .</del></sub></sub></sub>  Enumerates <strong>all facts</strong> in the <code>parent</code> database.  ## QUIZ: Queries With Variables  Suppose we want to know if there are any strange circularities in the database:  &gt; Does there exist <strong>any</strong> person who is their <strong>own parent</strong> ?  Which of the following encodes the above in Prolog?  <strong>A.</strong> <code>parent(kim, kim)</code>  <strong>B.</strong> <code>parent(x, x)</code>  <strong>C.</strong> <code>parent(X, X)</code>  <strong>D.</strong> <code>parent(X, Y)</code>  <strong>E.</strong> <code>parent(Y, X)</code>  # Queries are magic! <img src="http://www.cartoonstock.com/newscartoons/cartoonists/bst/lowres/bstn414l.jpg" width="300" align="middle" />  ## Queries Work Like Magic  In Java/C# or for that matter ML/Scala/… you would need  - Some <code>parentOf</code> or <code>childOf</code> methods - to represent parent-child relationship  - Some looping or iteration - to search through all pairs  - Instead, Prolog uses <strong>facts</strong> and <strong>queries</strong> - to search <strong>forwards</strong> and <strong>backwards</strong> - to enumerate all results - in a single uniform <strong>declarative</strong> manner!  # Magic = Unification + Backtracking Search  ## Plan  ### Language  1. Terms 2. Facts 3. Queries (Implementation: <strong>Unification</strong>) 4. Rules 5. Programs (Implementation: Backtracking Search)  ### Programming  - Numeric Computation - Data Structures - Puzzle Solving  # Unification: Prolog’s <strong>computational heart</strong>  # Unification: When does one term MATCH another?  ## Unification  ### Two Terms Can Be Unified If  We can <strong>substitute</strong> values for their <strong>variables</strong> to make the terms <strong>identical</strong>  ## Unification  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  ### Equality Is Unification  In Prolog, when you write (e.g. in a query)  <sub><sub><sub><del>{.prolog} ?- term1 = term2.</del></sub></sub></sub>  you are asking whether <code>term1</code> <strong>can be unified with</strong> <code>term2</code>.  # Unification By Example  ## Unification: Atoms  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  ### Example  <sub><sub><sub><del>{.prolog} ?- kim = kim. true.</del></sub></sub></sub>  Two <strong>same atoms</strong> are <strong>trivially</strong> unified.  ## Unification: Atoms  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  ### Example  <sub><sub><sub><del>{.prolog} ?- kim = holly. false.</del></sub></sub></sub>  Two <strong>different atoms</strong> can <strong>never</strong> be unified.  ## Unification: Compound Terms Are Recursively Unified  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  ### Example  <sub><sub><sub><del>{.prolog} ?- foo(kim) = foo(kim). true.</del></sub></sub></sub>  As there are no variables, and the terms <strong>are already</strong> identical.   ### Example  <sub><sub><sub><del>{.prolog} ?- foo(kim) = foo(holly). false.</del></sub></sub></sub>  As there are no variables, and the terms <strong>can never be</strong> identical.  ## Unification: Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  ### Example  <sub><sub><sub><del>{.prolog} ?- X = kim.</del></sub></sub></sub>  - <strong>Q:</strong> When is the term <code>X</code> <strong>identical to</strong> the term <code>kim</code>?  - <strong>A:</strong> When we <strong>substitute</strong> <code>X</code> with the value <code>kim</code>!  ## Unification: Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  ### Example  <sub><sub><sub><del>{.prolog} ?- foo(X) = foo(kim).</del></sub></sub></sub>  - <strong>Q:</strong> When is the term <code>X</code> <strong>identical to</strong> the term <code>kim</code>?  - <strong>A:</strong> When we <strong>substitute</strong> <code>X</code> with the value <code>kim</code>!  ### Prolog Responds  <sub><sub><sub><del>{.prolog} ?- foo(X) = foo(kim). X = kim.</del></sub></sub></sub>  - Pretty simple…  ## QUIZ: Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  How does Prolog respond to the following query?  <sub><sub><sub><del>{.prolog} ?- foo(X, dog) = foo(cat, Y).</del></sub></sub></sub>  <strong>A.</strong> <code>false</code>  <strong>B.</strong> <code>X = cat, Y = cat.</code>  <strong>C.</strong> <code>X = dog, Y = dog.</code>  <strong>D.</strong> <code>X = dog, Y = cat.</code>  <strong>E.</strong> <code>X = cat, Y = dog.</code>   ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y).</del></sub></sub></sub>  ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y).</del></sub></sub></sub>  <img src="../static/img/prolog_unify_1.png" width="500" align="middle" />  The <strong>top</strong> nodes of both trees have <strong>same predicate</strong> … go inside.  ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y).</del></sub></sub></sub>  <img src="../static/img/prolog_unify_2.png" width="500" align="middle" />  To unify <code>X</code> and <code>cat</code> use <strong>substitution</strong> <code>X = cat</code>  ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y).</del></sub></sub></sub>  <img src="../static/img/prolog_unify_3.png" width="500" align="middle" />  Apply substitution <code>X = cat</code> to both terms. Move on to next leaf…  ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y).</del></sub></sub></sub>  <img src="../static/img/prolog_unify_4.png" width="500" align="middle" />  To unify <code>dog</code> and <code>Y</code> use <strong>substitution</strong> <code>Y = dog</code> …  ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y).</del></sub></sub></sub>  <img src="../static/img/prolog_unify_5.png" width="500" align="middle" />  … and apply substitution throughout <strong>both</strong> terms.  ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y).</del></sub></sub></sub>  <img src="../static/img/prolog_unify_6.png" width="500" align="middle" />  Uh oh, now last leaf has <strong>different</strong> atoms…  ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y).</del></sub></sub></sub>  <img src="../static/img/prolog_unify_7.png" width="500" align="middle" />  … impossible to unify <code>cat</code> and <code>dog</code>. <strong>Unification fails.</strong>  ## Unification With Multiple Variables  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  <sub><sub><sub><del>{.prolog} ?- p(X, dog, X) = p(cat, Y, Y). false.</del></sub></sub></sub>  <img src="../static/img/prolog_unify_7.png" width="500" align="middle" />  ## QUIZ: Recursively Unify Subtrees  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  How does Prolog respond to the following unification query?  <sub><sub><sub><del>{.prolog} ?- a(W, foo(W, Y), Y) = a(2, foo(X, 3), Z).</del></sub></sub></sub>  <strong>A.</strong> <code>false.</code> (No unification possible)  <strong>B.</strong> <code>W = 2, X = 2, Y = 2, Z = 2.</code>  <strong>C.</strong> <code>W = 2, X = 2, Y = 3, Z = 3.</code>  <strong>D.</strong> <code>W = 3, X = 3, Y = 2, Z = 2.</code>  <strong>C.</strong> <code>W = 2, X = 3, Y = 2, Z = 3.</code>   ## Recursively Unify Subtrees  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  How does Prolog respond to the following unification query?  <sub><sub><sub><del>{.prolog} ?- a(W, foo(W, Y), Y) = a(2, foo(X, 3), Z).</del></sub></sub></sub>  1. Subst <code>W = 2</code>. Query is: <code>a(2, foo(2, Y), Y) = a(2, foo(X, 3), Z).</code>  2. Subst <code>X = 2</code>. Query is: <code>a(2, foo(2, Y), Y) = a(2, foo(2, 3), Z).</code>  3. Subst <code>Y = 3</code>. Query is: <code>a(2, foo(2, 3), 3) = a(2, foo(2, 3), Z).</code>  4. Subst <code>Z = 3</code>. Query is: <code>a(2, foo(2, 3), 3) = a(2, foo(2, 3), 3).</code>  5. <strong>Done!</strong>  ## Recursively Unify Subtrees  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  How does Prolog respond to the following unification query?  <sub><sub><sub><del>{.prolog} ?- a(W, foo(W, Y), Y) = a(2, foo(X, 3), Z). W = 2, X = 2, Y = 3, Z = 3.</del></sub></sub></sub>  ## QUIZ: Recursively Unify Subtrees  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  How does Prolog respond to the following unification query?  <sub><sub><sub><del>{.prolog} ?- a(W, foo(W, Y), Y) = a(2, foo(X, 3), X).</del></sub></sub></sub>  <br><br>  <strong>A.</strong> <code>false.</code> (No unification possible)  <strong>B.</strong> <code>W = 2, X = 2, Y = 2, Z = 2.</code>  <strong>C.</strong> <code>W = 2, X = 2, Y = 3, Z = 3.</code>  <strong>D.</strong> <code>W = 3, X = 3, Y = 2, Z = 2.</code>  <strong>E.</strong> <code>W = 2, X = 3, Y = 2, Z = 3.</code>  ## Recursively Unify Subtrees  ### Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em>  How does Prolog respond to the following unification query?  <sub><sub><sub><del>{.prolog} ?- a(W, foo(W, Y), Y) = a(2, foo(X, 3), X).</del></sub></sub></sub>  1. Subst <code>W = 2</code>. Query is: <code>a(2, foo(2, Y), Y) = a(2, foo(X, 3), X).</code>  2. Subst <code>X = 2</code>. Query is: <code>a(2, foo(2, Y), Y) = a(2, foo(2, 3), 2).</code>  3. Subst <code>Y = 3</code>. Query is: <code>a(2, foo(2, 3), 3) = a(2, foo(2, 3), 2).</code>  4. <code>3 = 2</code> cannot be unified, <strong>Fail!</strong>   # Unification: Powerful Way To Answer Queries  ## Unification is a Powerful Way To Answer Queries  When we ask  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X). </del></sub></sub></sub>  Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).  - If <strong>unification succeeds</strong> then it replies <code>true</code> - And also the <strong>unifying substitutions</strong> for <code>X</code> - Which are the <strong>solutions</strong> for the query!  - If <strong>unification fails</strong> then it replies <code>false</code>  ## Unification is a Powerful Way To Answer Queries  When we ask  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X). </del></sub></sub></sub>  Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).  - If <strong>unification succeeds</strong> then it replies <code>true</code> (and the <strong>solutions</strong> for <code>X</code>) - If <strong>unification fails</strong> then it replies <code>false</code>  ### Above Query Has <strong>One Solution</strong>  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X).  X = kim.</del></sub></sub></sub>  ## Unification is a Powerful Way To Answer Queries  When we ask  <sub><sub><sub><del>{.prolog} ?- parent(X, kim). </del></sub></sub></sub>  ## Unification is a Powerful Way To Answer Queries  When we ask  <sub><sub><sub><del>{.prolog} ?- parent(X, kim). </del></sub></sub></sub>  Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).  - If <strong>unification succeeds</strong> then it replies <code>true</code> (and the <strong>solutions</strong> for <code>X</code>) - If <strong>unification fails</strong> then it replies <code>false</code>    ## Unification is a Powerful Way To Answer Queries  When we ask  <sub><sub><sub><del>{.prolog} ?- parent(X, kim). </del></sub></sub></sub>  Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).  - If <strong>unification succeeds</strong> then it replies <code>true</code> (and the <strong>solutions</strong> for <code>X</code>) - If <strong>unification fails</strong> then it replies <code>false</code>   ### This Query Has <strong>Many Solutions</strong>  <sub><sub><sub><del>{.prolog} ?- parent(X, kim).  X = margaret ; X = john .</del></sub></sub></sub>  ## Unification is a Powerful Way To Answer Queries  Finally, when we ask  <sub><sub><sub><del>{.prolog} ?- parent(X, Y). </del></sub></sub></sub>  ## Unification is a Powerful Way To Answer Queries  Finally, when we ask  <sub><sub><sub><del>{.prolog} ?- parent(X, Y). </del></sub></sub></sub>  Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).  - If <strong>unification succeeds</strong> it replies <code>true</code> (and <strong>solutions</strong> for <code>X</code>, <code>Y</code>) - If <strong>unification fails</strong> it replies <code>false</code>   ## Unification is a Powerful Way To Answer Queries  Finally, when we ask  <sub><sub><sub><del>{.prolog} ?- parent(X, Y). </del></sub></sub></sub>  Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).  - If <strong>unification succeeds</strong> it replies <code>true</code> (and <strong>solutions</strong> for <code>X</code>, <code>Y</code>)  ### This Query Has <strong>Many Solutions</strong>: All known facts  <sub><sub><sub><del>{.prolog} ?- parent(X, Y). X = kim, Y = holly ; X = margaret, Y = kim ; X = herbert, Y = margaret; X = john, Y = kim ; X = felix, Y = john ; X = albert, Y = felix ; X = albert, Y = dana ; X = felix, Y = maya .</del></sub></sub></sub>   # Unification Lets Prolog Answer Queries Magically!  ## Plan  ### Language  1. Terms 2. Facts 3. Queries (Implementation: Unification) 4. <strong>Rules</strong> 5. Programs (Implementation: Backtracking Search)  ### Programming  - Numeric Computation - Data Structures - Puzzle Solving  # Rules  # Digression: Conjunctions, Queries about MANY terms  ## Conjunction: Comma-separated Sequence of terms  Often useful to ask questions over <strong>multiple</strong> terms.  - For example, to determine if <code>margaret</code> is the <strong>grandparent</strong> of <code>holly</code>  ## Conjunction: Comma-separated Sequence of terms  Often useful to ask questions over <strong>multiple</strong> terms.  - For example, to determine if <code>margaret</code> is the <strong>grandparent</strong> of <code>holly</code>  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X), parent(X, holly).</del></sub></sub></sub>  - Is there a person <code>X</code> who is a child of <code>margaret</code> <strong>AND</strong> a parent of <code>holly</code> ?  - Is there <code>X</code> s.t. <code>parent(margaret, X)</code> <strong>AND</strong> <code>parent(X, holly)</code> ?    ## Conjunction: Comma-separated Sequence of terms  Often useful to ask questions over <strong>multiple</strong> terms.  - For example, to determine if <code>margaret</code> is the <strong>grandparent</strong> of <code>holly</code>  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X), parent(X, holly).</del></sub></sub></sub>  - Is there a person <code>X</code> who is a child of <code>margaret</code> <strong>AND</strong> a parent of <code>holly</code> ?  - Is there <code>X</code> s.t. <code>parent(margaret, X)</code> <strong>AND</strong> <code>parent(X, holly)</code> ?  ### Apparently  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X), parent(X, holly). X = kim.</del></sub></sub></sub>   ## Conjunction: Comma-separated Sequence of terms  Often useful to ask questions over <strong>multiple</strong> terms.  - For example, to find the <strong>great-grandparents</strong> of <code>kim</code>   ## Conjunction: Comma-separated Sequence of terms  Often useful to ask questions over <strong>multiple</strong> terms.  - For example, to find the <strong>great-grandparents</strong> of <code>kim</code>  <sub><sub><sub><del>{.prolog} ?- parent(GGP, GP), parent(GP, P), parent(P, kim).</del></sub></sub></sub>  <strong>Note:</strong> how we link the terms with a variable to capture relationships.  ## Conjunction: Comma-separated Sequence of terms  Often useful to ask questions over <strong>multiple</strong> terms.  - For example, to find the <strong>great-grandparents</strong> of <code>kim</code>  <sub><sub><sub><del>{.prolog} ?- parent(GGP, GP), parent(GP, P), parent(P, kim).</del></sub></sub></sub>  <strong>Note:</strong> how we link the terms with a variable to capture relationships.  Prolog finds appropriate <strong>unifiers</strong> and replies  <sub><sub><sub><del>{.prolog} ?- parent(margaret, X), parent(X, holly). GGP = john, GP = felix, P = albert.</del></sub></sub></sub>  i.e. <code>john</code> is a <strong>great-grandparent</strong> following the above chain.  ## QUIZ: Conjunctions  Which of these queries is true iff <code>margaret</code> and <code>kim</code> are (half-) <strong>siblings</strong>?  <strong>A.</strong> <code>parent(margaret, kim)</code>  <strong>B.</strong> <code>parent(margaret, X), parent(X, kim).</code>  <strong>C.</strong> <code>parent(kim, X), parent(X, margaret).</code>  <strong>D.</strong> <code>parent(margaret, X), parent(kim, X).</code>  <strong>E.</strong> <code>parent(X, margaret), parent(X, kim).</code>   ## Recap: Conjunctions  - Conjunctions let us mine the database for complex relationships…  - … but its cumbersome to <strong>repeatedly</strong> write down long queries  - We need a way to <strong>compose</strong> complex queries from simple queries…  # Rules  ## Rules: Complex Predicates from Simple Queries  ### Format  <sub><sub><sub><del>{.prolog} headQuery :- condQuery1, condQuery2, condQuery3,…</del></sub></sub></sub>  ## Rules: Complex Predicates from Simple Queries  ### Format  <sub><sub><sub><del>{.prolog} headQuery :- condQuery1, condQuery2, condQuery3,…</del></sub></sub></sub>  <br><br>  ### Intuition 1 (Forwards)  - <strong>If</strong> you can prove <code>condQuery1</code> <strong>AND</strong> <code>condQuery2</code> <strong>AND</strong> <code>...</code>  - <strong>Then</strong> you can prove <code>headQuery</code>  ## Rules: Complex Predicates from Simple Queries  ### Format  <sub><sub><sub><del>{.prolog} headQuery :- condQuery1, condQuery2, condQuery3,…</del></sub></sub></sub>  <br><br>  ### Intuition 2 (Backwards)  - To prove the <strong>goal</strong> <code>headQuery</code> …  - Prove <strong>subgoals</strong> <code>condQuery1</code> <strong>AND</strong> <code>condQuery2</code> <strong>AND</strong> …    ## Rules: Complex Predicates from Simple Queries  ### An Example: Defining a <code>grandparent</code> predicate  - Our database includes a <code>parent</code> predicate  - Let us use it to <strong>define</strong> a <code>grandparent</code> predicate  ## Rules: Complex Predicates from Simple Queries  ### An Example: Defining a <code>grandparent</code> predicate  <sub><sub><sub><del>{.prolog} grandparent(GP, GC) :- parent(GP, P), parent(P, GC).</del></sub></sub></sub>  <br>  ### Intuition  <code>GP</code> is a <em>grandparent</em> of <code>GC</code> if <code>GP</code> is a <em>parent</em> of <code>P</code> <strong>and</strong> <code>P</code> is a <em>parent</em> of <code>GC</code>  ## Rules: Complex Predicates from Simple Queries  ### An Example: Defining a <code>grandparent</code> predicate  <sub><sub><sub><del>{.prolog} grandparent(GP, GC) :- parent(GP, P), parent(P, GC).</del></sub></sub></sub>  ### Querying The Defined Predicate  <sub><sub><sub><del>{.prolog} ?- grandparent(X, kim). % who are the grandparents of kim X = herbert ; % hit ; to see next X = felix ; % hit ; to see next false. % thats it!</del></sub></sub></sub>  ## Rules: Complex Predicates from Simple Queries  ### An Example: Defining a <code>grandparent</code> predicate  <sub><sub><sub><del>{.prolog} grandparent(GP, GC) :- parent(GP, P), parent(P, GC).</del></sub></sub></sub>  ### Querying The Defined Predicate  <sub><sub><sub><del>{.prolog} ?- grandparent(X, kim). % who are the grandparents of kim X = herbert ; % hit ; to see next X = felix ; % hit ; to see next false. % thats it!</del></sub></sub></sub>  ### How? Because Prolog can prove  <sub><sub><sub><del>{.prolog} ?- parent(herbert, P), parent(P, kim). %% Solution 1. X = herbert P = margaret.  ?- parent(felix, P), parent(P, kim). %% Solution 2. X = felix P = john .</del></sub></sub></sub>  ## QUIZ: Complex Predicates from Simple Queries  Which of the following is a valid <code>greatgrandparent</code> predicate?  (Btw, <strong>greatgrandparent</strong> is the <strong>parent</strong> of a <strong>grandparent</strong>.)  bob -&gt; sachin -&gt; krishna -&gt; ranjit  <sub><sub><sub><del>{.prolog} % A greatgrandparent(X, Y) :- parent(X, Y), grandparent(X, Y).  % B greatgrandparent(X, Y) :- parent(X, Z), grandparent(Z, Y).  % C greatgrandparent(X, Y) :- grandparent(X, Z), parent(Z, Y).  % D greatgrandparent(X, Y) :- parent(X, Z), parent(Z, Y).  % E  greatgrandparent(X, Y) :- parent(X, Z), parent(Z, Z1), parent(Z1, Y).</del></sub></sub></sub>  anc(albert,DESC) parent(albert, felix) ==&gt; anc(felix, DESC) parent(albert, dana) ==&gt; anc(dana, DESC)   anc(X, Y) :- anc(Z1, Y), parent(X, Z1).   anc(albert,DESC) anc(Z1, DESC) anc(Z1’, DESC) anc(Z1’‘, DESC) anc(Z1’’’, DESC)   ## Rules: Complex Predicates from Simple Queries  ### An Example: Defining a <code>greatgrandparent</code> predicate  <sub><sub><sub><del>{.prolog} greatgrandparent(GGP, GC) :- parent(GGP, GP), grandparent(GP, GC).</del></sub></sub></sub>  ## Rules: Complex Predicates from Simple Queries  ### An Example: Defining a <code>greatgrandparent</code> predicate  <sub><sub><sub><del>{.prolog} greatgrandparent(GGP, GC) :- parent(GGP, GP), grandparent(GP, GC).</del></sub></sub></sub>  ### Querying The Defined Predicate  <sub><sub><sub><del>{.prolog} ?- greatgrandparent(X, holly). X = herbert.</del></sub></sub></sub>   # That was our first Prolog program!  ## Plan  ### Language  1. Terms 2. Facts 3. Queries (Implementation: Unification) 4. Rules 5. <strong>Programs</strong> (Implementation: Backtracking Search)  ### Programming  - Numeric Computation - Data Structures - Puzzle Solving   # Prolog Programs = Facts + Rules!  ## Prolog Programs = Facts + Rules!  Facts and Rules are two kinds of <strong>clauses</strong>  - <strong>Fact:</strong> Clause <strong>without</strong> any conditions  - <strong>Rules:</strong> Clause <strong>with</strong> conditions  ### Programs  - Basic Facts / Predicates  - Rules for <strong>generating</strong> new Facts / Predicates   ## Prolog Programs = Facts + Rules!  Complex Programs need Complex Predicates with Multiple Rules  1. Scope  2. Multiple Rules: Disjunction  3. Multiple Rules: Recursion   ## Prolog Programs = Facts + Rules!  Complex Programs need Complex Predicates with Multiple Rules  1. <strong>Scope</strong>  2. Multiple Rules: Disjunction  3. Multiple Rules: Recursion   ## Programs = Facts + Rules : Scope  A word about <strong>scope</strong>.  In the <code>grandparent</code> rule, the variable <code>GP</code> appears <strong>twice</strong>  <sub><sub><sub><del>{.prolog} greatgrandparent(GGP, GC) :- parent(GGP, GP), grandparent(GP, GC).</del></sub></sub></sub>  ### Scope: All Variables Are Local To A Single Rule  - In Prolog, the scope of a variable is the <strong>single</strong> rule containing it.  - There is <strong>no connection</strong> between variables <strong>across</strong> rules.  ## Programs = Facts + Rules : Scope  A word about <strong>scope</strong>.  ### Scope: All Variables Are Local To A Single Rule  - In Prolog, the scope of a variable is the <strong>single</strong> rule containing it.  - There is <strong>no connection</strong> between variables <strong>across</strong> rules.  ### Example  <sub><sub><sub><del>{.prolog} foo(P) :- bar(P). % There is no connection between P stuff(P) :- thing(P). % across the two rules</del></sub></sub></sub>  ## Prolog Programs = Facts + Rules!  Complex Programs need Complex Predicates with Multiple Rules  1. Scope  2. <strong>Multiple Rules: Disjunction</strong>  3. Multiple Rules: Recursion  ## Complex Predicates: Disjunction  Lets write a predicate <code>has_family</code> which is true for persons who  - <strong>either</strong> have a parent  - <strong>or</strong> have a child  ## Complex Predicates: Disjunction  Lets write a predicate <code>has_family</code> which is true for persons who  - <strong>either</strong> have a parent  - <strong>or</strong> have a child  <sub><sub><sub><del>{.prolog} has_family(X) :- parent(X, <em>). % if X is the parent of some </em> has_family(X) :- parent(<em>, X). % if X is the child of some </em></del></sub></sub></sub>  <code>_</code> is a <em>wildcard</em> or <em>dont-care</em> variable (as in ML, Scala)  ### Disjunction via Multiple Rules  - <strong>If</strong> we can prove <code>parent(X, _)</code> <strong>Then</strong> we can prove <code>has_family(X)</code>  - <strong>If</strong> we can prove <code>parent(_, X)</code> <strong>Then</strong> we can prove <code>has_family(X)</code>  ## Complex Predicates: Disjunction  Lets write a predicate <code>has_family</code> which is true for persons who  - <strong>either</strong> have a parent  - <strong>or</strong> have a child  <sub><sub><sub><del>{.prolog} has_family(X) :- parent(X, <em>). % if X is the parent of some </em> has_family(X) :- parent(<em>, X). % if X is the child of some </em></del></sub></sub></sub>  ### Executing the Query  <sub><sub><sub><del>{.prolog} ?- has_family(holly). true. % Second rule fires for holly  ?- has_family(mugatu). false. % Neither rule fires for mugatu</del></sub></sub></sub>  ## Complex Predicates: Disjunction  Lets write a predicate <code>has_family</code> which is true for persons who  - <strong>either</strong> have a parent  - <strong>or</strong> have a child  <sub><sub><sub><del>{.prolog} has_family(X) :- parent(X, <em>). % if X is the parent of some </em> has_family(X) :- parent(<em>, X). % if X is the child of some </em></del></sub></sub></sub>  Can be abbreviated to  <sub><sub><sub><del>{.prolog} has_family(X) :- parent(X, <em>) ; parent(</em>, X).</del></sub></sub></sub>  Semicolon <code>;</code> indicates disjunction.  ## Prolog Programs = Facts + Rules!  Complex Programs need Complex Predicates with Multiple Rules  1. Scope  2. Multiple Rules: Disjunction  3. <strong>Multiple Rules: Recursion</strong>  ## Complex Predicates: Recursion  Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if  - <code>parent(Anc, Child)</code> … <strong>or</strong>  - <code>parent(Anc, P)</code> and <code>parent(P, Child)</code> … <strong>or</strong>  - <code>parent(Anc, GP)</code> and <code>parent(GP, P)</code> and <code>parent(P, Child)</code> … <strong>or</strong>  - … if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.  ## Complex Predicates: Recursion  Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if  … if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.  ### Base Case  - If <code>Anc</code> is the parent of <code>Child</code>  - <code>ancestor(Anc, Child) :- parent(Anc, Child).</code>  ### Inductive Case  - If <code>P</code> is the parent of <code>Child</code> and <code>Anc</code> is an <strong>ancestor</strong> of <code>P</code>  - <code>ancestor(Anc, Child) :- parent(P, Child), ancestor(Anc, P).</code>  ## Complex Predicates: Recursion  Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if  … if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.  <sub><sub><sub><del>{.prolog} ancestor(Anc, Child) :- parent(Anc, Child). ancestor(Anc, Child) :- parent(P, Child), ancestor(Anc, P).</del></sub></sub></sub>  ## Complex Predicates: Recursion  Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if  … if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.  <sub><sub><sub><del>{.prolog} ancestor(Anc, Child) :- parent(Anc, Child). ancestor(Anc, Child) :- parent(P, Child), ancestor(Anc, P).</del></sub></sub></sub>  Lets take it out for a spin!  First, lets find <strong>descendants</strong> (forwards)  <sub><sub><sub><del>{.prolog} ?- ancestor(kim, X). X = holly.</del></sub></sub></sub>  ## Complex Predicates: Recursion  Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if  … if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.  <sub><sub><sub><del>{.prolog} ancestor(Anc, Child) :- parent(Anc, Child). ancestor(Anc, Child) :- parent(P, Child), ancestor(Anc, P).</del></sub></sub></sub>  Lets take it out for a spin!  Next, lets find <strong>ancestors</strong> (backwards)  <sub><sub><sub><del>{.prolog} ?- ancestor(X,kim). X = margaret ; X = john ; X = herbert ; X = felix ; X = albert .</del></sub></sub></sub>  <code>kim</code> has a long ancestry!  # Pretty neat: go forward or back, in just 2 lines…  # …Try doing that in any other language!  ## Plan  ### Language  1. Terms 2. Facts 3. Queries (Implementation: Unification) 4. Rules 5. Programs (Implementation: <strong>Backtracking Search</strong>)  ################################################################################ ################################################################################ ################################################################################   ### Backtracking Search  TBD  ### Order Matters!  TBD  ### Language  1. Terms 2. Facts 3. Queries (Implementation: Unification) 4. Rules 5. <strong>Programs</strong> (Implementation: Backtracking)  ### Programming  - <strong>Numeric Computation</strong> - Data Structures - Puzzle Solving  ### Backtracking Search  How does prolog answer recursive queries?  - Brute force <em>backtracking search</em>  View each clause as a <strong>proof rule</strong>:  <sub><sub><sub><del>{.prolog} goal :- subgoal_1, subgoal_2,…</del></sub></sub></sub>  Thus, the rules for ancestor are as follows:  <sub><sub><sub><del>{.prolog} ancestor(X,Y) :- parent(X,Y). %rule 1 ancestor(X,Y) :- parent(Z,Y),ancestor(X,Z). %rule 2</del></sub></sub></sub>  To prolog, these rules mean “to prove <code>ancestor(X,Y)</code>, try to:  1. Prove the <em>subgoal</em> <code>parent(X,Y)</code>, or, <strong>failing that</strong>, 2. Prove the <em>subgoal</em> <code>parent(X,Z), **and then** the subgoal</code>ancestor(X,Z)<code>.  Suppose we ask it the query:   ~~~~~{.prolog} ?- ancestor(felix,holly). ~~~~~  To prove this query, it undertakes the following backtracking search:  - **NOTE** there are multiple</code>Z<code>variables (</code>Z’<code>and</code>Z’’<code>...) - These are introduced each time the corresponding sub-goals are triggered.  ~~~~~ 		ancestor(felix,holly)? 		  /		                \   parent(felix,holly)    parent(Z,holly) 	  NO		               ancestor(felix,Z) 				| 				| Z = kim  (by fact) 				| 			  ancestor(felix,kim) 			  /                \ 	  parent(felix,kim)     parent(Z',kim) 	      NO                ancestor(felix,Z')  ----------| 			                     |                            | Z'=john 		           Z'=margaret |                            | 				          |                             ancestor(felix,john) 		      ancestor(felix,margaret)                      | 		              /        \                      parent(felix,john) 	parent(felix,margaret)   parent(Z'',margaret)         YES 		          NO           ancestor(felix,Z'')                                       | 		                    Z'' = herbert | 		                                  | 			                  ancestor(felix, herbert) 			                 /              | 		 parent(felix,herbert)   parent(Z''',herbert) 		            NO			             NO ~~~~~  ### Queries with Variables  *Backtracking Search* is done for **every** query.  ~~~~~{.prolog}   ?- ancestor(X,kim). ~~~~~  - Prolog does the proof search - Returns **all** unifiers for</code>X<code>for which the proof succeeds with</code>YES<code>.  That is, literally programming by proving.  **Hint:** Trace mode in prolog shows the tree:  ~~~~~{.prolog} ?- trace. ?- help(trace). ~~~~~  The subsequent query is traced...  ### Order is Very Important!  - Order of clauses &amp; terms influences unification &amp; backtracking.  For each  - **goal** different clauses are selected in order, - **clause** subgoals unified from **left-to-right**.  ### Bad Order Causes Non-Termination!  So, different orders of recursive sub-query can cause **non-termination**  Suppose we wrote:  ~~~~~{.prolog} ancestor(X,Y) :- ancestor(X,Z), parent(Z,Y). ancestor(X,Y) :- parent(X,Y). ~~~~~  Then we see:  ~~~~~{.prolog}     ?- ancestor(felix,holly). ~~~~~  Why? The search tree looks like this now!  ~~~~~ 		ancestor(felix,holly)? 		  | 			| 			| 		ancestor(felix,Z)  %prove first subgoal, 			|          %then parent(Z,holly) 			| 			| 		ancestor(felix,Z') %prove first subgoal, 			|	   %then parent(Z',Z) 			| 			| 		ancestor(felix,Z'') 			. 			. 			. ~~~~~~  ### To Avoid Stack Overflow  - Place the</code>parent<code>subgoal **first** (in the recursive rule).  - Then unification with the base facts (parent), **fixes**</code>Z<code>- Thereby guaranteeing termination.  ### QUIZ  Which of these will terminate?  ~~~~~{.prolog} % A ancestor(X,Y) :- ancestor(X,Z), parent(Z,Y). ancestor(X,Y) :- parent(X,Y).  % B ancestor(X,Y) :- parent(X,Y). ancestor(X,Y) :- ancestor(X,Z), parent(Z,Y).  % C ancestor(X,Y) :- parent(X,Y). ancestor(X,Y) :- parent(Z,Y), ancestor(X,Z).  % D ancestor(X,Y) :- parent(Z,Y), ancestor(X,Z). ancestor(X,Y) :- parent(X,Y). ~~~~~  ### QUIZ  Lets define a</code>sibling<code>predicate:  -</code>sibling(X, Y)<code>if</code>X<code>and</code>Y<code>have the same</code>parent<code>.  ~~~~~{.prolog} % A sibling(X, Y) :- parent(P, X), parent(P, Y).  % B sibling(X, Y) :- parent(P, X), parent(P, Y), not(X = Y).  % C sibling(X, Y) :- not(X = Y), parent(P, X), parent(P, Y). ~~~~~    ### Ordering and Unification  Unfortunately to</code>prolog<code>~~~~~{.prolog} ?- X = Y. X = Y ~~~~~  is **always true**, and so the</code>not<code>**always fails**  ~~~~~{.prolog} ?- not(X = Y). false. ~~~~~  So the following query **always fails**  - if</code>X<code>and</code>Y<code>are variables!  ~~~~~{.prolog} sibling(X, Y) :- not(X = Y), parent(P, X), parent(P, Y). ~~~~~  ### Ensure Disequality Check After Unification  **Solution**  - Ensure goal</code>not(X=Y)<code>fires **after**</code>X<code>and</code>Y<code>are **unified to atoms**  ~~~~~{.prolog} sibling(X, Y) :- parent(P, X), parent(P, Y), not(X = Y). ~~~~~  and now we get:  ~~~~~{.prolog}     ?- sibling(X,Y).     X = john     Y = maya ;      X = felix     Y = dana ;      X = dana     Y = felix ;      X = maya     Y = john ;     No ~~~~~  ## Programming  Next, lets do some _programmaing_ in prolog.  - **Numeric Computation** - Data Structures - Puzzle Solving  ### Numeric Computation  Two big problems:  1. How do we even *evaluate*? e.g.</code>2 + 3<code>?  2. How do we write **functions** e.g.</code>let add x y = x + y<code>?  ### Problem 1: How to Evaluate?  - Everything is a _term_ and</code>=<code>is a **unification** operator:  ~~~~~{.prolog} ?- X = 2 + 3. X = 2 + 3 ~~~~~  - Pfft. To &quot;compute&quot; we need some **evaluation** mechanism!  ### Evaluation with the</code>is<code>Operator  The</code>is<code>operator lets us **evaluate** terms:  ~~~~~{.prolog} ?- X is 2 + 3. X = 5. ~~~~~  To solve</code>is<code>goal</code>TERM1 is TERM2<code>, prolog:  1. **Evaluates*</code>TERM2<code>and _then_ 2. **Unifies** result with</code>TERM1<code>.  However, watch out!  ~~~~~{.prolog} ?- Y is X+2, X=1. ERROR: Args are not sufficiently instantiated  ?- X=1, Y is X+2. X=1 Y=3 ~~~~~  - Variables must solved to numbers **before** evaluation.  - **Order of evaluation matters!**   ### Numeric Computation  Two big problems:  1. How do we even *evaluate*? e.g.</code>2 + 1<code>?  2. How do we write **functions** e.g.</code>let incr x = x + 1<code>?   ### Problem 2: How to Write Functions?  Oops. **Everything is a predicate** in prolog!  - Facts are the basic predicates, and - Rules let us get new facts from the basic ones.  How can we even _represent_ a **function** e.g.  ~~~~~{.ocaml} let add x y = x + y ~~~~~  using predicates?   ### QUIZ  Which of the following represents</code>let add x y = x + y<code>?  ~~~~~{.prolog} % A addP(X, Y) :- Z is X + Y.         % wtf is Z ?  % B addP(X, Y, Z) :- Z is X + Y.      % wtf is Z ?  % C addP(X, Y, X + Y).  % D addP(X, Y) :- X + Y.  % E addP(X, Y, Z) :- X + Y is Z. ~~~~~   ### Functions as Predicates  Every **function** of the form:  ~~~~~{.ocaml} let foo x y = out ~~~~~  corresponds to a **predicate** of the form:  ~~~~~{.ocaml} fooP(X, Y, OUT). ~~~~~  i.e. a predicate that is</code>True<code>for those triples</code>(X, Y, OUT)<code>s.t.  - The function</code>foo X Y<code>evaluated to</code>OUT<code>!  The</code>predicate<code>captures the **input-output relation** of the function.   ### Factorial  Lets write a predicate capturing the IO relationship of</code>factorial<code>:  ~~~~~{.prolog} factorial(X, OUT) ~~~~~  holds only when</code>OUT<code>is the factorial of</code>X`.  <sub><sub><sub><del>{.prolog} <strong>DO IN CLASS</strong></del></sub></sub></sub>  When we are done, we can <strong>call</strong> the function with a query:  <sub><sub><sub><del>{.prolog} ?- factorial(0, OUT). OUT = 1  ?- factorial(5, OUT). OUT = 120</del></sub></sub></sub>   ### Programming  - Numeric Computation - <strong>Data Structures</strong> - Puzzle Solving  ### Data Structures: Lists  TBD  ### Programming  - Numeric Computation - Data Structures - <strong>Puzzle Solving</strong>  ### Data Structures: Accumulators  TBD  ### Puzzle Solving  - Towers of Hanoi - Farmer, Wolf, Goat, Cabbage  ### Towers of Hanoi  TBD  ### Farmer, Wolf, Goat, Cabbage  TBD</p>
+			<h2 id="news">News</h2>
+<ul>
+<li>HW 5 is out, due Sun 6/11</li>
+</ul>
+<h2 id="logic-programming">Logic Programming</h2>
+<h3 id="traditional-languages">Traditional Languages</h3>
+<ul>
+<li><p><strong>Program</strong> = <strong>Algorithm</strong> + <strong>Data Structures</strong></p></li>
+<li><p><strong>Execute</strong></p></li>
+</ul>
+<h3 id="prolog">Prolog</h3>
+<ul>
+<li><p><strong>Program</strong> = <strong>Facts</strong> + <strong>Rules</strong></p></li>
+<li><p><strong>Query</strong></p></li>
+</ul>
+<h2 id="logic-programming-1">Logic Programming</h2>
+<div class="figure">
+<img src="../static/img/spock_logic.jpg" alt="Logic Programming" id="fig:spock" class="align-center" style="width:45.0%" />
+<p class="caption">Logic Programming</p>
+</div>
+<h2 id="prolog-history">Prolog History</h2>
+<ul>
+<li><p>1970s: Logic + Automated Theorem Proving</p></li>
+<li><p>Developed for <strong>Artificial Intelligence</strong></p></li>
+</ul>
+<h2 id="prolog-original-vision-expert-systems">Prolog : Original Vision “Expert Systems”</h2>
+<h3 id="collection-of-facts">Collection of Facts</h3>
+<ul>
+<li><em>Carnitas is Mexican</em> isMexican(carnitas)</li>
+</ul>
+<h3 id="collection-of-rules">Collection of Rules</h3>
+<ul>
+<li><em>Mexican food is delicious</em> if isMexican(X) then isDelicious(X)</li>
+</ul>
+<h3 id="queries">Queries</h3>
+<ul>
+<li><em>What is a delicious food ?</em> hey! solve for Y. s.t. isDelicious(Y)</li>
+</ul>
+<h3 id="deductions">Deductions</h3>
+<ul>
+<li><em>Carnitas!</em></li>
+</ul>
+<h1 id="you-dont-run-prolog-you-ask-it-questions">You don’t RUN Prolog, you ASK it QUESTIONS</h1>
+<h2 id="declarative-programming">Declarative Programming</h2>
+<ul>
+<li><p>Specify <strong>what</strong> you want</p></li>
+<li><p>Specify <strong>desired properties</strong> of result</p></li>
+<li><p>Not <strong>how</strong> to obtain result</p></li>
+</ul>
+<h1 id="declarative-ideal-for-searching-for-results">Declarative: Ideal for SEARCHING For Results</h1>
+<h2 id="declarative-programming-1">Declarative Programming</h2>
+<p>Ideal for Searching Large Space of Results</p>
+<h3 id="philosophy">Philosophy</h3>
+<ul>
+<li><p>It is often <strong>hard</strong> to specify <strong>search</strong> algorithm</p></li>
+<li><p>But <strong>easy</strong> to specify the characteristics of the solution.</p></li>
+</ul>
+<h1 id="declarative-programming-examples">Declarative Programming Examples…</h1>
+<h2 id="declarative-programming-orbitzexpediaetc.">Declarative Programming: Orbitz/Expedia/etc.</h2>
+<h3 id="collection-of-facts-1">Collection of Facts</h3>
+<ul>
+<li>Airports, Flights, Times, Durations, Costs</li>
+</ul>
+<h3 id="collection-of-rules-1">Collection of Rules</h3>
+<ul>
+<li><strong>If</strong> travel from <code>A</code> to <code>B</code> with price (<code>P1</code>) <strong>AND</strong> <code>B</code> to <code>C</code> with price (<code>P2</code>)…</li>
+</ul>
+<p><strong>Then</strong></p>
+<ul>
+<li>travel from <code>A</code> to <code>C</code> with price (<code>P1 + P2</code>) …</li>
+</ul>
+<h3 id="queries-1">Queries</h3>
+<ul>
+<li>What is cheapest flight from SAN to JFK with duration &lt; 6 Hrs ?</li>
+</ul>
+<h2 id="declarative-programming-linear-programming">Declarative Programming: Linear Programming</h2>
+<h3 id="collection-of-facts-2">Collection of Facts</h3>
+<ul>
+<li><strong>El Cuervo</strong> makes CA Burrito (profit = <code>$2</code>), Fish Taco (profit = <code>$1</code>)</li>
+</ul>
+<h3 id="collection-of-rules-2">Collection of Rules</h3>
+<ul>
+<li>Burrito Capacity &lt; <code>200</code></li>
+<li>Taco Capacity &lt; <code>400</code></li>
+<li>Total Capacity &lt; <code>300</code></li>
+</ul>
+<h3 id="query-how-many-burritos-and-tacos-to-maximize-profit">Query: How many burritos and tacos to <strong>maximize</strong> profit?</h3>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">max     <span class="fl">2.</span>burr + <span class="fl">1.</span>taco       <span class="co">/* profit           */</span>
+s.<span class="fu">t</span>.    burr      &lt;  <span class="dv">200</span>      <span class="co">/* burrito capacity */</span>
+        taco      &lt; <span class="dv">400</span>       <span class="co">/* taco    capacity */</span>
+        burr+taco &lt; <span class="dv">300</span>       <span class="co">/* total   capacity */</span>
+        <span class="dv">0</span>        &lt;= burr
+        <span class="dv">0</span>        &lt;= taco      <span class="co">/* must produce!    */</span>  </code></pre></div>
+<h2 id="declarative-programming-2">Declarative Programming</h2>
+<p>Used heavily in many domains (together with statistical methods)</p>
+<ul>
+<li>Scheduling</li>
+<li><p>Travel, Sports, …</p></li>
+<li>Rule-based Anomaly detection</li>
+<li><p>Credit card fraud!</p></li>
+<li>SQL (and similar DB Query Languages)</li>
+<li>Find all pairs of stocks, with same price on same day,</li>
+<li><p>More than 50 times last year</p></li>
+<li><p>Many of these are inspired-by / subsets of Prolog …</p></li>
+</ul>
+<h1 id="prolog-new-way-to-think-about-programming">Prolog: New Way To Think About Programming …</h1>
+<h1 id="prolog-programming-as-proving">Prolog: … Programming As Proving!</h1>
+<h2 id="plan">Plan</h2>
+<h3 id="language">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li>Queries (Implementation: Unification)</li>
+<li>Rules</li>
+<li>Programs (Implementation: Backtracking Search)</li>
+</ol>
+<h3 id="programming">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<h2 id="language-terms">Language: Terms</h2>
+<p>Prolog Program</p>
+<ul>
+<li><strong>Facts</strong></li>
+<li><strong>Rules</strong></li>
+</ul>
+<p>… but facts and rules <strong>about what</strong> ?</p>
+<ul>
+<li>Terms</li>
+</ul>
+<h2 id="terms-are-prologs-way-of-representing-data">Terms are Prolog’s way of representing Data</h2>
+<p>“Tree-like” values, similar to Ocaml ADTs</p>
+<h3 id="four-kinds-of-terms">Four Kinds of Terms</h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>Constants</strong></p></li>
+<li><p><strong>Atoms</strong></p></li>
+<li><p><strong>Variables</strong></p></li>
+<li><p><strong>Compound Terms</strong></p></li>
+</ol>
+<h2 id="prolog-terms-constants">Prolog Terms: Constants</h2>
+<p><strong>Constants</strong> the simplest term, representing primitive values</p>
+<ul>
+<li><p>Basic types like integers, reals</p></li>
+<li><p>Examples: <code>1</code>, <code>92</code>, <code>4.4</code></p></li>
+</ul>
+<h2 id="prolog-terms-atoms">Prolog Terms: Atoms</h2>
+<p><strong>Atom:</strong> any identifier starting with <strong>lower</strong>-case</p>
+<ul>
+<li><code>x</code>, <code>alice</code>, <code>taco</code>, <code>giraffe</code>, <code>appleSauce</code></li>
+</ul>
+<h1 id="atoms-are-not-variables">Atoms are NOT variables</h1>
+<h2 id="prolog-terms-atoms-1">Prolog Terms: Atoms</h2>
+<p><strong>Atom:</strong> any identifier starting with <strong>lower</strong>-case</p>
+<ul>
+<li><code>x</code>, <code>alice</code>, <code>taco</code>, <code>giraffe</code>, <code>appleSauce</code></li>
+</ul>
+<h3 id="atoms-are-not-variables-1">Atoms are not variables</h3>
+<ul>
+<li><p>Elements of a single mega <strong>enum</strong> type</p></li>
+<li><p>Similar to tags used in ML types (except ML tags are uppercase)</p></li>
+<li><p><code>type atoms = x | alice | taco | giraffe | appleSauce | ...</code></p></li>
+</ul>
+<h2 id="prolog-terms-atoms-2">Prolog Terms: Atoms</h2>
+<p><strong>Atom:</strong> any identifier starting with <strong>lower</strong>-case</p>
+<ul>
+<li><code>x</code>, <code>alice</code>, <code>taco</code>, <code>giraffe</code>, <code>appleSauce</code></li>
+</ul>
+<h3 id="atoms-are-uninterpreted-constants-names">Atoms are Uninterpreted Constants (Names)</h3>
+<ul>
+<li><p>Prolog knows <strong>NOTHING</strong> about the tags, they are just <strong>names</strong></p></li>
+<li>Each tag is <strong>equal to</strong> itself (more later…)</li>
+<li><code>alice = alice</code></li>
+<li><p><code>taco = taco</code></p></li>
+<li>Each tag is <strong>disequal to</strong> every <strong>other</strong> tag</li>
+<li><p><code>alice = taco</code> <strong>never</strong> holds in Prolog</p></li>
+</ul>
+<h2 id="prolog-terms-variables">Prolog Terms: Variables</h2>
+<p><strong>Variables:</strong> any identifier starting with <strong>upper</strong>-case</p>
+<ul>
+<li><p><code>X</code>, <code>Y</code>, <code>Z</code>, <code>Head</code>, <code>Tail</code>, <code>Taco</code>, <code>Burrito</code>, <code>Alice</code>, <code>Bob</code></p></li>
+<li><p><code>_</code> is the <strong>wildcard</strong> variable, similar to <code>ML</code></p></li>
+</ul>
+<h3 id="variables-are-quite-special">Variables are quite special …</h3>
+<ul>
+<li><p>Even though <code>x = a</code> makes <strong>no sense</strong> to Prolog …</p></li>
+<li><p>… <code>X = a</code> does have a meaning but <strong>not</strong> what you might think!</p></li>
+</ul>
+<h1 id="warning-upper-vs.lowercase-leads-to-errors">Warning: Upper vs. Lowercase leads to errors</h1>
+<h2 id="prolog-terms-compound-terms">Prolog Terms: Compound Terms</h2>
+<p><strong>Compound</strong> terms are of form <code>atom(term1, term2, term3, ...)</code></p>
+<p>Where each <code>term</code> is <strong>one-of</strong></p>
+<ul>
+<li>constant</li>
+<li>atom</li>
+<li>variable</li>
+<li>compound term</li>
+</ul>
+<h2 id="prolog-terms-compound-terms-1">Prolog Terms: Compound Terms</h2>
+<p><strong>Compound</strong> terms are of form <code>atom(term1, term2, term3, ...)</code></p>
+<p>Where each <code>term</code> is <strong>one-of</strong></p>
+<ul>
+<li>constant</li>
+<li>atom</li>
+<li>variable</li>
+<li>compound term</li>
+</ul>
+<h3 id="examples">Examples</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">x(y<span class="kw">,</span> z)              <span class="co">% y, z       are atoms</span>
+parent(alice<span class="kw">,</span> bob)   <span class="co">% alice, bob are atoms</span>
+parent(alice<span class="kw">,</span> <span class="dt">Child</span>) <span class="co">% alice is an atom, Child is a variable</span></code></pre></div>
+<h1 id="prolog-terms-are-not-function-calls">Prolog Terms ARE NOT function calls</h1>
+<h2 id="prolog-compound-terms">Prolog Compound Terms</h2>
+<ul>
+<li><p>Terms are NOT Function Calls!</p></li>
+<li><p>More like <strong>trees</strong></p></li>
+</ul>
+<p><img src="../static/img/prolog_tree1.png" width="400" align="middle" /></p>
+<h2 id="prolog-terms-compound-terms-2">Prolog Terms: Compound Terms</h2>
+<p><strong>Compound</strong> terms are of form <code>atom(term1, term2, term3, ...)</code></p>
+<p>Each <code>term</code> is <strong>one-of</strong></p>
+<ul>
+<li>constant</li>
+<li>atom</li>
+<li>variable</li>
+<li>compound term</li>
+</ul>
+<h3 id="an-ocaml-type-for-prolog-terms">An Ocaml Type For Prolog Terms</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> term
+  = <span class="dt">Constant</span> <span class="kw">of</span> <span class="dt">int</span>
+  | <span class="dt">Atom</span>     <span class="kw">of</span> <span class="dt">string</span>
+  | <span class="dt">Variable</span> <span class="kw">of</span> <span class="dt">string</span>
+  | <span class="dt">Compound</span> <span class="kw">of</span> <span class="dt">string</span> * term <span class="dt">list</span></code></pre></div>
+<h2 id="quiz-an-ocaml-type-for-prolog-terms">QUIZ: An Ocaml Type For Prolog Terms</h2>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> term
+  = <span class="dt">Constant</span> <span class="kw">of</span> <span class="dt">int</span>
+  | <span class="dt">Atom</span>     <span class="kw">of</span> <span class="dt">string</span>
+  | <span class="dt">Variable</span> <span class="kw">of</span> <span class="dt">string</span>
+  | <span class="dt">Compound</span> <span class="kw">of</span> <span class="dt">string</span> * term <span class="dt">list</span></code></pre></div>
+<p>(Hint: <strong>atom</strong> = lowercase, <strong>variable</strong> = uppercase)</p>
+<p>Which <strong>Ocaml</strong> value of type <code>term</code> represents <strong>Prolog</strong> term</p>
+<p><code>parent(alice, bob)</code> ?</p>
+<p><strong>A.</strong> <code>parent (&quot;alice&quot;, &quot;bob&quot;)</code></p>
+<p><strong>B.</strong> <code>parent (Atom &quot;alice&quot;, Atom &quot;bob&quot;)</code></p>
+<p><strong>C.</strong> <code>[Atom &quot;parent&quot;; Atom &quot;alice&quot;; Atom &quot;bob&quot;]</code></p>
+<p><strong>D.</strong> <code>Compound (&quot;parent&quot;, [Atom &quot;alice&quot;; Atom &quot;bob&quot;])</code></p>
+<p><strong>E.</strong> <code>Compound (Atom &quot;parent&quot;, [Atom &quot;alice&quot;; Atom &quot;bob&quot;])</code></p>
+<h2 id="prolog-compound-terms-1">Prolog Compound Terms</h2>
+<p>Prolog term <code>parent(alice, Charlie)</code> is represented by:</p>
+<h3 id="ocaml-value">Ocaml Value</h3>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dt">Compound</span> (<span class="st">&quot;parent&quot;</span>, [<span class="dt">Atom</span> <span class="st">&quot;alice&quot;</span>; <span class="dt">Var</span> <span class="st">&quot;Charlie&quot;</span>])</code></pre></div>
+<h3 id="tree">Tree</h3>
+<p><img src="../static/img/prolog_tree2.png" width="300" align="middle" /></p>
+<h2 id="quiz-an-ocaml-type-for-prolog-terms-1">QUIZ: An Ocaml Type For Prolog Terms</h2>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> term
+  = <span class="dt">Constant</span> <span class="kw">of</span> <span class="dt">int</span>
+  | <span class="dt">Atom</span>     <span class="kw">of</span> <span class="dt">string</span>
+  | <span class="dt">Variable</span> <span class="kw">of</span> <span class="dt">string</span>
+  | <span class="dt">Compound</span> <span class="kw">of</span> <span class="dt">string</span> * term <span class="dt">list</span></code></pre></div>
+<p>(Hint: <strong>atom</strong> = lowercase, <strong>variable</strong> = uppercase)</p>
+<p>What Ocaml value of type <code>term</code> represents Prolog term <code>factorial(5)</code> ?</p>
+<p><strong>A.</strong> <code>factorial(5)</code></p>
+<p><strong>B.</strong> <code>factorial(Atom 5)</code></p>
+<p><strong>C.</strong> <code>120</code></p>
+<p><strong>D.</strong> <code>Constant 120</code></p>
+<p><strong>E.</strong> <code>Compound (&quot;factorial&quot;, [Constant 5])</code></p>
+<h2 id="prolog-terms">Prolog Terms</h2>
+<p>Prolog term <code>factorial(5)</code> is simply the tree <img src="../static/img/prolog_tree3.png" width="200" align="middle" /></p>
+<ul>
+<li>The term is just a box containing <code>5</code> labeled <code>factorial</code></li>
+</ul>
+<h3 id="function-symbols">Function Symbols</h3>
+<ul>
+<li><p><code>factorial</code> just a <strong>label</strong> called a <strong>function symbol</strong></p></li>
+<li><p>Prolog has <strong>no idea</strong> about <strong>implementation</strong> of function …</p></li>
+</ul>
+<h1 id="prolog-terms-tree-structured-data">Prolog Terms = (Tree) Structured Data</h1>
+<h2 id="plan-1">Plan</h2>
+<h3 id="language-1">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li><strong>Facts</strong></li>
+<li>Queries (Implementation: Unification)</li>
+<li>Rules</li>
+<li>Programs (Implementation: Backtracking Search)</li>
+</ol>
+<h3 id="programming-1">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<h1 id="language-facts">Language: Facts</h1>
+<h2 id="language-facts-1">Language: Facts</h2>
+<h3 id="example">Example</h3>
+<p>The following facts specify a list of <strong>parent-child</strong> relationships</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">parent(kim<span class="kw">,</span> holly)<span class="kw">.</span>  
+parent(margaret<span class="kw">,</span> kim)<span class="kw">.</span>  
+parent(herbert<span class="kw">,</span> margaret)<span class="kw">.</span>
+parent(john<span class="kw">,</span> kim)<span class="kw">.</span>
+parent(felix<span class="kw">,</span> john)<span class="kw">.</span>  
+parent(albert<span class="kw">,</span> felix)<span class="kw">.</span></code></pre></div>
+<ul>
+<li><p><strong>Note</strong> <code>kim</code>, <code>holly</code>, <code>margaret</code> etc. are all <strong>atoms</strong></p></li>
+<li><p>Facts are just terms (typically without variables.)</p></li>
+<li><p>Specified by term followed by <code>.</code></p></li>
+</ul>
+<h3 id="prolog-maintains-a-database-of-facts">Prolog maintains a Database of facts</h3>
+<ul>
+<li><p>You can make up and add new facts to the collection</p></li>
+<li><p>We will be able to ask Prolog <strong>queries</strong> over these facts</p></li>
+</ul>
+<h3 id="predicates-function-symbols-used-for-facts">Predicates = Function Symbols Used For Facts</h3>
+<ul>
+<li><p>Represent functions that evaluate to a boolean</p></li>
+<li><p>e.g. <code>parent</code> is a predicate of <strong>arity</strong> 2 (that takes 2 arguments)</p></li>
+</ul>
+<h3 id="predicates-are-just-names-no-meaning-or-implementation">Predicates Are Just Names: No Meaning Or Implementation</h3>
+<ul>
+<li><p><code>parent</code> is a predicate of <strong>arity</strong> 2 (that takes two arguments)</p></li>
+<li>Programmer <strong>mentally</strong> notes that:
+<ul>
+<li><code>parent(kim, holly)</code> <strong>means</strong> <code>kim</code> is a “parent-of” <code>holly</code></li>
+<li><code>parent(margaret, kim)</code> <strong>means</strong> <code>margaret</code> is a “parent-of” <code>kim</code></li>
+<li>etc.</li>
+</ul></li>
+</ul>
+<h2 id="plan-2">Plan</h2>
+<h3 id="language-2">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li><strong>Queries</strong> (Implementation: Unification)</li>
+<li>Rules</li>
+<li>Programs (Implementation: Backtracking Search)</li>
+</ol>
+<h3 id="programming-2">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<h1 id="running-prolog-via-queries">Running Prolog via Queries</h1>
+<h2 id="language-queries">Language: Queries</h2>
+<p>Standard interface is a REPL shell</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">$ rlwrap swipl
+
+<span class="er">130</span>f<span class="fu">@</span>ieng6<span class="dv">-202</span><span class="er">]</span>:~:<span class="dv">501</span>$ swipl
+<span class="dt">Welcome</span> to <span class="dt">SWI</span><span class="fu">-</span><span class="dt">Prolog</span> (<span class="dt">Multi</span><span class="fu">-</span>threaded<span class="kw">,</span> <span class="dv">32</span> bits<span class="kw">,</span> <span class="dt">Version</span> <span class="fl">5.10</span><span class="al">.</span><span class="dv">5</span>)
+<span class="dt">Copyright</span> (c) <span class="dv">1990-2011</span> <span class="dt">University</span> of <span class="dt">Amsterdam</span><span class="kw">,</span> <span class="dt">VU</span> <span class="dt">Amsterdam</span>
+<span class="dt">SWI</span><span class="fu">-</span><span class="dt">Prolog</span> comes with <span class="dt">ABSOLUTELY</span> <span class="dt">NO</span> <span class="dt">WARRANTY</span><span class="kw">.</span> <span class="dt">This</span> <span class="dt">is</span> free software<span class="kw">,</span>
+and you are welcome to redistribute it under certain conditions<span class="kw">.</span>
+<span class="dt">Please</span> visit http://www<span class="kw">.</span>swi<span class="fu">-</span>prolog<span class="kw">.</span>org for details<span class="kw">.</span>
+
+<span class="dt">For</span> help<span class="kw">,</span> use <span class="fu">?-</span> help(<span class="dt">Topic</span>)<span class="kw">.</span> or <span class="fu">?-</span> apropos(<span class="dt">Word</span>)<span class="kw">.</span>
+
+<span class="fu">?-</span></code></pre></div>
+<h2 id="language-queries-1">Language: Queries</h2>
+<p>Suppose we have a collection of facts saved in <a href="../lectures/lec-prolog.pl">lec-prolog.pl</a></p>
+<p>You can <strong>load</strong> the facts in …</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> consult('<span class="er">lec</span>-<span class="er">prolog</span>.<span class="er">pl</span>')<span class="kw">.</span>
+<span class="co">% foo.pl compiled 0.00 sec, 10,640 bytes</span>
+<span class="kw">true.</span></code></pre></div>
+<p>… or you can <strong>add</strong> them one-at-a-time</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> assert(parent(margaret<span class="kw">,</span> kim))<span class="kw">.</span></code></pre></div>
+<h2 id="language-queries-2">Language: Queries</h2>
+<p>Once facts are loaded, you <strong>query</strong> Prolog as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Plg:</strong> Prompts you to type a query</p></li>
+<li><p><strong>You:</strong> Type a query</p></li>
+<li><p><strong>Plg:</strong> Tries to <em>prove</em> your query</p></li>
+<li><p><strong>Plg:</strong> Prints out the result (or <code>failure</code>)</p></li>
+<li><p>Repeat (go to 1)</p></li>
+</ol>
+<h1 id="lets-ask-some-questions">Lets ask some questions!</h1>
+<h2 id="language-queries-3">Language: Queries</h2>
+<p>The simplest possible query …</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> john)<span class="kw">.</span>  </code></pre></div>
+<p>… a <strong>fact</strong> but typed at the prompt.</p>
+<h2 id="language-queries-4">Language: Queries</h2>
+<p>The simplest possible query …</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> john)<span class="kw">.</span>  </code></pre></div>
+<p>… a <strong>fact</strong> but typed at the prompt.</p>
+<h3 id="meaning">Meaning</h3>
+<p>O Prolog, is this fact <strong>in</strong> your Database … or can it be <strong>inferred</strong> from your database?</p>
+<h2 id="language-queries-5">Language: Queries</h2>
+<p>The simplest possible query …</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> john)<span class="kw">.</span>  </code></pre></div>
+<p>… a <strong>fact</strong> but typed at the prompt.</p>
+<h3 id="meaning-1">Meaning</h3>
+<p>O Prolog, is this fact <strong>in</strong> your database … or can it be <strong>inferred</strong> from your database?</p>
+<h3 id="prolog-replies">Prolog Replies</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> john)<span class="kw">.</span>
+<span class="kw">false.</span></code></pre></div>
+<ul>
+<li>This is <strong>not</strong> one of the facts we gave it, and,</li>
+<li>We are yet to supply it with <strong>rules</strong> for inferring <strong>new facts</strong>.</li>
+</ul>
+<h2 id="language-queries-6">Language: Queries</h2>
+<p>A slightly different query yields a different result.</p>
+<h2 id="language-queries-7">Language: Queries</h2>
+<p>A slightly different query yields a different result.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> kim)<span class="kw">.</span>  
+<span class="kw">true.</span></code></pre></div>
+<ul>
+<li>As this was indeed one of the facts loaded in <a href="../lectures/lec-prolog.pl">lec-prolog</a></li>
+</ul>
+<h1 id="pfft.-big-deal-is-prolog-just-a-table-lookup">Pfft. Big deal? Is Prolog just a table lookup?!</h1>
+<h1 id="things-get-more-interesting-when-queries-have-variables">Things get more interesting when queries have variables …</h1>
+<h2 id="queries-with-variables">Queries With Variables</h2>
+<p>This is where Prolog starts to depart radically from other paradigms…</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p><br></p>
+<h3 id="meaning-2">Meaning</h3>
+<p>O Prolog, for <strong>which value(s)</strong> of <code>X</code> is the fact <strong>provable</strong> ?</p>
+<h2 id="queries-with-variables-1">Queries With Variables</h2>
+<p>This is where Prolog starts to depart radically from other paradigms…</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p><br></p>
+<h3 id="meaning-3">Meaning</h3>
+<p>O Prolog, for <strong>which value(s)</strong> of <code>X</code> is the fact <strong>provable</strong> ?</p>
+<h3 id="prolog-replies-1">Prolog Replies</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></code></pre></div>
+<p>As when prolog <strong>plugs-in</strong> <code>kim</code> for <code>X</code>,</p>
+<ul>
+<li>It can infer <code>parent(margaret, kim)</code>.</li>
+</ul>
+<h2 id="queries-with-variables-2">Queries With Variables</h2>
+<p>Suppose we <em>flip</em> the query.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span></code></pre></div>
+<p>O Prolog, for <strong>which value(s)</strong> of <code>X</code> is <code>parent(X, kim)</code> <strong>provable</strong> ?</p>
+<h2 id="queries-with-variables-3">Queries With Variables</h2>
+<p>Suppose we <em>flip</em> the query.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span></code></pre></div>
+<p>O Prolog, who are the <strong>parents-of</strong> <code>kim</code>?</p>
+<h2 id="queries-with-variables-4">Queries With Variables</h2>
+<p>Suppose we <em>flip</em> the query.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span></code></pre></div>
+<p>O Prolog, who are the <strong>parents-of</strong> <code>kim</code>?</p>
+<h3 id="prolog-replies-2">Prolog Replies</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> margaret <span class="kw">;</span> <span class="co">% [press ';' if you want another solution]</span>
+<span class="dt">X</span> <span class="kw">=</span> john <span class="kw">;</span>     <span class="co">% [press ';' if you want another solution]</span>
+<span class="kw">false.</span>         <span class="co">% [thats all folks, no more solutions    ]</span></code></pre></div>
+<p><br></p>
+<p>Returns <strong>all solutions</strong> for <code>X</code> that make <code>parent(X, kim)</code> provable.</p>
+<h2 id="queries-with-variables-5">Queries With Variables</h2>
+<p>We can write queries with <em>multiple</em> variables.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>O Prolog, for which pairs <code>X</code>, <code>Y</code> is <code>parent(X, Y)</code> provable?</p>
+<h2 id="queries-with-variables-6">Queries With Variables</h2>
+<p>We can write queries with <em>multiple</em> variables.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>O Prolog, for which pairs <code>X</code>, <code>Y</code> is <code>parent(X, Y)</code> provable?</p>
+<h3 id="prolog-replies-3">Prolog Replies</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">,</span>      <span class="dt">Y</span> <span class="kw">=</span> holly   <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> margaret<span class="kw">,</span> <span class="dt">Y</span> <span class="kw">=</span> kim     <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert<span class="kw">,</span>  <span class="dt">Y</span> <span class="kw">=</span> margaret<span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> john<span class="kw">,</span>     <span class="dt">Y</span> <span class="kw">=</span> kim     <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> felix<span class="kw">,</span>    <span class="dt">Y</span> <span class="kw">=</span> john    <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> albert<span class="kw">,</span>   <span class="dt">Y</span> <span class="kw">=</span> felix   <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> albert<span class="kw">,</span>   <span class="dt">Y</span> <span class="kw">=</span> dana    <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> felix<span class="kw">,</span>    <span class="dt">Y</span> <span class="kw">=</span> maya    <span class="kw">.</span></code></pre></div>
+<p>Enumerates <strong>all facts</strong> in the <code>parent</code> database.</p>
+<h2 id="quiz-queries-with-variables">QUIZ: Queries With Variables</h2>
+<p>Suppose we want to know if there are any strange circularities in the database:</p>
+<blockquote>
+<p>Does there exist <strong>any</strong> person who is their <strong>own parent</strong> ?</p>
+</blockquote>
+<p>Which of the following encodes the above in Prolog?</p>
+<p><strong>A.</strong> <code>parent(kim, kim)</code></p>
+<p><strong>B.</strong> <code>parent(x, x)</code></p>
+<p><strong>C.</strong> <code>parent(X, X)</code></p>
+<p><strong>D.</strong> <code>parent(X, Y)</code></p>
+<p><strong>E.</strong> <code>parent(Y, X)</code></p>
+<h1 id="queries-are-magic">Queries are magic! <img src="http://www.cartoonstock.com/newscartoons/cartoonists/bst/lowres/bstn414l.jpg" width="300" align="middle" /></h1>
+<h2 id="queries-work-like-magic">Queries Work Like Magic</h2>
+<p>In Java/C# or for that matter ML/Scala/… you would need</p>
+<ul>
+<li>Some <code>parentOf</code> or <code>childOf</code> methods
+<ul>
+<li>to represent parent-child relationship</li>
+</ul></li>
+<li>Some looping or iteration
+<ul>
+<li>to search through all pairs</li>
+</ul></li>
+<li>Instead, Prolog uses <strong>facts</strong> and <strong>queries</strong>
+<ul>
+<li>to search <strong>forwards</strong> and <strong>backwards</strong></li>
+<li>to enumerate all results</li>
+<li>in a single uniform <strong>declarative</strong> manner!</li>
+</ul></li>
+</ul>
+<h1 id="magic-unification-backtracking-search">Magic = Unification + Backtracking Search</h1>
+<h2 id="plan-3">Plan</h2>
+<h3 id="language-3">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li>Queries (Implementation: <strong>Unification</strong>)</li>
+<li>Rules</li>
+<li>Programs (Implementation: Backtracking Search)</li>
+</ol>
+<h3 id="programming-3">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<h1 id="unification-prologs-computational-heart">Unification: Prolog’s <strong>computational heart</strong></h1>
+<h1 id="unification-when-does-one-term-match-another">Unification: When does one term MATCH another?</h1>
+<h2 id="unification">Unification</h2>
+<h3 id="two-terms-can-be-unified-if">Two Terms Can Be Unified If</h3>
+<p>We can <strong>substitute</strong> values for their <strong>variables</strong> to make the terms <strong>identical</strong></p>
+<h2 id="unification-1">Unification</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<h3 id="equality-is-unification">Equality Is Unification</h3>
+<p>In Prolog, when you write (e.g. in a query)</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> term1 <span class="kw">=</span> term2<span class="kw">.</span></code></pre></div>
+<p>you are asking whether <code>term1</code> <strong>can be unified with</strong> <code>term2</code>.</p>
+<h1 id="unification-by-example">Unification By Example</h1>
+<h2 id="unification-atoms">Unification: Atoms</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-1">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<h3 id="example-1">Example</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> kim <span class="kw">=</span> kim<span class="kw">.</span>
+<span class="kw">true.</span></code></pre></div>
+<p>Two <strong>same atoms</strong> are <strong>trivially</strong> unified.</p>
+<h2 id="unification-atoms-1">Unification: Atoms</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-2">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<h3 id="example-2">Example</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> kim <span class="kw">=</span> holly<span class="kw">.</span>
+<span class="kw">false.</span></code></pre></div>
+<p>Two <strong>different atoms</strong> can <strong>never</strong> be unified.</p>
+<h2 id="unification-compound-terms-are-recursively-unified">Unification: Compound Terms Are Recursively Unified</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-3">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<h3 id="example-3">Example</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> foo(kim) <span class="kw">=</span> foo(kim)<span class="kw">.</span>
+<span class="kw">true.</span></code></pre></div>
+<p>As there are no variables, and the terms <strong>are already</strong> identical.</p>
+<h3 id="example-4">Example</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> foo(kim) <span class="kw">=</span> foo(holly)<span class="kw">.</span>
+<span class="kw">false.</span></code></pre></div>
+<p>As there are no variables, and the terms <strong>can never be</strong> identical.</p>
+<h2 id="unification-variables">Unification: Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-4">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<h3 id="example-5">Example</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></code></pre></div>
+<ul>
+<li><p><strong>Q:</strong> When is the term <code>X</code> <strong>identical to</strong> the term <code>kim</code>?</p></li>
+<li><p><strong>A:</strong> When we <strong>substitute</strong> <code>X</code> with the value <code>kim</code>!</p></li>
+</ul>
+<h2 id="unification-variables-1">Unification: Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-5">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<h3 id="example-6">Example</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> foo(<span class="dt">X</span>) <span class="kw">=</span> foo(kim)<span class="kw">.</span></code></pre></div>
+<ul>
+<li><p><strong>Q:</strong> When is the term <code>X</code> <strong>identical to</strong> the term <code>kim</code>?</p></li>
+<li><p><strong>A:</strong> When we <strong>substitute</strong> <code>X</code> with the value <code>kim</code>!</p></li>
+</ul>
+<h3 id="prolog-responds">Prolog Responds</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> foo(<span class="dt">X</span>) <span class="kw">=</span> foo(kim)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></code></pre></div>
+<ul>
+<li>Pretty simple…</li>
+</ul>
+<h2 id="quiz-unification-with-multiple-variables">QUIZ: Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-6">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<p>How does Prolog respond to the following query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> foo(<span class="dt">X</span><span class="kw">,</span> dog) <span class="kw">=</span> foo(cat<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><strong>A.</strong> <code>false</code></p>
+<p><strong>B.</strong> <code>X = cat, Y = cat.</code></p>
+<p><strong>C.</strong> <code>X = dog, Y = dog.</code></p>
+<p><strong>D.</strong> <code>X = dog, Y = cat.</code></p>
+<p><strong>E.</strong> <code>X = cat, Y = dog.</code></p>
+<h2 id="unification-with-multiple-variables">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-7">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<h2 id="unification-with-multiple-variables-1">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-8">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><img src="../static/img/prolog_unify_1.png" width="500" align="middle" /></p>
+<p>The <strong>top</strong> nodes of both trees have <strong>same predicate</strong> … go inside.</p>
+<h2 id="unification-with-multiple-variables-2">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-9">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><img src="../static/img/prolog_unify_2.png" width="500" align="middle" /></p>
+<p>To unify <code>X</code> and <code>cat</code> use <strong>substitution</strong> <code>X = cat</code></p>
+<h2 id="unification-with-multiple-variables-3">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-10">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><img src="../static/img/prolog_unify_3.png" width="500" align="middle" /></p>
+<p>Apply substitution <code>X = cat</code> to both terms. Move on to next leaf…</p>
+<h2 id="unification-with-multiple-variables-4">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-11">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><img src="../static/img/prolog_unify_4.png" width="500" align="middle" /></p>
+<p>To unify <code>dog</code> and <code>Y</code> use <strong>substitution</strong> <code>Y = dog</code> …</p>
+<h2 id="unification-with-multiple-variables-5">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-12">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><img src="../static/img/prolog_unify_5.png" width="500" align="middle" /></p>
+<p>… and apply substitution throughout <strong>both</strong> terms.</p>
+<h2 id="unification-with-multiple-variables-6">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-13">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><img src="../static/img/prolog_unify_6.png" width="500" align="middle" /></p>
+<p>Uh oh, now last leaf has <strong>different</strong> atoms…</p>
+<h2 id="unification-with-multiple-variables-7">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-14">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><img src="../static/img/prolog_unify_7.png" width="500" align="middle" /></p>
+<p>… impossible to unify <code>cat</code> and <code>dog</code>. <strong>Unification fails.</strong></p>
+<h2 id="unification-with-multiple-variables-8">Unification With Multiple Variables</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-15">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+<span class="kw">false.</span></code></pre></div>
+<p><img src="../static/img/prolog_unify_7.png" width="500" align="middle" /></p>
+<h2 id="quiz-recursively-unify-subtrees">QUIZ: Recursively Unify Subtrees</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-16">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<p>How does Prolog respond to the following unification query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> a(<span class="dt">W</span><span class="kw">,</span> foo(<span class="dt">W</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">=</span> a(<span class="dv">2</span><span class="kw">,</span> foo(<span class="dt">X</span><span class="kw">,</span> <span class="dv">3</span>)<span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></code></pre></div>
+<p><strong>A.</strong> <code>false.</code> (No unification possible)</p>
+<p><strong>B.</strong> <code>W = 2, X = 2, Y = 2, Z = 2.</code></p>
+<p><strong>C.</strong> <code>W = 2, X = 2, Y = 3, Z = 3.</code></p>
+<p><strong>D.</strong> <code>W = 3, X = 3, Y = 2, Z = 2.</code></p>
+<p><strong>C.</strong> <code>W = 2, X = 3, Y = 2, Z = 3.</code></p>
+<h2 id="recursively-unify-subtrees">Recursively Unify Subtrees</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-17">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<p>How does Prolog respond to the following unification query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> a(<span class="dt">W</span><span class="kw">,</span> foo(<span class="dt">W</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">=</span> a(<span class="dv">2</span><span class="kw">,</span> foo(<span class="dt">X</span><span class="kw">,</span> <span class="dv">3</span>)<span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li><p>Subst <code>W = 2</code>. Query is: <code>a(2, foo(2, Y), Y) = a(2, foo(X, 3), Z).</code></p></li>
+<li><p>Subst <code>X = 2</code>. Query is: <code>a(2, foo(2, Y), Y) = a(2, foo(2, 3), Z).</code></p></li>
+<li><p>Subst <code>Y = 3</code>. Query is: <code>a(2, foo(2, 3), 3) = a(2, foo(2, 3), Z).</code></p></li>
+<li><p>Subst <code>Z = 3</code>. Query is: <code>a(2, foo(2, 3), 3) = a(2, foo(2, 3), 3).</code></p></li>
+<li><p><strong>Done!</strong></p></li>
+</ol>
+<h2 id="recursively-unify-subtrees-1">Recursively Unify Subtrees</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-18">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<p>How does Prolog respond to the following unification query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> a(<span class="dt">W</span><span class="kw">,</span> foo(<span class="dt">W</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">=</span> a(<span class="dv">2</span><span class="kw">,</span> foo(<span class="dt">X</span><span class="kw">,</span> <span class="dv">3</span>)<span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span>
+<span class="dt">W</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">,</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">,</span>
+<span class="dt">Y</span> <span class="kw">=</span> <span class="dv">3</span><span class="kw">,</span>
+<span class="dt">Z</span> <span class="kw">=</span> <span class="dv">3</span><span class="kw">.</span></code></pre></div>
+<h2 id="quiz-recursively-unify-subtrees-1">QUIZ: Recursively Unify Subtrees</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-19">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<p>How does Prolog respond to the following unification query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> a(<span class="dt">W</span><span class="kw">,</span> foo(<span class="dt">W</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">=</span> a(<span class="dv">2</span><span class="kw">,</span> foo(<span class="dt">X</span><span class="kw">,</span> <span class="dv">3</span>)<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p><br><br></p>
+<p><strong>A.</strong> <code>false.</code> (No unification possible)</p>
+<p><strong>B.</strong> <code>W = 2, X = 2, Y = 2, Z = 2.</code></p>
+<p><strong>C.</strong> <code>W = 2, X = 2, Y = 3, Z = 3.</code></p>
+<p><strong>D.</strong> <code>W = 3, X = 3, Y = 2, Z = 2.</code></p>
+<p><strong>E.</strong> <code>W = 2, X = 3, Y = 2, Z = 3.</code></p>
+<h2 id="recursively-unify-subtrees-2">Recursively Unify Subtrees</h2>
+<h3 id="two-terms-can-be-unified-if-we-can-substitute-values-for-variables-to-make-the-terms-identical-20">Two terms can be <em>unified</em> if we can <em>substitute</em> values for variables to make the terms <em>identical</em></h3>
+<p>How does Prolog respond to the following unification query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> a(<span class="dt">W</span><span class="kw">,</span> foo(<span class="dt">W</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">=</span> a(<span class="dv">2</span><span class="kw">,</span> foo(<span class="dt">X</span><span class="kw">,</span> <span class="dv">3</span>)<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li><p>Subst <code>W = 2</code>. Query is: <code>a(2, foo(2, Y), Y) = a(2, foo(X, 3), X).</code></p></li>
+<li><p>Subst <code>X = 2</code>. Query is: <code>a(2, foo(2, Y), Y) = a(2, foo(2, 3), 2).</code></p></li>
+<li><p>Subst <code>Y = 3</code>. Query is: <code>a(2, foo(2, 3), 3) = a(2, foo(2, 3), 2).</code></p></li>
+<li><p><code>3 = 2</code> cannot be unified, <strong>Fail!</strong></p></li>
+</ol>
+<h1 id="unification-powerful-way-to-answer-queries">Unification: Powerful Way To Answer Queries</h1>
+<h2 id="unification-is-a-powerful-way-to-answer-queries">Unification is a Powerful Way To Answer Queries</h2>
+<p>When we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>  </code></pre></div>
+<p>Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).</p>
+<ul>
+<li>If <strong>unification succeeds</strong> then it replies <code>true</code>
+<ul>
+<li>And also the <strong>unifying substitutions</strong> for <code>X</code></li>
+<li>Which are the <strong>solutions</strong> for the query!</li>
+</ul></li>
+<li>If <strong>unification fails</strong> then it replies <code>false</code></li>
+</ul>
+<h2 id="unification-is-a-powerful-way-to-answer-queries-1">Unification is a Powerful Way To Answer Queries</h2>
+<p>When we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>  </code></pre></div>
+<p>Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).</p>
+<ul>
+<li>If <strong>unification succeeds</strong> then it replies <code>true</code> (and the <strong>solutions</strong> for <code>X</code>)</li>
+<li>If <strong>unification fails</strong> then it replies <code>false</code></li>
+</ul>
+<h3 id="above-query-has-one-solution">Above Query Has <strong>One Solution</strong></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>  
+<span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></code></pre></div>
+<h2 id="unification-is-a-powerful-way-to-answer-queries-2">Unification is a Powerful Way To Answer Queries</h2>
+<p>When we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span>  </code></pre></div>
+<h2 id="unification-is-a-powerful-way-to-answer-queries-3">Unification is a Powerful Way To Answer Queries</h2>
+<p>When we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span>  </code></pre></div>
+<p>Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).</p>
+<ul>
+<li>If <strong>unification succeeds</strong> then it replies <code>true</code> (and the <strong>solutions</strong> for <code>X</code>)</li>
+<li>If <strong>unification fails</strong> then it replies <code>false</code></li>
+</ul>
+<h2 id="unification-is-a-powerful-way-to-answer-queries-4">Unification is a Powerful Way To Answer Queries</h2>
+<p>When we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span>  </code></pre></div>
+<p>Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).</p>
+<ul>
+<li>If <strong>unification succeeds</strong> then it replies <code>true</code> (and the <strong>solutions</strong> for <code>X</code>)</li>
+<li>If <strong>unification fails</strong> then it replies <code>false</code></li>
+</ul>
+<h3 id="this-query-has-many-solutions">This Query Has <strong>Many Solutions</strong></h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span>  
+<span class="dt">X</span> <span class="kw">=</span> margaret <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> john     <span class="kw">.</span></code></pre></div>
+<h2 id="unification-is-a-powerful-way-to-answer-queries-5">Unification is a Powerful Way To Answer Queries</h2>
+<p>Finally, when we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>  </code></pre></div>
+<h2 id="unification-is-a-powerful-way-to-answer-queries-6">Unification is a Powerful Way To Answer Queries</h2>
+<p>Finally, when we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>  </code></pre></div>
+<p>Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).</p>
+<ul>
+<li>If <strong>unification succeeds</strong> it replies <code>true</code> (and <strong>solutions</strong> for <code>X</code>, <code>Y</code>)</li>
+<li>If <strong>unification fails</strong> it replies <code>false</code></li>
+</ul>
+<h2 id="unification-is-a-powerful-way-to-answer-queries-7">Unification is a Powerful Way To Answer Queries</h2>
+<p>Finally, when we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>  </code></pre></div>
+<p>Prolog checks if the above term <strong>can be unified</strong> with any <strong>known fact</strong> (term).</p>
+<ul>
+<li>If <strong>unification succeeds</strong> it replies <code>true</code> (and <strong>solutions</strong> for <code>X</code>, <code>Y</code>)</li>
+</ul>
+<h3 id="this-query-has-many-solutions-all-known-facts">This Query Has <strong>Many Solutions</strong>: All known facts</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">,</span>      <span class="dt">Y</span> <span class="kw">=</span> holly   <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> margaret<span class="kw">,</span> <span class="dt">Y</span> <span class="kw">=</span> kim     <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert<span class="kw">,</span>  <span class="dt">Y</span> <span class="kw">=</span> margaret<span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> john<span class="kw">,</span>     <span class="dt">Y</span> <span class="kw">=</span> kim     <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> felix<span class="kw">,</span>    <span class="dt">Y</span> <span class="kw">=</span> john    <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> albert<span class="kw">,</span>   <span class="dt">Y</span> <span class="kw">=</span> felix   <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> albert<span class="kw">,</span>   <span class="dt">Y</span> <span class="kw">=</span> dana    <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> felix<span class="kw">,</span>    <span class="dt">Y</span> <span class="kw">=</span> maya    <span class="kw">.</span></code></pre></div>
+<h1 id="unification-lets-prolog-answer-queries-magically">Unification Lets Prolog Answer Queries Magically!</h1>
+<h2 id="plan-4">Plan</h2>
+<h3 id="language-4">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li>Queries (Implementation: Unification)</li>
+<li><strong>Rules</strong></li>
+<li>Programs (Implementation: Backtracking Search)</li>
+</ol>
+<h3 id="programming-4">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<h1 id="rules">Rules</h1>
+<h1 id="digression-conjunctions-queries-about-many-terms">Digression: Conjunctions, Queries about MANY terms</h1>
+<h2 id="conjunction-comma-separated-sequence-of-terms">Conjunction: Comma-separated Sequence of terms</h2>
+<p>Often useful to ask questions over <strong>multiple</strong> terms.</p>
+<ul>
+<li>For example, to determine if <code>margaret</code> is the <strong>grandparent</strong> of <code>holly</code></li>
+</ul>
+<h2 id="conjunction-comma-separated-sequence-of-terms-1">Conjunction: Comma-separated Sequence of terms</h2>
+<p>Often useful to ask questions over <strong>multiple</strong> terms.</p>
+<ul>
+<li>For example, to determine if <code>margaret</code> is the <strong>grandparent</strong> of <code>holly</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span></code></pre></div>
+<ul>
+<li><p>Is there a person <code>X</code> who is a child of <code>margaret</code> <strong>AND</strong> a parent of <code>holly</code> ?</p></li>
+<li><p>Is there <code>X</code> s.t. <code>parent(margaret, X)</code> <strong>AND</strong> <code>parent(X, holly)</code> ?</p></li>
+</ul>
+<h2 id="conjunction-comma-separated-sequence-of-terms-2">Conjunction: Comma-separated Sequence of terms</h2>
+<p>Often useful to ask questions over <strong>multiple</strong> terms.</p>
+<ul>
+<li>For example, to determine if <code>margaret</code> is the <strong>grandparent</strong> of <code>holly</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span></code></pre></div>
+<ul>
+<li><p>Is there a person <code>X</code> who is a child of <code>margaret</code> <strong>AND</strong> a parent of <code>holly</code> ?</p></li>
+<li><p>Is there <code>X</code> s.t. <code>parent(margaret, X)</code> <strong>AND</strong> <code>parent(X, holly)</code> ?</p></li>
+</ul>
+<h3 id="apparently">Apparently</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></code></pre></div>
+<h2 id="conjunction-comma-separated-sequence-of-terms-3">Conjunction: Comma-separated Sequence of terms</h2>
+<p>Often useful to ask questions over <strong>multiple</strong> terms.</p>
+<ul>
+<li>For example, to find the <strong>great-grandparents</strong> of <code>kim</code></li>
+</ul>
+<h2 id="conjunction-comma-separated-sequence-of-terms-4">Conjunction: Comma-separated Sequence of terms</h2>
+<p>Often useful to ask questions over <strong>multiple</strong> terms.</p>
+<ul>
+<li>For example, to find the <strong>great-grandparents</strong> of <code>kim</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> parent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span></code></pre></div>
+<p><strong>Note:</strong> how we link the terms with a variable to capture relationships.</p>
+<h2 id="conjunction-comma-separated-sequence-of-terms-5">Conjunction: Comma-separated Sequence of terms</h2>
+<p>Often useful to ask questions over <strong>multiple</strong> terms.</p>
+<ul>
+<li>For example, to find the <strong>great-grandparents</strong> of <code>kim</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> parent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span></code></pre></div>
+<p><strong>Note:</strong> how we link the terms with a variable to capture relationships.</p>
+<p>Prolog finds appropriate <strong>unifiers</strong> and replies</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span>
+<span class="dt">GGP</span> <span class="kw">=</span> john<span class="kw">,</span>
+<span class="dt">GP</span>  <span class="kw">=</span> felix<span class="kw">,</span>
+<span class="dt">P</span>   <span class="kw">=</span> albert<span class="kw">.</span></code></pre></div>
+<p>i.e. <code>john</code> is a <strong>great-grandparent</strong> following the above chain.</p>
+<h2 id="quiz-conjunctions">QUIZ: Conjunctions</h2>
+<p>Which of these queries is true iff <code>margaret</code> and <code>kim</code> are (half-) <strong>siblings</strong>?</p>
+<p><strong>A.</strong> <code>parent(margaret, kim)</code></p>
+<p><strong>B.</strong> <code>parent(margaret, X), parent(X, kim).</code></p>
+<p><strong>C.</strong> <code>parent(kim, X), parent(X, margaret).</code></p>
+<p><strong>D.</strong> <code>parent(margaret, X), parent(kim, X).</code></p>
+<p><strong>E.</strong> <code>parent(X, margaret), parent(X, kim).</code></p>
+<h2 id="recap-conjunctions">Recap: Conjunctions</h2>
+<ul>
+<li><p>Conjunctions let us mine the database for complex relationships…</p></li>
+<li><p>… but its cumbersome to <strong>repeatedly</strong> write down long queries</p></li>
+<li><p>We need a way to <strong>compose</strong> complex queries from simple queries…</p></li>
+</ul>
+<h1 id="rules-1">Rules</h1>
+<h2 id="rules-complex-predicates-from-simple-queries">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="format">Format</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">headQuery <span class="kw">:-</span> condQuery1<span class="kw">,</span> condQuery2<span class="kw">,</span> condQuery3<span class="kw">,</span>...</code></pre></div>
+<h2 id="rules-complex-predicates-from-simple-queries-1">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="format-1">Format</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">headQuery <span class="kw">:-</span> condQuery1<span class="kw">,</span> condQuery2<span class="kw">,</span> condQuery3<span class="kw">,</span>...</code></pre></div>
+<p><br><br></p>
+<h3 id="intuition-1-forwards">Intuition 1 (Forwards)</h3>
+<ul>
+<li><p><strong>If</strong> you can prove <code>condQuery1</code> <strong>AND</strong> <code>condQuery2</code> <strong>AND</strong> <code>...</code></p></li>
+<li><p><strong>Then</strong> you can prove <code>headQuery</code></p></li>
+</ul>
+<h2 id="rules-complex-predicates-from-simple-queries-2">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="format-2">Format</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">headQuery <span class="kw">:-</span> condQuery1<span class="kw">,</span> condQuery2<span class="kw">,</span> condQuery3<span class="kw">,</span>...</code></pre></div>
+<p><br><br></p>
+<h3 id="intuition-2-backwards">Intuition 2 (Backwards)</h3>
+<ul>
+<li><p>To prove the <strong>goal</strong> <code>headQuery</code> …</p></li>
+<li><p>Prove <strong>subgoals</strong> <code>condQuery1</code> <strong>AND</strong> <code>condQuery2</code> <strong>AND</strong> …</p></li>
+</ul>
+<h2 id="rules-complex-predicates-from-simple-queries-3">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="an-example-defining-a-grandparent-predicate">An Example: Defining a <code>grandparent</code> predicate</h3>
+<ul>
+<li><p>Our database includes a <code>parent</code> predicate</p></li>
+<li><p>Let us use it to <strong>define</strong> a <code>grandparent</code> predicate</p></li>
+</ul>
+<h2 id="rules-complex-predicates-from-simple-queries-4">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="an-example-defining-a-grandparent-predicate-1">An Example: Defining a <code>grandparent</code> predicate</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<p><br></p>
+<h3 id="intuition">Intuition</h3>
+<p><code>GP</code> is a <em>grandparent</em> of <code>GC</code> if <code>GP</code> is a <em>parent</em> of <code>P</code> <strong>and</strong> <code>P</code> is a <em>parent</em> of <code>GC</code></p>
+<h2 id="rules-complex-predicates-from-simple-queries-5">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="an-example-defining-a-grandparent-predicate-2">An Example: Defining a <code>grandparent</code> predicate</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<h3 id="querying-the-defined-predicate">Querying The Defined Predicate</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> grandparent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span> <span class="co">% who are the grandparents of kim</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert <span class="kw">;</span>           <span class="co">% hit ; to see next</span>
+<span class="dt">X</span> <span class="kw">=</span> felix   <span class="kw">;</span>           <span class="co">% hit ; to see next</span>
+<span class="kw">false.</span>                  <span class="co">% thats it!</span></code></pre></div>
+<h2 id="rules-complex-predicates-from-simple-queries-6">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="an-example-defining-a-grandparent-predicate-3">An Example: Defining a <code>grandparent</code> predicate</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<h3 id="querying-the-defined-predicate-1">Querying The Defined Predicate</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> grandparent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span> <span class="co">% who are the grandparents of kim</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert <span class="kw">;</span>           <span class="co">% hit ; to see next</span>
+<span class="dt">X</span> <span class="kw">=</span> felix   <span class="kw">;</span>           <span class="co">% hit ; to see next</span>
+<span class="kw">false.</span>                  <span class="co">% thats it!</span></code></pre></div>
+<h3 id="how-because-prolog-can-prove">How? Because Prolog can prove</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(herbert<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span>  <span class="co">%% Solution 1. X = herbert</span>
+<span class="dt">P</span> <span class="kw">=</span> margaret<span class="kw">.</span>
+
+<span class="fu">?-</span> parent(felix<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span>    <span class="co">%% Solution 2. X = felix</span>
+<span class="dt">P</span> <span class="kw">=</span> john <span class="kw">.</span></code></pre></div>
+<h2 id="quiz-complex-predicates-from-simple-queries">QUIZ: Complex Predicates from Simple Queries</h2>
+<p>Which of the following is a valid <code>greatgrandparent</code> predicate?</p>
+<p>(Btw, <strong>greatgrandparent</strong> is the <strong>parent</strong> of a <strong>grandparent</strong>.)</p>
+<p>bob -&gt; sachin -&gt; krishna -&gt; ranjit</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% A</span>
+greatgrandparent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> grandparent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% B</span>
+greatgrandparent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> grandparent(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% C</span>
+greatgrandparent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> grandparent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> parent(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% D</span>
+greatgrandparent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> parent(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% E  </span>
+greatgrandparent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> parent(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Z1</span>)<span class="kw">,</span> parent(<span class="dt">Z1</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>anc(albert,DESC) parent(albert, felix) ==&gt; anc(felix, DESC) parent(albert, dana) ==&gt; anc(dana, DESC)</p>
+<p>anc(X, Y) :- anc(Z1, Y), parent(X, Z1).</p>
+<p>anc(albert,DESC) anc(Z1, DESC) anc(Z1’, DESC) anc(Z1’‘, DESC) anc(Z1’’’, DESC)</p>
+<h2 id="rules-complex-predicates-from-simple-queries-7">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="an-example-defining-a-greatgrandparent-predicate">An Example: Defining a <code>greatgrandparent</code> predicate</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<h2 id="rules-complex-predicates-from-simple-queries-8">Rules: Complex Predicates from Simple Queries</h2>
+<h3 id="an-example-defining-a-greatgrandparent-predicate-1">An Example: Defining a <code>greatgrandparent</code> predicate</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<h3 id="querying-the-defined-predicate-2">Querying The Defined Predicate</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> greatgrandparent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert<span class="kw">.</span></code></pre></div>
+<h1 id="that-was-our-first-prolog-program">That was our first Prolog program!</h1>
+<h2 id="plan-5">Plan</h2>
+<h3 id="language-5">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li>Queries (Implementation: Unification)</li>
+<li>Rules</li>
+<li><strong>Programs</strong> (Implementation: Backtracking Search)</li>
+</ol>
+<h3 id="programming-5">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<h1 id="prolog-programs-facts-rules">Prolog Programs = Facts + Rules!</h1>
+<h2 id="prolog-programs-facts-rules-1">Prolog Programs = Facts + Rules!</h2>
+<p>Facts and Rules are two kinds of <strong>clauses</strong></p>
+<ul>
+<li><p><strong>Fact:</strong> Clause <strong>without</strong> any conditions</p></li>
+<li><p><strong>Rules:</strong> Clause <strong>with</strong> conditions</p></li>
+</ul>
+<h3 id="programs">Programs</h3>
+<ul>
+<li><p>Basic Facts / Predicates</p></li>
+<li><p>Rules for <strong>generating</strong> new Facts / Predicates</p></li>
+</ul>
+<h2 id="prolog-programs-facts-rules-2">Prolog Programs = Facts + Rules!</h2>
+<p>Complex Programs need Complex Predicates with Multiple Rules</p>
+<ol style="list-style-type: decimal">
+<li><p>Scope</p></li>
+<li><p>Multiple Rules: Disjunction</p></li>
+<li><p>Multiple Rules: Recursion</p></li>
+</ol>
+<h2 id="prolog-programs-facts-rules-3">Prolog Programs = Facts + Rules!</h2>
+<p>Complex Programs need Complex Predicates with Multiple Rules</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Scope</strong></p></li>
+<li><p>Multiple Rules: Disjunction</p></li>
+<li><p>Multiple Rules: Recursion</p></li>
+</ol>
+<h2 id="programs-facts-rules-scope">Programs = Facts + Rules : Scope</h2>
+<p>A word about <strong>scope</strong>.</p>
+<p>In the <code>grandparent</code> rule, the variable <code>GP</code> appears <strong>twice</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<h3 id="scope-all-variables-are-local-to-a-single-rule">Scope: All Variables Are Local To A Single Rule</h3>
+<ul>
+<li><p>In Prolog, the scope of a variable is the <strong>single</strong> rule containing it.</p></li>
+<li><p>There is <strong>no connection</strong> between variables <strong>across</strong> rules.</p></li>
+</ul>
+<h2 id="programs-facts-rules-scope-1">Programs = Facts + Rules : Scope</h2>
+<p>A word about <strong>scope</strong>.</p>
+<h3 id="scope-all-variables-are-local-to-a-single-rule-1">Scope: All Variables Are Local To A Single Rule</h3>
+<ul>
+<li><p>In Prolog, the scope of a variable is the <strong>single</strong> rule containing it.</p></li>
+<li><p>There is <strong>no connection</strong> between variables <strong>across</strong> rules.</p></li>
+</ul>
+<h3 id="example-7">Example</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">foo(<span class="dt">P</span>)   <span class="kw">:-</span> bar(<span class="dt">P</span>)<span class="kw">.</span>     <span class="co">% There is no connection between P</span>
+stuff(<span class="dt">P</span>) <span class="kw">:-</span> thing(<span class="dt">P</span>)<span class="kw">.</span>   <span class="co">% across the two rules</span></code></pre></div>
+<h2 id="prolog-programs-facts-rules-4">Prolog Programs = Facts + Rules!</h2>
+<p>Complex Programs need Complex Predicates with Multiple Rules</p>
+<ol style="list-style-type: decimal">
+<li><p>Scope</p></li>
+<li><p><strong>Multiple Rules: Disjunction</strong></p></li>
+<li><p>Multiple Rules: Recursion</p></li>
+</ol>
+<h2 id="complex-predicates-disjunction">Complex Predicates: Disjunction</h2>
+<p>Lets write a predicate <code>has_family</code> which is true for persons who</p>
+<ul>
+<li><p><strong>either</strong> have a parent</p></li>
+<li><p><strong>or</strong> have a child</p></li>
+</ul>
+<h2 id="complex-predicates-disjunction-1">Complex Predicates: Disjunction</h2>
+<p>Lets write a predicate <code>has_family</code> which is true for persons who</p>
+<ul>
+<li><p><strong>either</strong> have a parent</p></li>
+<li><p><strong>or</strong> have a child</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span>
+has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></code></pre></div>
+<p><code>_</code> is a <em>wildcard</em> or <em>dont-care</em> variable (as in ML, Scala)</p>
+<h3 id="disjunction-via-multiple-rules">Disjunction via Multiple Rules</h3>
+<ul>
+<li><p><strong>If</strong> we can prove <code>parent(X, _)</code> <strong>Then</strong> we can prove <code>has_family(X)</code></p></li>
+<li><p><strong>If</strong> we can prove <code>parent(_, X)</code> <strong>Then</strong> we can prove <code>has_family(X)</code></p></li>
+</ul>
+<h2 id="complex-predicates-disjunction-2">Complex Predicates: Disjunction</h2>
+<p>Lets write a predicate <code>has_family</code> which is true for persons who</p>
+<ul>
+<li><p><strong>either</strong> have a parent</p></li>
+<li><p><strong>or</strong> have a child</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span>
+has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></code></pre></div>
+<h3 id="executing-the-query">Executing the Query</h3>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> has_family(holly)<span class="kw">.</span>
+<span class="kw">true.</span>  <span class="co">% Second rule fires for holly</span>
+
+<span class="fu">?-</span> has_family(mugatu)<span class="kw">.</span>
+<span class="kw">false.</span> <span class="co">% Neither rule fires for mugatu</span></code></pre></div>
+<h2 id="complex-predicates-disjunction-3">Complex Predicates: Disjunction</h2>
+<p>Lets write a predicate <code>has_family</code> which is true for persons who</p>
+<ul>
+<li><p><strong>either</strong> have a parent</p></li>
+<li><p><strong>or</strong> have a child</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span>
+has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></code></pre></div>
+<p>Can be abbreviated to</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>) <span class="kw">;</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p>Semicolon <code>;</code> indicates disjunction.</p>
+<h2 id="prolog-programs-facts-rules-5">Prolog Programs = Facts + Rules!</h2>
+<p>Complex Programs need Complex Predicates with Multiple Rules</p>
+<ol style="list-style-type: decimal">
+<li><p>Scope</p></li>
+<li><p>Multiple Rules: Disjunction</p></li>
+<li><p><strong>Multiple Rules: Recursion</strong></p></li>
+</ol>
+<h2 id="complex-predicates-recursion">Complex Predicates: Recursion</h2>
+<p>Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if</p>
+<ul>
+<li><p><code>parent(Anc, Child)</code> … <strong>or</strong></p></li>
+<li><p><code>parent(Anc, P)</code> and <code>parent(P, Child)</code> … <strong>or</strong></p></li>
+<li><p><code>parent(Anc, GP)</code> and <code>parent(GP, P)</code> and <code>parent(P, Child)</code> … <strong>or</strong></p></li>
+<li><p>… if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.</p></li>
+</ul>
+<h2 id="complex-predicates-recursion-1">Complex Predicates: Recursion</h2>
+<p>Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if</p>
+<p>… if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.</p>
+<h3 id="base-case">Base Case</h3>
+<ul>
+<li><p>If <code>Anc</code> is the parent of <code>Child</code></p></li>
+<li><p><code>ancestor(Anc, Child) :- parent(Anc, Child).</code></p></li>
+</ul>
+<h3 id="inductive-case">Inductive Case</h3>
+<ul>
+<li><p>If <code>P</code> is the parent of <code>Child</code> and <code>Anc</code> is an <strong>ancestor</strong> of <code>P</code></p></li>
+<li><p><code>ancestor(Anc, Child) :- parent(P, Child), ancestor(Anc, P).</code></p></li>
+</ul>
+<h2 id="complex-predicates-recursion-2">Complex Predicates: Recursion</h2>
+<p>Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if</p>
+<p>… if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>) <span class="kw">:-</span> parent(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>)<span class="kw">.</span>
+ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Child</span>)<span class="kw">,</span> ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></code></pre></div>
+<h2 id="complex-predicates-recursion-3">Complex Predicates: Recursion</h2>
+<p>Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if</p>
+<p>… if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>) <span class="kw">:-</span> parent(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>)<span class="kw">.</span>
+ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Child</span>)<span class="kw">,</span> ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></code></pre></div>
+<p>Lets take it out for a spin!</p>
+<p>First, lets find <strong>descendants</strong> (forwards)</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> ancestor(kim<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> holly<span class="kw">.</span></code></pre></div>
+<h2 id="complex-predicates-recursion-4">Complex Predicates: Recursion</h2>
+<p>Lets write a predicate <code>ancestor(Anc, Child)</code> which is true if</p>
+<p>… if <strong>some</strong> chain of parent-links holds between <code>Anc</code> and <code>Child</code>.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>) <span class="kw">:-</span> parent(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>)<span class="kw">.</span>
+ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">Child</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Child</span>)<span class="kw">,</span> ancestor(<span class="dt">Anc</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></code></pre></div>
+<p>Lets take it out for a spin!</p>
+<p>Next, lets find <strong>ancestors</strong> (backwards)</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> ancestor(<span class="dt">X</span><span class="kw">,</span>kim)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> margaret  <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> john      <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert   <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> felix     <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> albert    <span class="kw">.</span></code></pre></div>
+<p><code>kim</code> has a long ancestry!</p>
+<h1 id="pretty-neat-go-forward-or-back-in-just-2-lines">Pretty neat: go forward or back, in just 2 lines…</h1>
+<h1 id="try-doing-that-in-any-other-language">…Try doing that in any other language!</h1>
+<h2 id="plan-6">Plan</h2>
+<h3 id="language-6">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li>Queries (Implementation: Unification)</li>
+<li>Rules</li>
+<li>Programs (Implementation: <strong>Backtracking Search</strong>)</li>
+</ol>
+<p id="section"></p>
+<p id="section-1"></p>
+<p id="section-2"></p>
+<h3 id="backtracking-search">Backtracking Search</h3>
+<p>TBD</p>
+<h3 id="order-matters">Order Matters!</h3>
+<p>TBD</p>
+<h3 id="language-7">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li>Queries (Implementation: Unification)</li>
+<li>Rules</li>
+<li><strong>Programs</strong> (Implementation: Backtracking)</li>
+</ol>
+<h3 id="programming-6">Programming</h3>
+<ul>
+<li><strong>Numeric Computation</strong></li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<h3 id="backtracking-search-1">Backtracking Search</h3>
+<p>How does prolog answer recursive queries?</p>
+<ul>
+<li>Brute force <em>backtracking search</em></li>
+</ul>
+<p>View each clause as a <strong>proof rule</strong>:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">goal <span class="kw">:-</span> subgoal_1<span class="kw">,</span> subgoal_2<span class="kw">,</span>...</code></pre></div>
+<p>Thus, the rules for ancestor are as follows:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>			<span class="co">%rule 1</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">Z</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">,</span>ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Z</span>)<span class="kw">.</span>	<span class="co">%rule 2</span></code></pre></div>
+<p>To prolog, these rules mean “to prove <code>ancestor(X,Y)</code>, try to:</p>
+<ol style="list-style-type: decimal">
+<li>Prove the <em>subgoal</em> <code>parent(X,Y)</code>, or, <strong>failing that</strong>,</li>
+<li>Prove the <em>subgoal</em> <code>parent(X,Z), **and then** the subgoal</code>ancestor(X,Z)`.</li>
+</ol>
+<p>Suppose we ask it the query:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></code></pre></div>
+<p>To prove this query, it undertakes the following backtracking search:</p>
+<ul>
+<li><strong>NOTE</strong> there are multiple <code>Z</code> variables (<code>Z'</code> and <code>Z''</code> …)</li>
+<li>These are introduced each time the corresponding sub-goals are triggered.</li>
+</ul>
+<pre><code>		ancestor(felix,holly)?
+		  /		                \
+  parent(felix,holly)    parent(Z,holly)
+	  NO		               ancestor(felix,Z)
+				|
+				| Z = kim  (by fact)
+				|
+			  ancestor(felix,kim)
+			  /                \
+	  parent(felix,kim)     parent(Z',kim)
+	      NO                ancestor(felix,Z')  ----------|
+			                     |                            | Z'=john
+		           Z'=margaret |                            |
+				          |                             ancestor(felix,john)
+		      ancestor(felix,margaret)                      |
+		              /        \                      parent(felix,john)
+	parent(felix,margaret)   parent(Z'',margaret)         YES
+		          NO           ancestor(felix,Z'')
+                                      |
+		                    Z'' = herbert |
+		                                  |
+			                  ancestor(felix, herbert)
+			                 /              |
+		 parent(felix,herbert)   parent(Z''',herbert)
+		            NO			             NO</code></pre>
+<h3 id="queries-with-variables-7">Queries with Variables</h3>
+<p><em>Backtracking Search</em> is done for <strong>every</strong> query.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">  <span class="fu">?-</span> ancestor(<span class="dt">X</span><span class="kw">,</span>kim)<span class="kw">.</span></code></pre></div>
+<ul>
+<li>Prolog does the proof search</li>
+<li>Returns <strong>all</strong> unifiers for <code>X</code> for which the proof succeeds with <code>YES</code>.</li>
+</ul>
+<p>That is, literally programming by proving.</p>
+<p><strong>Hint:</strong> Trace mode in prolog shows the tree:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> trace<span class="kw">.</span>
+<span class="fu">?-</span> help(trace)<span class="kw">.</span></code></pre></div>
+<p>The subsequent query is traced…</p>
+<h3 id="order-is-very-important">Order is Very Important!</h3>
+<ul>
+<li>Order of clauses &amp; terms influences unification &amp; backtracking.</li>
+</ul>
+<p>For each</p>
+<ul>
+<li><strong>goal</strong> different clauses are selected in order,</li>
+<li><strong>clause</strong> subgoals unified from <strong>left-to-right</strong>.</li>
+</ul>
+<h3 id="bad-order-causes-non-termination">Bad Order Causes Non-Termination!</h3>
+<p>So, different orders of recursive sub-query can cause <strong>non-termination</strong></p>
+<p>Suppose we wrote:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Z</span>)<span class="kw">,</span> parent(<span class="dt">Z</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>Then we see:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">    <span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></code></pre></div>
+<p>Why? The search tree looks like this now!</p>
+<pre><code>		ancestor(felix,holly)?
+		  |
+			|
+			|
+		ancestor(felix,Z)  %prove first subgoal,
+			|          %then parent(Z,holly)
+			|
+			|
+		ancestor(felix,Z') %prove first subgoal,
+			|	   %then parent(Z',Z)
+			|
+			|
+		ancestor(felix,Z'')
+			.
+			.
+			.</code></pre>
+<h3 id="to-avoid-stack-overflow">To Avoid Stack Overflow</h3>
+<ul>
+<li><p>Place the <code>parent</code> subgoal <strong>first</strong> (in the recursive rule).</p></li>
+<li><p>Then unification with the base facts (parent), <strong>fixes</strong> <code>Z</code></p></li>
+<li><p>Thereby guaranteeing termination.</p></li>
+</ul>
+<h3 id="quiz">QUIZ</h3>
+<p>Which of these will terminate?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% A</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Z</span>)<span class="kw">,</span> parent(<span class="dt">Z</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% B</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Z</span>)<span class="kw">,</span> parent(<span class="dt">Z</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% C</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">Z</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">,</span> ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Z</span>)<span class="kw">.</span>
+
+<span class="co">% D</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">Z</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">,</span> ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Z</span>)<span class="kw">.</span>
+ancestor(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<h3 id="quiz-1">QUIZ</h3>
+<p>Lets define a <code>sibling</code> predicate:</p>
+<ul>
+<li><code>sibling(X, Y)</code> if <code>X</code> and <code>Y</code> have the same <code>parent</code>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% A</span>
+sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% B</span>
+sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% C</span>
+sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<h3 id="ordering-and-unification">Ordering and Unification</h3>
+<p>Unfortunately to <code>prolog</code></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span></code></pre></div>
+<p>is <strong>always true</strong>, and so the <code>not</code> <strong>always fails</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span>
+<span class="kw">false.</span></code></pre></div>
+<p>So the following query <strong>always fails</strong></p>
+<ul>
+<li>if <code>X</code> and <code>Y</code> are variables!</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<h3 id="ensure-disequality-check-after-unification">Ensure Disequality Check After Unification</h3>
+<p><strong>Solution</strong></p>
+<ul>
+<li>Ensure goal <code>not(X=Y)</code> fires <strong>after</strong> <code>X</code> and <code>Y</code> are <strong>unified to atoms</strong></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>and now we get:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">    <span class="fu">?-</span> sibling(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+    <span class="dt">X</span> <span class="kw">=</span> john
+    <span class="dt">Y</span> <span class="kw">=</span> maya <span class="kw">;</span>
+
+    <span class="dt">X</span> <span class="kw">=</span> felix
+    <span class="dt">Y</span> <span class="kw">=</span> dana <span class="kw">;</span>
+
+    <span class="dt">X</span> <span class="kw">=</span> dana
+    <span class="dt">Y</span> <span class="kw">=</span> felix <span class="kw">;</span>
+
+    <span class="dt">X</span> <span class="kw">=</span> maya
+    <span class="dt">Y</span> <span class="kw">=</span> john <span class="kw">;</span>
+    <span class="dt">No</span></code></pre></div>
+<h2 id="programming-7">Programming</h2>
+<p>Next, lets do some <em>programmaing</em> in prolog.</p>
+<ul>
+<li><strong>Numeric Computation</strong></li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<h3 id="numeric-computation">Numeric Computation</h3>
+<p>Two big problems:</p>
+<ol style="list-style-type: decimal">
+<li><p>How do we even <em>evaluate</em>? e.g. <code>2 + 3</code> ?</p></li>
+<li><p>How do we write <strong>functions</strong> e.g. <code>let add x y = x + y</code> ?</p></li>
+</ol>
+<h3 id="problem-1-how-to-evaluate">Problem 1: How to Evaluate?</h3>
+<ul>
+<li>Everything is a <em>term</em> and <code>=</code> is a <strong>unification</strong> operator:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></code></pre></div>
+<ul>
+<li>Pfft. To “compute” we need some <strong>evaluation</strong> mechanism!</li>
+</ul>
+<h3 id="evaluation-with-the-is-operator">Evaluation with the <code>is</code> Operator</h3>
+<p>The <code>is</code> operator lets us <strong>evaluate</strong> terms:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">2</span> <span class="dt">+</span> <span class="dv">3</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">5</span><span class="kw">.</span></code></pre></div>
+<p>To solve <code>is</code> goal <code>TERM1 is TERM2</code>, prolog:</p>
+<ol style="list-style-type: decimal">
+<li>**Evaluates* <code>TERM2</code> and <em>then</em></li>
+<li><strong>Unifies</strong> result with <code>TERM1</code>.</li>
+</ol>
+<p>However, watch out!</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">X</span><span class="dv">+2</span><span class="kw">,</span> <span class="dt">X</span><span class="kw">=</span><span class="dv">1</span><span class="kw">.</span>
+<span class="dt">ERROR</span><span class="fu">:</span> <span class="dt">Args</span> are not sufficiently instantiated
+
+<span class="fu">?-</span> <span class="dt">X</span><span class="kw">=</span><span class="dv">1</span><span class="kw">,</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">X</span><span class="dv">+2</span><span class="kw">.</span>
+<span class="dt">X</span><span class="kw">=</span><span class="dv">1</span>
+<span class="dt">Y</span><span class="kw">=</span><span class="dv">3</span></code></pre></div>
+<ul>
+<li><p>Variables must solved to numbers <strong>before</strong> evaluation.</p></li>
+<li><p><strong>Order of evaluation matters!</strong></p></li>
+</ul>
+<h3 id="numeric-computation-1">Numeric Computation</h3>
+<p>Two big problems:</p>
+<ol style="list-style-type: decimal">
+<li><p>How do we even <em>evaluate</em>? e.g. <code>2 + 1</code> ?</p></li>
+<li><p>How do we write <strong>functions</strong> e.g. <code>let incr x = x + 1</code> ?</p></li>
+</ol>
+<h3 id="problem-2-how-to-write-functions">Problem 2: How to Write Functions?</h3>
+<p>Oops. <strong>Everything is a predicate</strong> in prolog!</p>
+<ul>
+<li>Facts are the basic predicates, and</li>
+<li>Rules let us get new facts from the basic ones.</li>
+</ul>
+<p>How can we even <em>represent</em> a <strong>function</strong> e.g.</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> add x y = x + y</code></pre></div>
+<p>using predicates?</p>
+<h3 id="quiz-2">QUIZ</h3>
+<p>Which of the following represents <code>let add x y = x + y</code>?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% A</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">Z</span> <span class="dt">is</span> <span class="dt">X</span> <span class="dt">+</span> <span class="dt">Y</span><span class="kw">.</span>         <span class="co">% wtf is Z ?</span>
+
+<span class="co">% B</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">Z</span> <span class="dt">is</span> <span class="dt">X</span> <span class="dt">+</span> <span class="dt">Y</span><span class="kw">.</span>      <span class="co">% wtf is Z ?</span>
+
+<span class="co">% C</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% D</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span><span class="kw">.</span>
+
+<span class="co">% E</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">Z</span><span class="kw">.</span></code></pre></div>
+<h3 id="functions-as-predicates">Functions as Predicates</h3>
+<p>Every <strong>function</strong> of the form:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> foo x y = out</code></pre></div>
+<p>corresponds to a <strong>predicate</strong> of the form:</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">fooP(<span class="dt">X</span>, <span class="dt">Y</span>, <span class="dt">OUT</span>).</code></pre></div>
+<p>i.e. a predicate that is <code>True</code> for those triples <code>(X, Y, OUT)</code> s.t.</p>
+<ul>
+<li>The function <code>foo X Y</code> evaluated to <code>OUT</code>!</li>
+</ul>
+<p>The <code>predicate</code> captures the <strong>input-output relation</strong> of the function.</p>
+<h3 id="factorial">Factorial</h3>
+<p>Lets write a predicate capturing the IO relationship of <code>factorial</code>:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">factorial(<span class="dt">X</span><span class="kw">,</span> <span class="dt">OUT</span>)</code></pre></div>
+<p>holds only when <code>OUT</code> is the factorial of <code>X</code>.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">**</span><span class="dt">DO</span> <span class="dt">IN</span> <span class="dt">CLASS</span><span class="fu">**</span></code></pre></div>
+<p>When we are done, we can <strong>call</strong> the function with a query:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">	<span class="fu">?-</span> factorial(<span class="dv">0</span><span class="kw">,</span> <span class="dt">OUT</span>)<span class="kw">.</span>
+	<span class="dt">OUT</span> <span class="kw">=</span> <span class="dv">1</span>
+
+	<span class="fu">?-</span> factorial(<span class="dv">5</span><span class="kw">,</span> <span class="dt">OUT</span>)<span class="kw">.</span>
+	<span class="dt">OUT</span> <span class="kw">=</span> <span class="dv">120</span></code></pre></div>
+<h3 id="programming-8">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li><strong>Data Structures</strong></li>
+<li>Puzzle Solving</li>
+</ul>
+<h3 id="data-structures-lists">Data Structures: Lists</h3>
+<p>TBD</p>
+<h3 id="programming-9">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li><strong>Puzzle Solving</strong></li>
+</ul>
+<h3 id="data-structures-accumulators">Data Structures: Accumulators</h3>
+<p>TBD</p>
+<h3 id="puzzle-solving">Puzzle Solving</h3>
+<ul>
+<li>Towers of Hanoi</li>
+<li>Farmer, Wolf, Goat, Cabbage</li>
+</ul>
+<h3 id="towers-of-hanoi">Towers of Hanoi</h3>
+<p>TBD</p>
+<h3 id="farmer-wolf-goat-cabbage">Farmer, Wolf, Goat, Cabbage</h3>
+<p>TBD</p>
                 <hr>
             </div>
         </div>
