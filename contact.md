@@ -6,18 +6,22 @@ headerImg: world-map.jpg
 ## Co-ordinates
 
 - **Course ID:**         903734  
-- **Lectures:**          MWF 9:00-9:50p in WLH 2005
-- **Section:**           TBD
-- **Final:**             Wednesday June 14 8-11 AM.
-- **Announcements:**     [Posted on Piazza. Please check often!](https://www.piazza.com/ucsd/fall2016/cse131/)
+- **Lectures:**          MWF 1:00-1:50pm in CENTR 119
+- **Section:**           W 9:00-9:50pm in CENTR 115
+- **Final:**             Monday June 11 7-10pm
+- **Announcements:**     [Posted on Piazza. Please check often!](https://www.piazza.com/ucsd/fall2018/cse130/)
 
 
 ## Instructor
 
-* [Ranjit Jhala](http://ranjitjhala.github.io)
+* [Nadia Polikarpova](https://cseweb.ucsd.edu/~npolikarpova/)
 
 ## Teaching Assistants
 
-* [Eric Seidel](http://www.cs.ucsd.edu/~eseidel)
 * [Valentin Robert](http://www.cs.ucsd.edu/~vrobert)
-* [Mario Alvarez](http://www.cs.ucsd.edu/~mmalvare)
+* Joseph Geumlek
+* Sourav Anand
+
+## Tutors
+* Purag Moumdjan
+* David Justo
