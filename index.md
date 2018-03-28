@@ -25,7 +25,7 @@ experimentation.
 
 University rules on integrity of scholarship will be strictly enforced. By
 taking this course, you implicitly agree to abide by the UCSD Policy on
-Integrity of Scholarship described [here](http://www-senate.ucsd.edu/manual/Appendices/app2.htm).
+Integrity of Scholarship described [here](https://senate.ucsd.edu/Operating-Procedures/Senate-Manual/appendices/2).
 In particular,
 
 > all academic work will be done by the student to whom it is assigned,
