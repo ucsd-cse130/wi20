@@ -8,7 +8,7 @@ headerImg: angles.jpg
 Programming Languages are the duct tape, bricks, mortar
 and steel of the information age. Over the last thirty
 years, a variety of languages with diverse features have
-been developed, expressive radically different perspectives
+been developed, expressing radically different perspectives
 of the idea of computation. CSE 130 is an introduction to
 these different perspectives, the fundamental concepts of
 languages, and how modern language techniques and idioms

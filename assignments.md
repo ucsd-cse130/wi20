@@ -27,11 +27,6 @@ mins over the deadline is equal to 1 late day.
 
 ## Sample Exam Questions
 
-- [SHW #1](static/raw/shw1.html),
-  [SHW #2](static/raw/shw2.html),
-  [SHW #3](static/raw/shw3.html),
-  [SHW #4](static/raw/shw4.html).
-
 - [Sample 1](static/raw/sample-questions1-scala.txt),
   [Sample 2](static/raw/sample-questions2.html)
 
