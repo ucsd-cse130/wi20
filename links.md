@@ -53,6 +53,7 @@ important.
 - [Haskell Wiki Book](http://en.wikibooks.org/wiki/Haskell)
 
 
+<!--
 ## OCaml
 
 - [How to run Ocaml in lab](/homeworks/info_ocaml.html)
@@ -74,6 +75,7 @@ important.
 - [Scala For Java Programmers](http://www.scala-lang.org/docu/files/ScalaTutorial.pdf)
 - [Scala By Example](http://www.scala-lang.org/docu/files/ScalaByExample.pdf)
 - [More Tutorials](http://www.scala-lang.org/node/1305)
+-->
 
 ## Prolog
 
