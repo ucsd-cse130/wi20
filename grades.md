@@ -22,7 +22,7 @@ headerImg: beach.jpg
   double-sided **"cheat sheet"**.
 
 - **Final (35%)** :
-  Will be held on **Wednesday June 14th, from 8.00am -- 11:00pm** in WLH 2005.
+  Will be held on **Monday June 11th, from 7:00pm -- 10:00pm** in TBD.
   It **must** be taken at the scheduled time and location.
   To turn in your completed final examination, you must
   present a valid UCSD ID at the time the examination
@@ -34,4 +34,4 @@ headerImg: beach.jpg
 - **Piazza (5%)** : 
   Extra credit for top-20 best participants on Piazza.
 
-[clickers]: https://goo.gl/forms/yk1BzTlgAcBlrBLv1
+[clickers]: https://goo.gl/forms/lL9oqtwf4nMwaRR63
