@@ -7,7 +7,7 @@ Lecture schedule is subject to change!
 
 | Date       | Topic                         | Notes                     |  Code         |
 |:----------:|:------------------------------|:-------------------------:|:-------------:|
-| 4/2        | Hello, World!                 |                           |               |            
+| 4/2        | Hello, World!                 | [html][lec0]              |               |            
 | 4/4        | The Lambda Calculus           |                           |               |
 | 4/6        | contd.                        |                           |               |
 | 4/9        | contd.                        |                           |               |
@@ -22,8 +22,8 @@ Lecture schedule is subject to change!
 | 4/30       | Higher Order Functions        |                           |               |
 | 5/2        | contd.                        |                           |               |
 | 5/4        | contd.                        |                           |               |
-| 5/7        | Environments and Closures     |                           |               |
-| 5/9        | contd.                        |                           |               |
+| 5/7        | **Midterm**                   |                           |               |
+| 5/9        | Environments and Closures     |                           |               |
 | 5/11       | contd.                        |                           |               |
 | 5/14       | Lexing and Parsing            |                           |               |
 | 5/16       | contd.                        |                           |               |
@@ -35,6 +35,7 @@ Lecture schedule is subject to change!
 | 6/4        | contd.                        |                           |               |
 | 6/6        | contd.                        |                           |               |
 | 6/8        | contd.                        |                           |               |
+| 6/11       | **Final**                     |                           |               |
 
 <!--
 ## Interesting Piazza Questions

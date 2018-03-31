@@ -4,12 +4,93 @@ headerImg: sea.jpg
 date: 2017-03-28
 ---
 
+## Who am I?
+
+![Nadia Polikarpova](https://cseweb.ucsd.edu/~npolikarpova/images/nadia_polikarpova.jpg){#fig:nadia .align-center width=25%}
+
+- Assistnat professor at CSE since Sept 2017
+- PhD at ETH Zurich
+- Postdoc at MIT
+
+### My Research
+
+- Software Verification: how to prove software is doing the right thing?
+- Software Synthesis: how to generate software that does the right thing?
+
 <br>
 <br>
 <br>
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## What is CSE 130 about?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## What is CSE 130 **not** about?
+
+Learning... 
+
+- JavaScript in April
+- Haskell in May
+- C++ in June
+- etc. 
+
+### New languages come (and go ...)
+
+There was no
+
+- Java        25 years ago
+- C#          20 years ago
+- Rust        10 years ago
+- WebAssembly 1 year ago
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## What is CSE 130 about?
+
+- Concepts in programming languages
+- Programming paradigms
+- Language design and implementation
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 
 ## A Programming Language
@@ -82,16 +163,6 @@ L2: ...
 <br>
 <br>
 
-## So Why Study Programming Languages?
-
-![Spoiler Alert](/static/img/arrival-symbol.jpg){#fig:arrival .align-center width=50%}
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ## So Why Study Programming Languages?
 
@@ -105,10 +176,7 @@ Or more simply:
 > shapes
 > Programming Thought.
 
-Language affects how:
-
-- **Ideas** are expressed
-- **Computation** is expressed
+Language affects how ideas and computation are expresseds
 
 
 
@@ -136,19 +204,36 @@ Language affects how:
 <br>
 <br>
 
+## Goal: Learn the Anatomy of PL
+
+![Anatomy](/static/img/anatomy.png){#fig:anatomy .align-center width=20%}
+
+
+- What makes a programming language?
+- Which features are **fundamental** and which are **syntactic sugar**? 
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 ## Goal: Learn New Languages / Constructs
 
-![Musical Score](/static/img/music-score.png){#fig:music width=30%}
+![Musical Score](/static/img/music-score.png){#fig:music .align-center width=30%}
 
 New ways to **describe** and **organize** computation,
+to create programs that are:
 
-To create programs that are:
-
-- **Readable**
 - **Correct**
+- **Readable**
 - **Extendable**
-- **Modifiable**
 - **Reusable**
 
 
@@ -161,55 +246,28 @@ To create programs that are:
 <br>
 
 
-## New languages come (and go ...)
-
-There was no
-
-* Java 20 years ago,
-* C#   15 years ago,
-* Rust 10 years ago,
-* Go   5  years ago...
 
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Goal: Learn to Learn
-
-![Anatomy](/static/img/anatomy.png){#fig:anatomy width=20%}
-
-In 130 you will learn the **anatomy** of a PL
-
-- Fundamental **building blocks**
-- Different guises in different PLs
-
-Understand the PLs you already "know".
-
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ## Goal: How to Design new Languages
 
-Buried in **every extensible** system is a PL
+New hot lanuages being designed in industry as we speak:
 
-- Emacs, Android: LISP
-- Word, Powerpoint: Macros, VBScript
-- Firefox, Chrome, Safari: JavaScript
-- SQL, Renderman, Latex, XML ...
+- Flow, React @ Facebook     
+- Rust @ Mozilla, 
+- TypeScript @ Microsoft
+- Swift @ Apple
+- WebAsssembly @ Google + Mozilla + Microsoft
 
-If **you** work on a large system, you **will** design a new PL!
+Buried in every large system is a (domain-specific) language
+
+- DB: SQL
+- Word, Excel: Formulas, Macros, VBScript
+- Emacs: LISP
+- Latex, shell scripts, makefiles, ...
+
+If you work on a large system, you **will** design a new PL!
 
 
 
@@ -242,337 +300,26 @@ Yes.
 <br>
 <br>
 
-## Speaking of Right and Wrong
+## Course Syllabus
 
-![x = x + 1](/static/img/wtf-x-plus-one.png)
+**Functional Programming**
 
+- Lambda calculus (2 weeks)
+- Haskell (6 weeks)
 
+**Logic Programming**
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Imperative Programming is Wrong (default)
-
-![Gears of War](/static/img/unreal.png){#fig:sweeney .align-center width=60%}
-
-Tim Sweeney (Epic, Creator of the UNREAL Gaming Engine)
-
-> In a concurrent world,
-> imperative is the wrong default.
-
-
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Imperative Programming is Wrong (default)
-
-John Carmack, creator of FPS (Doom, Quake, ...)
-
-![Carmack discourages variable mutation](/static/img/carmack-tweet.png){#fig:carmack .align-center width=60%}
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Functional Programming
-
-- No assignment
-- No mutation
-- No loops
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## OMG! Who uses FP?!
-
-- Google    (MapReduce, ...)
-- Microsoft (LinQ, F#, ...)
-- Facebook  (Erlang, Reason,...)
-- Twitter   (Scala, ...)
-- Wall St.  (Haskell, Ocaml, ...)
-
-and, most importantly ....
-
-- **CSE 130**
-
-## Course Mechanics: Web Page
-
-All information lives online:
-
-- [github](https://github.com/ucsd-cse130/web)
-- [webpage](http://ucsd-cse130.github.io/)
-- [piazza](https://piazza.com/ucsd/spring2017/cse130/home)
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Course Mechanics: Clickers
-
-Make class interactive
-
-+ Help **you** and **me** understand whats tricky
-
-Clickers Are Not Optional
-
-+  **Cheap** ones are fine
-+  **Respond** to 75% questions
-+  **Worth** 5% of your grade
-
-Laptops are welcome in lecture (but optional)
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Course Mechanics: In Class Exercises
-
-1. **Solo Vote**
-  - Think for yourself, select answer
-
-2. **Discuss**
-  - Analyze Problem in Groups
-  - Reach consensus
-  - Have questions, raise your hand!
-
-3. **Group Vote**
-  - Everyone in group votes
-  - Must have same vote to get points
-
-4. **Class Discuss**
-  - What was easy or tricky?
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Course Mechanics: Grading
-
-**(30%) Assignments**
-
-+ 6-7 assignments
-+ All programming
-
-**(30%) Midterm**
-
-+ In-class (TBA)
-+ 2-sided printed "cheat sheet"
-
-**(35%) Final**
-
-+ 2-sided printed cheat sheet
-
-**(05%) Clickers**
-
-+ *Attempting to answer* > 75% questions
-
-**(05%) Piazza Extra Credit**
-
-+ To **top 20** best participants
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Course Mechanics: Grading
-
-**CSE 130 is graded on a curve**
-
-- Lots of work
-- Don't worry (too much) about grade
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Course Mechanics: No Text
-
-- Online lecture notes and links
-
-- **Pay attention to lecture**
-
-- **Do Assignments Yourself**
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Programming Assignments
-
-- About 6-7 over the quarter
-
-- Accessed via `github`
-
-- Schedule up on webpage (due Fridays 5 PM)
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Programming Assignments
-
-![Don't complain](
-http://core0.staticworld.net/images/article/2015/09/frustrated_developer-100614973-gallery.idge.jpg)
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Programming Assignments
-
-Unfamiliar **Languages** and **Environments**
-**Forget**
-
-- Java, C, C++ ...
-- ... and other 20th century languages
-
-**Don't Complain**
-
-- That X-language is hard
-- That X-language is @!%$#$
-
-**Do**
-
-- Start early
-- Ask lots of questions!
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Programming Assignments
-
-No Deadline Extension
-
-- Four **late days**, used as **whole unit**
-- 5 mins late = 1 late day
-- *Plan ahead* no other extensions
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## A Word from Our Sponsor
+- Prolog (2 weeks)
 
-Programming Assignments done **alone**
 
-  - Zero Tolerance
-  - Offenders punished ruthlessly
-  - Please see academic integrity statement
 
-We use **plagiarism detection** software
-
-  - I am an expert
-  - Have code from all previous classes
-  - MOSS is fantastic, plagiarize at your own risk
-
-
-
 <br>
 <br>
 <br>
 <br>
 <br>
 <br>
-
-
-## Plan
-
-**FP**
 
-- Haskell
-- 5 weeks
-
-**OO**
-
-- Scala
-- 3 weeks
-
-**Logic**
-
-- Prolog
-- 2 weeks
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ## **QuickSort** in C
 
@@ -629,7 +376,30 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 <br>
 <br>
 
-## Readability Matters ...
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## Course Logistics
+
+- [webpage](https://nadia-polikarpova.github.io/cse130-sp18)
+    - calendar, lecture notes, programming assignments, ...
+- [piazza](https://piazza.com/ucsd/spring2018/cse130/home)
+    - to-go place if you have a quesiton or need help
+    - email is futile
+  
 
 
 
@@ -640,11 +410,69 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 <br>
 <br>
 
-## QuickSort in `J`
+## Grading
 
-```j
-sort =: (($:@(<#[),(=#[),$:@(>#[))({~ ?@#))^: (1:<#)
-```
+- 30% Assignments
+- 30% Midterm
+- 35% Final
+- 05% Class participation (clickers)
+- 05% Piazza Extra Credit
+    - To **top 20** best participants
+    
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>    
+
+## Assignments
+
+- 6-7 programming assignments
+- Released [online](https://nadia-polikarpova.github.io/cse130-sp18/assignments.html), at least a week before due date
+- Due on **Friday at 23:59:59**
+    - not this Friday
+- Four late days, used as **whole unit**
+    - 5 mins late = 1 late day
+- Submit though **ieng6** (instuctions in the assignment)
+- Solve and submit *by yourself*
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>     
+    
+## Exams    
+
+- Midterm: in-class on *May 7*
+    - subject to change but unlikely 
+- Final: *June 11*
+- 2-sided printed "cheat sheet"
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Clickers
+
+Make class interactive
+
++ Help **you** and **me** understand what's tricky
+
+Clickers Are Not Optional
+
++  **Cheap** ones are fine
++  **Respond** to 75% questions
+
+Register your clicker [here](https://goo.gl/forms/lL9oqtwf4nMwaRR63)
 
 
 
@@ -655,13 +483,41 @@ sort =: (($:@(<#[),(=#[),$:@(>#[))({~ ?@#))^: (1:<#)
 <br>
 <br>
 
-## Plan for next 5 weeks
 
-- **Tiny core** language (Lambda Calculus)
+## TEST QUIZ
 
-- **Fast forward** intro to Haskell
+Do you have a clicker?
 
-- **Rewind** and go over anatomy individually
+**A.**  Yes
+
+**B.**  No
+
+**C.**  What's a clicker?
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Quiz Protocol
+
+1. **Solo Vote**
+    - Think for yourself, select answer
+
+2. **Discuss**
+    - Analyze Problem in Groups
+    - Reach consensus
+    - Have questions, raise your hand!
+
+3. **Group Vote**
+    - Everyone in group votes
+    - Must have same vote to get points
+
+4. **Class Discuss**
+    - What was easy or tricky?
 
 
 
@@ -671,3 +527,129 @@ sort =: (($:@(<#[),(=#[),$:@(>#[))({~ ?@#))^: (1:<#)
 <br>
 <br>
 <br>
+
+## The Crew
+
+Teachins assistants:
+
+* [Sourav Anand](https://www.linkedin.com/in/soanand14/)
+* Joseph Geumlek
+* [Valentin Robert](http://www.cs.ucsd.edu/~vrobert)
+
+Tutors:
+
+* [David Justo](https://www.linkedin.com/in/david-justo-068a88a9/)
+* [Purag Moumdjian](https://purag.me/)
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## Your Resources
+
+- Discussion section: Wed 9am, CENTR 155
+- Office hours
+    - every day, check calendar
+- Piazza
+- **No text**        
+    - online lecture notes and links
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+## Academic Integrity
+
+Programming assignments and exams done **alone**
+
+  - Zero Tolerance
+  - Offenders punished ruthlessly
+  - Please see academic integrity statement
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## Students with Disabilites
+
+Students requesting accommodations for this course due to a disability or current functional limitation must provide 
+a current **Authorization for Accommodation (AFA)** letter issued by the Office for Students with Disabilities (OSD) 
+which is located in University Center 202 behind Center Hall.
+  
+Students are required to present their AFA letters to Faculty (please make arrangements to contact me privately) and to the CSE OSD Liaison [Christina Rontell](https://cse.ucsd.edu/people/administrative-staff/christina-rontell) in advance so that accommodations may be arranged.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## Diversity and Inclusion
+
+Our goal is to create a diverse and inclusive learning environment where all students feel comfortable and can thrive. 
+If there is a way we can make you feel more included please let one of the course staff know, 
+either in person, via email/discussion board, or even in a note under the door.
+Our learning about diverse perspectives and identities is an ongoing process, and we welcome your perspectives and input.  
+
+We also expect that you, as a student in this course, will honor and respect your classmates, 
+abiding by the UCSD [Principles of Community](https://ucsd.edu/about/principles.html).
+Please understand that others’ backgrounds, perspectives and experiences may be different than your own,
+and help us to build an environment where everyone is respected and feels comfortable.
+
+If you experience any sort of **harassment or discrimination**, please contact the [Office of Prevention of Harassment and Discrimination](https://ophd.ucsd.edu/).
+Students may receive confidential assistance at the [Sexual Assault Resource Center](http://care.ucsd.edu) at (858) 534-5793
+or [Counseling and Psychological Services](http://caps.ucsd.edu.) (CAPS) at (858) 534-3755.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Basic Needs
+
+- Are you eating properly?
+- Do you have adequate access to nutritious food?
+- Do you have stable housing?
+- Are you homeless or couch surfing?
+
+If you or someone you know has food and/or housing insecurity, be aware of [Basic Needs](http://basicneeds.ucsd.edu)
+
+- The [Triton Food Pantry](https://www.facebook.com/tritonfoodpantry/) (in the old Student Center), is free and anonymous, and includes produce. 
+- Financial aid resources, the possibility of emergency grant funding, and off-campus housing referral resources are available.
+- CAPS and college deans can connect students to the above resources, as well as other community resources and support.  
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
