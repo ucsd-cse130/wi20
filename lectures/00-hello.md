@@ -553,7 +553,7 @@ Do you have a clicker?
 
 ## Your Resources
 
-- Discussion section: Wed 9am, CENTR 155
+- Discussion section: Wed 9am, CENTR 115
 - Office hours
     - every day, check calendar
 - Piazza
