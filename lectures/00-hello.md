@@ -25,6 +25,28 @@ date: 2017-03-28
 <br>
 <br>
 <br>
+
+
+## The Crew
+
+Teachins assistants:
+
+* [Sourav Anand](https://www.linkedin.com/in/soanand14/)
+* Joseph Geumlek
+* [Valentin Robert](http://www.cs.ucsd.edu/~vrobert)
+
+Tutors:
+
+* [David Justo](https://www.linkedin.com/in/david-justo-068a88a9/)
+* [Purag Moumdjian](https://purag.me/)
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -519,27 +541,6 @@ Do you have a clicker?
 4. **Class Discuss**
     - What was easy or tricky?
 
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## The Crew
-
-Teachins assistants:
-
-* [Sourav Anand](https://www.linkedin.com/in/soanand14/)
-* Joseph Geumlek
-* [Valentin Robert](http://www.cs.ucsd.edu/~vrobert)
-
-Tutors:
-
-* [David Justo](https://www.linkedin.com/in/david-justo-068a88a9/)
-* [Purag Moumdjian](https://purag.me/)
 
 
 <br>
