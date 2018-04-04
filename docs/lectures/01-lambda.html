@@ -232,21 +232,42 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<h2 id="the-smallest-universal-language">The Smallest Universal Language</h2>
+			<h2 id="your-favorite-language">Your Favorite Language</h2>
+<p>Probably has lots of features:</p>
+<ul>
+<li>Assignment (<code>x = x + 1</code>)</li>
+<li>Booleans, integers, characters, strings, …</li>
+<li>Conditionals</li>
+<li>Loops</li>
+<li><code>return</code>, <code>break</code>, <code>continue</code></li>
+<li>Functions</li>
+<li>Recursion</li>
+<li>References / pointers</li>
+<li>Objects and classes</li>
+<li>Inheritance</li>
+<li>…</li>
+</ul>
+<p>Which ones can we do without?</p>
+<p>What is the <strong>smallest universal language</strong>?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="what-is-computable">What is computable?</h2>
+<h3 id="before-1930s">Before 1930s</h3>
+<p>Informal notion of an <strong>effectively calculable</strong> function:</p>
+<div class="figure">
+<img src="https://oercommons.s3.amazonaws.com/media/courseware/assets/G06/06-math-math-06-9780328761197-math-9780328761197-ah-studio-images-ip3-mth-6-2-8-2-1_mw-4x3_dividehandwritten-ip3.png" alt="can be computed by a human with pen and paper, following an algorithm" id="fig:pen-and-paper" class="align-center" style="width:40.0%" />
+<p class="caption">can be computed by a human with pen and paper, following an algorithm</p>
+</div>
+<p><br> <br> <br> <br></p>
+<h3 id="formalization">1936: formalization</h3>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Alan_Turing_Aged_16.jpg" alt="Alan Turing" id="fig:turing" class="align-center" style="width:40.0%" />
+<p class="caption">Alan Turing</p>
+</div>
 <div class="figure">
 <img src="https://upload.wikimedia.org/wikipedia/en/a/a6/Alonzo_Church.jpg" alt="Alonzo Church" id="fig:church" class="align-center" style="width:40.0%" />
 <p class="caption">Alonzo Church</p>
 </div>
-<p>Developed in 1930s by Alonzo Church</p>
-<ul>
-<li>Studied in logic and computer science</li>
-</ul>
-<p>Test bed for procedural and functional PLs</p>
-<ul>
-<li>Simple, Powerful, Extensible</li>
-</ul>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-next-700-languages">The Next 700 Languages</h2>
 <div class="figure">
 <img src="https://upload.wikimedia.org/wikipedia/en/f/f9/Peter_Landin.png" alt="Peter Landin" id="fig:landin" class="align-center" style="width:40.0%" />
@@ -256,64 +277,138 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>Whatever the next 700 languages turn out to be, they will surely be variants of lambda calculus.</p>
 </blockquote>
 <p>Peter Landin, 1966</p>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-lambda-calculus">The Lambda Calculus</h2>
+<p>Has one feature:</p>
+<ul>
+<li>Functions</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>No, really:</p>
+<ul>
+<li><del>Assignment (<code>x = x + 1</code>)</del></li>
+<li><del>Booleans, integers, characters, strings, …</del></li>
+<li><del>Conditionals</del></li>
+<li><del>Loops</del></li>
+<li><del><code>return</code>, <code>break</code>, <code>continue</code></del></li>
+<li>Functions</li>
+<li><del>Recursion</del></li>
+<li><del>References / pointers</del></li>
+<li><del>Objects and classes</del></li>
+<li><del>Inheritance</del></li>
+<li><del>Reflection</del></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="describing-a-programming-language">Describing a Programming Language</h2>
+<ul>
+<li><em>Syntax:</em> what do programs look like?</li>
+<li><em>Semantics:</em> what do programs mean?
+<ul>
+<li><em>operational semantics</em>: how do programs execute step-by-step?</li>
+</ul></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="syntax-what-programs-look-like">Syntax: What Programs <em>Look Like</em></h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">e <span class="op">::=</span> x<span class="op">,</span> y<span class="op">,</span> z<span class="op">,</span> ...
-    <span class="op">|</span> <span class="kw">function</span>(x)<span class="op">{</span> <span class="cf">return</span> e <span class="op">}</span>
-    <span class="op">|</span> <span class="at">e1</span>(e2)</code></pre></div>
-<p><strong>Three</strong> kinds of expressions</p>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">e <span class="ot">::</span><span class="fu">=</span> x
+    <span class="fu">|</span> \x <span class="ot">-&gt;</span> e 
+    <span class="fu">|</span> e1 e2</code></pre></div>
+<p><br></p>
+<p>Programs are <strong>expressions</strong> <code>e</code> (also called <strong><span class="math inline"><em>λ</em></span>-terms</strong>) of one of three kinds:</p>
 <ul>
-<li><code>e</code></li>
-</ul>
-<p><strong>Variables</strong></p>
+<li><strong>Variable</strong>
 <ul>
-<li><code>x</code>, <code>y</code>, <code>z</code> (in JS <code>x</code>, <code>y</code>, <code>z</code>)</li>
-</ul>
-<p><strong>Function Definitions (Abstraction)</strong></p>
+<li><code>x</code>, <code>y</code>, <code>z</code></li>
+</ul></li>
+<li><strong>Abstraction</strong> (aka <em>nameless</em> function definition)
 <ul>
-<li><code>\x -&gt; e</code> (in JS <code>function(x){return e}</code> or <code>(x) =&gt; e</code>)</li>
-</ul>
-<p><strong>Function Call (Application)</strong></p>
+<li><code>\x -&gt; e</code></li>
+<li><code>x</code> is the <em>formal</em>, <code>e</code> is the <em>body</em></li>
+<li>“for any <code>x</code> compute <code>e</code>”</li>
+</ul></li>
+<li><strong>Application</strong> (aka function call)
 <ul>
-<li><code>e1 e2</code> (in JS <code>e1(e2)</code>)</li>
+<li><code>e1 e2</code></li>
+<li><code>e1</code> is the <em>function</em>, <code>e2</code> is the <em>argument</em></li>
+<li>in your favorite language: <code>e1(e2)</code></li>
+</ul></li>
 </ul>
-<p><strong>Complete Description</strong></p>
-<div class="figure">
-<img src="../static/img/lambda-calculus.png" alt="The Lambda Calculus" />
-<p class="caption">The Lambda Calculus</p>
-</div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="application-is-left-associative">Application Is Left Associative</h2>
-<p>We write</p>
-<p><code>e1 e2 e3 e4</code></p>
-<p>instead of</p>
-<p><code>(((e1 e2) e3) e4)</code></p>
-<p>We write</p>
-<p><code>\x1 -&gt; \x2 -&gt; \x3 -&gt; \x4 -&gt; e</code></p>
-<p>instead of</p>
-<p><code>\x1 -&gt; (\x2 -&gt; (\x3 -&gt; (\x4 -&gt; e)))</code></p>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="examples">Examples</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x             <span class="co">-- The Identity function</span>
-                    <span class="co">-- function (x) { return x ;}</span>
-                    <span class="co">-- (x) =&gt; x</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x             <span class="co">-- The identity function</span>
+                    <span class="co">-- (&quot;for any x compute x&quot;)</span>
 
-\y <span class="ot">-&gt;</span> (\x <span class="ot">-&gt;</span> x)     <span class="co">-- A function that returns the Identity Fun</span>
-                    <span class="co">--   function(y){ return</span>
-                    <span class="co">--      function (x) { return x ;}</span>
-                    <span class="co">--   }</span>
-
-\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)   <span class="co">-- A function that applies arg to the Identity Fun</span></code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
+\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> y)     <span class="co">-- A function that returns the identity function</span>
+ 
+\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)   <span class="co">-- A function that applies its argument </span>
+                    <span class="co">-- to the identity function</span></code></pre></div>
+<p><br> <br></p>
+<p>How do I write a function with two arguments?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> y)     <span class="co">-- A function that returns the identity function</span>
+                    <span class="co">-- OR: a function that takes two arguments</span>
+                    <span class="co">-- and returns the second one!</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz">QUIZ</h2>
+<p>Which of the following terms are syntactically <strong>incorrect</strong>?</p>
+<p><strong>A.</strong> <code>\(\x -&gt; x) -&gt; y</code></p>
+<p><strong>B.</strong> <code>\x -&gt; x x</code></p>
+<p><strong>C.</strong> <code>\x -&gt; x (y x)</code></p>
+<p><strong>D.</strong> A and C</p>
+<p><strong>E.</strong> all of the above</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="syntactic-sugar">Syntactic Sugar</h2>
+<p><br> <br></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">instead of</th>
+<th align="left">we write</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>(((e1 e2) e3) e4)</code></td>
+<td align="left"><code>e1 e2 e3 e4</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>\x -&gt; (\y -&gt; (\z -&gt; e))</code></td>
+<td align="left"><code>\x -&gt; \y -&gt; \z -&gt; e</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>\x -&gt; \y -&gt; \z -&gt; e</code></td>
+<td align="left"><code>\x y z -&gt; e</code></td>
+</tr>
+</tbody>
+</table>
+<p><br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x y <span class="ot">-&gt;</span> y     <span class="co">-- A function that returns the identity function</span>
+              <span class="co">-- OR: a function that takes two arguments</span>
+              <span class="co">-- and returns the second one!</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="semantics-what-programs-mean">Semantics : What Programs <em>Mean</em></h2>
-<p>We define the <em>meaning</em> of a program with simple rules.</p>
+<p><br></p>
+<p>How do I “run” / “execute” a <span class="math inline"><em>λ</em></span>-term?</p>
+<p><br></p>
+<p>Think of middle-school algebra:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Simplify expression:</span>
+
+  (x <span class="fu">+</span> <span class="dv">2</span>)<span class="fu">*</span>(x <span class="fu">-</span> <span class="dv">1</span>)<span class="fu">*</span>(x <span class="fu">+</span> <span class="dv">3</span>)
+ <span class="fu">=</span>
+  <span class="fu">???</span></code></pre></div>
+<p><br></p>
+<p><strong>Execute</strong> = rewrite step-by-step following simple rules, until no more rules apply</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="rewrite-rules-of-lambda-calculus">Rewrite Rules of Lambda Calculus</h2>
+<p><br></p>
 <ol style="list-style-type: decimal">
-<li>Scope</li>
-<li><span class="math inline"><em>α</em></span>-step (aka. <em>renaming formals</em>)</li>
-<li><span class="math inline"><em>β</em></span>-step (aka. <em>function calls</em>)</li>
+<li><span class="math inline"><em>α</em></span>-step (aka <em>renaming formals</em>)</li>
+<li><span class="math inline"><em>β</em></span>-step (aka <em>function call</em>)</li>
 </ol>
+<p><br></p>
+<p>But first we have to talk about <strong>scope</strong></p>
 <p><br> <br> <br> <br> <br> <br></p>
-<h2 id="semantics-scope">Semantics: Scope</h2>
+<h2 id="semantics-scope-of-a-variable">Semantics: Scope of a Variable</h2>
 <p>The part of a program where a <strong>variable is visible</strong></p>
 <p>In the expression <code>\x -&gt; e</code></p>
 <ul>
@@ -321,133 +416,150 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li><p><code>e</code> is <strong>the scope</strong> of <code>x</code></p></li>
 <li><p><code>x</code> is <strong>bound</strong> inside <code>e</code></p></li>
 </ul>
-<pre><code>  (\x -&gt; (\y -&gt; x)) x</code></pre>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="semantics-free-vs-bound-variables">Semantics: Free vs Bound Variables</h2>
-<p><code>y</code> is <strong>free</strong> inside <code>e</code> if</p>
+<p><br></p>
+<pre><code>  \x -&gt; x          -- x is bound
+  \x -&gt; (\y -&gt; x)  -- x is bound</code></pre>
+<p><br> <br></p>
+<p>An occurence of <code>x</code> in <code>e</code> is <strong>free</strong> if it’s <em>not bound</em> by an enclosing abstraction</p>
+<p><br></p>
+<pre><code>  x y        -- x is free  
+  \y -&gt; x y  -- x is free</code></pre>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-1">QUIZ</h2>
+<p>In the expression <code>(\x -&gt; x) x</code>, is <code>x</code> <em>bound</em> or <em>free</em>?</p>
+<p><strong>A.</strong> bound</p>
+<p><strong>B.</strong> free</p>
+<p><strong>C.</strong> first occurence is bound, second is free</p>
+<p><strong>D.</strong> first occurence is bound, second and third are free</p>
+<p><strong>E.</strong> first two occurrences are bound, third is free</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="closed-expressions">Closed Expressions</h2>
+<p>If <code>e</code> has <em>no free variables</em> it is said to be <strong>closed</strong></p>
 <ul>
-<li><code>y</code> appears inside <code>e</code>, and</li>
-<li><code>y</code> is <strong>not bound</strong> inside <code>e</code></li>
+<li>Closed expressions are also called <strong>combinators</strong></li>
 </ul>
-<p>Formally,</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">free(x)       <span class="fu">=</span> {x}
-free(\x <span class="ot">-&gt;</span> e) <span class="fu">=</span> free(e)  <span class="fu">-</span> {x}
-free(e1 e2)   <span class="fu">=</span> free(e1) <span class="fu">+</span> free(e2)</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz">QUIZ</h2>
-<p>Let <code>e</code> be the expression <code>\x -&gt; x (\y -&gt; x y z)</code>.</p>
-<p>Which variables are <em>free</em> in <code>e</code> ?</p>
-<p><strong>A.</strong> <code>x</code></p>
-<p><strong>B.</strong> <code>y</code></p>
-<p><strong>C.</strong> <code>z</code></p>
-<p><strong>D.</strong> <code>x</code>, <code>y</code></p>
-<p><strong>E.</strong> <code>x</code>, <code>y</code>, <code>z</code></p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="semantics-alpha-equivalence">Semantics: <span class="math inline"><em>α</em></span>-Equivalence</h2>
-<p><span class="math inline"><em>λ</em></span>-terms <code>E1</code> and <code>E2</code> are <span class="math inline"><em>α</em></span>-equivalent if</p>
-<ul>
-<li><code>E2</code> can be obtained be <em>renaming the bound variables</em> of <code>E1</code></li>
-</ul>
-<p>or</p>
-<ul>
-<li><code>E1</code> can be obtained be <em>renaming the bound variables</em> of <code>E2</code></li>
-</ul>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="semantics-alpha-step">Semantics: <span class="math inline"><em>α</em></span>-step</h2>
-<p><strong>Example:</strong> The following three terms are <span class="math inline"><em>α</em></span>-equivalent</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x   <span class="fu">=</span>a<span class="fu">&gt;</span> \y <span class="ot">-&gt;</span> y   <span class="fu">=</span>a<span class="fu">&gt;</span> \z <span class="ot">-&gt;</span> z</code></pre></div>
-<p>We write <code>E1 =a&gt; E2</code> if <code>E1</code> is <span class="math inline"><em>α</em></span>-equivalent to <code>E2</code>.</p>
-<ul>
-<li>We can say <code>E1</code> takes an <span class="math inline"><em>α</em></span>-step to <code>E2</code>.</li>
-</ul>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="alpha-step-makes-scope-clear"><span class="math inline"><em>α</em></span>-step Makes Scope Clear</h2>
-<p>We often <span class="math inline"><em>α</em></span>-rename to make <strong>parameter names unique</strong></p>
-<p>For example, instead of</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    \x <span class="ot">-&gt;</span> x (\x <span class="ot">-&gt;</span> x) x     <span class="co">-- Yucky scope</span>
-
-<span class="fu">=</span>a<span class="fu">&gt;</span> \x <span class="ot">-&gt;</span> x (\y <span class="ot">-&gt;</span> y) x     <span class="co">-- Scope of bindings crystal clear</span></code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="semantics-function-calls">Semantics: Function Calls</h2>
-<p>In the <span class="math inline"><em>λ</em></span>-calculus, a “function call” (application) looks like <code>(x -&gt; E1) E2</code></p>
-<table>
-<thead>
-<tr class="header">
-<th align="center"><strong>Function</strong></th>
-<th align="center"><strong>Argument</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><code>\x -&gt; E1</code></td>
-<td align="center"><code>E2</code></td>
-</tr>
-</tbody>
-</table>
-<p>How do we <strong>evaluate</strong> the <em>function</em> with the given <em>argument</em>?</p>
+<p><br> <br></p>
+<p>What is the shortest closed expression?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="rewrite-rules-of-lambda-calculus-1">Rewrite Rules of Lambda Calculus</h2>
+<p><br></p>
 <ol style="list-style-type: decimal">
-<li><strong>Rename</strong> parameters to make them unique</li>
-<li><strong>Substitute</strong> all occurrences of <code>x</code> in <code>E1</code> with <code>E2</code>!</li>
+<li><span class="math inline"><em>α</em></span>-step (aka <em>renaming formals</em>)</li>
+<li><span class="math inline"><em>β</em></span>-step (aka <em>function call</em>)</li>
 </ol>
-<p>If so, we say that</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="semantics-beta-reduction">Semantics: <span class="math inline"><em>β</em></span>-Reduction</h2>
+<p><br></p>
+<pre><code>  (\x -&gt; e1) e2   =b&gt;   e1[x := e2]</code></pre>
+<p><br> where <code>e1[x := e2]</code> means “<code>e1</code> with all occurrences of <code>x</code> replaced with <code>e2</code>”</p>
+<p><br> <br></p>
+<p>Computation by <em>search-and-replace</em>:</p>
 <ul>
-<li><code>(\x -&gt; E1) E2</code> <span class="math inline"><em>β</em></span>-steps to <code>E1[x := E2]</code></li>
+<li><p>If you see an <em>abstraction</em> applied to an <em>argument</em>, take the <em>body</em> of the abstraction and replace all occurrences of the <em>formal</em> by that <em>argument</em></p></li>
+<li><p>We say that <code>(\x -&gt; e1) e2</code> <span class="math inline"><em>β</em></span>-steps to <code>e1[x := e2]</code></p></li>
 </ul>
-<p>and we can write it as</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="examples-1">Examples</h2>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x) apple     
+<span class="fu">=</span>b<span class="fu">&gt;</span> apple</code></pre></div>
+<p>Is this right? Ask <a href="http://goto.ucsd.edu:8095/index.html#?demo=blank.lc">Elsa</a>!</p>
+<p><br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)) (give apple)
+<span class="fu">=</span>b<span class="fu">&gt;</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-2">QUIZ</h2>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> y)) apple
+<span class="fu">=</span>b<span class="fu">&gt;</span> <span class="fu">???</span></code></pre></div>
+<p><strong>A.</strong> <code>apple</code></p>
+<p><strong>B.</strong> <code>\y -&gt; apple</code></p>
+<p><strong>C.</strong> <code>\x -&gt; apple</code></p>
+<p><strong>D.</strong> <code>\y -&gt; y</code></p>
+<p><strong>E.</strong> <code>\x -&gt; y</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="a-tricky-one">A Tricky One</h2>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x)) y
+<span class="fu">=</span>b<span class="fu">&gt;</span> \y <span class="ot">-&gt;</span> y</code></pre></div>
+<p>Is this right?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="something-is-fishy">Something is Fishy</h2>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x)) y
+<span class="fu">=</span>b<span class="fu">&gt;</span> \y <span class="ot">-&gt;</span> y</code></pre></div>
+<p>Is this right?</p>
+<p><strong>Problem</strong>: the <em>free</em> <code>y</code> in the argument has been <strong>captured</strong> by <code>\y</code>!</p>
+<p><strong>Solution</strong>: make sure that all <em>free variables</em> of the argument are different from the binders in the body.</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="capture-avoiding-substitution">Capture-Avoiding Substitution</h2>
+<p>We have to fix our definition of <span class="math inline"><em>β</em></span>-reduction:</p>
+<pre><code>  (\x -&gt; e1) e2   =b&gt;   e1[x := e2]</code></pre>
+<p><br> where <code>e1[x := e2]</code> means</p>
 <ul>
-<li><code>(\x -&gt; E1) E2   =b&gt;   E1[x := E2]</code></li>
+<li><code>e1</code> with all occurrences of <code>x</code> replaced with <code>e2</code>, <strong>as long as</strong> no free variables of <code>e2</code> get captured</li>
+<li>undefined otherwise
+<ul>
+<li>wait but what do we do then?</li>
+</ul></li>
 </ul>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="function-calls-beta-step-example">Function Calls: <span class="math inline"><em>β</em></span>-step Example</h2>
-<p>Replace occurrences of parameter <code>f</code> with argument</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\f <span class="ot">-&gt;</span> f (f x)) g        
-
-   <span class="fu">=</span>b<span class="fu">&gt;</span>     g (g x)</code></pre></div>
-<p>No need to rename, bindings already unique</p>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="rewrite-rules-of-lambda-calculus-2">Rewrite Rules of Lambda Calculus</h2>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline"><em>α</em></span>-step (aka <em>renaming formals</em>)</li>
+<li><span class="math inline"><em>β</em></span>-step (aka <em>function call</em>)</li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="semantics-alpha-renaming">Semantics: <span class="math inline"><em>α</em></span>-Renaming</h2>
+<p><br></p>
+<pre><code>  \x -&gt; e   =a&gt;   \y -&gt; e[x := y]</code></pre>
+<p><br></p>
+<ul>
+<li><p>We can rename a formal parameter and replace all its occurrences in the body</p></li>
+<li><p>We say that <code>\x -&gt; e</code> <span class="math inline"><em>α</em></span>-steps to <code>\y -&gt; e[x := y]</code></p></li>
+</ul>
+<p>Example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x
+<span class="fu">=</span>a<span class="fu">&gt;</span> \y <span class="ot">-&gt;</span> y
+<span class="fu">=</span>a<span class="fu">&gt;</span> \z <span class="ot">-&gt;</span> z</code></pre></div>
+<p>All these expressions are <strong><span class="math inline"><em>α</em></span>-equivalent</strong></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-tricky-one">The Tricky One</h2>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x)) y
+<span class="fu">=</span>a<span class="fu">&gt;</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="normal-forms">Normal Forms</h2>
 <p>An <strong>redex</strong> is a <span class="math inline"><em>λ</em></span>-term of the form</p>
-<p><code>(\x -&gt; E1) E2</code></p>
+<p><code>(\x -&gt; e1) e2</code></p>
 <p>A <span class="math inline"><em>λ</em></span>-term is in <strong>normal form</strong> if it contains no redexes.</p>
 <p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-1">QUIZ</h2>
-<p>Is the term <code>x</code> in <em>normal form</em> ?</p>
-<p><strong>A.</strong> Yes</p>
-<p><strong>B.</strong> No</p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-2">QUIZ</h2>
-<p>Is the term <code>(x y)</code> in <em>normal form</em> ?</p>
-<p><strong>A.</strong> Yes</p>
-<p><strong>B.</strong> No</p>
-<p><br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-3">QUIZ</h2>
-<p>Is the term <code>(\x -&gt; x) y</code> in <em>normal form</em> ?</p>
-<p><strong>A.</strong> Yes</p>
-<p><strong>B.</strong> No</p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-4">QUIZ</h2>
-<p>Is the term <code>x (\y -&gt; y)</code> in <em>normal form</em> ?</p>
-<p><strong>A.</strong> Yes</p>
-<p><strong>B.</strong> No</p>
-<p><br> <br> <br> <br> <br> <br></p>
+<p>Which of the following term are <strong>not</strong> in <em>normal form</em> ?</p>
+<p><strong>A.</strong> <code>x</code></p>
+<p><strong>B.</strong> <code>x y</code></p>
+<p><strong>C.</strong> <code>(\x -&gt; x) y</code></p>
+<p><strong>D.</strong> <code>x (\y -&gt; y)</code></p>
+<p><strong>E.</strong> C and D</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="semantics-evaluation">Semantics: Evaluation</h2>
-<p>A <span class="math inline"><em>λ</em></span>-term <code>E</code> <strong>reduces/evaluates to a normal form</strong> <code>E'</code> if</p>
-<p>there is a sequence of steps</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">E</span> <span class="fu">=?&gt;</span> <span class="dt">E_1</span> <span class="fu">=?&gt;</span> <span class="fu">...</span> <span class="fu">=?&gt;</span> <span class="dt">EN</span> <span class="fu">=?&gt;</span> <span class="dt">E'</span></code></pre></div>
-<p>where each <code>=?&gt;</code> is</p>
-<ul>
-<li>An <span class="math inline"><em>α</em></span>-step <code>=a&gt;</code> or</li>
-<li>A <span class="math inline"><em>β</em></span>-step <code>=b&gt;</code>.</li>
-</ul>
+<p>A <span class="math inline"><em>λ</em></span>-term <code>e</code> <strong>evaluates to</strong> <code>e'</code> if</p>
+<ol style="list-style-type: decimal">
+<li>There is a sequence of steps</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">e <span class="fu">=?&gt;</span> e_1 <span class="fu">=?&gt;</span> <span class="fu">...</span> <span class="fu">=?&gt;</span> e_N <span class="fu">=?&gt;</span> e'</code></pre></div>
+<p>where each <code>=?&gt;</code> is either <code>=a&gt;</code> or <code>=b&gt;</code></p>
+<ol start="2" style="list-style-type: decimal">
+<li><code>e'</code> is in <em>normal form</em></li>
+</ol>
 <p><br> <br> <br> <br> <br> <br></p>
 <h2 id="examples-of-evaluation">Examples of Evaluation</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x) <span class="dt">E</span>
-  <span class="fu">=</span>b<span class="fu">&gt;</span> <span class="dt">E</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x) apple
+  <span class="fu">=</span>b<span class="fu">&gt;</span> apple</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)) (\x <span class="ot">-&gt;</span> x)
-  <span class="fu">=</span>a<span class="fu">&gt;</span> (\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)) (\y <span class="ot">-&gt;</span> y)
-  <span class="fu">=</span>b<span class="fu">&gt;</span> (\y <span class="ot">-&gt;</span> y) (\x <span class="ot">-&gt;</span> x)
-  <span class="fu">=</span>b<span class="fu">&gt;</span> (\x <span class="ot">-&gt;</span> x)</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
+  <span class="fu">=?&gt;</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="non-terminating-evaluation">Non-Terminating Evaluation</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x x) (\y <span class="ot">-&gt;</span> y y)
   <span class="fu">=</span>b<span class="fu">&gt;</span> (\y <span class="ot">-&gt;</span> y y) (\y <span class="ot">-&gt;</span> y y)
@@ -457,426 +569,6 @@ free(e1 e2)   <span class="fu">=</span> free(e1) <span class="fu">+</span> free(
 <li>Self replicating code!</li>
 </ul>
 <p><br> <br> <br> <br> <br> <br></p>
-<h2 id="lambda-calculus-review"><span class="math inline"><em>λ</em></span>-Calculus Review</h2>
-<p><strong>Super tiny language</strong></p>
-<ul>
-<li><code>E ::= x | \x -&gt; E | (E E)</code></li>
-</ul>
-<p><strong>Many <a href="http://dl.acm.org/citation.cfm?id=860276">evaluation strategies</a></strong></p>
-<ul>
-<li>Many steps possible, which to take?</li>
-<li>Call-by-name</li>
-<li>Call-by-value</li>
-<li>Call-by need</li>
-</ul>
-<p><strong>Church Rosser Theorem</strong></p>
-<ul>
-<li>Regardless of strategy at most <em>one normal form</em></li>
-<li>i.e. Programs can evaluate to a single result.</li>
-</ul>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="lambda-calculus-and-cse-130"><span class="math inline"><em>λ</em></span>-calculus and CSE 130?</h2>
-<blockquote>
-<p>Whatever the next 700 languages turn out to be, they will surely be variants of lambda calculus.</p>
-</blockquote>
-<p>Huh? What was that Landin fellow going on about?</p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="programming-with-the-lambda-calculus">Programming with the <span class="math inline"><em>λ</em></span>-calculus</h2>
-<p><em>Real languages have lots of features</em></p>
-<ul>
-<li>Booleans <em>done</em></li>
-<li>Branches <em>done</em></li>
-<li>Records <em>done</em></li>
-<li>Numbers
-<ul>
-<li>Representation : <code>n</code> as <code>\f x -&gt; f (f (f (f x)))</code></li>
-<li>IsZero</li>
-</ul></li>
-<li>Arithmetic
-<ul>
-<li>Incr</li>
-<li>Add</li>
-<li>Mul</li>
-<li>Sub</li>
-</ul></li>
-<li>Functions (ok, we got those)</li>
-<li>Recursion</li>
-</ul>
-<p>Lets see how to <em>encode</em> all of the above with the <span class="math inline"><em>λ</em></span>-calculus.</p>
-<p><strong>Hidden Motive</strong></p>
-<ul>
-<li>Free your mind</li>
-<li>Build intuition about <strong>evaluation-by-substitution</strong></li>
-</ul>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-5">QUIZ</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> bar <span class="fu">=</span> (\x y <span class="ot">-&gt;</span> x)</code></pre></div>
-<p>What does <code>(bar apple orange)</code> evaluate to?</p>
-<p><strong>A.</strong> <code>bar orange</code></p>
-<p><strong>B.</strong> <code>bar apple</code></p>
-<p><strong>C.</strong> <code>apple</code></p>
-<p><strong>D.</strong> <code>orange</code></p>
-<p><strong>E.</strong> <code>bar</code></p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="lambda-calculus-booleans"><span class="math inline"><em>λ</em></span>-calculus: Booleans</h2>
-<p><strong>What can we <em>do</em> with a Boolean?</strong> - Make a <em>binary choice</em></p>
-<p><strong>How can we encode <em>choice</em> as a function?</strong> - A Boolean is a function that - Takes <em>two</em> inputs - Returns <em>one of</em> them as output</p>
-<p><strong>True and False</strong></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">TRUE</span>  <span class="fu">=</span> \x y <span class="ot">-&gt;</span> x       <span class="co">-- returns FIRST  input</span>
-<span class="kw">let</span> <span class="dt">FALSE</span> <span class="fu">=</span> \x y <span class="ot">-&gt;</span> y       <span class="co">-- returns SECOND input</span></code></pre></div>
-<p>Here, <code>let NAME = e</code> means <code>NAME</code> is an <em>abbreviation</em> for <code>e</code></p>
-<ul>
-<li>We don’t want to keep <em>re-typing</em> the whole expression out.</li>
-</ul>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-6">QUIZ</h2>
-<p>Given</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">TRUE</span>  <span class="fu">=</span> \x y <span class="ot">-&gt;</span> x
-<span class="kw">let</span> <span class="dt">FALSE</span> <span class="fu">=</span> \x y <span class="ot">-&gt;</span> y</code></pre></div>
-<p>What does <code>(TRUE apple orange)</code> evaluate to?</p>
-<p><strong>A.</strong> <code>apple</code></p>
-<p><strong>B.</strong> <code>orange</code></p>
-<p><strong>C.</strong> None of the above</p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="lambda-calculus-branches"><span class="math inline"><em>λ</em></span>-calculus: Branches</h2>
-<p>A <strong>branch</strong> is a function that takes <em>three</em> inputs</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ITE</span> <span class="fu">=</span> \b x y <span class="ot">-&gt;</span> <span class="fu">...</span></code></pre></div>
-<ul>
-<li>If <code>b</code> evaluates to <code>TRUE</code> return <code>x</code></li>
-<li>If <code>b</code> evaluates to <code>FALSE</code> return <code>y</code></li>
-</ul>
-<p>In other languages like C or JavaScript you would write</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"> b <span class="op">?</span> x : y</code></pre></div>
-<p>How shall we implement <code>ITE</code> as a <span class="math inline"><em>λ</em></span>-expression?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ITE</span>   <span class="fu">=</span> \b x y <span class="ot">-&gt;</span> b x y</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="example-branches">Example: Branches</h2>
-<p>We want</p>
-<ul>
-<li><code>if TRUE  then e1 else e2</code> to evaluate to <code>e1</code></li>
-</ul>
-<p>Does it?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval ite_true<span class="fu">:</span>
-  <span class="dt">ITE</span> <span class="dt">TRUE</span> e1 e2
-  <span class="fu">=</span>d<span class="fu">&gt;</span> (\b x y <span class="ot">-&gt;</span> b    x  y) <span class="dt">TRUE</span> e1 e2    <span class="co">-- expand def ITE  </span>
-  <span class="fu">=</span>b<span class="fu">&gt;</span>   (\x y <span class="ot">-&gt;</span> <span class="dt">TRUE</span> x  y)      e1 e2    <span class="co">-- beta-step</span>
-  <span class="fu">=</span>b<span class="fu">&gt;</span>     (\y <span class="ot">-&gt;</span> <span class="dt">TRUE</span> e1 y)         e2    <span class="co">-- beta-step</span>
-  <span class="fu">=</span>b<span class="fu">&gt;</span>            <span class="dt">TRUE</span> e1 e2               <span class="co">-- expand def TRUE</span>
-  <span class="fu">=</span>d<span class="fu">&gt;</span>     (\x y <span class="ot">-&gt;</span> x) e1 e2               <span class="co">-- beta-step</span>
-  <span class="fu">=</span>b<span class="fu">&gt;</span>       (\y <span class="ot">-&gt;</span> e1)   e2               <span class="co">-- beta-step</span>
-  <span class="fu">=</span>b<span class="fu">&gt;</span> e1</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="example-branches-1">Example: Branches</h2>
-<p>Now you try it! We want</p>
-<ul>
-<li><code>if FALSE then e1 else e2</code> to evaluate to <code>e2</code></li>
-</ul>
-<p>Can you <a href="http://goto.ucsd.edu:8095/index.html#?demo=ite.lc">fill in the blanks to make it happen?</a></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval ite_false<span class="fu">:</span>
-  <span class="dt">ITE</span> <span class="dt">FALSE</span> e1 e2
-
-  <span class="co">-- fill the steps in!</span>
-
-  <span class="fu">=*&gt;</span> e2  </code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-7">QUIZ</h2>
-<pre><code>let TRUE  = \p q -&gt; p
-let FALSE = \p q -&gt; q
-let HAHA  = \b   -&gt; ITE b FALSE TRUE</code></pre>
-<p>What does <code>HAHA TRUE</code> evaluate to?</p>
-<p><strong>A.</strong> <code>HAHA TRUE</code> <strong>B.</strong> <code>TRUE</code> <strong>C.</strong> <code>FALSE</code> <strong>D.</strong> <code>HAHA</code> <strong>E.</strong> <code>HAHA FALSE</code></p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="boolean-operators-not">Boolean Operators: NOT</h2>
-<p>We can develop the Boolean operators from <strong>truth tables</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="center"><code>b</code></th>
-<th align="center"><code>NOT b</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">TRUE</td>
-<td align="center">FALSE</td>
-</tr>
-<tr class="even">
-<td align="center">FALSE</td>
-<td align="center">TRUE</td>
-</tr>
-</tbody>
-</table>
-<p>We can encode the above as:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">NOT</span> <span class="fu">=</span> \b <span class="ot">-&gt;</span> <span class="dt">ITE</span> b <span class="dt">FALSE</span> <span class="dt">TRUE</span></code></pre></div>
-<p>That is, <code>HAHA</code> is actually the <a href="http://goto.ucsd.edu:8095/index.html#?demo=permalink%2F1491005489_149.lc"><code>NOT</code> operator!</a></p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="boolean-operators-and">Boolean Operators: AND</h2>
-<p>Similarly, <code>AND b1 b2</code> is defined by the truth table</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center"><code>b1</code></th>
-<th align="center"><code>b2</code></th>
-<th align="center"><code>AND b1 b2</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">FALSE</td>
-<td align="center">FALSE</td>
-<td align="center">FALSE</td>
-</tr>
-<tr class="even">
-<td align="center">FALSE</td>
-<td align="center">TRUE</td>
-<td align="center">FALSE</td>
-</tr>
-<tr class="odd">
-<td align="center">TRUE</td>
-<td align="center">FALSE</td>
-<td align="center">FALSE</td>
-</tr>
-<tr class="even">
-<td align="center">TRUE</td>
-<td align="center">TRUE</td>
-<td align="center">TRUE</td>
-</tr>
-</tbody>
-</table>
-<p>We can encode the truth table as a function</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">AND</span> <span class="fu">=</span> \b1 b2 <span class="ot">-&gt;</span> <span class="dt">ITE</span> b1 (<span class="dt">ITE</span> b2 <span class="dt">TRUE</span> <span class="dt">FALSE</span>) <span class="dt">FALSE</span></code></pre></div>
-<p>which can be simplified to</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">AND</span> <span class="fu">=</span> \b1 b2 <span class="ot">-&gt;</span> b1 b2 <span class="dt">FALSE</span></code></pre></div>
-<p>(Can you see why?)</p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="boolean-operators-or">Boolean Operators: OR</h2>
-<p>Similarly, <code>OR b1 b2</code> is defined by the truth table</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center"><code>b1</code></th>
-<th align="center"><code>b2</code></th>
-<th align="center"><code>AND b1 b2</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">FALSE</td>
-<td align="center">FALSE</td>
-<td align="center">FALSE</td>
-</tr>
-<tr class="even">
-<td align="center">FALSE</td>
-<td align="center">TRUE</td>
-<td align="center">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="center">TRUE</td>
-<td align="center">FALSE</td>
-<td align="center">TRUE</td>
-</tr>
-<tr class="even">
-<td align="center">TRUE</td>
-<td align="center">TRUE</td>
-<td align="center">TRUE</td>
-</tr>
-</tbody>
-</table>
-<p>We can encode the truth table as a function</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">OR</span> <span class="fu">=</span> \b1 b2 <span class="ot">-&gt;</span> <span class="dt">ITE</span> b1 <span class="dt">TRUE</span> (<span class="dt">ITE</span> b2 <span class="dt">TRUE</span> <span class="dt">FALSE</span>)</code></pre></div>
-<p>which can be simplified to</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">OR</span> <span class="fu">=</span> \b1 b2 <span class="ot">-&gt;</span> b1 <span class="dt">TRUE</span> b2</code></pre></div>
-<p>(Can you see why?)</p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="lambda-calculus-records"><span class="math inline"><em>λ</em></span>-calculus: Records</h2>
-<p>What can we <em>do</em> with <strong>records</strong> ?</p>
-<ol style="list-style-type: decimal">
-<li><strong>Pack two</strong> items into a record.</li>
-<li><strong>Get first</strong> item.</li>
-<li><strong>Get second</strong> item.</li>
-</ol>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="records-api">Records : API</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="dt">PACK</span> v1 v2)  <span class="co">-- makes a pair out of v1, v2 s.t.</span>
-              <span class="co">-- { fst : v1, snd : v2 }</span>
-              <span class="co">-- (\b -&gt; ITE b v1 v2)</span>
-
-(<span class="dt">FST</span> r)       <span class="co">-- returns the first element</span>
-              <span class="co">-- r.fst</span>
-              <span class="co">-- r TRUE</span>
-
-(<span class="dt">SND</span> r)       <span class="co">-- returns the second element</span>
-              <span class="co">-- r.snd</span>
-              <span class="co">-- r FALSE</span></code></pre></div>
-<p>such that</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FST</span> (<span class="dt">PACK</span> v1 v2) <span class="fu">=</span> v1   
-<span class="co">-- var r = { fst : v1, snd : v2}; assert(r.fst === v1)</span>
-
-<span class="dt">SND</span> (<span class="dt">PACK</span> v1 v2) <span class="fu">=</span> v2
-<span class="co">-- var r = { fst : v1, snd : v2}; assert(r.snd === v2)</span></code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="records-implementation">Records: Implementation</h2>
-<p>A <strong>create</strong> a record as a <strong>function</strong></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">PACK</span> <span class="fu">=</span> \v1 v2 <span class="ot">-&gt;</span> (\b <span class="ot">-&gt;</span> <span class="dt">ITE</span> b v1 v2)</code></pre></div>
-<ul>
-<li>Is called with a Boolean <code>b</code></li>
-<li>Returns <em>first</em> element if <code>b</code> is <code>TRUE</code></li>
-<li>Returns <em>second</em> element if <code>b</code> is <code>FALSE</code></li>
-</ul>
-<p>We <strong>access</strong> a record by <strong>calling</strong> it with <code>TRUE</code> or <code>FALSE</code></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">FST</span>  <span class="fu">=</span> \r <span class="ot">-&gt;</span> r <span class="dt">TRUE</span>   <span class="co">-- call w/ TRUE, get first value</span>
-
-<span class="kw">let</span> <span class="dt">SND</span>  <span class="fu">=</span> \r <span class="ot">-&gt;</span> r <span class="dt">FALSE</span>  <span class="co">-- call w/ FALSE, get second value</span></code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="exercise-records-with-3-values">Exercise: Records with 3 values?</h2>
-<p>How can we implement a record that contains <strong>three</strong> values?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- let NULL = FALSE</span>
-<span class="co">-- {fst : 'orange', snd : FALSE}</span>
-<span class="co">-- {fst : 'banana', {fst : 'orange', snd : FALSE}}</span>
-<span class="co">-- {fst : 'apple' , {fst : 'banana', {fst : 'orange', snd : FALSE}}}</span>
-<span class="co">-- {fst : 'durian'</span>
-        , {fst <span class="fu">:</span> <span class="ch">'apple'</span>
-               , {fst <span class="fu">:</span> <span class="ch">'banana'</span>
-                      , {fst <span class="fu">:</span> <span class="ch">'orange'</span>
-                            , snd <span class="fu">:</span> <span class="dt">FALSE</span>}}}}
-
-<span class="co">-- PACK durian (PACK apple (PACK orange FALSE))</span>
-
-<span class="co">-- PACK (</span>
-      (<span class="dt">PACK</span> durian apple)
-      (<span class="dt">PACK</span> orange banana)
-   )
-
-
-snd <span class="fu">:</span> <span class="ch">'orange'</span>}
-<span class="co">-- {fst : 'apple' , snd : {fst : 'banana', snd : 'orange'}}</span>
-<span class="co">-- {fst : 'durian', snd : {fst : 'apple' , snd : {fst : 'banana', snd : 'orange'}}}</span>
-
-
-<span class="co">-- {fst : {fst : 'durian', snd : 'apple'},</span>
-   ,snd <span class="fu">:</span>{fst <span class="fu">:</span> <span class="ch">'banana'</span>, snd <span class="fu">:</span> <span class="ch">'orange'</span>} }
-
-
-<span class="co">-- {fst : {fst : 'orange', snd : 'apple'}, snd : 'banana' }</span>
-<span class="co">-- r.fst.fst === 'orange'</span>
-<span class="co">-- r.fst.snd === 'apple'</span>
-<span class="co">-- {fst : {fst : {fst : 'orange', snd : 'apple'}, snd : 'banana' }, snd : 'melon'}</span>
-
-<span class="kw">let</span> <span class="dt">PACK3</span> <span class="fu">=</span> \v1 v2 v3 <span class="ot">-&gt;</span> <span class="dt">PACK</span> v1 (<span class="dt">PACK</span> v2 v3)
-<span class="kw">let</span> <span class="dt">FST3</span>  <span class="fu">=</span> \r <span class="ot">-&gt;</span> <span class="dt">FST</span> r
-<span class="kw">let</span> <span class="dt">SND3</span>  <span class="fu">=</span> \r <span class="ot">-&gt;</span> <span class="dt">FST</span> (<span class="dt">SND</span> r)
-<span class="kw">let</span> <span class="dt">THD3</span>  <span class="fu">=</span> \r <span class="ot">-&gt;</span> <span class="dt">SND</span> (<span class="dt">SND</span> r)
-
-
-<span class="kw">let</span> <span class="dt">BOB</span> <span class="dt">ZERO</span>  <span class="fu">=</span> (<span class="dt">PACK</span> <span class="dt">ZERO</span> <span class="dt">FALSE</span>)
-<span class="kw">let</span> <span class="dt">BOB</span> <span class="dt">ONE</span>   <span class="fu">=</span> <span class="dt">PACK</span> <span class="dt">ONE</span> (<span class="dt">PACK</span> <span class="dt">ZERO</span> <span class="dt">FALSE</span>)
-<span class="kw">let</span> <span class="dt">BOB</span> <span class="dt">TWO</span>   <span class="fu">=</span> <span class="dt">PACK</span> <span class="dt">TWO</span> (<span class="dt">PACK</span> <span class="dt">ONE</span> (<span class="dt">PACK</span> <span class="dt">ZERO</span> <span class="dt">FALSE</span>))
-<span class="kw">let</span> <span class="dt">BOB</span> <span class="dt">THREE</span> <span class="fu">=</span> <span class="dt">PACK</span> <span class="dt">THREE</span> (<span class="dt">PACK</span> <span class="dt">TWO</span> (<span class="dt">PACK</span> <span class="dt">ONE</span> (<span class="dt">PACK</span> <span class="dt">ZERO</span> <span class="dt">FALSE</span>)))</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="lambda-calculus-numbers"><span class="math inline"><em>λ</em></span>-calculus: Numbers</h2>
-<p><code>n f s</code> means run <code>f</code> on <code>s</code> exactly <code>n</code> times</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | represent n as  \f x. f (f (f  ...   (f x)</span>
-<span class="co">--                         '--- n times ---'</span>
-
-<span class="kw">let</span> <span class="dt">ONE</span>   <span class="fu">=</span> \f x<span class="fu">.</span> f x
-<span class="kw">let</span> <span class="dt">TWO</span>   <span class="fu">=</span> \f x<span class="fu">.</span> f (f x)
-<span class="kw">let</span> <span class="dt">THREE</span> <span class="fu">=</span> \f x<span class="fu">.</span> f (f (f x))
-<span class="kw">let</span> <span class="dt">FOUR</span>  <span class="fu">=</span> \f x<span class="fu">.</span> f (f (f (f x)))</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-church-numerals">QUIZ: Church Numerals</h2>
-<p>Which of these is a valid encoding of <code>ZERO</code> ?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- A</span>
-<span class="kw">let</span> <span class="dt">ZERO</span> <span class="fu">=</span> \f x <span class="ot">-&gt;</span> x
-
-<span class="co">-- B</span>
-<span class="kw">let</span> <span class="dt">ZERO</span> <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f
-
-<span class="co">-- C</span>
-<span class="kw">let</span> <span class="dt">ZERO</span> <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f x
-
-<span class="co">-- D</span>
-<span class="kw">let</span> <span class="dt">ZERO</span> <span class="fu">=</span> \x <span class="ot">-&gt;</span> x
-
-<span class="co">-- E</span>
-<span class="co">-- none of the above!</span></code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="lambda-calculus-arithmetic-iszero"><span class="math inline"><em>λ</em></span>-calculus: Arithmetic (<code>IsZero</code>)</h2>
-<p>Lets implement a small API for numbers:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- TRUE if n = ZERO and FALSE otherwise</span>
-<span class="kw">let</span> <span class="dt">IsZero</span> <span class="fu">=</span> \n <span class="ot">-&gt;</span> <span class="fu">...</span></code></pre></div>
-<h2 id="lambda-calculus-arithmetic-incr"><span class="math inline"><em>λ</em></span>-calculus: Arithmetic (<code>Incr</code>)</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Call `f` on `x` one more time than `n` does</span>
-<span class="kw">let</span> <span class="dt">Incr</span>   <span class="fu">=</span> \n <span class="ot">-&gt;</span> (\f x <span class="ot">-&gt;</span> <span class="fu">...</span> )</code></pre></div>
-<p>An example!</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval incr_one <span class="fu">:</span>
-  <span class="dt">Incr</span> <span class="dt">ONE</span>
-  <span class="fu">=</span>d<span class="fu">&gt;</span> (\n f x <span class="ot">-&gt;</span> f (n f x)) <span class="dt">ONE</span>
-  <span class="fu">=</span>b<span class="fu">&gt;</span> \f x <span class="ot">-&gt;</span> f (<span class="dt">ONE</span> f x)
-  <span class="fu">=*&gt;</span> \f x <span class="ot">-&gt;</span> f (f x)
-  <span class="fu">=</span>d<span class="fu">&gt;</span> <span class="dt">TWO</span>
-
-eval incr_two <span class="fu">:</span>
-  <span class="dt">Incr</span> <span class="dt">TWO</span>
-  <span class="fu">=</span>d<span class="fu">&gt;</span> (\n f x <span class="ot">-&gt;</span> f (n f x)) <span class="dt">TWO</span>
-  <span class="fu">=</span>b<span class="fu">&gt;</span> \f x <span class="ot">-&gt;</span> f (<span class="dt">TWO</span> f x)
-  <span class="fu">=*&gt;</span> \f x <span class="ot">-&gt;</span> f (f (f x))
-  <span class="fu">=</span>d<span class="fu">&gt;</span> <span class="dt">THREE</span></code></pre></div>
-<h2 id="quiz-8">QUIZ</h2>
-<p>How shall we implement <code>Plus</code>?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">--  Call `f` on `x` exactly `n + m` times</span>
-<span class="kw">let</span> <span class="dt">Plus</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> <span class="fu">???</span>  
-
-eval plus_zero_zero <span class="fu">:</span>
-  <span class="dt">Plus</span> <span class="dt">ZERO</span> <span class="dt">ZERO</span> <span class="fu">=~&gt;</span> <span class="dt">ZERO</span>
-
-eval plus_two_one <span class="fu">:</span>
-  <span class="dt">Plus</span> <span class="dt">TWO</span> <span class="dt">ONE</span> <span class="fu">=~&gt;</span> <span class="dt">THREE</span>
-
-eval plus_two_two <span class="fu">:</span>
-  <span class="dt">Plus</span> <span class="dt">TWO</span> <span class="dt">TWO</span> <span class="fu">=~&gt;</span> <span class="dt">FOUR</span></code></pre></div>
-<p><strong>A.</strong> <code>let Plus = \n m -&gt; (n Incr) m</code></p>
-<p><strong>B.</strong> <code>let Plus = \n m -&gt; Incr n m</code></p>
-<p><strong>C.</strong> <code>let Plus = \n m -&gt; n m Incr</code></p>
-<p><strong>D.</strong> <code>let Plus = \n m -&gt; n (m Incr)</code></p>
-<p><strong>E.</strong> <code>let Plus = \n m -&gt; n (Incr m)</code></p>
-<p><span class="math inline"><em>λ</em></span>-calculus: Arithmetic (<code>Plus</code>)</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">--  Call `f` on `x` exactly `n + m` times</span>
-<span class="kw">let</span> <span class="dt">Plus</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> <span class="fu">???</span></code></pre></div>
-<p>An example!</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval plus_zero_zero <span class="fu">:</span>
-  <span class="dt">Plus</span> <span class="dt">ZERO</span> <span class="dt">ZERO</span>
-  <span class="fu">=~&gt;</span> <span class="dt">ZERO</span>
-
-eval plus_two_two <span class="fu">:</span>
-  <span class="dt">Plus</span> <span class="dt">TWO</span> <span class="dt">TWO</span>
-  <span class="fu">=~&gt;</span> <span class="dt">FOUR</span></code></pre></div>
-<h2 id="quiz-9">QUIZ</h2>
-<p>How shall we implement <code>MULT</code>?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">--  Call `f` on `x` exactly `n * m` times</span>
-<span class="kw">let</span> <span class="dt">Mult</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> <span class="fu">???</span>  
-
-eval mult_zero_two <span class="fu">:</span>
-  <span class="dt">Mult</span> <span class="dt">ZERO</span> <span class="dt">TWO</span> <span class="fu">=~&gt;</span> <span class="dt">ZERO</span>
-
-eval mult_two_one <span class="fu">:</span>
-  <span class="dt">Mult</span> <span class="dt">TWO</span> <span class="dt">ONE</span> <span class="fu">=~&gt;</span> <span class="dt">TWO</span>
-
-eval mult_two_three <span class="fu">:</span>
-  <span class="dt">Mult</span> <span class="dt">TWO</span> <span class="dt">THREE</span> <span class="fu">=~&gt;</span> <span class="dt">SIX</span></code></pre></div>
-<p><strong>A.</strong> <code>let Mult = \n m -&gt; n Plus m</code></p>
-<p><strong>B.</strong> <code>let Mult = \n m -&gt; n (Plus m) ZERO</code></p>
-<p><strong>E.</strong> <code>let Mult = \n m -&gt; m (Plus n) ZERO</code></p>
-<p><strong>C.</strong> <code>let Mult = \n m -&gt; n (Plus m ZERO)</code> <strong>D.</strong> <code>let Mult = \n m -&gt; (n Plus m) ZERO</code></p>
-<h2 id="lambda-calculus-arithmetic-mult"><span class="math inline"><em>λ</em></span>-calculus: Arithmetic (<code>Mult</code>)</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">--  Call `f` on `x` exactly `n * m` times</span>
-<span class="kw">let</span> <span class="dt">Mult</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> <span class="fu">???</span>
-
-eval mul_two_three <span class="fu">:</span>
-  mul two three
-  <span class="fu">=*&gt;</span> six</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="lambda-calculus-recursion"><span class="math inline"><em>λ</em></span>-calculus: Recursion</h2>
-<p>The final frontier …</p>
                 <hr>
             </div>
         </div>

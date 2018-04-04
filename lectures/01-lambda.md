@@ -3,6 +3,25 @@ title: Lambda Calculus
 headerImg: sea.jpg
 ---
 
+## Your Favorite Language
+
+Probably has lots of features:
+
+* Assignment (`x = x + 1`)
+* Booleans, integers, characters, strings, ...
+* Conditionals
+* Loops
+* `return`, `break`, `continue`
+* Functions
+* Recursion
+* References / pointers
+* Objects and classes
+* Inheritance
+* ...
+
+Which ones can we do without?
+
+What is the **smallest universal language**?
 
 <br>
 <br>
@@ -22,19 +41,33 @@ headerImg: sea.jpg
 <br>
 <br>
 
-## The Smallest Universal Language
+## What is computable?
 
+### Before 1930s
+
+Informal notion of an **effectively calculable** function:
+
+![can be computed by a human with pen and paper, following an algorithm](https://oercommons.s3.amazonaws.com/media/courseware/assets/G06/06-math-math-06-9780328761197-math-9780328761197-ah-studio-images-ip3-mth-6-2-8-2-1_mw-4x3_dividehandwritten-ip3.png){#fig:pen-and-paper .align-center width=40%}
+
+
+<br>
+<br>
+<br>
+<br>
+
+### 1936: formalization
+
+![Alan Turing](https://upload.wikimedia.org/wikipedia/commons/a/a1/Alan_Turing_Aged_16.jpg){#fig:turing .align-center width=40%}
+ 
 ![Alonzo Church](https://upload.wikimedia.org/wikipedia/en/a/a6/Alonzo_Church.jpg){#fig:church .align-center width=40%}
 
-Developed in 1930s by Alonzo Church
-
-- Studied in logic and computer science
-
-Test bed for procedural and functional PLs
-
-- Simple, Powerful, Extensible
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -60,67 +93,107 @@ Peter Landin, 1966
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## The Lambda Calculus
+
+Has one feature:
+
+* Functions
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+No, really:
+
+* ~~Assignment (`x = x + 1`)~~
+* ~~Booleans, integers, characters, strings, ...~~
+* ~~Conditionals~~
+* ~~Loops~~
+* ~~`return`, `break`, `continue`~~
+* Functions
+* ~~Recursion~~
+* ~~References / pointers~~
+* ~~Objects and classes~~
+* ~~Inheritance~~
+* ~~Reflection~~
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Describing a Programming Language
+
+* _Syntax:_ what do programs look like?
+* _Semantics:_ what do programs mean?
+    * _operational semantics_: how do programs execute step-by-step?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## Syntax: What Programs _Look Like_
 
-```javascript
-e ::= x, y, z, ...
-    | function(x){ return e }
-    | e1(e2)
+<br>
+
+```haskell
+e ::= x
+    | \x -> e 
+    | e1 e2
 
 ```
 
-**Three** kinds of expressions
+<br>
 
-- `e`
+Programs are **expressions** `e` (also called **$\lambda$-terms**)
+of one of three kinds:
 
-**Variables**
+- **Variable**
+    - `x`, `y`, `z`
+- **Abstraction** (aka _nameless_ function definition)
+    - `\x -> e`
+    - `x` is the _formal_, `e` is the _body_ 
+    - "for any `x` compute `e`"
+- **Application** (aka function call)
+    - `e1 e2`
+    - `e1` is the _function_, `e2` is the _argument_
+    - in your favorite language: `e1(e2)`
 
-- `x`, `y`, `z`    (in JS `x`, `y`, `z`)
-
-**Function Definitions (Abstraction)**
-
-- `\x -> e`        (in JS `function(x){return e}` or `(x) => e`)
-
-**Function Call (Application)**
-
-- `e1 e2`          (in JS `e1(e2)`)
-
-
-
-**Complete Description**
-
-![The Lambda Calculus](/static/img/lambda-calculus.png)
 
 
 <br>
 <br>
 <br>
 <br>
-<br>
-<br>
-
-
-
-## Application Is Left Associative
-
-We write
-
-`e1 e2 e3 e4`
-
-instead of
-
-`(((e1 e2) e3) e4)`
-
-We write
-
-`\x1 -> \x2 -> \x3 -> \x4 -> e`
-
-instead of
-
-`\x1 -> (\x2 -> (\x3 -> (\x4 -> e)))`
-
-
 <br>
 <br>
 <br>
@@ -131,19 +204,109 @@ instead of
 ## Examples
 
 ```haskell
-\x -> x             -- The Identity function
-                    -- function (x) { return x ;}
-                    -- (x) => x
+\x -> x             -- The identity function
+                    -- ("for any x compute x")
 
-\y -> (\x -> x)     -- A function that returns the Identity Fun
-                    --   function(y){ return
-                    --      function (x) { return x ;}
-                    --   }
-
-\f -> f (\x -> x)   -- A function that applies arg to the Identity Fun
+\x -> (\y -> y)     -- A function that returns the identity function
+ 
+\f -> f (\x -> x)   -- A function that applies its argument 
+                    -- to the identity function
 ```
 
 
+<br>
+<br>
+
+How do I write a function with two arguments?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```haskell
+\x -> (\y -> y)     -- A function that returns the identity function
+                    -- OR: a function that takes two arguments
+                    -- and returns the second one!
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## QUIZ
+
+Which of the following terms are syntactically **incorrect**?
+
+**A.**  `\(\x -> x) -> y`
+
+**B.**  `\x -> x x`
+
+**C.**  `\x -> x (y x)`
+
+**D.**  A and C
+
+**E.**  all of the above
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+## Syntactic Sugar
+
+<br>
+<br>
+
+instead of                |  we write
+:-------------------------|:-------------------------
+`(((e1 e2) e3) e4)`       |  `e1 e2 e3 e4`
+`\x -> (\y -> (\z -> e))` | `\x -> \y -> \z -> e`
+`\x -> \y -> \z -> e`     | `\x y z -> e`
+
+<br>
+<br>
+
+```haskell
+\x y -> y     -- A function that returns the identity function
+              -- OR: a function that takes two arguments
+              -- and returns the second one!
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -153,22 +316,59 @@ instead of
 
 ## Semantics : What Programs _Mean_
 
-We define the _meaning_ of a program with simple rules.
-
-1. Scope
-2. $\alpha$-step  (aka. _renaming formals_)
-3. $\beta$-step   (aka. _function calls_)
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
 
-## Semantics: Scope
+How do I "run" / "execute" a $\lambda$-term?
+
+<br>
+
+Think of middle-school algebra:
+
+```haskell
+-- Simplify expression:
+
+  (x + 2)*(x - 1)*(x + 3)
+ =
+  ???
+```
+
+<br>
+
+**Execute** = rewrite step-by-step following simple rules,
+until no more rules apply
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Rewrite Rules of Lambda Calculus
+
+<br>
+
+1. $\alpha$-step  (aka _renaming formals_)
+2. $\beta$-step   (aka _function call_)
+
+<br>
+
+But first we have to talk about **scope**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Semantics: Scope of a Variable
 
 The part of a program where a **variable is visible**
 
@@ -180,36 +380,32 @@ In the expression `\x -> e`
 
 - `x` is **bound** inside `e`
 
+<br>
 
 ```
-  (\x -> (\y -> x)) x
+  \x -> x          -- x is bound
+  \x -> (\y -> x)  -- x is bound
 ```
 
-
-
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 
-## Semantics: Free vs Bound Variables
+An occurence of `x` in `e` is **free** if it's _not bound_ by an enclosing abstraction
 
-`y` is **free** inside `e` if
+<br>
 
-- `y` appears inside `e`, and
-- `y` is **not bound** inside `e`
-
-Formally,
-
-```haskell
-free(x)       = {x}
-free(\x -> e) = free(e)  - {x}
-free(e1 e2)   = free(e1) + free(e2)
+```
+  x y        -- x is free  
+  \y -> x y  -- x is free
 ```
 
 
+
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -219,21 +415,25 @@ free(e1 e2)   = free(e1) + free(e2)
 
 ## QUIZ
 
-Let `e` be the expression `\x -> x (\y -> x y z)`.
+In the expression `(\x -> x) x`,
+is `x` _bound_ or _free_?
 
-Which variables are *free* in `e` ?
+**A.**  bound
 
-**A.**  `x`
+**B.**  free
 
-**B.**  `y`
+**C.**  first occurence is bound, second is free
 
-**C.**  `z`
+**D.**  first occurence is bound, second and third are free
 
-**D.**  `x`, `y`
+**E.**  first two occurrences are bound, third is free
 
-**E.**  `x`, `y`, `z`
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -242,15 +442,72 @@ Which variables are *free* in `e` ?
 <br>
 
 
-## Semantics: $\alpha$-Equivalence
+## Closed Expressions
 
-$\lambda$-terms `E1` and `E2` are $\alpha$-equivalent if
+If `e` has _no free variables_ it is said to be **closed**
 
-- `E2` can be obtained be *renaming the bound variables* of `E1`
+- Closed expressions are also called **combinators**
 
-or
+<br>
+<br>
 
-- `E1` can be obtained be *renaming the bound variables* of `E2`
+What is the shortest closed expression?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Rewrite Rules of Lambda Calculus
+
+<br>
+
+1. $\alpha$-step  (aka _renaming formals_)
+2. $\beta$-step   (aka _function call_)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Semantics: $\beta$-Reduction
+
+<br>
+
+```
+  (\x -> e1) e2   =b>   e1[x := e2]
+```
+<br>
+where `e1[x := e2]` means
+"`e1` with all occurrences of `x` replaced with `e2`"
+
+<br>
+<br>
+
+Computation by _search-and-replace_:
+
+- If you see an _abstraction_ applied to an _argument_,
+take the _body_ of the abstraction and
+replace all occurrences of the _formal_ by that _argument_
+
+- We say that `(\x -> e1) e2` $\beta$-steps to `e1[x := e2]`
+
 
 
 <br>
@@ -259,37 +516,30 @@ or
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-## Semantics: $\alpha$-step
+## Examples
 
-**Example:** The following three terms are $\alpha$-equivalent
+<br>
 
 ```haskell
-\x -> x   =a> \y -> y   =a> \z -> z
+(\x -> x) apple     
+=b> apple
 ```
 
-We write `E1 =a> E2` if `E1` is $\alpha$-equivalent to `E2`.  
-
-- We can say `E1` takes an $\alpha$-step to `E2`.
-
+Is this right? Ask [Elsa](http://goto.ucsd.edu:8095/index.html#?demo=blank.lc)!
 
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-
-## $\alpha$-step Makes Scope Clear
-
-We often $\alpha$-rename to make **parameter names unique**
-
-For example, instead of
 
 ```haskell
-    \x -> x (\x -> x) x     -- Yucky scope
-
-=a> \x -> x (\y -> y) x     -- Scope of bindings crystal clear
+(\f -> f (\x -> x)) (give apple)
+=b> ???
 ```
 
 
@@ -299,33 +549,6 @@ For example, instead of
 <br>
 <br>
 <br>
-
-
-## Semantics: Function Calls
-
-In the $\lambda$-calculus, a "function call" (application) looks like `(x -> E1) E2`
-
-
-| **Function** | **Argument**  |
-|:------------:|:-------------:|
-| `\x -> E1`   | `E2`          |
-
-
-How do we **evaluate** the _function_ with the given _argument_?
-
-1. **Rename** parameters to make them unique
-2. **Substitute** all occurrences of `x` in `E1` with `E2`!
-
-If so, we say that
-
-- `(\x -> E1) E2` $\beta$-steps to `E1[x := E2]`
-
-and we can write it as
-
-- `(\x -> E1) E2   =b>   E1[x := E2]`
-
-
-
 <br>
 <br>
 <br>
@@ -333,17 +556,24 @@ and we can write it as
 <br>
 <br>
 
-## Function Calls: $\beta$-step Example
+## QUIZ
 
-Replace occurrences of parameter `f` with argument
+<br>
 
 ```haskell
-(\f -> f (f x)) g        
-
-   =b>     g (g x)
+(\x -> (\y -> y)) apple
+=b> ???
 ```
 
-No need to rename, bindings already unique
+**A.** `apple`
+
+**B.** `\y -> apple`
+
+**C.** `\x -> apple`
+
+**D.** `\y -> y`
+
+**E.** `\x -> y`
 
 
 <br>
@@ -352,12 +582,183 @@ No need to rename, bindings already unique
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## A Tricky One
+
+<br>
+
+```haskell
+(\x -> (\y -> x)) y
+=b> \y -> y
+```
+
+Is this right?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Something is Fishy
+
+<br>
+
+```haskell
+(\x -> (\y -> x)) y
+=b> \y -> y
+```
+
+Is this right?
+
+**Problem**: the _free_ `y` in the argument has been **captured** by `\y`!
+
+**Solution**: make sure that all _free variables_ of the argument
+are different from the binders in the body. 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Capture-Avoiding Substitution
+
+We have to fix our definition of $\beta$-reduction:
+
+```
+  (\x -> e1) e2   =b>   e1[x := e2]
+```
+<br>
+where `e1[x := e2]` means
+
+  - `e1` with all occurrences of `x` replaced with `e2`,
+   **as long as** no free variables of `e2` get captured
+  - undefined otherwise
+      - wait but what do we do then?  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+## Rewrite Rules of Lambda Calculus
+
+<br>
+
+1. $\alpha$-step  (aka _renaming formals_)
+2. $\beta$-step   (aka _function call_)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Semantics: $\alpha$-Renaming
+
+<br>
+
+```
+  \x -> e   =a>   \y -> e[x := y]
+```
+<br>
+
+- We can rename a formal parameter and replace all its occurrences in the body
+
+- We say that `\x -> e` $\alpha$-steps to `\y -> e[x := y]`
+
+Example:
+
+```haskell
+\x -> x
+=a> \y -> y
+=a> \z -> z
+```
+
+All these expressions are **$\alpha$-equivalent**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## The Tricky One
+
+<br>
+
+```haskell
+(\x -> (\y -> x)) y
+=a> ???
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
 
 ## Normal Forms
 
 An **redex** is a $\lambda$-term of the form
 
-`(\x -> E1) E2`
+`(\x -> e1) e2`
 
 A $\lambda$-term is in **normal form** if it contains no redexes.
 
@@ -371,29 +772,17 @@ A $\lambda$-term is in **normal form** if it contains no redexes.
 
 ## QUIZ
 
-Is the term `x` in _normal form_ ?
+Which of the following term are **not** in _normal form_ ?
 
-**A.** Yes
+**A.** `x`
 
-**B.** No
+**B.** `x y`
 
+**C.** `(\x -> x) y`
 
+**D.** `x (\y -> y)`
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## QUIZ
-
-Is the term `(x y)` in _normal form_ ?
-
-**A.** Yes
-
-**B.** No
-
+**E.** C and D
 
 <br>
 <br>
@@ -401,18 +790,6 @@ Is the term `(x y)` in _normal form_ ?
 <br>
 <br>
 <br>
-
-
-## QUIZ
-
-Is the term `(\x -> x) y` in _normal form_ ?
-
-**A.** Yes
-
-**B.** No
-
-
-
 <br>
 <br>
 <br>
@@ -420,39 +797,21 @@ Is the term `(\x -> x) y` in _normal form_ ?
 <br>
 <br>
 
-
-## QUIZ
-
-Is the term `x (\y -> y)` in _normal form_ ?
-
-**A.** Yes
-
-**B.** No
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 
 ## Semantics: Evaluation
 
-A $\lambda$-term `E` **reduces/evaluates to a normal form** `E'` if
+A $\lambda$-term `e` **evaluates to** `e'` if
 
-there is a sequence of steps
+1. There is a sequence of steps
 
 ```haskell
-E =?> E_1 =?> ... =?> EN =?> E'
+e =?> e_1 =?> ... =?> e_N =?> e'
 ```
 
-where each `=?>` is
+where each `=?>` is either `=a>` or `=b>`
 
-- An $\alpha$-step `=a>` or
-- A  $\beta$-step `=b>`.
+2. `e'` is in _normal form_
 
 
 <br>
@@ -466,18 +825,22 @@ where each `=?>` is
 ## Examples of Evaluation
 
 ```haskell
-(\x -> x) E
-  =b> E
+(\x -> x) apple
+  =b> apple
 ```
 
 ```haskell
 (\f -> f (\x -> x)) (\x -> x)
-  =a> (\f -> f (\x -> x)) (\y -> y)
-  =b> (\y -> y) (\x -> x)
-  =b> (\x -> x)
+  =?> ???
 ```
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -505,694 +868,4 @@ Oops, we can write programs that loop back to themselves...
 <br>
 <br>
 
-## $\lambda$-Calculus Review
 
-**Super tiny language**
-
-- `E ::= x | \x -> E | (E E)`
-
-**Many [evaluation strategies](http://dl.acm.org/citation.cfm?id=860276)**
-
-- Many steps possible, which to take?
-- Call-by-name
-- Call-by-value
-- Call-by need
-
-**Church Rosser Theorem**
-
-- Regardless of strategy at most *one normal form*
-- i.e. Programs can evaluate to a single result.
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## $\lambda$-calculus and CSE 130?
-
-
-> Whatever the next 700 languages
-> turn out to be,
-> they will surely be
-> variants of lambda calculus.
-
-Huh? What was that Landin fellow going on about?
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Programming with the $\lambda$-calculus
-
-*Real languages have lots of features*
-
-- Booleans *done*
-- Branches *done*
-- Records  *done*
-- Numbers
-    - Representation : `n` as `\f x -> f (f (f (f x)))`
-    - IsZero
-
-- Arithmetic
-    - Incr
-    - Add
-    - Mul
-    - Sub
-- Functions (ok, we got those)
-- Recursion
-
-Lets see how to _encode_ all of the above
-with the $\lambda$-calculus.
-
-**Hidden Motive**
-
-- Free your mind
-- Build intuition about **evaluation-by-substitution**
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## QUIZ
-
-```haskell
-let bar = (\x y -> x)
-```
-
-What does `(bar apple orange)` evaluate to?
-
-**A.**  `bar orange`
-
-**B.**  `bar apple`
-
-**C.**  `apple`
-
-**D.**  `orange`
-
-**E.**  `bar`
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## $\lambda$-calculus: Booleans
-
-**What can we _do_ with a Boolean?**
-- Make a _binary choice_
-
-**How can we encode _choice_ as a function?**
-- A Boolean is a function that
-- Takes _two_ inputs
-- Returns _one of_ them as output
-
-**True and False**
-
-```haskell
-let TRUE  = \x y -> x       -- returns FIRST  input
-let FALSE = \x y -> y       -- returns SECOND input
-```
-
-Here, `let NAME = e` means `NAME` is an _abbreviation_ for `e`
-
-- We don't want to keep _re-typing_ the whole expression out.
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-## QUIZ
-
-Given
-
-```haskell
-let TRUE  = \x y -> x
-let FALSE = \x y -> y
-```
-
-What does `(TRUE apple orange)` evaluate to?
-
-**A.**  `apple`
-
-**B.**  `orange`
-
-**C.**  None of the above
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## $\lambda$-calculus: Branches
-
-A **branch** is a function that takes _three_ inputs
-
-```haskell
-let ITE = \b x y -> ...
-```
-
-- If `b` evaluates to `TRUE`  return `x`
-- If `b` evaluates to `FALSE` return `y`
-
-In other languages like C or JavaScript you would write
-
-```javascript
- b ? x : y
-```
-
-How shall we implement `ITE` as a $\lambda$-expression?
-
-```haskell
-let ITE   = \b x y -> b x y
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Example: Branches
-
-We want
-
-- `if TRUE  then e1 else e2` to evaluate to `e1`
-
-Does it?
-
-```haskell
-eval ite_true:
-  ITE TRUE e1 e2
-  =d> (\b x y -> b    x  y) TRUE e1 e2    -- expand def ITE  
-  =b>   (\x y -> TRUE x  y)      e1 e2    -- beta-step
-  =b>     (\y -> TRUE e1 y)         e2    -- beta-step
-  =b>            TRUE e1 e2               -- expand def TRUE
-  =d>     (\x y -> x) e1 e2               -- beta-step
-  =b>       (\y -> e1)   e2               -- beta-step
-  =b> e1
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Example: Branches
-
-Now you try it! We want
-
-- `if FALSE then e1 else e2` to evaluate to `e2`
-
-Can you [fill in the blanks to make it happen?][elsa-ite]
-
-
-```haskell
-eval ite_false:
-  ITE FALSE e1 e2
-
-  -- fill the steps in!
-
-  =*> e2  
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## QUIZ
-
-```
-let TRUE  = \p q -> p
-let FALSE = \p q -> q
-let HAHA  = \b   -> ITE b FALSE TRUE
-```
-
-What does `HAHA TRUE` evaluate to?
-
-**A.** `HAHA TRUE`
-**B.** `TRUE`
-**C.** `FALSE`
-**D.** `HAHA`
-**E.** `HAHA FALSE`
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-## Boolean Operators: NOT
-
-
-We can develop the Boolean operators from **truth tables**
-
-| `b`   | `NOT b` |
-|:-----:|:-------:|
-| TRUE  | FALSE   |
-| FALSE | TRUE    |
-
-We can encode the above as:
-
-```haskell
-let NOT = \b -> ITE b FALSE TRUE
-```
-
-That is, `HAHA` is actually the [`NOT` operator!][elsa-not]
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-## Boolean Operators: AND
-
-Similarly, `AND b1 b2` is defined by the truth table
-
-| `b1`   | `b2`   |  `AND b1 b2` |
-|:-----:|:-------:|:------------:|
-| FALSE | FALSE   |  FALSE       |
-| FALSE | TRUE    |  FALSE       |
-| TRUE  | FALSE   |  FALSE       |
-| TRUE  | TRUE    |  TRUE        |
-
-We can encode the truth table as a function
-
-```haskell
-let AND = \b1 b2 -> ITE b1 (ITE b2 TRUE FALSE) FALSE
-```
-
-which can be simplified to
-
-```haskell
-let AND = \b1 b2 -> b1 b2 FALSE
-```
-
-(Can you see why?)
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-## Boolean Operators: OR
-
-Similarly, `OR b1 b2` is defined by the truth table
-
-| `b1`   | `b2`   |  `AND b1 b2` |
-|:-----:|:-------:|:------------:|
-| FALSE | FALSE   |  FALSE       |
-| FALSE | TRUE    |  TRUE        |
-| TRUE  | FALSE   |  TRUE        |
-| TRUE  | TRUE    |  TRUE        |
-
-We can encode the truth table as a function
-
-```haskell
-let OR = \b1 b2 -> ITE b1 TRUE (ITE b2 TRUE FALSE)
-```
-
-which can be simplified to
-
-```haskell
-let OR = \b1 b2 -> b1 TRUE b2
-```
-
-(Can you see why?)
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## $\lambda$-calculus: Records
-
-What can we *do* with **records** ?
-
-1. **Pack two** items into a record.
-2. **Get first** item.
-3. **Get second** item.
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Records : API
-
-```haskell
-(PACK v1 v2)  -- makes a pair out of v1, v2 s.t.
-              -- { fst : v1, snd : v2 }
-              -- (\b -> ITE b v1 v2)
-
-(FST r)       -- returns the first element
-              -- r.fst
-              -- r TRUE
-
-(SND r)       -- returns the second element
-              -- r.snd
-              -- r FALSE
-```
-
-such that
-
-```haskell
-FST (PACK v1 v2) = v1   
--- var r = { fst : v1, snd : v2}; assert(r.fst === v1)
-
-SND (PACK v1 v2) = v2
--- var r = { fst : v1, snd : v2}; assert(r.snd === v2)
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Records: Implementation
-
-A **create** a record as a **function**
-
-```haskell
-let PACK = \v1 v2 -> (\b -> ITE b v1 v2)
-```
-
-- Is called with a Boolean `b`
-- Returns *first* element if `b` is `TRUE`
-- Returns *second* element if `b` is `FALSE`
-
-We **access** a record by **calling** it with `TRUE` or `FALSE`
-
-```haskell
-let FST  = \r -> r TRUE   -- call w/ TRUE, get first value
-
-let SND  = \r -> r FALSE  -- call w/ FALSE, get second value
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Exercise: Records with 3 values?
-
-How can we implement a record that contains **three** values?
-
-```haskell
--- let NULL = FALSE
--- {fst : 'orange', snd : FALSE}
--- {fst : 'banana', {fst : 'orange', snd : FALSE}}
--- {fst : 'apple' , {fst : 'banana', {fst : 'orange', snd : FALSE}}}
--- {fst : 'durian'
-        , {fst : 'apple'
-               , {fst : 'banana'
-                      , {fst : 'orange'
-                            , snd : FALSE}}}}
-
--- PACK durian (PACK apple (PACK orange FALSE))
-
--- PACK (
-      (PACK durian apple)
-      (PACK orange banana)
-   )
-
-
-snd : 'orange'}
--- {fst : 'apple' , snd : {fst : 'banana', snd : 'orange'}}
--- {fst : 'durian', snd : {fst : 'apple' , snd : {fst : 'banana', snd : 'orange'}}}
-
-
--- {fst : {fst : 'durian', snd : 'apple'},
-   ,snd :{fst : 'banana', snd : 'orange'} }
-
-
--- {fst : {fst : 'orange', snd : 'apple'}, snd : 'banana' }
--- r.fst.fst === 'orange'
--- r.fst.snd === 'apple'
--- {fst : {fst : {fst : 'orange', snd : 'apple'}, snd : 'banana' }, snd : 'melon'}
-
-let PACK3 = \v1 v2 v3 -> PACK v1 (PACK v2 v3)
-let FST3  = \r -> FST r
-let SND3  = \r -> FST (SND r)
-let THD3  = \r -> SND (SND r)
-
-
-let BOB ZERO  = (PACK ZERO FALSE)
-let BOB ONE   = PACK ONE (PACK ZERO FALSE)
-let BOB TWO   = PACK TWO (PACK ONE (PACK ZERO FALSE))
-let BOB THREE = PACK THREE (PACK TWO (PACK ONE (PACK ZERO FALSE)))
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## $\lambda$-calculus: Numbers
-
-`n f s` means run `f` on `s` exactly `n` times
-
-```haskell
--- | represent n as  \f x. f (f (f  ...   (f x)
---                         '--- n times ---'
-
-let ONE   = \f x. f x
-let TWO   = \f x. f (f x)
-let THREE = \f x. f (f (f x))
-let FOUR  = \f x. f (f (f (f x)))
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## QUIZ: Church Numerals
-
-Which of these is a valid encoding of `ZERO` ?
-
-```haskell
--- A
-let ZERO = \f x -> x
-
--- B
-let ZERO = \f x -> f
-
--- C
-let ZERO = \f x -> f x
-
--- D
-let ZERO = \x -> x
-
--- E
--- none of the above!
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## $\lambda$-calculus: Arithmetic (`IsZero`)
-
-Lets implement a small API for numbers:
-
-```haskell
--- TRUE if n = ZERO and FALSE otherwise
-let IsZero = \n -> ...
-```
-
-## $\lambda$-calculus: Arithmetic (`Incr`)
-
-```haskell
--- Call `f` on `x` one more time than `n` does
-let Incr   = \n -> (\f x -> ... )
-```
-
-An example!
-
-```haskell
-eval incr_one :
-  Incr ONE
-  =d> (\n f x -> f (n f x)) ONE
-  =b> \f x -> f (ONE f x)
-  =*> \f x -> f (f x)
-  =d> TWO
-
-eval incr_two :
-  Incr TWO
-  =d> (\n f x -> f (n f x)) TWO
-  =b> \f x -> f (TWO f x)
-  =*> \f x -> f (f (f x))
-  =d> THREE
-```
-
-## QUIZ
-
-How shall we implement `Plus`?
-
-```haskell
---  Call `f` on `x` exactly `n + m` times
-let Plus = \n m -> ???  
-
-eval plus_zero_zero :
-  Plus ZERO ZERO =~> ZERO
-
-eval plus_two_one :
-  Plus TWO ONE =~> THREE
-
-eval plus_two_two :
-  Plus TWO TWO =~> FOUR
-```
-
-**A.**  `let Plus = \n m -> (n Incr) m`
-
-**B.**  `let Plus = \n m -> Incr n m`
-
-**C.**  `let Plus = \n m -> n m Incr`
-
-**D.**  `let Plus = \n m -> n (m Incr)`
-
-**E.**  `let Plus = \n m -> n (Incr m)`
-
-
-
-$\lambda$-calculus: Arithmetic (`Plus`)
-
-
-```haskell
---  Call `f` on `x` exactly `n + m` times
-let Plus = \n m -> ???
-```
-
-An example!
-
-```haskell
-eval plus_zero_zero :
-  Plus ZERO ZERO
-  =~> ZERO
-
-eval plus_two_two :
-  Plus TWO TWO
-  =~> FOUR
-```
-
-## QUIZ
-
-How shall we implement `MULT`?
-
-```haskell
---  Call `f` on `x` exactly `n * m` times
-let Mult = \n m -> ???  
-
-eval mult_zero_two :
-  Mult ZERO TWO =~> ZERO
-
-eval mult_two_one :
-  Mult TWO ONE =~> TWO
-
-eval mult_two_three :
-  Mult TWO THREE =~> SIX
-```
-
-**A.**  `let Mult = \n m -> n Plus m`
-
-**B.**  `let Mult = \n m -> n (Plus m) ZERO`
-
-**E.**  `let Mult = \n m -> m (Plus n) ZERO`
-
-**C.**  `let Mult = \n m -> n (Plus m ZERO)`
-**D.**  `let Mult = \n m -> (n Plus m) ZERO`
-
-
-
-## $\lambda$-calculus: Arithmetic (`Mult`)
-
-```haskell
---  Call `f` on `x` exactly `n * m` times
-let Mult = \n m -> ???
-
-eval mul_two_three :
-  mul two three
-  =*> six
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## $\lambda$-calculus: Recursion
-
-The final frontier ...
-
-[elsa-ite]: http://goto.ucsd.edu:8095/index.html#?demo=ite.lc
-
-[elsa-not]: http://goto.ucsd.edu:8095/index.html#?demo=permalink%2F1491005489_149.lc
