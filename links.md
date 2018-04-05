@@ -3,31 +3,32 @@ title: Resources
 headerImg: sea.jpg
 ---
 
-The below is a tiny fraction of what is available online.
-
 ## Text
 
 There is **no text** for CSE 130. We will be using the
-lecture notes and other course materials such as reference
-works, web sites, tutorials, etc. will be made available on
+lecture notes, and other course materials such as aticles, 
+web sites, tutorials, etc. will be made available on
 this site as appropriate.  
 
-Acceptable completion of the course assignments and
-examinations will require familiarity with the assigned
-readings and material covered in class and section, and so
-paying attention during lectures and section is exceptionally
-important.
+Below you can find a list of books and online resources
+that explore various class topics in more depth.
 
-## Fun Articles
+## Lambda Calculus
 
-- [PL Dictionary](http://www.cs.washington.edu/education/courses/cse341/04au/341dict.html) by Dan Grossman
-- [The Humble Programmer](http://www.cs.utexas.edu/users/EWD/ewd03xx/EWD340.PDF) by Edsger Dijkstra
-- [Can Your Programming Language Do This?](http://www.joelonsoftware.com/items/2006/08/01.html) by Joel Spolsky
-- [An anecdote about ML type inference](http://pho.ucsd.edu/rjhala/koenig.pdf)
-- [Closures in C++](http://herbsutter.wordpress.com/2008/03/29/trip-report-februarymarch-2008-iso-c-standards-meeting/)
-- [MapReduce](http://en.wikipedia.org/wiki/MapReduce)
+- [Types and Programming Languages](https://books.google.com/books/about/Types_and_Programming_Languages.html?id=ti6zoAC9Ph8C) by Benjamin Pierce
 
 ## Haskell
+
+### Books
+
+- [Haskell Programming from First Principles](http://haskellbook.com) by Christopher Allen and Julie Moronuki
+- [Programming in Haskell](http://www.cs.nott.ac.uk/~gmh/book.html) by Graham Hutton
+- [Real World Haskell](http://www.realworldhaskell.org) by Bryan O' Sullivan, John Goerzen, and Don Stewart
+- [The Haskell School of Expression](http://haskell.cs.yale.edu/soe) by Paul Hudak
+- [Learn You a Haskell](http://learnyouahaskell.com/) by Miran Lipovača
+- [Haskell Wiki Book](http://en.wikibooks.org/wiki/Haskell)
+
+### Other Resources
 
 - [Haskell-Lang](http://haskell-lang.org)
 - [Getting started with Haskell](https://haskell-lang.org/get-started)
@@ -42,16 +43,6 @@ important.
   [Emacs](https://commercialhaskell.github.io/intero/)
   [Atom](https://atom.io/packages/ide-haskell)
   [Vim](http://projects.haskell.org/haskellmode-vim/)
-
-## Books on Haskell
-
-- [Haskell Programming from First Principles](http://haskellbook.com) by Christopher Allen and Julie Moronuki
-- [Programming in Haskell](http://www.cs.nott.ac.uk/~gmh/book.html) by Graham Hutton
-- [Real World Haskell](http://www.realworldhaskell.org) by Bryan O' Sullivan, John Goerzen, and Don Stewart
-- [The Haskell School of Expression](http://haskell.cs.yale.edu/soe) by Paul Hudak
-- [Learn You a Haskell](http://learnyouahaskell.com/) by Miran Lipovača
-- [Haskell Wiki Book](http://en.wikibooks.org/wiki/Haskell)
-
 
 <!--
 ## OCaml
@@ -83,3 +74,14 @@ important.
 - [Tutorial 1](/static/raw/prolog_tutorial.pdf)
 - [Tutorial 2](http://kti.ms.mff.cuni.cz/~bartak/prolog/learning.html)
 - [Goat, Wolf and Cabbage](/static/raw/goat_etc.html)
+
+## Fun Articles
+
+- [PL Dictionary](http://www.cs.washington.edu/education/courses/cse341/04au/341dict.html) by Dan Grossman
+- [The Humble Programmer](http://www.cs.utexas.edu/users/EWD/ewd03xx/EWD340.PDF) by Edsger Dijkstra
+- [Can Your Programming Language Do This?](http://www.joelonsoftware.com/items/2006/08/01.html) by Joel Spolsky
+- [An anecdote about ML type inference](http://pho.ucsd.edu/rjhala/koenig.pdf)
+- [Closures in C++](http://herbsutter.wordpress.com/2008/03/29/trip-report-februarymarch-2008-iso-c-standards-meeting/)
+- [MapReduce](http://en.wikipedia.org/wiki/MapReduce)
+
+
