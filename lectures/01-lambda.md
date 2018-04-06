@@ -266,6 +266,9 @@ Which of the following terms are syntactically **incorrect**?
 **E.**  all of the above
 
 <br>
+
+_Correct answer:_ **A**
+
 <br>
 <br>
 <br>
@@ -429,6 +432,9 @@ is `x` _bound_ or _free_?
 **E.**  first two occurrences are bound, third is free
 
 <br>
+
+_Correct answer:_ **C**
+
 <br>
 <br>
 <br>
@@ -446,19 +452,19 @@ is `x` _bound_ or _free_?
 
 We can formally define the set of _all free variables_ in a term like so:
 
+<!--
 ```haskell
 FV(x)       = ???
 FV(\x -> e) = ???
 FV(e1 e2)   = ???
 ```
+-->
 
-<!--
 ```haskell
 FV(x)       = {x}
 FV(\x -> e) = FV(e) \ {x}
 FV(e1 e2)   = FV(e1) + FV(e2)
 ```
--->
 
 <br>
 <br>
@@ -484,6 +490,8 @@ If `e` has _no free variables_ it is said to be **closed**
 <br>
 
 What is the shortest closed expression?
+
+_Answer:_ `\x -> x`
 
 <br>
 <br>
@@ -569,9 +577,16 @@ Is this right? Ask [Elsa](http://goto.ucsd.edu:8095/index.html#?demo=blank.lc)!
 <br>
 <br>
 
+<!--
 ```haskell
 (\f -> f (\x -> x)) (give apple)
 =b> ???
+```
+-->
+
+```haskell
+(\f -> f (\x -> x)) (give apple)
+=b> give apple (\x -> x)
 ```
 
 
@@ -609,6 +624,9 @@ Is this right? Ask [Elsa](http://goto.ucsd.edu:8095/index.html#?demo=blank.lc)!
 
 
 <br>
+
+_Correct answer:_ **D.**
+
 <br>
 <br>
 <br>
@@ -642,6 +660,7 @@ Is this right? Ask [Elsa](http://goto.ucsd.edu:8095/index.html#?demo=blank.lc)!
 
 
 <br>
+_Correct answer:_ **A.**
 <br>
 <br>
 <br>
@@ -733,7 +752,7 @@ y[x := e]            = y            -- assuming x /= y
 (\x -> e1)[x := e]   = \x -> e1     -- why do we leave `e1` alone?
 (\y -> e1)[x := e] 
   | not (y in FV(e)) = \y -> e1[x := e]
-  | otherise         = undefined    -- what, but what do we do then???
+  | otherise         = undefined    -- wait, but what do we do then???
 
 ```
 
