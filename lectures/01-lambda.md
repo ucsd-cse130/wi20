@@ -452,20 +452,19 @@ _Correct answer:_ **C**
 
 We can formally define the set of _all free variables_ in a term like so:
 
-
+<!--
 ```haskell
 FV(x)       = ???
 FV(\x -> e) = ???
 FV(e1 e2)   = ???
 ```
+-->
 
-<!---
 ```haskell
 FV(x)       = {x}
 FV(\x -> e) = FV(e) \ {x}
 FV(e1 e2)   = FV(e1) + FV(e2)
 ```
---->
 
 <br>
 <br>

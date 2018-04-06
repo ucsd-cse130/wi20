@@ -3,15 +3,22 @@
 import Data.Monoid (mappend)
 import Hakyll
 import Text.Pandoc
+import Text.Pandoc.Walk (walk)
 
 crunchWithCtx ctx = do
   route   $ setExtension "html"
-  compile $ pandocCompiler
+  compile $ pandocCompilerWithTransform 
+              defaultHakyllReaderOptions 
+              defaultHakyllWriterOptions
+              (walk toggleFinal)
             >>= loadAndApplyTemplate "templates/page.html"    ctx
             >>= loadAndApplyTemplate "templates/default.html" ctx
             >>= relativizeUrls
 
 
+toggleFinal :: Block -> Block
+-- toggleFinal (Div attr bs) | n >= 2 = Para [Emph xs]
+toggleFinal b = b
 
 --------------------------------------------------------------------------------
 main :: IO ()
