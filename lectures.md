@@ -9,7 +9,7 @@ Lecture schedule is subject to change!
 |:----------:|:------------------------------|:-------------------------:|:-------------:|
 | 4/2        | Hello, World!                 | [html][lec0]              |               |            
 | 4/4        | The Lambda Calculus           | [html][lec1]              |               |
-| 4/6        | contd.                        |                           |               |
+| 4/6        | contd.                        |                           | [elsa]        |
 | 4/9        | contd.                        |                           |               |
 | 4/11       | contd.                        |                           |               |
 | 4/13       | contd.                        |                           |               |

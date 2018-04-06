@@ -327,7 +327,7 @@ Think of middle-school algebra:
 ```haskell
 -- Simplify expression:
 
-  (x + 2)*(x - 1)*(x + 3)
+  (x + 2)*(3*x - 1)
  =
   ???
 ```
@@ -442,6 +442,38 @@ is `x` _bound_ or _free_?
 <br>
 
 
+## Free Variables
+
+We can formally define the set of _all free variables_ in a term like so:
+
+```haskell
+FV(x)       = ???
+FV(\x -> e) = ???
+FV(e1 e2)   = ???
+```
+
+<!--
+```haskell
+FV(x)       = {x}
+FV(\x -> e) = FV(e) \ {x}
+FV(e1 e2)   = FV(e1) + FV(e2)
+```
+-->
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 ## Closed Expressions
 
 If `e` has _no free variables_ it is said to be **closed**
@@ -495,7 +527,7 @@ What is the shortest closed expression?
 ```
 <br>
 where `e1[x := e2]` means
-"`e1` with all occurrences of `x` replaced with `e2`"
+"`e1` with all _free_ occurrences of `x` replaced with `e2`"
 
 <br>
 <br>
@@ -504,7 +536,7 @@ Computation by _search-and-replace_:
 
 - If you see an _abstraction_ applied to an _argument_,
 take the _body_ of the abstraction and
-replace all occurrences of the _formal_ by that _argument_
+replace all free occurrences of the _formal_ by that _argument_
 
 - We say that `(\x -> e1) e2` $\beta$-steps to `e1[x := e2]`
 
@@ -589,6 +621,39 @@ Is this right? Ask [Elsa](http://goto.ucsd.edu:8095/index.html#?demo=blank.lc)!
 <br>
 <br>
 
+## QUIZ
+
+<br>
+
+```haskell
+(\x -> x (\x -> x)) apple
+=b> ???
+```
+
+**A.** `apple (\x -> x)`
+
+**B.** `apple (\apple -> apple)`
+
+**C.** `apple (\x -> apple)`
+
+**D.** `apple`
+
+**E.** `\x -> x`
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## A Tricky One
 
 <br>
@@ -651,11 +716,26 @@ We have to fix our definition of $\beta$-reduction:
 ```
 <br>
 where `e1[x := e2]` means
+~~"`e1` with all _free_ occurrences of `x` replaced with `e2`"~~
 
-  - `e1` with all occurrences of `x` replaced with `e2`,
+  - `e1` with all _free_ occurrences of `x` replaced with `e2`,
    **as long as** no free variables of `e2` get captured
   - undefined otherwise
-      - wait but what do we do then?  
+
+<br>  
+
+Formally:
+
+```haskell
+x[x := e]            = e
+y[x := e]            = y            -- assuming x /= y
+(e1 e2)[x := e]      = (e1[x := e]) (e2[x := e])
+(\x -> e1)[x := e]   = \x -> e1     -- why do we leave `e1` alone?
+(\y -> e1)[x := e] 
+  | not (y in FV(e)) = \y -> e1[x := e]
+  | otherise         = undefined    -- what, but what do we do then???
+
+```
 
 <br>
 <br>
@@ -695,8 +775,9 @@ where `e1[x := e2]` means
 
 <br>
 
-```
+```haskell
   \x -> e   =a>   \y -> e[x := y]
+    where not (y in FV(e))
 ```
 <br>
 
@@ -704,16 +785,34 @@ where `e1[x := e2]` means
 
 - We say that `\x -> e` $\alpha$-steps to `\y -> e[x := y]`
 
+<br>
+<br>
+
 Example:
 
 ```haskell
-\x -> x
-=a> \y -> y
-=a> \z -> z
+\x -> x   =a>   \y -> y   =a>    \z -> z
 ```
 
 All these expressions are **$\alpha$-equivalent**
 
+<br>
+<br>
+<br>
+
+What's wrong with these?
+
+```haskell
+\f -> f x    =a>   \x -> x x
+
+
+(\x -> \y -> y) y   =a>   (\x -> \z -> z) z
+
+
+\x -> \y -> x y   =a>    \apple -> \orange -> apple orange
+```
+
+<br>
 <br>
 <br>
 <br>
@@ -737,6 +836,12 @@ All these expressions are **$\alpha$-equivalent**
 =a> ???
 ```
 
+<br>
+Try this at home!
+
+<br>
+<br>
+To avoid getting confused, you can always rename formals, so that different variables have different names!
 
 <br>
 <br>
@@ -756,13 +861,20 @@ All these expressions are **$\alpha$-equivalent**
 
 ## Normal Forms
 
-An **redex** is a $\lambda$-term of the form
+A **redex** is a $\lambda$-term of the form
 
 `(\x -> e1) e2`
 
 A $\lambda$-term is in **normal form** if it contains no redexes.
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -834,6 +946,12 @@ where each `=?>` is either `=a>` or `=b>`
   =?> ???
 ```
 
+```haskell
+(\x -> x x) (???)
+  =?> ???
+```
+
+
 
 <br>
 <br>
@@ -851,14 +969,13 @@ where each `=?>` is either `=a>` or `=b>`
 ## Non-Terminating Evaluation
 
 ```haskell
-(\x -> x x) (\y -> y y)
-  =b> (\y -> y y) (\y -> y y)
-  =a> (\x -> x x) (\y -> y y)
+(\x -> x x) (\x -> x x)
+  =b> (\x -> x x) (\x -> x x)
 ```
 
 Oops, we can write programs that loop back to themselves...
 
-- Self replicating code!
+and never reduce to a normal form!
 
 
 <br>

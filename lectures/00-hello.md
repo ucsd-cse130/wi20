@@ -536,7 +536,8 @@ Do you have a clicker?
 
 3. **Group Vote**
     - Everyone in group votes
-    - Must have same vote to get points
+    - Hopefully the same way but not enforced
+    - You don't have to answer correctly to get points!
 
 4. **Class Discuss**
     - What was easy or tricky?

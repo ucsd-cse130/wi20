@@ -393,7 +393,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>Think of middle-school algebra:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Simplify expression:</span>
 
-  (x <span class="fu">+</span> <span class="dv">2</span>)<span class="fu">*</span>(x <span class="fu">-</span> <span class="dv">1</span>)<span class="fu">*</span>(x <span class="fu">+</span> <span class="dv">3</span>)
+  (x <span class="fu">+</span> <span class="dv">2</span>)<span class="fu">*</span>(<span class="dv">3</span><span class="fu">*</span>x <span class="fu">-</span> <span class="dv">1</span>)
  <span class="fu">=</span>
   <span class="fu">???</span></code></pre></div>
 <p><br></p>
@@ -433,6 +433,19 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> first occurence is bound, second and third are free</p>
 <p><strong>E.</strong> first two occurrences are bound, third is free</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="free-variables">Free Variables</h2>
+<p>We can formally define the set of <em>all free variables</em> in a term like so:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FV</span>(x)       <span class="fu">=</span> <span class="fu">???</span>
+<span class="dt">FV</span>(\x <span class="ot">-&gt;</span> e) <span class="fu">=</span> <span class="fu">???</span>
+<span class="dt">FV</span>(e1 e2)   <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<!--
+```haskell
+FV(x)       = {x}
+FV(\x -> e) = FV(e) \ {x}
+FV(e1 e2)   = FV(e1) + FV(e2)
+```
+-->
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="closed-expressions">Closed Expressions</h2>
 <p>If <code>e</code> has <em>no free variables</em> it is said to be <strong>closed</strong></p>
 <ul>
@@ -451,11 +464,11 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <h2 id="semantics-beta-reduction">Semantics: <span class="math inline"><em>β</em></span>-Reduction</h2>
 <p><br></p>
 <pre><code>  (\x -&gt; e1) e2   =b&gt;   e1[x := e2]</code></pre>
-<p><br> where <code>e1[x := e2]</code> means “<code>e1</code> with all occurrences of <code>x</code> replaced with <code>e2</code>”</p>
+<p><br> where <code>e1[x := e2]</code> means “<code>e1</code> with all <em>free</em> occurrences of <code>x</code> replaced with <code>e2</code>”</p>
 <p><br> <br></p>
 <p>Computation by <em>search-and-replace</em>:</p>
 <ul>
-<li><p>If you see an <em>abstraction</em> applied to an <em>argument</em>, take the <em>body</em> of the abstraction and replace all occurrences of the <em>formal</em> by that <em>argument</em></p></li>
+<li><p>If you see an <em>abstraction</em> applied to an <em>argument</em>, take the <em>body</em> of the abstraction and replace all free occurrences of the <em>formal</em> by that <em>argument</em></p></li>
 <li><p>We say that <code>(\x -&gt; e1) e2</code> <span class="math inline"><em>β</em></span>-steps to <code>e1[x := e2]</code></p></li>
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
@@ -478,6 +491,16 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code>\y -&gt; y</code></p>
 <p><strong>E.</strong> <code>\x -&gt; y</code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-3">QUIZ</h2>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x (\x <span class="ot">-&gt;</span> x)) apple
+<span class="fu">=</span>b<span class="fu">&gt;</span> <span class="fu">???</span></code></pre></div>
+<p><strong>A.</strong> <code>apple (\x -&gt; x)</code></p>
+<p><strong>B.</strong> <code>apple (\apple -&gt; apple)</code></p>
+<p><strong>C.</strong> <code>apple (\x -&gt; apple)</code></p>
+<p><strong>D.</strong> <code>apple</code></p>
+<p><strong>E.</strong> <code>\x -&gt; x</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="a-tricky-one">A Tricky One</h2>
 <p><br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x)) y
@@ -495,14 +518,20 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <h2 id="capture-avoiding-substitution">Capture-Avoiding Substitution</h2>
 <p>We have to fix our definition of <span class="math inline"><em>β</em></span>-reduction:</p>
 <pre><code>  (\x -&gt; e1) e2   =b&gt;   e1[x := e2]</code></pre>
-<p><br> where <code>e1[x := e2]</code> means</p>
+<p><br> where <code>e1[x := e2]</code> means <del>“<code>e1</code> with all <em>free</em> occurrences of <code>x</code> replaced with <code>e2</code>”</del></p>
 <ul>
-<li><code>e1</code> with all occurrences of <code>x</code> replaced with <code>e2</code>, <strong>as long as</strong> no free variables of <code>e2</code> get captured</li>
-<li>undefined otherwise
-<ul>
-<li>wait but what do we do then?</li>
-</ul></li>
+<li><code>e1</code> with all <em>free</em> occurrences of <code>x</code> replaced with <code>e2</code>, <strong>as long as</strong> no free variables of <code>e2</code> get captured</li>
+<li>undefined otherwise</li>
 </ul>
+<p><br></p>
+<p>Formally:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">x[x <span class="fu">:=</span> e]            <span class="fu">=</span> e
+y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y            <span class="co">-- assuming x /= y</span>
+(e1 e2)[x <span class="fu">:=</span> e]      <span class="fu">=</span> (e1[x <span class="fu">:=</span> e]) (e2[x <span class="fu">:=</span> e])
+(\x <span class="ot">-&gt;</span> e1)[x <span class="fu">:=</span> e]   <span class="fu">=</span> \x <span class="ot">-&gt;</span> e1     <span class="co">-- why do we leave `e1` alone?</span>
+(\y <span class="ot">-&gt;</span> e1)[x <span class="fu">:=</span> e] 
+  <span class="fu">|</span> not (y <span class="kw">in</span> <span class="dt">FV</span>(e)) <span class="fu">=</span> \y <span class="ot">-&gt;</span> e1[x <span class="fu">:=</span> e]
+  <span class="fu">|</span> otherise         <span class="fu">=</span> undefined    <span class="co">-- what, but what do we do then???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="rewrite-rules-of-lambda-calculus-2">Rewrite Rules of Lambda Calculus</h2>
 <p><br></p>
@@ -513,29 +542,40 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="semantics-alpha-renaming">Semantics: <span class="math inline"><em>α</em></span>-Renaming</h2>
 <p><br></p>
-<pre><code>  \x -&gt; e   =a&gt;   \y -&gt; e[x := y]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  \x <span class="ot">-&gt;</span> e   <span class="fu">=</span>a<span class="fu">&gt;</span>   \y <span class="ot">-&gt;</span> e[x <span class="fu">:=</span> y]
+    <span class="kw">where</span> not (y <span class="kw">in</span> <span class="dt">FV</span>(e))</code></pre></div>
 <p><br></p>
 <ul>
 <li><p>We can rename a formal parameter and replace all its occurrences in the body</p></li>
 <li><p>We say that <code>\x -&gt; e</code> <span class="math inline"><em>α</em></span>-steps to <code>\y -&gt; e[x := y]</code></p></li>
 </ul>
+<p><br> <br></p>
 <p>Example:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x
-<span class="fu">=</span>a<span class="fu">&gt;</span> \y <span class="ot">-&gt;</span> y
-<span class="fu">=</span>a<span class="fu">&gt;</span> \z <span class="ot">-&gt;</span> z</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x   <span class="fu">=</span>a<span class="fu">&gt;</span>   \y <span class="ot">-&gt;</span> y   <span class="fu">=</span>a<span class="fu">&gt;</span>    \z <span class="ot">-&gt;</span> z</code></pre></div>
 <p>All these expressions are <strong><span class="math inline"><em>α</em></span>-equivalent</strong></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br> <br> <br></p>
+<p>What’s wrong with these?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\f <span class="ot">-&gt;</span> f x    <span class="fu">=</span>a<span class="fu">&gt;</span>   \x <span class="ot">-&gt;</span> x x
+
+
+(\x <span class="ot">-&gt;</span> \y <span class="ot">-&gt;</span> y) y   <span class="fu">=</span>a<span class="fu">&gt;</span>   (\x <span class="ot">-&gt;</span> \z <span class="ot">-&gt;</span> z) z
+
+
+\x <span class="ot">-&gt;</span> \y <span class="ot">-&gt;</span> x y   <span class="fu">=</span>a<span class="fu">&gt;</span>    \apple <span class="ot">-&gt;</span> \orange <span class="ot">-&gt;</span> apple orange</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-tricky-one">The Tricky One</h2>
 <p><br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x)) y
 <span class="fu">=</span>a<span class="fu">&gt;</span> <span class="fu">???</span></code></pre></div>
+<p><br> Try this at home!</p>
+<p><br> <br> To avoid getting confused, you can always rename formals, so that different variables have different names!</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="normal-forms">Normal Forms</h2>
-<p>An <strong>redex</strong> is a <span class="math inline"><em>λ</em></span>-term of the form</p>
+<p>A <strong>redex</strong> is a <span class="math inline"><em>λ</em></span>-term of the form</p>
 <p><code>(\x -&gt; e1) e2</code></p>
 <p>A <span class="math inline"><em>λ</em></span>-term is in <strong>normal form</strong> if it contains no redexes.</p>
-<p><br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-3">QUIZ</h2>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-4">QUIZ</h2>
 <p>Which of the following term are <strong>not</strong> in <em>normal form</em> ?</p>
 <p><strong>A.</strong> <code>x</code></p>
 <p><strong>B.</strong> <code>x y</code></p>
@@ -559,15 +599,14 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
   <span class="fu">=</span>b<span class="fu">&gt;</span> apple</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)) (\x <span class="ot">-&gt;</span> x)
   <span class="fu">=?&gt;</span> <span class="fu">???</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x x) (<span class="fu">???</span>)
+  <span class="fu">=?&gt;</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="non-terminating-evaluation">Non-Terminating Evaluation</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x x) (\y <span class="ot">-&gt;</span> y y)
-  <span class="fu">=</span>b<span class="fu">&gt;</span> (\y <span class="ot">-&gt;</span> y y) (\y <span class="ot">-&gt;</span> y y)
-  <span class="fu">=</span>a<span class="fu">&gt;</span> (\x <span class="ot">-&gt;</span> x x) (\y <span class="ot">-&gt;</span> y y)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x x) (\x <span class="ot">-&gt;</span> x x)
+  <span class="fu">=</span>b<span class="fu">&gt;</span> (\x <span class="ot">-&gt;</span> x x) (\x <span class="ot">-&gt;</span> x x)</code></pre></div>
 <p>Oops, we can write programs that loop back to themselves…</p>
-<ul>
-<li>Self replicating code!</li>
-</ul>
+<p>and never reduce to a normal form!</p>
 <p><br> <br> <br> <br> <br> <br></p>
                 <hr>
             </div>
