@@ -439,13 +439,13 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="free-variables">Free Variables</h2>
 <p>We can formally define the set of <em>all free variables</em> in a term like so:</p>
-<!--
+<!---
 ```haskell
 FV(x)       = ???
 FV(\x -> e) = ???
 FV(e1 e2)   = ???
 ```
--->
+--->
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FV</span>(x)       <span class="fu">=</span> {x}
 <span class="dt">FV</span>(\x <span class="ot">-&gt;</span> e) <span class="fu">=</span> <span class="dt">FV</span>(e) \ {x}
 <span class="dt">FV</span>(e1 e2)   <span class="fu">=</span> <span class="dt">FV</span>(e1) <span class="fu">+</span> <span class="dt">FV</span>(e2)</code></pre></div>
