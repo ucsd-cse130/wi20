@@ -357,7 +357,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> A and C</p>
 <p><strong>E.</strong> all of the above</p>
 <p><br></p>
-<p><em>Correct answer:</em> <strong>A</strong></p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="syntactic-sugar">Syntactic Sugar</h2>
 <p><br> <br></p>
@@ -435,13 +435,13 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> first occurence is bound, second and third are free</p>
 <p><strong>E.</strong> first two occurrences are bound, third is free</p>
 <p><br></p>
-<p><em>Correct answer:</em> <strong>C</strong></p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="free-variables">Free Variables</h2>
 <p>We can formally define the set of <em>all free variables</em> in a term like so:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FV</span>(x)       <span class="fu">=</span> {x}
-<span class="dt">FV</span>(\x <span class="ot">-&gt;</span> e) <span class="fu">=</span> <span class="dt">FV</span>(e) \ {x}
-<span class="dt">FV</span>(e1 e2)   <span class="fu">=</span> <span class="dt">FV</span>(e1) <span class="fu">+</span> <span class="dt">FV</span>(e2)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FV</span>(x)       <span class="fu">=</span> <span class="fu">???</span>
+<span class="dt">FV</span>(\x <span class="ot">-&gt;</span> e) <span class="fu">=</span> <span class="fu">???</span>
+<span class="dt">FV</span>(e1 e2)   <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="closed-expressions">Closed Expressions</h2>
 <p>If <code>e</code> has <em>no free variables</em> it is said to be <strong>closed</strong></p>
@@ -477,7 +477,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>Is this right? Ask <a href="http://goto.ucsd.edu:8095/index.html#?demo=blank.lc">Elsa</a>!</p>
 <p><br> <br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)) (give apple)
-<span class="fu">=</span>b<span class="fu">&gt;</span> give apple (\x <span class="ot">-&gt;</span> x)</code></pre></div>
+<span class="fu">=</span>b<span class="fu">&gt;</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-2">QUIZ</h2>
 <p><br></p>
@@ -489,7 +489,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code>\y -&gt; y</code></p>
 <p><strong>E.</strong> <code>\x -&gt; y</code></p>
 <p><br></p>
-<p><em>Correct answer:</em> <strong>D.</strong></p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-3">QUIZ</h2>
 <p><br></p>
@@ -501,7 +501,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code>apple</code></p>
 <p><strong>E.</strong> <code>\x -&gt; x</code></p>
 <p><br></p>
-<p><em>Correct answer:</em> <strong>A.</strong></p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="a-tricky-one">A Tricky One</h2>
 <p><br></p>

@@ -457,6 +457,7 @@ is `x` _bound_ or _free_?
 We can formally define the set of _all free variables_ in a term like so:
 
 (I) lecture
+
     ```haskell
     FV(x)       = ???
     FV(\x -> e) = ???

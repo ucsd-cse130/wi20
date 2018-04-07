@@ -7,8 +7,8 @@ import Text.Pandoc
 import Text.Pandoc.Walk (walk)
 import System.Environment
 
--- mode = "lecture"
-mode = "final"
+mode = "lecture"
+-- mode = "final"
 
 crunchWithCtx ctx = do
   route   $ setExtension "html"
@@ -22,18 +22,21 @@ crunchWithCtxOpt ctx opt = do
   compile $ pandocCompilerWithTransform 
               defaultHakyllReaderOptions 
               defaultHakyllWriterOptions
-              (walk (toggleIfdef opt))
+              (walk $ toggleMode)
             >>= loadAndApplyTemplate "templates/page.html"    ctx
             >>= loadAndApplyTemplate "templates/default.html" ctx
             >>= relativizeUrls            
 
-toggleIfdef :: String -> Block -> Block
-toggleIfdef opt b@(OrderedList (_, UpperRoman, _) items) = select items 
+-- | Treat an ordered list with uppercase roman numerals as a map:
+-- in each item, the first paragraph is the key, and the second is the value;
+-- pick the value with key `mode` and discard all other items
+toggleMode :: Block -> Block
+toggleMode (OrderedList (_, UpperRoman, _) items) = select items 
   where    
-    select ([Para [Str mk], payload] : rest) = 
-      if mk == opt then payload else select rest
+    select ([Para [Str key], payload] : rest) = 
+      if key == mode then payload else select rest
     select _ = Null
-toggleIfdef _ b = b
+toggleMode b = b
 
 --------------------------------------------------------------------------------
 main :: IO ()
