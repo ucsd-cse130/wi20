@@ -267,7 +267,9 @@ Which of the following terms are syntactically **incorrect**?
 
 <br>
 
-_Correct answer:_ **A**
+(I) final
+
+    _Correct answer:_ **A**
 
 <br>
 <br>
@@ -433,7 +435,9 @@ is `x` _bound_ or _free_?
 
 <br>
 
-_Correct answer:_ **C**
+(I) final
+    
+    _Correct answer:_ **C**
 
 <br>
 <br>
@@ -452,19 +456,20 @@ _Correct answer:_ **C**
 
 We can formally define the set of _all free variables_ in a term like so:
 
-<!--
-```haskell
-FV(x)       = ???
-FV(\x -> e) = ???
-FV(e1 e2)   = ???
-```
--->
+(I) lecture
+    ```haskell
+    FV(x)       = ???
+    FV(\x -> e) = ???
+    FV(e1 e2)   = ???
+    ```
 
-```haskell
-FV(x)       = {x}
-FV(\x -> e) = FV(e) \ {x}
-FV(e1 e2)   = FV(e1) + FV(e2)
-```
+(I) final
+
+    ```haskell
+    FV(x)       = {x}
+    FV(\x -> e) = FV(e) \ {x}
+    FV(e1 e2)   = FV(e1) + FV(e2)
+    ```
 
 <br>
 <br>
@@ -577,18 +582,19 @@ Is this right? Ask [Elsa](http://goto.ucsd.edu:8095/index.html#?demo=blank.lc)!
 <br>
 <br>
 
-<!--
-```haskell
-(\f -> f (\x -> x)) (give apple)
-=b> ???
-```
--->
+(I) lecture
 
-```haskell
-(\f -> f (\x -> x)) (give apple)
-=b> give apple (\x -> x)
-```
+    ```haskell
+    (\f -> f (\x -> x)) (give apple)
+    =b> ???
+    ```
 
+(I) final
+
+    ```haskell
+    (\f -> f (\x -> x)) (give apple)
+    =b> give apple (\x -> x)
+    ```
 
 <br>
 <br>
@@ -625,7 +631,9 @@ Is this right? Ask [Elsa](http://goto.ucsd.edu:8095/index.html#?demo=blank.lc)!
 
 <br>
 
-_Correct answer:_ **D.**
+(I) final
+
+    _Correct answer:_ **D.**
 
 <br>
 <br>
@@ -660,7 +668,11 @@ _Correct answer:_ **D.**
 
 
 <br>
-_Correct answer:_ **A.**
+
+(I) final
+
+    _Correct answer:_ **A.**
+    
 <br>
 <br>
 <br>

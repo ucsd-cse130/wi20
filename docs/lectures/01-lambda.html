@@ -439,13 +439,6 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="free-variables">Free Variables</h2>
 <p>We can formally define the set of <em>all free variables</em> in a term like so:</p>
-<!--
-```haskell
-FV(x)       = ???
-FV(\x -> e) = ???
-FV(e1 e2)   = ???
-```
--->
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FV</span>(x)       <span class="fu">=</span> {x}
 <span class="dt">FV</span>(\x <span class="ot">-&gt;</span> e) <span class="fu">=</span> <span class="dt">FV</span>(e) \ {x}
 <span class="dt">FV</span>(e1 e2)   <span class="fu">=</span> <span class="dt">FV</span>(e1) <span class="fu">+</span> <span class="dt">FV</span>(e2)</code></pre></div>
@@ -483,12 +476,6 @@ FV(e1 e2)   = ???
 <span class="fu">=</span>b<span class="fu">&gt;</span> apple</code></pre></div>
 <p>Is this right? Ask <a href="http://goto.ucsd.edu:8095/index.html#?demo=blank.lc">Elsa</a>!</p>
 <p><br> <br></p>
-<!--
-```haskell
-(\f -> f (\x -> x)) (give apple)
-=b> ???
-```
--->
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)) (give apple)
 <span class="fu">=</span>b<span class="fu">&gt;</span> give apple (\x <span class="ot">-&gt;</span> x)</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
@@ -513,7 +500,9 @@ FV(e1 e2)   = ???
 <p><strong>C.</strong> <code>apple (\x -&gt; apple)</code></p>
 <p><strong>D.</strong> <code>apple</code></p>
 <p><strong>E.</strong> <code>\x -&gt; x</code></p>
-<p><br> <em>Correct answer:</em> <strong>A.</strong> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Correct answer:</em> <strong>A.</strong></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="a-tricky-one">A Tricky One</h2>
 <p><br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x)) y

@@ -1,24 +1,39 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import Data.Monoid (mappend)
+import Data.List
 import Hakyll
 import Text.Pandoc
 import Text.Pandoc.Walk (walk)
+import System.Environment
+
+-- mode = "lecture"
+mode = "final"
 
 crunchWithCtx ctx = do
+  route   $ setExtension "html"
+  compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/page.html"    ctx
+            >>= loadAndApplyTemplate "templates/default.html" ctx
+            >>= relativizeUrls
+            
+crunchWithCtxOpt ctx opt = do
   route   $ setExtension "html"
   compile $ pandocCompilerWithTransform 
               defaultHakyllReaderOptions 
               defaultHakyllWriterOptions
-              (walk toggleFinal)
+              (walk (toggleIfdef opt))
             >>= loadAndApplyTemplate "templates/page.html"    ctx
             >>= loadAndApplyTemplate "templates/default.html" ctx
-            >>= relativizeUrls
+            >>= relativizeUrls            
 
-
-toggleFinal :: Block -> Block
--- toggleFinal (Div attr bs) | n >= 2 = Para [Emph xs]
-toggleFinal b = b
+toggleIfdef :: String -> Block -> Block
+toggleIfdef opt b@(OrderedList (_, UpperRoman, _) items) = select items 
+  where    
+    select ([Para [Str mk], payload] : rest) = 
+      if mk == opt then payload else select rest
+    select _ = Null
+toggleIfdef _ b = b
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -26,7 +41,7 @@ main = hakyll $ do
   match "static/*/*"    $ do route idRoute
                              compile copyFileCompiler
   match (fromList tops) $ crunchWithCtx siteCtx
-  match "lectures/*"    $ crunchWithCtx postCtx
+  match "lectures/*"    $ crunchWithCtxOpt postCtx mode
   match "assignments/*" $ crunchWithCtx postCtx
   match "templates/*"   $ compile templateCompiler
 
