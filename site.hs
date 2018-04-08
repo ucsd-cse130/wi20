@@ -16,7 +16,7 @@ crunchWithCtx ctx = do
             >>= loadAndApplyTemplate "templates/default.html" ctx
             >>= relativizeUrls
 
-crunchWithCtxOpt ctx opt = do
+crunchWithCtxCustom ctx = do
   route   $ setExtension "html"
   compile $ pandocCompilerWithTransform
               defaultHakyllReaderOptions
@@ -53,7 +53,7 @@ main = hakyll $ do
   match "static/*/*"    $ do route idRoute
                              compile copyFileCompiler
   match (fromList tops) $ crunchWithCtx siteCtx
-  match "lectures/*"    $ crunchWithCtxOpt postCtx mode
+  match "lectures/*"    $ crunchWithCtxCustom postCtx
   match "assignments/*" $ crunchWithCtx postCtx
   match "templates/*"   $ compile templateCompiler
 

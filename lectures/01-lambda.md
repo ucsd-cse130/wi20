@@ -55,11 +55,21 @@ Informal notion of an **effectively calculable** function:
 <br>
 <br>
 
-### 1936: formalization
+### 1936: Formalization
+
+What is the **smallest universal language**?
 
 ![Alan Turing](https://upload.wikimedia.org/wikipedia/commons/a/a1/Alan_Turing_Aged_16.jpg){#fig:turing .align-center width=40%}
+
+(I) final
+
+  The [**Turing Machine**](https://en.wikipedia.org/wiki/Turing_machine)  
  
 ![Alonzo Church](https://upload.wikimedia.org/wikipedia/en/a/a6/Alonzo_Church.jpg){#fig:church .align-center width=40%}
+
+(I) final
+
+  The **Lambda Calculus**
 
 <br>
 <br>
@@ -181,14 +191,14 @@ of one of three kinds:
     - `x`, `y`, `z`
 - **Abstraction** (aka _nameless_ function definition)
     - `\x -> e`
-    - `x` is the _formal_, `e` is the _body_ 
+    - `x` is the _formal_ parameter, `e` is the _body_ 
     - "for any `x` compute `e`"
 - **Application** (aka function call)
     - `e1 e2`
     - `e1` is the _function_, `e2` is the _argument_
     - in your favorite language: `e1(e2)`
 
-
+(Here each of `e`, `e1`, `e2` can iteself be a variable, abstraction, or application)
 
 <br>
 <br>
@@ -383,13 +393,15 @@ In the expression `\x -> e`
 
 - `e` is **the scope** of `x`
 
-- `x` is **bound** inside `e`
+- any occurrence of `x` in `\x -> e` is **bound** (by the **binder** `\x`)
 
 <br>
 
+For example, `x` is bound in:
+
 ```
-  \x -> x          -- x is bound
-  \x -> (\y -> x)  -- x is bound
+  \x -> x
+  \x -> (\y -> x)
 ```
 
 <br>
@@ -398,10 +410,13 @@ In the expression `\x -> e`
 An occurence of `x` in `e` is **free** if it's _not bound_ by an enclosing abstraction
 
 <br>
+For example, `x` is free in:
 
 ```
-  x y        -- x is free  
-  \y -> x y  -- x is free
+  x y                -- no binders at all!  
+  \y -> x y          -- no \x binder
+  (\x -> \y -> y) x  -- x is outside the scope of the \x binder;
+                     -- intuition: it's not "the same" x
 ```
 
 
@@ -497,7 +512,9 @@ If `e` has _no free variables_ it is said to be **closed**
 
 What is the shortest closed expression?
 
-_Answer:_ `\x -> x`
+(I) final
+
+    _Answer:_ `\x -> x`
 
 <br>
 <br>
@@ -835,12 +852,13 @@ All these expressions are **$\alpha$-equivalent**
 What's wrong with these?
 
 ```haskell
+-- (A)
 \f -> f x    =a>   \x -> x x
 
-
+-- (B)
 (\x -> \y -> y) y   =a>   (\x -> \z -> z) z
 
-
+-- (C)
 \x -> \y -> x y   =a>    \apple -> \orange -> apple orange
 ```
 
@@ -867,9 +885,6 @@ What's wrong with these?
 (\x -> (\y -> x)) y
 =a> ???
 ```
-
-<br>
-Try this at home!
 
 <br>
 <br>
@@ -948,12 +963,12 @@ Which of the following term are **not** in _normal form_ ?
 A $\lambda$-term `e` **evaluates to** `e'` if
 
 1. There is a sequence of steps
-
 ```haskell
 e =?> e_1 =?> ... =?> e_N =?> e'
 ```
 
-where each `=?>` is either `=a>` or `=b>`
+   where each `=?>` is either `=a>` or `=b>` 
+   and `N >= 0`
 
 2. `e'` is in _normal form_
 
@@ -983,6 +998,15 @@ where each `=?>` is either `=a>` or `=b>`
   =?> ???
 ```
 
+<br>
+<br>
+Elsa shortcuts:
+
+- `e1 =*> e2`: `e1` reduces to `e2` in 0 or more steps
+    - where each step is `=a>`, `=b>`, or `=d>`
+- `e1 =~> e2`: `e1` evaluates to `e2`
+
+_What is the difference?_
 
 
 <br>
@@ -1009,6 +1033,7 @@ Oops, we can write programs that loop back to themselves...
 
 and never reduce to a normal form!
 
+This combinator is called $\Omega$
 
 <br>
 <br>
@@ -1017,4 +1042,401 @@ and never reduce to a normal form!
 <br>
 <br>
 
+What if we pass $\Omega$ as an argument to another function?
 
+```
+let OMEGA = (\x -> x x) (\x -> x x)
+
+(\x -> \y -> y) OMEGA
+```
+
+Does this reduce to a normal form? Try it at home!
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Programming in $\lambda$-calculus
+
+*Real languages have lots of features*
+
+- Booleans
+- Records (structs, tuples)
+- Numbers
+- **Functions** \[we got those\]
+- Recursion
+
+Lets see how to _encode_ all of these features
+with the $\lambda$-calculus.
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## $\lambda$-calculus: Booleans
+
+<br>
+
+How can we encode Boolean values (`TRUE` and `FALSE`) as functions?
+
+<br>
+
+Well, what do we **do** with a Boolean `b`?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+Make a *binary choice*
+
+  - `if b then e1 else e2`
+
+<br>
+<br>
+<br>
+
+## Booleans: API
+
+We need to define three functions
+
+```haskell
+let TRUE  = ???
+let FALSE = ???
+let ITE   = \b x y -> ???  -- if b then x else y
+```
+
+such that
+
+```haskell
+ITE TRUE e1 e2 =~> e1
+ITE FALSE e1 e2 =~> e2
+```
+
+(Here, `let NAME = e` means `NAME` is an _abbreviation_ for `e`)
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Booleans: Implementation
+
+```haskell
+let TRUE  = \x y -> x        -- Returns its first argument
+let FALSE = \x y -> y        -- Returns its second argument
+let ITE   = \b x y -> b x y  -- Applies condition to branches
+                             -- (redundant, but improves readability)
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+## Example: Branches set-by-step
+
+
+```haskell
+eval ite_true:
+  ITE TRUE e1 e2
+  =d> (\b x y -> b    x  y) TRUE e1 e2    -- expand def ITE  
+  =b>   (\x y -> TRUE x  y)      e1 e2    -- beta-step
+  =b>     (\y -> TRUE e1 y)         e2    -- beta-step
+  =b>            TRUE e1 e2               -- expand def TRUE
+  =d>     (\x y -> x) e1 e2               -- beta-step
+  =b>       (\y -> e1)   e2               -- beta-step
+  =b> e1
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Example: Branches set-by-step
+
+Now you try it!
+
+
+Can you [fill in the blanks to make it happen?][elsa-ite]
+
+
+```haskell
+eval ite_false:
+  ITE FALSE e1 e2
+
+  -- fill the steps in!
+
+  =b> e2  
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+## Boolean Operators
+
+
+Now that we have `ITE` it's easy to define other Boolean operators:
+
+
+```haskell
+let NOT = \b     -> ???
+
+let AND = \b1 b2 -> ???
+
+let OR  = \b1 b2 -> ???
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+```haskell
+let NOT = \b     -> ITE b FALSE TRUE 
+
+let AND = \b1 b2 -> ITE b1 b2 FALSE
+
+let OR  = \b1 b2 -> ITE b1 TRUE b2
+```
+
+<br>
+<br>
+
+Or, since `ITE` is redundant:
+
+```haskell
+let NOT = \b     -> b FALSE TRUE 
+
+let AND = \b1 b2 -> b1 b2 FALSE
+
+let OR  = \b1 b2 -> b1 TRUE b2
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Programming in $\lambda$-calculus
+
+- **Booleans** \[done\]
+- Records (structs, tuples)
+- Numbers
+- **Functions** \[we got those\]
+- Recursion
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## $\lambda$-calculus: Records
+
+Let's start with records with _two_ fields (aka **pairs**)
+
+What do we *do* with a pair?
+
+1. **Pack two** items into a pair, then
+2. **Get first** item, or
+3. **Get second** item.
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Pairs : API
+
+We need to define three functions
+
+```haskell
+let PAIR = \x y -> ???    -- Make a pair with elements x and y 
+                          -- { fst : x, snd : y }
+let FST  = \p -> ???      -- Return first element 
+                          -- p.fst
+let SND  = \p -> ???      -- Return second element
+                          -- p.snd
+```
+
+such that
+
+```haskell
+FST (PAIR e1 e2) =~> e1
+SND (PAIR e1 e2) =~> e2
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## Pairs: Implementation
+
+A pair of `x` and `y` is just something that lets you pick between `x` and `y`!
+(I.e. a function that takes a boolean and returns either `x` or `y`)  
+
+```haskell
+let PAIR = \x y -> (\b -> ITE b x y)
+let FST  = \p -> p TRUE   -- call w/ TRUE, get first value
+let SND  = \p -> p FALSE  -- call w/ FALSE, get second value
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## Exercise: Triples?
+
+How can we implement a record that contains **three** values?
+
+```haskell
+let TRIPLE = \x y z -> ???
+let FST3  = \t -> ???
+let SND3  = \t -> ???
+let TRD3  = \t -> ???
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+[elsa-ite]: http://goto.ucsd.edu:8095/index.html#?demo=ite.lc
+
+[elsa-not]: http://goto.ucsd.edu:8095/index.html#?demo=permalink%2F1491005489_149.lc

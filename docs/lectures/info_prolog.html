@@ -233,7 +233,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 			<h2 id="entering-the-prolog-shell">Entering the Prolog Shell</h2>
-<p>Here is a sample session. We use <code>$</code> for the Unix shell prompt, and <code>?-</code> for the Prolog shell prompt.</p>
+<p>Here is a sample session. We use <code class="sourceCode haskell"><span class="fu">$</span></code> for the Unix shell prompt, and <code class="sourceCode haskell"><span class="fu">?-</span></code> for the Prolog shell prompt.</p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">$ rlwrap swipl
 
 <span class="er">130</span>f<span class="fu">@</span>ieng6<span class="dv">-202</span><span class="er">]</span>:~:<span class="dv">501</span>$ swipl
@@ -252,7 +252,7 @@ and you are welcome to redistribute it under certain conditions<span class="kw">
 <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span>
 
 <span class="fu">?-</span> halt<span class="kw">.</span></code></pre></div>
-<p>To <strong>load</strong> a program <a href="../lectures/lec-prolog.pl">lec-prolog.pl</a> from disk use the <code>consult</code> command like so:</p>
+<p>To <strong>load</strong> a program <a href="../lectures/lec-prolog.pl">lec-prolog.pl</a> from disk use the <code class="sourceCode haskell">consult</code> command like so:</p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> consult('<span class="er">lec</span>-<span class="er">prolog</span>.<span class="er">pl</span>')<span class="kw">.</span>
 <span class="co">% foo.pl compiled 0.00 sec, 10,640 bytes</span>
 <span class="kw">true.</span>

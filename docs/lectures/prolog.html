@@ -237,10 +237,10 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <h2 id="introduction">Introduction</h2>
 <p>We now turn to a brand new paradigm, called “Logic Programming Languages” – our vehicle for studying this paradigm is Prolog, whose roots are in logic and on automated theorem proving. Prolog was developed in the 1970s for AI applications. Some such applications have a knowledge base (or database) of facts, from which you’d like to ask queries and deduce other facts. For example, given facts in the knowledge base like “Carnitas is Mexican” and “Mexican food is delicious”, then we can deduce “Carnitas is delicious”.</p>
 <p>Prolog probably looks nothing like any language you’ve seen before. Fundamental difference between Prolog and most other languages:</p>
-<pre><code>  You don't run a Prolog Program</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="dt">You</span> don't run a <span class="dt">Prolog</span> <span class="dt">Program</span></code></pre></div>
 <p>Instead, you ask questions and the system attempts to answer them using the rules and facts that it has been given.</p>
-<pre><code>  Logic programs are &quot;declarative&quot;: the specification of the
-  desired results are written, rather than how to obtain them.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="dt">Logic</span> programs are <span class="st">&quot;declarative&quot;</span><span class="fu">:</span> the specification <span class="kw">of</span> the
+  desired results are written, rather than how to obtain them<span class="fu">.</span></code></pre></div>
 <p>This approach is very good at expressing problems that involve searching a large space of possibilities. For example, given a list of cities and distances between them, find me the shortest route that passes through each one once (the travelling salesman problem).</p>
 <p>The philosophy of this approach is that it is often hard to specify a search algorithm – and in such cases, it is easier to specify the characteristics of the solution. To do so, you specify <em>facts</em> and <em>rules</em> for deducing new facts from old facts, and then a <em>query</em>. So you just state what is true and then ask what (else) is true. The language implementation figures out how to actually compute appropriate solutions. Use the travelling salesman problem as an illustration: I say the constraints, not how to search the space of possible solutions. Of course, as we will see, this is a simplification, and often for reasons of efficiency, one has to impose constraints on the search.</p>
 <p>The original and principal applications for Prolog are in various AI settings such as (expert databases). Examples include using prolog-based databases to determine when credit card fraud has occurred (prolog is used to specify rules that indicate when a fraud occurs), and there are projects afoot to use ideas from prolog to determine suspicious people from phone/communication patterns. Note that currently AI researchers devise statistical techniques to complement (if not replace) logical approaches for such tasks. Another big application is as a database query language.<br />
@@ -256,40 +256,40 @@ Standard query languages like SQL are inspired by and are really subsets of Prol
 <li><p><em>integers</em> and <em>reals</em>: are constants.</p></li>
 <li><p><em>atoms</em>: are identifiers starting with a lowercase letter.</p>
 <p>For example:</p>
-<p><code>alice</code>, <code>bob</code>, <code>charlie</code></p>
+<p><code class="sourceCode haskell">alice</code>, <code class="sourceCode haskell">bob</code>, <code class="sourceCode haskell">charlie</code></p>
 <p>are all atoms.</p>
 <p><strong>Atoms are NOT variables</strong> – the way to think of them is as TAGS, or special constants, or elements of a giant enum datatype. They are similar to the tags used in ML datatypes:</p></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">    <span class="kw">type</span> day = <span class="dt">Alice</span> | <span class="dt">Bob</span> | Charlie <span class="kw">.</span>..</code></pre></div>
-<pre><code>Only in ML, the tags start with a capital letter.
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Only</span> <span class="kw">in</span> <span class="dt">ML</span>, the tags start with a capital letter<span class="fu">.</span>
 
-Atoms are *uninterpreted constants*:  nothing is known about each tag
-except that it is equal to itself.
+<span class="dt">Atoms</span> are <span class="fu">*</span>uninterpreted constants<span class="fu">*:</span>  nothing is known about each tag
+except that it is equal to itself<span class="fu">.</span>
 
-Intuitively, Prolog knows that:
+<span class="dt">Intuitively</span>, <span class="dt">Prolog</span> knows that<span class="fu">:</span>
 
-`alice = alice`
+<span class="ot">`alice = alice`</span>
 
-as the tags are the same. However, to it,
+as the tags are the same<span class="fu">.</span> <span class="dt">However</span>, to it,
 
-`alice = bob`
+<span class="ot">`alice = bob`</span>
 
-*never* makes sense, as it has a strange notion of equality, that we
-will see shortly.
+<span class="fu">*</span>never<span class="fu">*</span> makes sense, as it has a strange notion <span class="kw">of</span> equality, that we
+will see shortly<span class="fu">.</span>
 
-There are some built-in atoms such as `[]` that signifies the empty
-list, `.` which is used for list concatenation and so on, that we will
-see shortly.</code></pre>
+<span class="dt">There</span> are some built<span class="fu">-</span><span class="kw">in</span> atoms such as <span class="ot">`[]`</span> that signifies the empty
+list, <span class="ot">`.`</span> which is used for list concatenation and so on, that we will
+see shortly<span class="fu">.</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Variables</strong>: Any identifier beginning with an upper case letter or an underscore is a variable.</li>
 </ol>
 <p>For example,</p>
-<p><code>X</code>, <code>Y</code>, <code>Head</code>, <code>Tail</code>, <code>Alfred</code></p>
+<p><code class="sourceCode haskell"><span class="dt">X</span></code>, <code class="sourceCode haskell"><span class="dt">Y</span></code>, <code class="sourceCode haskell"><span class="dt">Head</span></code>, <code class="sourceCode haskell"><span class="dt">Tail</span></code>, <code class="sourceCode haskell"><span class="dt">Alfred</span></code></p>
 <p>are all variables.</p>
-<p>The variable <code>_</code> is like a <strong>wildcard&quot; variable</strong>, whose meaning is similar to the <code>_</code> in ML, but more on that when we see what a variable means.</p>
+<p>The variable <code class="sourceCode haskell">_</code> is like a <strong>wildcard&quot; variable</strong>, whose meaning is similar to the <code class="sourceCode haskell">_</code> in ML, but more on that when we see what a variable means.</p>
 <p>As we shall see:</p>
-<pre><code> --  `x = a` is nonsense (as x and a are two *different* constants/tags).
- --  `X = a` has some sense (but isnt at all what one might think...).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"> <span class="co">--  `x = a` is nonsense (as x and a are two *different* constants/tags).</span>
+ <span class="co">--  `X = a` has some sense (but isnt at all what one might think...).</span></code></pre></div>
 <p>WARNING: Upercase/Lowercase is a common source of error! Also, variables are NOT declared before use (so be careful!).</p>
 <ol start="3" style="list-style-type: decimal">
 <li><strong>Compound Terms</strong>: These are terms of the form: atom(term,term,term,…) where each “term” is either an atom or a variable or a compound term. Examples include:</li>
@@ -304,41 +304,41 @@ see shortly.</code></pre>
 
 	term := <span class="dt">atom</span> | variable | <span class="dt">atom</span>(term<span class="kw">,</span>term<span class="kw">,</span>term<span class="kw">,</span>...)</code></pre></div>
 <p>While you may be tempted to think of compound terms like:</p>
-<p><code>parent(alice, bob)</code></p>
+<p><code class="sourceCode haskell">parent(alice, bob)</code></p>
 <p>as function calls, they are NOT! Instead, you should think about this in the same way as we thought of ML the recursive, one-of types in ML.</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">   <span class="kw">type</span> term =   alice | bob | charlie | ... <span class="co">(* other atoms *)</span>
              | <span class="dt">Var</span> <span class="kw">of</span> <span class="dt">string</span>
 	           | <span class="dt">Parent</span> <span class="kw">of</span> term * term</code></pre></div>
-<p>Thus, <code>parent(alice, bob)</code> in Prolog is “equivalent to” the ML value:</p>
-<p><code>Parent(alice, bob)</code></p>
-<p>which is just a tuple <code>alice, bob</code> with a tag <code>Parent</code> on it, or equivalently represented as a tree:</p>
-<pre><code>          Parent
-			     /  \
-			    /    \
-			  alice  bob</code></pre>
+<p>Thus, <code class="sourceCode haskell">parent(alice, bob)</code> in Prolog is “equivalent to” the ML value:</p>
+<p><code class="sourceCode haskell"><span class="dt">Parent</span>(alice, bob)</code></p>
+<p>which is just a tuple <code class="sourceCode haskell">alice, bob</code> with a tag <code class="sourceCode haskell"><span class="dt">Parent</span></code> on it, or equivalently represented as a tree:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">          <span class="dt">Parent</span>
+			     <span class="fu">/</span>  \
+			    <span class="fu">/</span>    \
+			  alice  bob</code></pre></div>
 <p>and parent(alice,Charlie) in Prolog is “equivalent to” the ML value: Parent(alice,Var (“Charlie”)), or represented as a tree:</p>
-<pre><code>			    Parent
-			     /  \
-			    /    \
-			  alice  Var
-				  |
-				  |
-				Charlie</code></pre>
-<p>Consider a term: <code>factorial(5)</code></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">			    <span class="dt">Parent</span>
+			     <span class="fu">/</span>  \
+			    <span class="fu">/</span>    \
+			  alice  <span class="dt">Var</span>
+				  <span class="fu">|</span>
+				  <span class="fu">|</span>
+				<span class="dt">Charlie</span></code></pre></div>
+<p>Consider a term: <code class="sourceCode haskell">factorial(<span class="dv">5</span>)</code></p>
 <p>It is <strong>NOT a function</strong> (despite what it looks like).</p>
 <ul>
 <li>there is no associated function implementation</li>
 </ul>
-<p>Prolog has no idea of the meaning you intend for this term – to it, this is just a box containing <code>5</code> with a label <code>factorial</code>.</p>
+<p>Prolog has no idea of the meaning you intend for this term – to it, this is just a box containing <code class="sourceCode haskell"><span class="dv">5</span></code> with a label <code class="sourceCode haskell">factorial</code>.</p>
 <p>Another way to view it is as a tree:</p>
-<pre><code>			factorial
-			    |
-			    |
-			    5</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">			factorial
+			    <span class="fu">|</span>
+			    <span class="fu">|</span>
+			    <span class="dv">5</span></code></pre></div>
 <p>Thus, the only thing Prolog knows is that:</p>
-<p><code>factorial(5)=factorial(5)</code></p>
-<p>i.e. the two terms are the same. In particular, to Prolog, <code>factorial(5)=120</code> is NOT true.</p>
-<p>Thus Prolog compound terms are really just structured data – like values of a datatype in ML. Can also think of atoms that begin a compound term as <em>uninterpreted functions</em>: e.g., <code>factorial</code> is a function about which NOTHING is known, except that the result of applying this function to the atom x, is the term <code>factorial(x)</code>.</p>
+<p><code class="sourceCode haskell">factorial(<span class="dv">5</span>)<span class="fu">=</span>factorial(<span class="dv">5</span>)</code></p>
+<p>i.e. the two terms are the same. In particular, to Prolog, <code class="sourceCode haskell">factorial(<span class="dv">5</span>)<span class="fu">=</span><span class="dv">120</span></code> is NOT true.</p>
+<p>Thus Prolog compound terms are really just structured data – like values of a datatype in ML. Can also think of atoms that begin a compound term as <em>uninterpreted functions</em>: e.g., <code class="sourceCode haskell">factorial</code> is a function about which NOTHING is known, except that the result of applying this function to the atom x, is the term <code class="sourceCode haskell">factorial(x)</code>.</p>
 <p>These atoms are called <strong>function symbols</strong>.</p>
 <h2 id="facts">Facts</h2>
 <p>A fact is just a term, typically without any variables. You specify a fact by writing a term followed by a ‘.’. For example, here are a few facts that one might have in the system.</p>
@@ -349,16 +349,16 @@ parent(herbert<span class="kw">,</span>margaret)<span class="kw">.</span>
 parent(john<span class="kw">,</span>kim)<span class="kw">.</span>
 parent(felix<span class="kw">,</span>john)<span class="kw">.</span>  
 parent(albert<span class="kw">,</span>felix)<span class="kw">.</span></code></pre></div>
-<p>Note that <code>kim</code>, <code>holly</code>, <code>margaret</code>, <code>herbert</code>, <code>john</code>, <code>kim</code>, <code>felix</code>, <code>albert</code> are all atoms.</p>
+<p>Note that <code class="sourceCode haskell">kim</code>, <code class="sourceCode haskell">holly</code>, <code class="sourceCode haskell">margaret</code>, <code class="sourceCode haskell">herbert</code>, <code class="sourceCode haskell">john</code>, <code class="sourceCode haskell">kim</code>, <code class="sourceCode haskell">felix</code>, <code class="sourceCode haskell">albert</code> are all atoms.</p>
 <p>The Prolog interpreter maintains a collection of facts like the above – think of it as the underlying data in the database over which queries will be asked.<br />
 You can define your own facts and add them to the database. The function symbols beginning a fact are called <em>predicates</em>: intuitively, they represent functions that evaluate to a boolean.</p>
-<p>Thus, (the atom) <code>parent</code> is a predicate that, intuitively, takes two arguements and returns a boolean – we say that <code>parent</code> is a predicate of arity 2.</p>
+<p>Thus, (the atom) <code class="sourceCode haskell">parent</code> is a predicate that, intuitively, takes two arguements and returns a boolean – we say that <code class="sourceCode haskell">parent</code> is a predicate of arity 2.</p>
 <p>The key thing to note, is that predicates have <em>no intrinsic meaning</em>. However, they are generally designed and named so that the programmer can easily “interpret” them.</p>
 <p>For example, as a programmer, I will decide that</p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">parent(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)</code></pre></div>
-<p>means that <code>X</code> is a parent of <code>Y</code>. In other words, I will specify the fact:</p>
+<p>means that <code class="sourceCode haskell"><span class="dt">X</span></code> is a parent of <code class="sourceCode haskell"><span class="dt">Y</span></code>. In other words, I will specify the fact:</p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">parent(a<span class="kw">,</span>b)<span class="kw">.</span></code></pre></div>
-<p>only if the person corresponding to atom <code>a</code> is a parent of the person corresponding to atom <code>b</code>. Thus, the predicate is interpreted as a logical relation between <code>X</code> and <code>Y</code>.</p>
+<p>only if the person corresponding to atom <code class="sourceCode haskell">a</code> is a parent of the person corresponding to atom <code class="sourceCode haskell">b</code>. Thus, the predicate is interpreted as a logical relation between <code class="sourceCode haskell"><span class="dt">X</span></code> and <code class="sourceCode haskell"><span class="dt">Y</span></code>.</p>
 <p>Prolog uses these facts to answer queries, as well as to infer new facts.</p>
 <p>Lets see how it does the first.</p>
 <h2 id="running-prolog-queries">Running Prolog : Queries</h2>
@@ -371,11 +371,11 @@ You can define your own facts and add them to the database. The function symbols
 <p>?- assert(parent(margaret,kim)).</p>
 <p>(or whatever fact you want to insert).</p>
 <p>Once this is done, the facts have been registered into the shell, we can query Prolog as follows:</p>
-<pre><code>1. Prompts you to type a query
-2. You type a query
-3. Prolog tries to prove your query
-4. Prints out the result (or 'failure')
-5. Repeat</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span><span class="fu">.</span> <span class="dt">Prompts</span> you to <span class="kw">type</span> a query
+<span class="dv">2</span><span class="fu">.</span> <span class="dt">You</span> <span class="kw">type</span> a query
+<span class="dv">3</span><span class="fu">.</span> <span class="dt">Prolog</span> tries to prove your query
+<span class="dv">4</span><span class="fu">.</span> <span class="dt">Prints</span> out the result (or <span class="ch">'failure'</span>)
+<span class="dv">5</span><span class="fu">.</span> <span class="dt">Repeat</span></code></pre></div>
 <p>The simplest query is a term followed by a ‘.’ (looks like a fact, but is just typed at the prompt). For example, suppose you type the following query:</p>
 <p>?- parent(margaret, john).</p>
 <p>The meaning of a query is “is this fact in your database or can it be inferred from your database”. In other words, we are asking Prolog if it can PROVE the fact. Prolog replies:</p>
@@ -386,34 +386,34 @@ You can define your own facts and add them to the database. The function symbols
 <p>Yes</p>
 <p>As this is in the database of facts we fed in. (Tip: If you forget the period then you can type it on the next line) Not bad, but not especially exciting – we gave it a bunch of facts, and basically each query is effectively asking if the query term was one of the facts we supplied.</p>
 <p>Things get more fun, when we toss variables into the queries.</p>
-<pre><code>  ?- parent(margaret,X).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> parent(margaret,<span class="dt">X</span>)<span class="fu">.</span></code></pre></div>
 <p>This is where we Prolog departs radically from other paradigms. The meaning of this query is:</p>
 <p>“What value(s) can you plug in for X such that the fact becomes provable for that value ?” Prolog replies:</p>
-<pre><code>  X = kim 	[press enter if you're satisfied]
-Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="dt">X</span> <span class="fu">=</span> kim 	[press enter <span class="kw">if</span> you're satisfied]
+<span class="dt">Yes</span></code></pre></div>
 <p>This means that it can plug in “kim” for X, and thus, it can deduce the fact: parent(margaret,kim). Instead, you can enter the query:</p>
-<pre><code>  ?- parent(X,kim).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> parent(<span class="dt">X</span>,kim)<span class="fu">.</span></code></pre></div>
 <p>This asks prolog, for what values of X does the fact parent( _ , kim) hold. In other words, this innocent query is asking prolog – who are the (known) parents of kim ? It replies:</p>
-<pre><code>X = margaret   ;	[press ';' if you want another answer]
-    X = john  ;
-No</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> margaret   ;	[press <span class="ch">';'</span> <span class="kw">if</span> you want another answer]
+    <span class="dt">X</span> <span class="fu">=</span> john  ;
+<span class="dt">No</span></code></pre></div>
 <p>Thus, it returns, one-by-one, all the “solutions” for X that make the fact parent(X,kim) provable. We can make both the parameters variables:</p>
-<pre><code>  ?- parent(X,Y).  </code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> parent(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span>  </code></pre></div>
 <p>This asks prolog – what are the pairs X,Y such that X is (provably) the parent of Y ? It responds:</p>
-<pre><code>X=kim  Y=holly ;
-X=margaret  Y=kim;
-...</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">X</span><span class="fu">=</span>kim  <span class="dt">Y</span><span class="fu">=</span>holly ;
+<span class="dt">X</span><span class="fu">=</span>margaret  <span class="dt">Y</span><span class="fu">=</span>kim;
+<span class="fu">...</span></code></pre></div>
 <p>Suppose you want to know if there are any strange circularities in your fact database – for example, does there exist any person who is their own parent ? The following query does the trick:</p>
-<pre><code>  ?- parent(X,X).  
-  	No</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> parent(<span class="dt">X</span>,<span class="dt">X</span>)<span class="fu">.</span>  
+  	<span class="dt">No</span></code></pre></div>
 <p>——————————- Unification ———————————–</p>
 <p>In most other languages, a function designed to look up things like this would be less flexible – it would require tedious parentOf() method or a childOf() method, loops, etc. With Prolog – the queries are very flexible, and work like magic. Whats going on ?</p>
 <p>Turns out that Prolog’s computational heart is a fancy pattern matching technique (also, btw, at the heart of ML’s type system) borrowed from logicians, called “Unification”. Regrettably, we won’t have time to go into the details of unification – and so, lets content ourselves with a cartoon version.</p>
-<pre><code>Intuitively, two terms can be unified   if there a
-way of assigning values to their variables so that
-the terms become identical.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Intuitively</span>, two terms can be unified   <span class="kw">if</span> there a
+way <span class="kw">of</span> assigning values to their variables so that
+the terms become identical<span class="fu">.</span></code></pre></div>
 <p>This is really what &quot; = &quot; means in prolog – when you ask it:</p>
-<pre><code>?-  t1 = t2.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span>  t1 <span class="fu">=</span> t2<span class="fu">.</span></code></pre></div>
 <p>For any two terms t1 and t2, you are asking it whether the terms t1 and t2 can be unified. So, if you ask:</p>
 <p>?- foo(bar) = foo(bar). Yes</p>
 <p>Because there are no variables and the terms are the same. If instead you ask:</p>
@@ -429,72 +429,72 @@ the terms become identical.</code></pre>
 <p>Similarly, the unification happens “deep” into the terms:</p>
 <p>?- a(W,foo(W,Y),Y) = a(2,foo(X,3),Z). W = 2 X = 2 Y = 3 Z = 3 Yes</p>
 <p>Intuitively, it first matches up the first position, and so W gets 2, next, it tries to match up the second position – i.e.</p>
-<pre><code>foo(W,Y) with foo(X,3).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foo(<span class="dt">W</span>,<span class="dt">Y</span>) with foo(<span class="dt">X</span>,<span class="dv">3</span>)<span class="fu">.</span></code></pre></div>
 <p>now, W is already 2, so X also gets 2, and Y gets 3. Finally, it tries to match up the last position, and Y is 3 and so Z gets 3.</p>
 <p>Instead, the query:</p>
 <p>?- a(W,foo(W,Y),Y) = a(2,foo(X,3),X). No</p>
 <p>Thus, by using W,X,Y in two places, we are forcing it to find a solution where those two places get exactly the same value. As a result, the constraints ensure that all the variables must get the same value. However, W and Y must get 2 and 3 and so there is no solution.</p>
 <p>Thus, this innocent “pattern matching” operation actually does a lot under its hood, and it turns out to be a surprisingly powerful and flexible way to encode all kinds of computation! All the queries that we asked before, were answered via unification.</p>
 <p>When we ask:</p>
-<pre><code>?- parent(margaret, john).  </code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> parent(margaret, john)<span class="fu">.</span>  </code></pre></div>
 <p>prolog checks if the term “parent(margaret,john)” can be unified with any of the known facts (that are also terms). If so, it says Yes, but as it cannot, it replies No.</p>
 <p>When we ask:</p>
-<pre><code>?- parent(margaret,kim).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> parent(margaret,kim)<span class="fu">.</span></code></pre></div>
 <p>it can unify the query term with a known fact term, and so it replies Yes.</p>
 <p>When we ask:</p>
-<pre><code>?- parent(margaret,X).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> parent(margaret,<span class="dt">X</span>)<span class="fu">.</span></code></pre></div>
 <p>it tries to find all the known facts with which it can unify the query term – there is only one, and so it “answers the query” by returning the substitution required for unification: X = kim</p>
 <p>Similarly, when we ask:</p>
-<pre><code>  ?- parent(X,kim).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> parent(<span class="dt">X</span>,kim)<span class="fu">.</span></code></pre></div>
 <p>It attempts to find all the known terms with which this query can be unified – this time, there are several terms, and the different valid unifying substitutions (called unifiers) yield the different parents of kim: X = margaret ; X = john ; No</p>
 <p>Finally, to answer the query:</p>
-<pre><code>?- parent(X,Y).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> parent(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span></code></pre></div>
 <p>It attempts to unify the query term with all known facts – and the list of resulting unifiers is exactly the set of known parent child pairs.</p>
 <p>——————————- Conjunction ——————————</p>
 <p>Often, its more useful to ask questions about several terms. For example, to determine if margaret is holly’s grandparent, we would like to find if there is some person who is both the child of margaret AND the parent of holly. To do so, we can issue a conjunctive query which is a list of terms separated by commas as follows:</p>
-<pre><code>  ?- parent(margaret, X), parent(X, holly).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> parent(margaret, <span class="dt">X</span>), parent(<span class="dt">X</span>, holly)<span class="fu">.</span></code></pre></div>
 <p>To answer this query, Prolog attempts to find an X such that parent(margaret,X) unifies with the set of known facts, AND, parent(X,holly) unifies with the set of known facts. Upon finding a unifier that works, it replies:</p>
-<pre><code>X = kim
-Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> kim
+<span class="dt">Yes</span></code></pre></div>
 <p>Thus, as kim is the intermediate parent, we can conclude that margaret is indeed a grandparent of holly. Finally, consider the following query:</p>
-<pre><code>  ?- parent(X,Y), parent(Y,Z), parent(Z,kim).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> parent(<span class="dt">X</span>,<span class="dt">Y</span>), parent(<span class="dt">Y</span>,<span class="dt">Z</span>), parent(<span class="dt">Z</span>,kim)<span class="fu">.</span></code></pre></div>
 <p>It asks if there are X,Y,Z such that X is Y’s parent, Y is Z’s parent and Z is kim’s parent. In other words, the query determines if kim has any “great-grandparent”. Upon finding appropriate unifiers, prolog replies:</p>
-<pre><code>X = john
-Y = felix
-Z = albert
-Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> john
+<span class="dt">Y</span> <span class="fu">=</span> felix
+<span class="dt">Z</span> <span class="fu">=</span> albert
+<span class="dt">Yes</span></code></pre></div>
 <p>——————————- Rules ————————————</p>
 <p>The above is quite nifty – it allows us to quickly mine the database to find interesting relationships. However, it gets somewhat cumbersome as we have to devise a complex conjunctive query ever time. Instead, it would be nice if we could define complex queries out of simpler queries.</p>
 <p>Rules serve exactly that purpose. They allow us to specify complex queries (i.e. predicates) using simpler ones. In general, the format of a rule is:</p>
-<pre><code> head :- condition1, condition2, condition3....</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"> head <span class="fu">:-</span> condition1, condition2, condition3<span class="fu">....</span></code></pre></div>
 <p>Intuitively, it means, that the “head” query is true if condition1, condition2, condition3,… are all true. In other words, it tells prolog, to prove the head query, prove the conditions 1,2,3.</p>
 <p>For example, suppose we’d like to define a grandparent relationship (predicate). We do so as:</p>
-<pre><code>grandparent(GP,GC) :- parent(GP,P), parent (P,GC).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">grandparent(<span class="dt">GP</span>,<span class="dt">GC</span>) <span class="fu">:-</span> parent(<span class="dt">GP</span>,<span class="dt">P</span>), parent (<span class="dt">P</span>,<span class="dt">GC</span>)<span class="fu">.</span></code></pre></div>
 <p>Intuitively this states:</p>
 <p>“GP is a grandparent of GC if GP is a parent of P AND P is a parent of GC”.</p>
 <p>With this definition, we can now issue the following query:</p>
-<pre><code>  ?- grandparent(X,kim).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> grandparent(<span class="dt">X</span>,kim)<span class="fu">.</span></code></pre></div>
 <p>and prolog responds with:</p>
-<pre><code>X=herbert
-Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">X</span><span class="fu">=</span>herbert
+<span class="dt">Yes</span></code></pre></div>
 <p>as it can find that parent(herbert,margaret) and parent(margaret,kim), therefore, applying the rule, grandparent(herbert,kim), to which fact the query term gets unified. We can use this predicate to write more predicates:</p>
-<pre><code>greatgrandparent(GGP,GGC) :- parent(GGP,GP) , grandparent (GP, GGC).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">greatgrandparent(<span class="dt">GGP</span>,<span class="dt">GGC</span>) <span class="fu">:-</span> parent(<span class="dt">GGP</span>,<span class="dt">GP</span>) , grandparent (<span class="dt">GP</span>, <span class="dt">GGC</span>)<span class="fu">.</span></code></pre></div>
 <p>We can now issue the query:</p>
-<pre><code>?- greatgrandparent(X,holly).
-   X=herbert
-   Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> greatgrandparent(<span class="dt">X</span>,holly)<span class="fu">.</span>
+   <span class="dt">X</span><span class="fu">=</span>herbert
+   <span class="dt">Yes</span></code></pre></div>
 <h2 id="program-facts-rules">Program = Facts + Rules:</h2>
 <p>Facts and Rules are the two kinds of “Clauses” (intuitively, a fact is just a rule without any conditions). Thus, a prolog program is a set of clauses – partitioned into a database of facts and a set of rules for inferring new facts.</p>
 <h2 id="scope">Scope:</h2>
 <p>Notice that the same variable P appears twice in the grandparent rule. Indeed one may be tempted to reuse P across several rules. In Prolog, the scope of a variable is the clause (rule) that contains it. Thus, there is no connection whatsoever between variables across clauses.</p>
 <p>For example, consider the two clauses:</p>
-<pre><code>   foo(P) :- bar(P).        % There is no connection between P in
-   stuff(P) :- thing(P).    % the 2 clauses.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   foo(<span class="dt">P</span>) <span class="fu">:-</span> bar(<span class="dt">P</span>)<span class="fu">.</span>        <span class="fu">%</span> <span class="dt">There</span> is no connection between <span class="dt">P</span> <span class="kw">in</span>
+   stuff(<span class="dt">P</span>) <span class="fu">:-</span> thing(<span class="dt">P</span>)<span class="fu">.</span>    <span class="fu">%</span> the <span class="dv">2</span> clauses<span class="fu">.</span></code></pre></div>
 <p>In other words, there are no global variables, all variables are local to the individual clauses.</p>
 <p>———— Multiple Clauses = Disjunction and Recursion —————</p>
 <p>Suppose we want to define a predicate that is true for all those persons that have some family – that is, those persons who have either a parent OR a child. We can do so as follows:</p>
-<pre><code>has_family(X) :- parent(X,_).
-has_family(X) :- parent(_,X).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">has_family(<span class="dt">X</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>,_)<span class="fu">.</span>
+has_family(<span class="dt">X</span>) <span class="fu">:-</span> parent(_,<span class="dt">X</span>)<span class="fu">.</span></code></pre></div>
 <p>If we have multiple rules for the same predicate, effectively we are specifying a disjunction. The first rule says:</p>
 <p>“X has a family if there is some _ such that X is the parent of _&quot;</p>
 <p>The second rule says:</p>
@@ -507,28 +507,28 @@ has_family(X) :- parent(_,X).</code></pre>
 <p>For those of you who are economical with the keystrokes, there is another way to specify disjunctive rules – via a semicolon:</p>
 <p>has_family(X) :- parent(X,<em>) ; parent(</em>,X).</p>
 <p>Suppose you want to specify an predicate ancestor(X,Y) which is true if X is an ancestor of Y, i.e. if by following the parent relationship from Y one eventually reaches X. Intuitively, X is an ancestor of Y either if:</p>
-<pre><code>1. X is the parent of Y, or,
-2. Z is the parent of Y, and X is an ancestor of Z.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span><span class="fu">.</span> <span class="dt">X</span> is the parent <span class="kw">of</span> <span class="dt">Y</span>, or,
+<span class="dv">2</span><span class="fu">.</span> <span class="dt">Z</span> is the parent <span class="kw">of</span> <span class="dt">Y</span>, and <span class="dt">X</span> is an ancestor <span class="kw">of</span> <span class="dt">Z</span><span class="fu">.</span></code></pre></div>
 <p>Thus, we can specify this predicate recursively as follows:</p>
-<pre><code>ancestor(X,Y) :- parent(X,Y).                %[Base case]
-ancestor(X,Y) :- parent(Z,Y),ancestor(X,Z)   %[Recursive case]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">ancestor(<span class="dt">X</span>,<span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span>                <span class="fu">%</span>[<span class="dt">Base</span> <span class="kw">case</span>]
+ancestor(<span class="dt">X</span>,<span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">Z</span>,<span class="dt">Y</span>),ancestor(<span class="dt">X</span>,<span class="dt">Z</span>)   <span class="fu">%</span>[<span class="dt">Recursive</span> <span class="kw">case</span>]</code></pre></div>
 <p>This works quite niftily:</p>
-<pre><code>?- ancestor(kim,X).
-   X = holly ;
-   No</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> ancestor(kim,<span class="dt">X</span>)<span class="fu">.</span>
+   <span class="dt">X</span> <span class="fu">=</span> holly ;
+   <span class="dt">No</span></code></pre></div>
 <p>i.e. holly is the only “descendant” of kim, and:</p>
-<pre><code>?- ancestor(X,kim).
-   X = margaret ;
-   X = john ;
-   X = herbert ;
-   X = felix ;
-   X = albert ;
-   No</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> ancestor(<span class="dt">X</span>,kim)<span class="fu">.</span>
+   <span class="dt">X</span> <span class="fu">=</span> margaret ;
+   <span class="dt">X</span> <span class="fu">=</span> john ;
+   <span class="dt">X</span> <span class="fu">=</span> herbert ;
+   <span class="dt">X</span> <span class="fu">=</span> felix ;
+   <span class="dt">X</span> <span class="fu">=</span> albert ;
+   <span class="dt">No</span></code></pre></div>
 <p>i.e. kim has a long ancestry.</p>
 <p>—————————– Backtracking Search —————————</p>
 <p>At this point, its worth looking into how exactly prolog pulls off this trick of answering queries in this manner, as it has its limits, which one needs to know to phrase the queries appropriately. Turns out, there’s no real magic – just brute force “proof” search.</p>
 <p>We can view each clause as a “proof rule”:</p>
-<pre><code>  goal :- subgoal_1, subgoal_2,...</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  goal <span class="fu">:-</span> subgoal_1, subgoal_2,<span class="fu">...</span></code></pre></div>
 <p>Thus, the rules for ancestor are as follows:</p>
 <p>ancestor(X,Y) :- parent(X,Y). %rule 1 ancestor(X,Y) :- parent(Z,Y),ancestor(X,Z). %rule 2</p>
 <p>To prolog, these rules mean the following – to prove ancestor(X,Y), try to:</p>
@@ -539,8 +539,8 @@ ancestor(X,Y) :- parent(Z,Y),ancestor(X,Z)   %[Recursive case]</code></pre>
 <p>Thus, suppose we ask it the query:</p>
 <p>?- ancestor(felix,holly).</p>
 <p>To prove this query, it undertakes the following backtracking search:</p>
-<pre><code>	ancestor(felix,holly)?
-	  /		                \</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">	ancestor(felix,holly)<span class="fu">?</span>
+	  <span class="fu">/</span>		                \</code></pre></div>
 <p>parent(felix,holly) parent(Z,holly) NO ancestor(felix,Z) | | Z = kim (by fact) | ancestor(felix,kim) /<br />
 parent(felix,kim) parent(Z’,kim) NO ancestor(felix,Z’) ———-| | | Z’=john Z’=margaret | | | ancestor(felix,john) ancestor(felix,margaret) | /   parent(felix,john) parent(felix,margaret) parent(Z’‘,margaret) YES NO ancestor(felix,Z’‘) | Z’‘= herbert | | ancestor(felix, herbert) / | parent(felix,herbert) parent(Z’’’,herbert) NO NO</p>
 <p>Thus, it first tries the base rule i.e. to prove the subgoal parent(felix,holly). As it cannot unify this query with any known fact, it fails (NO), and so it backtracks and tries the other recursive rule. The only Z such that parent(Z,holly) unifies with a known fact is when Z=kim, thus, it tries to prove the second subgoal ancestor(felix,kim). To do so, again it first applies the base rule, which fails, and so it backtracks and applies the recursive rule.</p>
@@ -551,66 +551,66 @@ parent(felix,kim) parent(Z’,kim) NO ancestor(felix,Z’) ———-| | | Z’=
 <p>?- ancestor(X,kim).</p>
 <p>Prolog attempts the proof search and returns all the unifiers for X for which the proof succeeds. Thus, prolog is literally programming by proving.</p>
 <p>Hint: Trace mode in prolog shows the tree:</p>
-<pre><code>?- trace.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> trace<span class="fu">.</span></code></pre></div>
 <p>The subsequent query is traced: use the on-line help on the ACS Prolog interpreter</p>
-<pre><code>?- help(trace).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> help(trace)<span class="fu">.</span></code></pre></div>
 <h2 id="order-matters">Order Matters:</h2>
 <p>The rub is that the order of the clauses and terms influences greatly the order in which the unification and backtracking happens. This is because, to prove a particular goal query, the different clauses are selected in order, and further, within each clause, the subgoals are selected from left-to-right, which affects how the unification happens.</p>
 <p>In the above example, if we had entered the branch Z’=john rather than than the branch Z’=margaret, then we would have proven the query faster. Similarly, if we had swapped the order of the conjunctions (subgoals) in the recursive clause, we would have a rather different tree (try as an exercise). Thus, order matters for performance. Hint: Try simple things first!</p>
 <p>More importantly, there are cases where the program may not even work (may not terminate), depending on the order:</p>
-<pre><code>ancestor(X,Y) :- ancestor(X,Z), parent(Z,Y).
-ancestor(X,Y) :- parent(X,Y).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">ancestor(<span class="dt">X</span>,<span class="dt">Y</span>) <span class="fu">:-</span> ancestor(<span class="dt">X</span>,<span class="dt">Z</span>), parent(<span class="dt">Z</span>,<span class="dt">Y</span>)<span class="fu">.</span>
+ancestor(<span class="dt">X</span>,<span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span></code></pre></div>
 <p>Now lets try the same query:</p>
-<pre><code>?- ancestor(felix,holly).
- ERROR: Out of local stack</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> ancestor(felix,holly)<span class="fu">.</span>
+ <span class="dt">ERROR</span><span class="fu">:</span> <span class="dt">Out</span> <span class="kw">of</span> local stack</code></pre></div>
 <p>Why ? Well, if you try to build the search tree, you’ll see it goes forever:</p>
-<pre><code>	ancestor(felix,holly)?
-	  |
-		|
-		|
-	ancestor(felix,Z)  %prove first subgoal,
-		|          %then parent(Z,holly)
-		|
-		|
-	ancestor(felix,Z') %prove first subgoal,
-		|	   %then parent(Z',Z)
-		|
-		|
-	ancestor(felix,Z'')
-		.
-		.
-		.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">	ancestor(felix,holly)<span class="fu">?</span>
+	  <span class="fu">|</span>
+		<span class="fu">|</span>
+		<span class="fu">|</span>
+	ancestor(felix,<span class="dt">Z</span>)  <span class="fu">%</span>prove first subgoal,
+		<span class="fu">|</span>          <span class="fu">%</span><span class="kw">then</span> parent(<span class="dt">Z</span>,holly)
+		<span class="fu">|</span>
+		<span class="fu">|</span>
+	ancestor(felix,<span class="dt">Z'</span>) <span class="fu">%</span>prove first subgoal,
+		<span class="fu">|</span>	   <span class="fu">%</span><span class="kw">then</span> parent(<span class="dt">Z'</span>,<span class="dt">Z</span>)
+		<span class="fu">|</span>
+		<span class="fu">|</span>
+	ancestor(felix,<span class="dt">Z''</span>)
+		<span class="fu">.</span>
+		<span class="fu">.</span>
+		<span class="fu">.</span></code></pre></div>
 <p>So, to avoid this, we must place the parent subgoal first (in the recursive rule). If this is done, the unification with the base facts (parent), fix the possible unifiers for Z, thereby guaranteeing termination.</p>
 <p>HEREHEREHEREHERE</p>
 <p>Lets see another example. Suppose we want to define a sibling predicate, where sibling(X,Y) holds if X and Y have the same parent. How about:</p>
-<pre><code>sibling(X,Y) :- parent(P,X), parent(P,Y).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sibling(<span class="dt">X</span>,<span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">P</span>,<span class="dt">X</span>), parent(<span class="dt">P</span>,<span class="dt">Y</span>)<span class="fu">.</span></code></pre></div>
 <p>Almost:</p>
-<pre><code>? sibling(kim,kim).
-Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?</span> sibling(kim,kim)<span class="fu">.</span>
+<span class="dt">Yes</span></code></pre></div>
 <p>Ah, we have to ensure that X and Y are not the same. Ok, how about:</p>
-<pre><code>sibling(X,Y) :- not(X=Y), parent(P,X), parent(P,Y).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sibling(<span class="dt">X</span>,<span class="dt">Y</span>) <span class="fu">:-</span> not(<span class="dt">X</span><span class="fu">=</span><span class="dt">Y</span>), parent(<span class="dt">P</span>,<span class="dt">X</span>), parent(<span class="dt">P</span>,<span class="dt">Y</span>)<span class="fu">.</span></code></pre></div>
 <p>Surely this works ? Nope. The reason is prolog’s semantics of equality (i.e. unification). This clause is read by prolog as:</p>
 <p>first, find a X,Y such that X cannot be unified with Y, then, find a P such that parent(P,X), and parent(P,Y).</p>
 <p>Now the catch is that to process the first subgoal, prolog finds it can always unify (two unconstrained variables) X and Y, by simply assigning X to Y! ?- X=Y. X=Y Yes</p>
-<pre><code>?- not(X=Y).
-No</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> not(<span class="dt">X</span><span class="fu">=</span><span class="dt">Y</span>)<span class="fu">.</span>
+<span class="dt">No</span></code></pre></div>
 <p>Thus, the very first subgoal always fails, thereby ensuring that:</p>
-<pre><code>?- sibling(X,Y).
-No</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> sibling(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span>
+<span class="dt">No</span></code></pre></div>
 <p>Thus, to get the rule right, we must make sure that the goal that ensures that X and Y are not the same, is fired AFTER X and Y have been unified with appropriate atoms. We can do so by simply placing the subgoal at the end. sibling(X,Y) :- parent(P,X), parent(P,Y), not(X=Y).</p>
-<pre><code>?- sibling(X,Y).
-X = john
-Y = maya ;
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> sibling(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span>
+<span class="dt">X</span> <span class="fu">=</span> john
+<span class="dt">Y</span> <span class="fu">=</span> maya ;
 
-X = felix
-Y = dana ;
+<span class="dt">X</span> <span class="fu">=</span> felix
+<span class="dt">Y</span> <span class="fu">=</span> dana ;
 
-X = dana
-Y = felix ;
+<span class="dt">X</span> <span class="fu">=</span> dana
+<span class="dt">Y</span> <span class="fu">=</span> felix ;
 
-X = maya
-Y = john ;
-No</code></pre>
+<span class="dt">X</span> <span class="fu">=</span> maya
+<span class="dt">Y</span> <span class="fu">=</span> john ;
+<span class="dt">No</span></code></pre></div>
 <p>This shows a major weakness: You can’s just rely on the logical meanings and you sort of need to know how things work.</p>
 <p>Oh well, nothing’s perfect.</p>
 <p>We’ll see that many, many things break down the pure philosophy that says: “Just write what you need logically”</p>
@@ -621,156 +621,156 @@ No</code></pre>
 <li>‘is’ evaluates arithmetic expressions before doing unification ?- X is 2+3. X = 5 Yes</li>
 </ul>
 <p>When prolog tries to solve an “is” goal it evaluates the second argument and then unifies, as opposed to “=” which just does the unification.</p>
-<pre><code>?- Y is X+2, X=1.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> <span class="dt">Y</span> is <span class="dt">X</span><span class="fu">+</span><span class="dv">2</span>, <span class="dt">X</span><span class="fu">=</span><span class="dv">1</span><span class="fu">.</span></code></pre></div>
 <p>ERROR: Args are not sufficiently instantiated</p>
-<pre><code>?- X=1, Y is X+2.
-      X=1
-      Y=3
-      Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> <span class="dt">X</span><span class="fu">=</span><span class="dv">1</span>, <span class="dt">Y</span> is <span class="dt">X</span><span class="fu">+</span><span class="dv">2</span><span class="fu">.</span>
+      <span class="dt">X</span><span class="fu">=</span><span class="dv">1</span>
+      <span class="dt">Y</span><span class="fu">=</span><span class="dv">3</span>
+      <span class="dt">Yes</span></code></pre></div>
 <p>Again, order of evaluation matters!</p>
 <h2 id="functions-are-predicates">Functions are Predicates:</h2>
 <p>Lets try to write a factorial function in Prolog. We need to somehow encode functions as predicates. Here’s the deal: Whenever you have a function f(x), you can write a predicate</p>
-<pre><code>pred_f(X,Y)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pred_f(<span class="dt">X</span>,<span class="dt">Y</span>)</code></pre></div>
 <p>that captures the behavior of f by being true for all those pairs X,Y where Y is f(X).</p>
 <p>Thus, we can write a predicate capturing the input/output relationship of the factorial function – i.e. a predicate factorial(X,Y), that is true for those pairs X,Y where Y is the factorial of X.</p>
-<pre><code>factorial(0,1). % base case
-factorial(X,N):- X1 is X-1, factorial(X1,N1), N is X1*N1.</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">factorial(<span class="dv">0</span>,<span class="dv">1</span>)<span class="fu">.</span> <span class="fu">%</span> base <span class="kw">case</span>
+factorial(<span class="dt">X</span>,<span class="dt">N</span>)<span class="fu">:-</span> <span class="dt">X1</span> is <span class="dt">X</span><span class="fu">-</span><span class="dv">1</span>, factorial(<span class="dt">X1</span>,<span class="dt">N1</span>), <span class="dt">N</span> is <span class="dt">X1</span><span class="fu">*</span><span class="dt">N1</span><span class="fu">.</span></code></pre></div>
 <p>We “call” the function with a query.</p>
-<pre><code>?- factorial(0,X).
-X = 1
-Yes
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> factorial(<span class="dv">0</span>,<span class="dt">X</span>)<span class="fu">.</span>
+<span class="dt">X</span> <span class="fu">=</span> <span class="dv">1</span>
+<span class="dt">Yes</span>
 
-?- factorial(5,X).
-X = 120</code></pre>
+<span class="fu">?-</span> factorial(<span class="dv">5</span>,<span class="dt">X</span>)<span class="fu">.</span>
+<span class="dt">X</span> <span class="fu">=</span> <span class="dv">120</span></code></pre></div>
 <p>—————————- Data Structures: Lists ——————————–</p>
 <p>Let us now see how we can encode lists in Prolog. Again, its useful to recall how lists were encoded as a datatype in ML. – There is a “base atom”: [] denoting the empty list – There is a “cons”tructor: | (different syntax for this).</p>
 <p>Thus, ML’s list Cons(1,Cons(2,Cons(3,Nil))) is equivalent to the prolog term:</p>
-<pre><code>[1|[2|[3|[]]]]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dv">1</span><span class="fu">|</span>[<span class="dv">2</span><span class="fu">|</span>[<span class="dv">3</span><span class="fu">|</span>[]]]]</code></pre></div>
 <p>where (1) | is Cons, and (2) [] is Nil.</p>
 <p>Also, as they are heavily used, Prolog lets you write the above term as: [1,2,3].</p>
-<pre><code>?- [1,2,3] = [1|[2|[3|[]]]].
-Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>] <span class="fu">=</span> [<span class="dv">1</span><span class="fu">|</span>[<span class="dv">2</span><span class="fu">|</span>[<span class="dv">3</span><span class="fu">|</span>[]]]]<span class="fu">.</span>
+<span class="dt">Yes</span></code></pre></div>
 <p>To “deconstruct” a list into head and tail, we use pattern-matching (very much like in ML). So:</p>
 <p>[X|Y] unifies with any non-empty list (like h::t), X unified to the first element (head) Y unified to the rest of the list (tail).</p>
-<pre><code>?- [X|Y] = [1,2,3,4,5].
-X = 1
-Y = [2,3,4,5]
-Yes
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">Y</span>] <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]<span class="fu">.</span>
+<span class="dt">X</span> <span class="fu">=</span> <span class="dv">1</span>
+<span class="dt">Y</span> <span class="fu">=</span> [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]
+<span class="dt">Yes</span>
 
-?- [X|Y] = [1].
-X = 1
-Yes
+<span class="fu">?-</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">Y</span>] <span class="fu">=</span> [<span class="dv">1</span>]<span class="fu">.</span>
+<span class="dt">X</span> <span class="fu">=</span> <span class="dv">1</span>
+<span class="dt">Yes</span>
 
-?- [X|Y] = [].
-No</code></pre>
+<span class="fu">?-</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">Y</span>] <span class="fu">=</span> []<span class="fu">.</span>
+<span class="dt">No</span></code></pre></div>
 <p>[1|Y] unifies with any list starting with 1 (like 1::t), Y unified to the rest of the list.</p>
 <p>However, prolog also lets you write:</p>
 <p>[1,2|X] which unifies with any list that starts with 1 and then 2. ?- [1,2|X] = [1,2,3,4,5]. X = [3,4,5] Yes</p>
-<pre><code>?- [1,2|X] = [1,2]
-   X = []
-   Yes
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> [<span class="dv">1</span>,<span class="dv">2</span><span class="fu">|</span><span class="dt">X</span>] <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]
+   <span class="dt">X</span> <span class="fu">=</span> []
+   <span class="dt">Yes</span>
 
-?- [1,2|X] = [1,3]
-   No
+<span class="fu">?-</span> [<span class="dv">1</span>,<span class="dv">2</span><span class="fu">|</span><span class="dt">X</span>] <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">3</span>]
+   <span class="dt">No</span>
 
-One can place variables wherever in the term, so:
-    ?- [X,Y|Z] = [1,2,3].
-       X = 1
-       Y = 2
-       Z = [3]</code></pre>
+<span class="dt">One</span> can place variables wherever <span class="kw">in</span> the term, so<span class="fu">:</span>
+    <span class="fu">?-</span> [<span class="dt">X</span>,<span class="dt">Y</span><span class="fu">|</span><span class="dt">Z</span>] <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="fu">.</span>
+       <span class="dt">X</span> <span class="fu">=</span> <span class="dv">1</span>
+       <span class="dt">Y</span> <span class="fu">=</span> <span class="dv">2</span>
+       <span class="dt">Z</span> <span class="fu">=</span> [<span class="dv">3</span>]</code></pre></div>
 <p>Ok – how do we do interesting things with lists. For example, how might we “append” two lists ? Well, there is no “concatenation” or sticking together. In prolog you write a predicate:</p>
-<pre><code>append(X,Y,Z)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">append(<span class="dt">X</span>,<span class="dt">Y</span>,<span class="dt">Z</span>)</code></pre></div>
 <p>which is true if Z is the result of appending the lists X and Y. Turns out such a predicate is built-in, so lets see what it does.</p>
-<pre><code>  ?- append([1,2],[3,4],Z).
-    Z=[1,2,3,4]
-Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> append([<span class="dv">1</span>,<span class="dv">2</span>],[<span class="dv">3</span>,<span class="dv">4</span>],<span class="dt">Z</span>)<span class="fu">.</span>
+    <span class="dt">Z</span><span class="fu">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]
+<span class="dt">Yes</span></code></pre></div>
 <p>It simply “solves” for the right Z that happens to be the result of appending [1,2] and [3,4], but wait, predicates can do more:</p>
-<pre><code>  ?- append(X,[3,4],[1,2,3,4]).
-    X=[1,2]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> append(<span class="dt">X</span>,[<span class="dv">3</span>,<span class="dv">4</span>],[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])<span class="fu">.</span>
+    <span class="dt">X</span><span class="fu">=</span>[<span class="dv">1</span>,<span class="dv">2</span>]</code></pre></div>
 <p>whoa! backwards computation – what X is such that when appended to [3,4] you get [1,2,3,4] ? And now, the full power of multiple solutions:</p>
-<pre><code>  ?- append(X,Y,[1,2,3]).
-    X = []
-    Y = [1,2,3] ;
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">?-</span> append(<span class="dt">X</span>,<span class="dt">Y</span>,[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])<span class="fu">.</span>
+    <span class="dt">X</span> <span class="fu">=</span> []
+    <span class="dt">Y</span> <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>] ;
 
-    X = [1]
-    Y = [2,3] ;
+    <span class="dt">X</span> <span class="fu">=</span> [<span class="dv">1</span>]
+    <span class="dt">Y</span> <span class="fu">=</span> [<span class="dv">2</span>,<span class="dv">3</span>] ;
 
-    X = [1,2]
-    Y = [3] ;
+    <span class="dt">X</span> <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]
+    <span class="dt">Y</span> <span class="fu">=</span> [<span class="dv">3</span>] ;
 
-    X = [1,2,3]
-    Y = []
-    Yes</code></pre>
+    <span class="dt">X</span> <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+    <span class="dt">Y</span> <span class="fu">=</span> []
+    <span class="dt">Yes</span></code></pre></div>
 <p>Try doing that in another language.</p>
 <p>There are several such predicates for reverse, sort, append, built-in, but lets try to roll our own.</p>
 <p>How would you write append(X,Y,Z) in Prolog?</p>
 <p>Well, the base case is that if X is empty then, Z is just Y.</p>
-<pre><code>  append([], Y, Y).         % base case</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  append([], <span class="dt">Y</span>, <span class="dt">Y</span>)<span class="fu">.</span>         <span class="fu">%</span> base <span class="kw">case</span></code></pre></div>
 <p>The recursive case is when X is of the form [H|Tx], in which case, Z must begin with H, and the tail of Z is obtained by appending Tx to Y:</p>
-<pre><code>  append([H|T], Y, [H|Tz]) :- append(Tx,Y,Tz).     % recursive case</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  append([<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>], <span class="dt">Y</span>, [<span class="dt">H</span><span class="fu">|</span><span class="dt">Tz</span>]) <span class="fu">:-</span> append(<span class="dt">Tx</span>,<span class="dt">Y</span>,<span class="dt">Tz</span>)<span class="fu">.</span>     <span class="fu">%</span> recursive <span class="kw">case</span></code></pre></div>
 <p>Very different way of thinking than imperative languages. Lets see what happens with the query: ?- append([1],[2],Z).</p>
-<pre><code> Prolog tries to prove the term append([1],[2],Z)
- ---&gt; recursive case fires.
- H unifies to 1
- Tx unifies to []
- Y unifies to [2]
- Z unifies to [1|Tz]
-   ---&gt; prove:      append(Tx,Y,Tz)
-   ---&gt; i.e. prove: append([], [2], Tz)
-   base case fires.
-          ---&gt; Tz unifies to [2]
-          ---&gt; therefore:  Z = [1,2]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"> <span class="dt">Prolog</span> tries to prove the term append([<span class="dv">1</span>],[<span class="dv">2</span>],<span class="dt">Z</span>)
+ <span class="fu">---&gt;</span> recursive <span class="kw">case</span> fires<span class="fu">.</span>
+ <span class="dt">H</span> unifies to <span class="dv">1</span>
+ <span class="dt">Tx</span> unifies to []
+ <span class="dt">Y</span> unifies to [<span class="dv">2</span>]
+ <span class="dt">Z</span> unifies to [<span class="dv">1</span><span class="fu">|</span><span class="dt">Tz</span>]
+   <span class="fu">---&gt;</span> prove<span class="fu">:</span>      append(<span class="dt">Tx</span>,<span class="dt">Y</span>,<span class="dt">Tz</span>)
+   <span class="fu">---&gt;</span> i<span class="fu">.</span>e<span class="fu">.</span> prove<span class="fu">:</span> append([], [<span class="dv">2</span>], <span class="dt">Tz</span>)
+   base <span class="kw">case</span> fires<span class="fu">.</span>
+          <span class="fu">---&gt;</span> <span class="dt">Tz</span> unifies to [<span class="dv">2</span>]
+          <span class="fu">---&gt;</span> therefore<span class="fu">:</span>  <span class="dt">Z</span> <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]</code></pre></div>
 <p>But, because of the magic of pattern matching, proving and predicates, you get the backwards computations by the same “proving” process !</p>
 <p>Lets do a few more. Lets write a predicate tailof(X,Y) which is true if Y is the tail of the list X.</p>
-<pre><code>tailof([_|X],X).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">tailof([_<span class="fu">|</span><span class="dt">X</span>],<span class="dt">X</span>)<span class="fu">.</span></code></pre></div>
 <p>Again, note the judicious use of the wildcard “_“. If you actually named the variable there, eg.</p>
-<pre><code>tailof([H|X],X).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">tailof([<span class="dt">H</span><span class="fu">|</span><span class="dt">X</span>],<span class="dt">X</span>)<span class="fu">.</span></code></pre></div>
 <p>The compiler would warn you that you named a variable but used it only once – a “Singleton Variable”.</p>
 <p>Lets write a predicate which is true of lists with three or more elements:</p>
-<pre><code>has3orMoreElements([_,_,_|_]).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">has3orMoreElements([_,_,_<span class="fu">|</span>_])<span class="fu">.</span></code></pre></div>
 <p>What does this predicate do ?</p>
-<pre><code>foo([X,_,_,_,X|_]).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foo([<span class="dt">X</span>,_,_,_,<span class="dt">X</span><span class="fu">|</span>_])<span class="fu">.</span></code></pre></div>
 <p>One more tricky one. Lets write a predicate isin(X,L) which is true if X is an element of the list L. How ?</p>
 <p>base case: if X is the first element of the list L.</p>
-<pre><code>isin(X,[X|_]).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">isin(<span class="dt">X</span>,[<span class="dt">X</span><span class="fu">|</span>_])<span class="fu">.</span></code></pre></div>
 <p>recursive case: if X appears in the tail of the list L.</p>
-<pre><code>isin(X,[_|T]) :- isin(X,T).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">isin(<span class="dt">X</span>,[_<span class="fu">|</span><span class="dt">T</span>]) <span class="fu">:-</span> isin(<span class="dt">X</span>,<span class="dt">T</span>)<span class="fu">.</span></code></pre></div>
 <p>Let’s give it a spin:</p>
-<pre><code>?- isin(2,[1,2,3]).
-Yes
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> isin(<span class="dv">2</span>,[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])<span class="fu">.</span>
+<span class="dt">Yes</span>
 
-?- isin(X,[1,2]).
-X=1 ;
-X=2 ;
-No
+<span class="fu">?-</span> isin(<span class="dt">X</span>,[<span class="dv">1</span>,<span class="dv">2</span>])<span class="fu">.</span>
+<span class="dt">X</span><span class="fu">=</span><span class="dv">1</span> ;
+<span class="dt">X</span><span class="fu">=</span><span class="dv">2</span> ;
+<span class="dt">No</span>
 
-?- isin(1,[2,3]).
-No</code></pre>
+<span class="fu">?-</span> isin(<span class="dv">1</span>,[<span class="dv">2</span>,<span class="dv">3</span>])<span class="fu">.</span>
+<span class="dt">No</span></code></pre></div>
 <p>Let’s write another predicate:</p>
-<pre><code>mylength(L,X)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">mylength(<span class="dt">L</span>,<span class="dt">X</span>)</code></pre></div>
 <p>which is true if X is the length of list L</p>
 <p>mylength([],0). mylength([_|Tail],Len) :- mylength(Tail,TailLen), Len is TailLen +1.</p>
 <p>?- mylength([1,2],L). does not unify with mylength([],0) unifies with mylength([_|Tail],Len) with the bindings: Tail = [2] and Len = L</p>
-<pre><code>   now I need to prove the two things:
-     mylength([2],TailLen)   and  Len is TailLen + 1
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   now <span class="dt">I</span> need to prove the two things<span class="fu">:</span>
+     mylength([<span class="dv">2</span>],<span class="dt">TailLen</span>)   and  <span class="dt">Len</span> is <span class="dt">TailLen</span> <span class="fu">+</span> <span class="dv">1</span>
 
-     can I prove the first one?
-     mylength([2],TailLen)  does not unify with mylength([],0)
-     mylength([2],TailLen)  unifies with  mylength([_|Tail'],Len')
-           with the bindings:
-      Tail' = []   and Len' = TailLen
+     can <span class="dt">I</span> prove the first one<span class="fu">?</span>
+     mylength([<span class="dv">2</span>],<span class="dt">TailLen</span>)  does not unify with mylength([],<span class="dv">0</span>)
+     mylength([<span class="dv">2</span>],<span class="dt">TailLen</span>)  unifies with  mylength([_<span class="fu">|</span><span class="dt">Tail'</span>],<span class="dt">Len'</span>)
+           with the bindings<span class="fu">:</span>
+      <span class="dt">Tail'</span> <span class="fu">=</span> []   and <span class="dt">Len'</span> <span class="fu">=</span> <span class="dt">TailLen</span>
 
-    now I need to prove the two conditions:
-          mylength([],TailLen'') and Len' is TailLen'' + 1
-          can I prove the first one?
-          mylength([],TailLen'') unifies with mylength([],0)
-             with the bindings:  TailLen'' = 0
-          Len' is TailLen'' + 1  then leads to the binding
-             Len' = 1
-          therefore TailLen is equal to Len', and thus to 1
-        therefore Len is equal to Len' + 1, and thus to 2
-      therefore L is equal to Len, and thus to 2
-    Prolog answers L = 2.</code></pre>
+    now <span class="dt">I</span> need to prove the two conditions<span class="fu">:</span>
+          mylength([],<span class="dt">TailLen''</span>) and <span class="dt">Len'</span> is <span class="dt">TailLen''</span> <span class="fu">+</span> <span class="dv">1</span>
+          can <span class="dt">I</span> prove the first one<span class="fu">?</span>
+          mylength([],<span class="dt">TailLen''</span>) unifies with mylength([],<span class="dv">0</span>)
+             with the bindings<span class="fu">:</span>  <span class="dt">TailLen''</span> <span class="fu">=</span> <span class="dv">0</span>
+          <span class="dt">Len'</span> is <span class="dt">TailLen''</span> <span class="fu">+</span> <span class="dv">1</span>  <span class="kw">then</span> leads to the binding
+             <span class="dt">Len'</span> <span class="fu">=</span> <span class="dv">1</span>
+          therefore <span class="dt">TailLen</span> is equal to <span class="dt">Len'</span>, and thus to <span class="dv">1</span>
+        therefore <span class="dt">Len</span> is equal to <span class="dt">Len'</span> <span class="fu">+</span> <span class="dv">1</span>, and thus to <span class="dv">2</span>
+      therefore <span class="dt">L</span> is equal to <span class="dt">Len</span>, and thus to <span class="dv">2</span>
+    <span class="dt">Prolog</span> answers <span class="dt">L</span> <span class="fu">=</span> <span class="dv">2</span><span class="fu">.</span></code></pre></div>
 <p>———————————– Cuts ———————————-</p>
 <ul>
 <li>Ordering clauses and goals is a way to somewhat control the search and backtracking process, but it is very limited.</li>
@@ -779,48 +779,48 @@ No</code></pre>
 6 &lt;= X phi(X) = 4</li>
 </ul>
 <p>In Prolog we can implement this with a binary predicate, f(X,Y), which is true if Y is the function value at point X. For instance, f(0,0) is true, f(4,2) is true, but f(2,4) is false. Here is the program:</p>
-<pre><code>   f(X,0) :- X &lt; 3.                  [rule 1]
-   f(X,2) :- 3 =&lt; X, X &lt; 6.          [rule 2]     note '=&lt;'
-   f(X,4) :- 6 =&lt; X.                 [rule 3]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   f(<span class="dt">X</span>,<span class="dv">0</span>) <span class="fu">:-</span> <span class="dt">X</span> <span class="fu">&lt;</span> <span class="dv">3</span><span class="fu">.</span>                  [rule <span class="dv">1</span>]
+   f(<span class="dt">X</span>,<span class="dv">2</span>) <span class="fu">:-</span> <span class="dv">3</span> <span class="fu">=&lt;</span> <span class="dt">X</span>, <span class="dt">X</span> <span class="fu">&lt;</span> <span class="dv">6</span><span class="fu">.</span>          [rule <span class="dv">2</span>]     note <span class="ch">'=&lt;'</span>
+   f(<span class="dt">X</span>,<span class="dv">4</span>) <span class="fu">:-</span> <span class="dv">6</span> <span class="fu">=&lt;</span> <span class="dt">X</span><span class="fu">.</span>                 [rule <span class="dv">3</span>]</code></pre></div>
 <p>There are two sources of inefficiency in this program, that we’ll see on one example:</p>
-<pre><code> ?- f(1,Y), 2 &lt; Y.      [find a Y such that Y = f(1)  and 2 &lt; Y]  
-                        [ we can see this is going to fail]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"> <span class="fu">?-</span> f(<span class="dv">1</span>,<span class="dt">Y</span>), <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dt">Y</span><span class="fu">.</span>      [find a <span class="dt">Y</span> such that <span class="dt">Y</span> <span class="fu">=</span> f(<span class="dv">1</span>)  and <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dt">Y</span>]  
+                        [ we can see this is going to fail]</code></pre></div>
 <p>what does Prolog do?</p>
-<pre><code>                f(1,Y)
-                2 &lt; Y ----------
-     rule 1  /    \             \
-     Y = 0  /      \  rule 2     \  rule 3
-           /        | Y = 2       |  Y = 4
-          |         |             |
-        1 &lt; 3      3 &lt;= 1        6 &lt;= 1
-        2 &lt; 0      1 &lt; 6         2 &lt; 4
-         |         2 &lt; 2          NO
-         |         NO
-        2 &lt; 0      
-         NO</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">                f(<span class="dv">1</span>,<span class="dt">Y</span>)
+                <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dt">Y</span> <span class="fu">----------</span>
+     rule <span class="dv">1</span>  <span class="fu">/</span>    \             \
+     <span class="dt">Y</span> <span class="fu">=</span> <span class="dv">0</span>  <span class="fu">/</span>      \  rule <span class="dv">2</span>     \  rule <span class="dv">3</span>
+           <span class="fu">/</span>        <span class="fu">|</span> <span class="dt">Y</span> <span class="fu">=</span> <span class="dv">2</span>       <span class="fu">|</span>  <span class="dt">Y</span> <span class="fu">=</span> <span class="dv">4</span>
+          <span class="fu">|</span>         <span class="fu">|</span>             <span class="fu">|</span>
+        <span class="dv">1</span> <span class="fu">&lt;</span> <span class="dv">3</span>      <span class="dv">3</span> <span class="fu">&lt;=</span> <span class="dv">1</span>        <span class="dv">6</span> <span class="fu">&lt;=</span> <span class="dv">1</span>
+        <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dv">0</span>      <span class="dv">1</span> <span class="fu">&lt;</span> <span class="dv">6</span>         <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dv">4</span>
+         <span class="fu">|</span>         <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dv">2</span>          <span class="dt">NO</span>
+         <span class="fu">|</span>         <span class="dt">NO</span>
+        <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dv">0</span>      
+         <span class="dt">NO</span></code></pre></div>
 <p>There is really no point in trying rule 2 and rule 3 because since X &lt; 3, we know that rule 2 and rule 3 will fail. Basically, the three rules are mututally exclusive. We know that. Prolog doesn’t.</p>
 <p>So, we can “cut” the backtracking by using the ‘!’ operator:</p>
-<pre><code>   f(X,0) :- X &lt; 3, !.   
-   f(X,2) :- 3 &lt;= X, X &lt; 6, !.
-   f(X,4) :- 6 &lt;= X.      </code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   f(<span class="dt">X</span>,<span class="dv">0</span>) <span class="fu">:-</span> <span class="dt">X</span> <span class="fu">&lt;</span> <span class="dv">3</span>, <span class="fu">!.</span>   
+   f(<span class="dt">X</span>,<span class="dv">2</span>) <span class="fu">:-</span> <span class="dv">3</span> <span class="fu">&lt;=</span> <span class="dt">X</span>, <span class="dt">X</span> <span class="fu">&lt;</span> <span class="dv">6</span>, <span class="fu">!.</span>
+   f(<span class="dt">X</span>,<span class="dv">4</span>) <span class="fu">:-</span> <span class="dv">6</span> <span class="fu">&lt;=</span> <span class="dt">X</span><span class="fu">.</span>      </code></pre></div>
 <p>The new execution looks like:</p>
-<pre><code>                f(1,Y)
-                2 &lt; Y
-     rule 1  /    
-     Y = 0  /    
-           /    
-          |    
-        1 &lt; 3
-        2 &lt; 0
-         |      
-         CUT
-         |   
-        2 &lt; 0      
-         NO
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">                f(<span class="dv">1</span>,<span class="dt">Y</span>)
+                <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dt">Y</span>
+     rule <span class="dv">1</span>  <span class="fu">/</span>    
+     <span class="dt">Y</span> <span class="fu">=</span> <span class="dv">0</span>  <span class="fu">/</span>    
+           <span class="fu">/</span>    
+          <span class="fu">|</span>    
+        <span class="dv">1</span> <span class="fu">&lt;</span> <span class="dv">3</span>
+        <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dv">0</span>
+         <span class="fu">|</span>      
+         <span class="dt">CUT</span>
+         <span class="fu">|</span>   
+        <span class="dv">2</span> <span class="fu">&lt;</span> <span class="dv">0</span>      
+         <span class="dt">NO</span>
 
-Lessons: cuts can be used to prevent Prolog from going into branches
-         of the search tree that we know, due to our understanding and
-         knowledge of the problem, will not succedd anyway.</code></pre>
+<span class="dt">Lessons</span><span class="fu">:</span> cuts can be used to prevent <span class="dt">Prolog</span> from going into branches
+         <span class="kw">of</span> the search tree that we know, due to our understanding and
+         knowledge <span class="kw">of</span> the problem, will not succedd anyway<span class="fu">.</span></code></pre></div>
 <ul>
 <li>There are many more things possible with cuts and using them well is an art. A program with no cuts at all will run orders of magnitude slower than an equivalent program with a few ‘!’ thrown in.</li>
 </ul>
@@ -830,93 +830,93 @@ Lessons: cuts can be used to prevent Prolog from going into branches
 </ul>
 <h2 id="example-list-reverse">Example: List Reverse:</h2>
 <p>We will now write a predicate:</p>
-<pre><code>rev(X,Y)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">rev(<span class="dt">X</span>,<span class="dt">Y</span>)</code></pre></div>
 <p>that is true if the list Y is the reverse of the list X. To do so, we will use an accumulator that tracks the elements seen so far in X.</p>
-<pre><code>rev(X,Y) :- acc_rev(X,Y,[]).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">rev(<span class="dt">X</span>,<span class="dt">Y</span>) <span class="fu">:-</span> acc_rev(<span class="dt">X</span>,<span class="dt">Y</span>,[])<span class="fu">.</span></code></pre></div>
 <p>The third parameter is the “accumulator”. We will “push” elements into it in the order they appear in X. Thus, when we have pushed all the elements, the third parameter is the “reversed” version of X.</p>
-<pre><code>acc_rev([],Y,Y).  %base case
-acc_rev([H|T],Y,SoFar) :- acc_rev(T,Y,[H|SoFar]). %recursive case
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">acc_rev([],<span class="dt">Y</span>,<span class="dt">Y</span>)<span class="fu">.</span>  <span class="fu">%</span>base <span class="kw">case</span>
+acc_rev([<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>],<span class="dt">Y</span>,<span class="dt">SoFar</span>) <span class="fu">:-</span> acc_rev(<span class="dt">T</span>,<span class="dt">Y</span>,[<span class="dt">H</span><span class="fu">|</span><span class="dt">SoFar</span>])<span class="fu">.</span> <span class="fu">%</span>recursive <span class="kw">case</span>
 
 
-?- rev([1,2,3],Y).
-Y = [3,2,1]
-Yes
+<span class="fu">?-</span> rev([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],<span class="dt">Y</span>)<span class="fu">.</span>
+<span class="dt">Y</span> <span class="fu">=</span> [<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]
+<span class="dt">Yes</span>
 
-?- rev(X,[3,2,1]).
-X = 1,2,3
-Yes</code></pre>
+<span class="fu">?-</span> rev(<span class="dt">X</span>,[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>])<span class="fu">.</span>
+<span class="dt">X</span> <span class="fu">=</span> <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>
+<span class="dt">Yes</span></code></pre></div>
 <p>The nice thing about predicates, is one can go forwards or backwards! Its completely symmetric…</p>
 <h2 id="example-finding-all-solutions">Example: Finding all solutions:</h2>
 <p>Suppose we have a predicate foo(X), defined:</p>
-<pre><code>  foo(a).  
-  foo(b).
-  foo(c).
-  foo(d).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  foo(a)<span class="fu">.</span>  
+  foo(b)<span class="fu">.</span>
+  foo(c)<span class="fu">.</span>
+  foo(d)<span class="fu">.</span></code></pre></div>
 <p>and say we want to find all the terms X such that foo(X) is true. We will use an accumulator to define a predicate:</p>
-<pre><code>allfoos(L)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">allfoos(<span class="dt">L</span>)</code></pre></div>
 <p>that is true for a list of terms iff every term in the list satisfies foo.</p>
-<pre><code>  allfoos(L) :- listallfoos(L,[]).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  allfoos(<span class="dt">L</span>) <span class="fu">:-</span> listallfoos(<span class="dt">L</span>,[])<span class="fu">.</span></code></pre></div>
 <p>listallfoos is a helper predicate, whose second argument is an accumulator that “tracks” which terms satisfying foo are already known. We shall then “add” those terms that satisfy foo, but are not in the “accumulator”.</p>
-<pre><code>  % recursive case
-  listallfoos([X|L],SoFar) :- foo(X),    
-                              not(isin(X,SoFar)),
-                              append(SoFar,[X],NewSoFar),
-                              listallfoos(L,NewSoFar).
-  % base case
-  listallfoos([],_).    
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="fu">%</span> recursive <span class="kw">case</span>
+  listallfoos([<span class="dt">X</span><span class="fu">|</span><span class="dt">L</span>],<span class="dt">SoFar</span>) <span class="fu">:-</span> foo(<span class="dt">X</span>),    
+                              not(isin(<span class="dt">X</span>,<span class="dt">SoFar</span>)),
+                              append(<span class="dt">SoFar</span>,[<span class="dt">X</span>],<span class="dt">NewSoFar</span>),
+                              listallfoos(<span class="dt">L</span>,<span class="dt">NewSoFar</span>)<span class="fu">.</span>
+  <span class="fu">%</span> base <span class="kw">case</span>
+  listallfoos([],_)<span class="fu">.</span>    
 
-  ?- allfoos(A).
-    must prove listalllfoos(A,[]).
-    unifies with listallfoos([X|L],[])
-      must prove four things: foo(X)
-                              not(isin(X,[])
-                              append([],[X],NewSoFar)
-                              listallfoos(L,NewSoFar)
-        foo(a) 			true   (X is bound to a)
+  <span class="fu">?-</span> allfoos(<span class="dt">A</span>)<span class="fu">.</span>
+    must prove listalllfoos(<span class="dt">A</span>,[])<span class="fu">.</span>
+    unifies with listallfoos([<span class="dt">X</span><span class="fu">|</span><span class="dt">L</span>],[])
+      must prove four things<span class="fu">:</span> foo(<span class="dt">X</span>)
+                              not(isin(<span class="dt">X</span>,[])
+                              append([],[<span class="dt">X</span>],<span class="dt">NewSoFar</span>)
+                              listallfoos(<span class="dt">L</span>,<span class="dt">NewSoFar</span>)
+        foo(a) 			true   (<span class="dt">X</span> is bound to a)
         not(isin(a,[])) 		true
-        append([],[a],NewSoFar)	true with NewSoFar=[a]
-        must prove listallfoos(L,[a])
-        unifies with liastallfoos([Y|L'],[a])
-         must prove four things: foo(Y)
-                                 not(isin(Y,[a]).
-                                 append([a],[Y],NewSoFar')
-                                 listallfoos(L',NewSoFar')
+        append([],[a],<span class="dt">NewSoFar</span>)	true with <span class="dt">NewSoFar</span><span class="fu">=</span>[a]
+        must prove listallfoos(<span class="dt">L</span>,[a])
+        unifies with liastallfoos([<span class="dt">Y</span><span class="fu">|</span><span class="dt">L'</span>],[a])
+         must prove four things<span class="fu">:</span> foo(<span class="dt">Y</span>)
+                                 not(isin(<span class="dt">Y</span>,[a])<span class="fu">.</span>
+                                 append([a],[<span class="dt">Y</span>],<span class="dt">NewSoFar'</span>)
+                                 listallfoos(<span class="dt">L'</span>,<span class="dt">NewSoFar'</span>)
            foo(a)		  true
-           not(isin(a,[a]))   false  BACKTRACK
-           foo(b)		  true  (Y is bound to b)
+           not(isin(a,[a]))   false  <span class="dt">BACKTRACK</span>
+           foo(b)		  true  (<span class="dt">Y</span> is bound to b)
        not(isin(b,[b]))   true
-           append([a],[b],NewSoFar')  true with NewSoFar' = [a,b]
-           must prove listallfoos(L',[a,b])
-           unifies with listallfoos([Z|L''],[a,b])
-             must prove four things: foo(Z)
-                                     not(isin(Z,[a,b])
-             one can see that will fail   BACKTRACK
-           unifies with listallfoos([],[a,b]).
-           therefore: L' unifies with []
-         therefore: [Y|L'] unifies with [b]
-         therefore L unifies with [b]
-         therefore [X|L] unifies with [a,b]
-       therefore A unifies with [a,b]
-     therefore  allfoos([a,b])</code></pre>
+           append([a],[b],<span class="dt">NewSoFar'</span>)  true with <span class="dt">NewSoFar'</span> <span class="fu">=</span> [a,b]
+           must prove listallfoos(<span class="dt">L'</span>,[a,b])
+           unifies with listallfoos([<span class="dt">Z</span><span class="fu">|</span><span class="dt">L''</span>],[a,b])
+             must prove four things<span class="fu">:</span> foo(<span class="dt">Z</span>)
+                                     not(isin(<span class="dt">Z</span>,[a,b])
+             one can see that will fail   <span class="dt">BACKTRACK</span>
+           unifies with listallfoos([],[a,b])<span class="fu">.</span>
+           therefore<span class="fu">:</span> <span class="dt">L'</span> unifies with []
+         therefore<span class="fu">:</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">L'</span>] unifies with [b]
+         therefore <span class="dt">L</span> unifies with [b]
+         therefore [<span class="dt">X</span><span class="fu">|</span><span class="dt">L</span>] unifies with [a,b]
+       therefore <span class="dt">A</span> unifies with [a,b]
+     therefore  allfoos([a,b])</code></pre></div>
 <p>If you try this code, and hit ‘;’, you’ll get multiple answers Try to figure out why (using the “trace” mode) Solution: add a cut</p>
-<pre><code>  listallfoos_cut([X|L],SoFar) :-
-        foo(X),    
-        not(isin(X,SoFar)),
-        append(SoFar,[X],NewSoFar),
-        listallfoos(L,NewSoFar),!.
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  listallfoos_cut([<span class="dt">X</span><span class="fu">|</span><span class="dt">L</span>],<span class="dt">SoFar</span>) <span class="fu">:-</span>
+        foo(<span class="dt">X</span>),    
+        not(isin(<span class="dt">X</span>,<span class="dt">SoFar</span>)),
+        append(<span class="dt">SoFar</span>,[<span class="dt">X</span>],<span class="dt">NewSoFar</span>),
+        listallfoos(<span class="dt">L</span>,<span class="dt">NewSoFar</span>),<span class="fu">!.</span>
 
-  listallfoos_cut([],_).</code></pre>
+  listallfoos_cut([],_)<span class="fu">.</span></code></pre></div>
 <p>What happens when you flip order of base case and recursion ?</p>
 <p>—————————- Puzzle Solving —————————-</p>
 <p>We now have a good feel for what Prolog programs look like. Lets finish, by seeing how succinctly and elegantly prolog allows us to write code to solve tricky logical puzzles.</p>
 <h2 id="towers-of-hanoi">Towers of Hanoi:</h2>
-<pre><code>              |            |           |
-             =|=           |           |
-           ===|===         |           |
-         =====|=====       |	         |
-         =======|=======     |           |
-   --------------------------------------------------		
-	Peg 1        Peg 2       Peg 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">              <span class="fu">|</span>            <span class="fu">|</span>           <span class="fu">|</span>
+             <span class="fu">=|=</span>           <span class="fu">|</span>           <span class="fu">|</span>
+           <span class="fu">===|===</span>         <span class="fu">|</span>           <span class="fu">|</span>
+         <span class="fu">=====|=====</span>       <span class="fu">|</span>	         <span class="fu">|</span>
+         <span class="fu">=======|=======</span>     <span class="fu">|</span>           <span class="fu">|</span>
+   <span class="fu">--------------------------------------------------</span>		
+	<span class="dt">Peg</span> <span class="dv">1</span>        <span class="dt">Peg</span> <span class="dv">2</span>       <span class="dt">Peg</span> <span class="dv">3</span></code></pre></div>
 <p>Puzzle: There are three pegs. On the first one, there is a stack of rings of decreasing radius (that forms a tower). In each step, you are allowed to move the top ring from one peg to another, but only if the rings in the new peg form a conical tower – i.e. as long as the sequences of radii from top to bottom is increasing (as shown in the figure).</p>
 <ul>
 <li>Goal: Find the sequence of moves (move top ring from from peg X to peg Y) that moves the tower from peg 1 to peg 3.</li>
@@ -930,62 +930,62 @@ Yes</code></pre>
 <p>Lets see how these work – lets name the pegs using atoms: peg1, peg2, peg3. Here’s the sequence of moves to transfer a tower of size 3 across (you can try this at home!).</p>
 <p>?- transfer(3,peg1,peg3,peg2). Move topdisk from peg1 to peg3 Move topdisk from peg1 to peg2 Move topdisk from peg3 to peg2 Move topdisk from peg1 to peg3 Move topdisk from peg2 to peg1 Move topdisk from peg2 to peg3 Move topdisk from peg1 to peg3</p>
 <h2 id="farmer-wolf-goat-cabbage">Farmer/ Wolf / Goat / Cabbage:</h2>
-<pre><code> *West*              *East*
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"> <span class="fu">*</span><span class="dt">West</span><span class="fu">*</span>              <span class="fu">*</span><span class="dt">East</span><span class="fu">*</span>
 
-   Goat       |       |           Goat eats cabbage if no farmer
-   Wolf       | river |           Wolf eats goat if no farmer
-   Cabbage    |       |           Only one spot on the boat(farmer+1)</code></pre>
+   <span class="dt">Goat</span>       <span class="fu">|</span>       <span class="fu">|</span>           <span class="dt">Goat</span> eats cabbage <span class="kw">if</span> no farmer
+   <span class="dt">Wolf</span>       <span class="fu">|</span> river <span class="fu">|</span>           <span class="dt">Wolf</span> eats goat <span class="kw">if</span> no farmer
+   <span class="dt">Cabbage</span>    <span class="fu">|</span>       <span class="fu">|</span>           <span class="dt">Only</span> one spot on the boat(farmer<span class="fu">+</span><span class="dv">1</span>)</code></pre></div>
 <p>Configure the “state” of the program as a list with the location of the four objects (farmer, wolf, goat, cabbage). There are two locations: West (w) and East (e).</p>
-<pre><code>   initial state:        [w,w,w,w]
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   initial state<span class="fu">:</span>        [w,w,w,w]
 
-   desired state:        [e,e,e,e]</code></pre>
+   desired state<span class="fu">:</span>        [e,e,e,e]</code></pre></div>
 <p>There are four kinds of moves: with the cabbage, (move_cabbage) with the goat, (move_goat) with the wolf, (move_wolf) with nothing. (move_nothing)</p>
 <p>Here is how the “state” changes with a given move:</p>
 <p>For instance, [w,w,w,w] —“move wolf”–&gt; [e,e,w,w]</p>
 <p>We encode this as:</p>
-<pre><code>   move([w,w,w,w],move_wolf,[e,e,w,w]).
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   move([w,w,w,w],move_wolf,[e,e,w,w])<span class="fu">.</span>
 
-      (this just says that the state transformation above is true)</code></pre>
+      (this just says that the state transformation above is true)</code></pre></div>
 <p>We could write all the possible moves as facts, but there would be a lot. However, it is clear that when the farmer and wolf move, the goat and the cabbage do not move, so a more general fact is:</p>
-<pre><code>   move([w,w,P_Goat,P_Cabbage],move_wolf,[e,e,P_Goat,P_Cabbage]).
-   move([e,e,P_Goat,P_Cabbage],move_wolf,[w,w,P_Goat,P_Cabbage]).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   move([w,w,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>],move_wolf,[e,e,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>])<span class="fu">.</span>
+   move([e,e,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>],move_wolf,[w,w,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>])<span class="fu">.</span></code></pre></div>
 <p>therefore, a more general goal is:</p>
-<pre><code>   move([X,X,P_Goat,P_Cabbage],move_wolf,[Y,Y,P_Goat,P_Cabbage]) :- change(X,Y)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   move([<span class="dt">X</span>,<span class="dt">X</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>],move_wolf,[<span class="dt">Y</span>,<span class="dt">Y</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>]) <span class="fu">:-</span> change(<span class="dt">X</span>,<span class="dt">Y</span>)</code></pre></div>
 <p>where we have: change(e,w). change(w,e).</p>
 <p>In addition to ensuring that X and Y are different, this predicate ensures that they cannot be any random atom – they must be either “e” or “w”.</p>
 <p>Now we can just write the whole program:</p>
-<pre><code>   move([X,X,P_Goat,P_Cabbage],move_wolf,[Y,Y,P_Goat,P_Cabbage]) :- change(X,Y).
-   move([X,P_Wolf,X,P_Cabbage],move_goat,[Y,P_Wolf,Y,P_Cabbage]) :- change(X,Y).
-   move([X,P_Wolf,P_Goat,X],move_cabbage,[Y,P_Wolf,P_Goat,Y]) :- change(X,Y).
-   move([X,P_Wolf,P_Goat,P_Cabbage],move_nothing,[Y,P_Wolf,P_Goat,P_Cabbage]) :- change(X,Y).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   move([<span class="dt">X</span>,<span class="dt">X</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>],move_wolf,[<span class="dt">Y</span>,<span class="dt">Y</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>]) <span class="fu">:-</span> change(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span>
+   move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">X</span>,<span class="dt">P_Cabbage</span>],move_goat,[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">Y</span>,<span class="dt">P_Cabbage</span>]) <span class="fu">:-</span> change(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span>
+   move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">X</span>],move_cabbage,[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">Y</span>]) <span class="fu">:-</span> change(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span>
+   move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>],move_nothing,[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>]) <span class="fu">:-</span> change(<span class="dt">X</span>,<span class="dt">Y</span>)<span class="fu">.</span></code></pre></div>
 <p>At this point we have encoded all the possible moves. But there is nothing about moves being safe or unsafe. We need a safe predicate that takes a state as input and is true if the state is sage (nobody eats nobody).</p>
 <p>“if at least one of the goat or the wolf is on the same bank as the farmer, AND at least one of the goat or cabbage is on the same bank as the farmer, then we’re safe”</p>
 <p>We define the one_equal(X,Y,Z) predicate that returns true if at least one of Y or Z is equal to X:</p>
-<pre><code>one_equal(X,X,_).
-one_equal(X,_,X).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">one_equal(<span class="dt">X</span>,<span class="dt">X</span>,_)<span class="fu">.</span>
+one_equal(<span class="dt">X</span>,_,<span class="dt">X</span>)<span class="fu">.</span></code></pre></div>
 <p>then we can have:</p>
-<pre><code> safe([P_Farmer,P_Wolf,P_Goat,P_Cabbage]) :-
-     one_equal(P_Farmer,P_Goat,P_Wolf),
- one_equal(P_Farmer,P_Goat,P_Cabbage).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"> safe([<span class="dt">P_Farmer</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>]) <span class="fu">:-</span>
+     one_equal(<span class="dt">P_Farmer</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Wolf</span>),
+ one_equal(<span class="dt">P_Farmer</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cabbage</span>)<span class="fu">.</span></code></pre></div>
 <p>this encodes the logical statement we made above.</p>
 <p>A solution is defined as a sequence of moves such that we are either: – in the target configuration, all on the east bank, or, – in a state from which there is a single move, which takes us into a safe state, from which we can get to the target configuration.</p>
-<pre><code>solution([e,e,e,e],[]).
-solution(State,[FirstMove|RemainingMoves]) :-
-   move(State,FirstMove,NextState),
-   safe(NextState),
-   solution(NextState,RemainingMoves).</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">solution([e,e,e,e],[])<span class="fu">.</span>
+solution(<span class="dt">State</span>,[<span class="dt">FirstMove</span><span class="fu">|</span><span class="dt">RemainingMoves</span>]) <span class="fu">:-</span>
+   move(<span class="dt">State</span>,<span class="dt">FirstMove</span>,<span class="dt">NextState</span>),
+   safe(<span class="dt">NextState</span>),
+   solution(<span class="dt">NextState</span>,<span class="dt">RemainingMoves</span>)<span class="fu">.</span></code></pre></div>
 <p>The program is complete.</p>
 <p>Example run:</p>
 <p>If you just type solution([w,w,w,w],X), we get into an infinite loop as there are infinitely solutions. So:</p>
-<pre><code>?- length(X,7), solution([w,w,w,w],X).
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> length(<span class="dt">X</span>,<span class="dv">7</span>), solution([w,w,w,w],<span class="dt">X</span>)<span class="fu">.</span>
 
- X = [goat, nothing, wolf, goat, cabbage, nothing, goat]</code></pre>
+ <span class="dt">X</span> <span class="fu">=</span> [goat, nothing, wolf, goat, cabbage, nothing, goat]</code></pre></div>
 <p>In fact, 7 steps is the shortest solution.</p>
-<pre><code>?- length(X,12), solution([w,w,w,w],X).         (needs an odd number of moves)
- No
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">?-</span> length(<span class="dt">X</span>,<span class="dv">12</span>), solution([w,w,w,w],<span class="dt">X</span>)<span class="fu">.</span>         (needs an odd number <span class="kw">of</span> moves)
+ <span class="dt">No</span>
 
-?- length(X,13423), solution([w,w,w,w],X).
- [goat, goat, goat, goat, goat, goat, goat, ....., +7 steps] is one of the solutions</code></pre>
+<span class="fu">?-</span> length(<span class="dt">X</span>,<span class="dv">13423</span>), solution([w,w,w,w],<span class="dt">X</span>)<span class="fu">.</span>
+ [goat, goat, goat, goat, goat, goat, goat, <span class="fu">.....</span>, <span class="fu">+</span><span class="dv">7</span> steps] is one <span class="kw">of</span> the solutions</code></pre></div>
                 <hr>
             </div>
         </div>
