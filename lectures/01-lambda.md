@@ -1435,6 +1435,291 @@ let TRD3  = \t -> ???
 <br>
 <br>
 
+## Programming in $\lambda$-calculus
+
+- **Booleans** \[done\]
+- **Records** (structs, tuples) \[done\]
+- Numbers
+- **Functions** \[we got those\]
+- Recursion
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## $\lambda$-calculus: Numbers
+
+Let's start with **natural numbers** (0, 1, 2, ...)
+
+What do we *do* with natural numbers?
+
+- Count: `0`, `inc`
+- Arithmetic: `dec`, `+`, `-`, `*`
+- Comparisons: `==`, `<=`, etc
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Natural Numbers: API
+
+We need to define:
+
+- A family of **numerals**: `ZERO`, `ONE`, `TWO`, `THREE`, ...
+- Arithmetic functions: `INC`, `DEC`, `ADD`, `SUB`, `MULT`
+- Comparisons: `IS_ZERO`, `EQ`
+
+Such that they respect all regular laws of arithmetic, e.g.
+
+```haskell
+IS_ZERO ZERO       =~> TRUE
+IS_ZERO (INC ZERO) =~> FALSE
+INC ONE            =~> TWO
+...
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Natural Numbers: Implementation
+
+**Church numerals**: _a number `N`_
+is encoded as a combinator that
+_calls a function on an argument `N` times_
+
+```haskell
+let ONE   = \f x -> f x
+let TWO   = \f x -> f (f x)
+let THREE = \f x -> f (f (f x))
+let FOUR  = \f x -> f (f (f (f x)))
+let FIVE  = \f x -> f (f (f (f (f x))))
+let SIX   = \f x -> f (f (f (f (f (f x)))))
+...
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## QUIZ: Church Numerals
+
+Which of these is a valid encoding of `ZERO` ?
+
+- **A**: `let ZERO = \f x -> x`
+
+- **B**: `let ZERO = \f x -> f`
+
+- **C**: `let ZERO = \f x -> f x`
+
+- **D**: `let ZERO = \x -> x`
+
+- **E**: None of the above
+
+
+<br>
+<br>
+<br>
+
+Does this function look familiar?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## $\lambda$-calculus: Increment
+
+```haskell
+-- Call `f` on `x` one more time than `n` does
+let INC   = \n -> (\f x -> ???)
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+**Example:**
+
+```haskell
+eval inc_zero :
+  INC ZERO
+  =d> (\n f x -> f (n f x)) ZERO
+  =b> \f x -> f (ZERO f x)
+  =*> \f x -> f x
+  =d> ONE
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## QUIZ
+
+How shall we implement `ADD`?
+
+
+**A.**  `let ADD = \n m -> n INC m`
+
+**B.**  `let ADD = \n m -> INC n m`
+
+**C.**  `let ADD = \n m -> n m INC`
+
+**D.**  `let ADD = \n m -> n (m INC)`
+
+**E.**  `let ADD = \n m -> n (INC m)`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+$\lambda$-calculus: Addition
+
+
+```haskell
+--  Call `f` on `x` exactly `n + m` times
+let ADD = \n m -> n INC m
+```
+
+<br>
+<br>
+<br>
+
+**Example:**
+
+```haskell
+eval add_one_zero :
+  ADD ONE ZERO
+  =~> ONE
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## QUIZ
+
+How shall we implement `MULT`?
+
+**A.**  `let MULT = \n m -> n ADD m`
+**B.**  `let MULT = \n m -> n (ADD m) ZERO`
+**C.**  `let MULT = \n m -> m (ADD n) ZERO`
+**D.**  `let MULT = \n m -> n (ADD m ZERO)`
+**E.**  `let MULT = \n m -> (n ADD m) ZERO`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## $\lambda$-calculus: Multiplication
+
+```haskell
+--  Call `f` on `x` exactly `n * m` times
+let MULT = \n m -> n (ADD m) ZERO
+```
+
+<br>
+<br>
+<br>
+
+**Example:**
+
+```haskell
+eval two_times_three :
+  MULT TWO THREE
+  =~> SIX
+```
 
 
 [elsa-ite]: http://goto.ucsd.edu:8095/index.html#?demo=ite.lc

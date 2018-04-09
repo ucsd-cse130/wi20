@@ -758,6 +758,100 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <span class="kw">let</span> <span class="dt">SND3</span>  <span class="fu">=</span> \t <span class="ot">-&gt;</span> <span class="fu">???</span>
 <span class="kw">let</span> <span class="dt">TRD3</span>  <span class="fu">=</span> \t <span class="ot">-&gt;</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="programming-in-lambda-calculus-2">Programming in <span class="math inline"><em>λ</em></span>-calculus</h2>
+<ul>
+<li><strong>Booleans</strong> [done]</li>
+<li><strong>Records</strong> (structs, tuples) [done]</li>
+<li>Numbers</li>
+<li><strong>Functions</strong> [we got those]</li>
+<li>Recursion</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lambda-calculus-numbers"><span class="math inline"><em>λ</em></span>-calculus: Numbers</h2>
+<p>Let’s start with <strong>natural numbers</strong> (0, 1, 2, …)</p>
+<p>What do we <em>do</em> with natural numbers?</p>
+<ul>
+<li>Count: <code class="sourceCode haskell"><span class="dv">0</span></code>, <code class="sourceCode haskell">inc</code></li>
+<li>Arithmetic: <code class="sourceCode haskell">dec</code>, <code class="sourceCode haskell"><span class="fu">+</span></code>, <code class="sourceCode haskell"><span class="fu">-</span></code>, <code class="sourceCode haskell"><span class="fu">*</span></code></li>
+<li>Comparisons: <code class="sourceCode haskell"><span class="fu">==</span></code>, <code class="sourceCode haskell"><span class="fu">&lt;=</span></code>, etc</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="natural-numbers-api">Natural Numbers: API</h2>
+<p>We need to define:</p>
+<ul>
+<li>A family of <strong>numerals</strong>: <code class="sourceCode haskell"><span class="dt">ZERO</span></code>, <code class="sourceCode haskell"><span class="dt">ONE</span></code>, <code class="sourceCode haskell"><span class="dt">TWO</span></code>, <code class="sourceCode haskell"><span class="dt">THREE</span></code>, …</li>
+<li>Arithmetic functions: <code class="sourceCode haskell"><span class="dt">INC</span></code>, <code class="sourceCode haskell"><span class="dt">DEC</span></code>, <code class="sourceCode haskell"><span class="dt">ADD</span></code>, <code class="sourceCode haskell"><span class="dt">SUB</span></code>, <code class="sourceCode haskell"><span class="dt">MULT</span></code></li>
+<li>Comparisons: <code class="sourceCode haskell"><span class="dt">IS_ZERO</span></code>, <code class="sourceCode haskell"><span class="dt">EQ</span></code></li>
+</ul>
+<p>Such that they respect all regular laws of arithmetic, e.g.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">IS_ZERO</span> <span class="dt">ZERO</span>       <span class="fu">=~&gt;</span> <span class="dt">TRUE</span>
+<span class="dt">IS_ZERO</span> (<span class="dt">INC</span> <span class="dt">ZERO</span>) <span class="fu">=~&gt;</span> <span class="dt">FALSE</span>
+<span class="dt">INC</span> <span class="dt">ONE</span>            <span class="fu">=~&gt;</span> <span class="dt">TWO</span>
+<span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="natural-numbers-implementation">Natural Numbers: Implementation</h2>
+<p><strong>Church numerals</strong>: <em>a number <code class="sourceCode haskell"><span class="dt">N</span></code></em> is encoded as a combinator that <em>calls a function on an argument <code class="sourceCode haskell"><span class="dt">N</span></code> times</em></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ONE</span>   <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f x
+<span class="kw">let</span> <span class="dt">TWO</span>   <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f (f x)
+<span class="kw">let</span> <span class="dt">THREE</span> <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f (f (f x))
+<span class="kw">let</span> <span class="dt">FOUR</span>  <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f (f (f (f x)))
+<span class="kw">let</span> <span class="dt">FIVE</span>  <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f (f (f (f (f x))))
+<span class="kw">let</span> <span class="dt">SIX</span>   <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f (f (f (f (f (f x)))))
+<span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-church-numerals">QUIZ: Church Numerals</h2>
+<p>Which of these is a valid encoding of <code class="sourceCode haskell"><span class="dt">ZERO</span></code> ?</p>
+<ul>
+<li><p><strong>A</strong>: <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ZERO</span> <span class="fu">=</span> \f x <span class="ot">-&gt;</span> x</code></p></li>
+<li><p><strong>B</strong>: <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ZERO</span> <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f</code></p></li>
+<li><p><strong>C</strong>: <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ZERO</span> <span class="fu">=</span> \f x <span class="ot">-&gt;</span> f x</code></p></li>
+<li><p><strong>D</strong>: <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ZERO</span> <span class="fu">=</span> \x <span class="ot">-&gt;</span> x</code></p></li>
+<li><p><strong>E</strong>: None of the above</p></li>
+</ul>
+<p><br> <br> <br></p>
+<p>Does this function look familiar?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lambda-calculus-increment"><span class="math inline"><em>λ</em></span>-calculus: Increment</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Call `f` on `x` one more time than `n` does</span>
+<span class="kw">let</span> <span class="dt">INC</span>   <span class="fu">=</span> \n <span class="ot">-&gt;</span> (\f x <span class="ot">-&gt;</span> <span class="fu">???</span>)</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval inc_zero <span class="fu">:</span>
+  <span class="dt">INC</span> <span class="dt">ZERO</span>
+  <span class="fu">=</span>d<span class="fu">&gt;</span> (\n f x <span class="ot">-&gt;</span> f (n f x)) <span class="dt">ZERO</span>
+  <span class="fu">=</span>b<span class="fu">&gt;</span> \f x <span class="ot">-&gt;</span> f (<span class="dt">ZERO</span> f x)
+  <span class="fu">=*&gt;</span> \f x <span class="ot">-&gt;</span> f x
+  <span class="fu">=</span>d<span class="fu">&gt;</span> <span class="dt">ONE</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-5">QUIZ</h2>
+<p>How shall we implement <code class="sourceCode haskell"><span class="dt">ADD</span></code>?</p>
+<p><strong>A.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ADD</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n <span class="dt">INC</span> m</code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ADD</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> <span class="dt">INC</span> n m</code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ADD</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n m <span class="dt">INC</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ADD</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (m <span class="dt">INC</span>)</code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ADD</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (<span class="dt">INC</span> m)</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><span class="math inline"><em>λ</em></span>-calculus: Addition</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">--  Call `f` on `x` exactly `n + m` times</span>
+<span class="kw">let</span> <span class="dt">ADD</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n <span class="dt">INC</span> m</code></pre></div>
+<p><br> <br> <br></p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval add_one_zero <span class="fu">:</span>
+  <span class="dt">ADD</span> <span class="dt">ONE</span> <span class="dt">ZERO</span>
+  <span class="fu">=~&gt;</span> <span class="dt">ONE</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-6">QUIZ</h2>
+<p>How shall we implement <code class="sourceCode haskell"><span class="dt">MULT</span></code>?</p>
+<p><strong>A.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n <span class="dt">ADD</span> m</code> <strong>B.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (<span class="dt">ADD</span> m) <span class="dt">ZERO</span></code> <strong>C.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> m (<span class="dt">ADD</span> n) <span class="dt">ZERO</span></code> <strong>D.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (<span class="dt">ADD</span> m <span class="dt">ZERO</span>)</code> <strong>E.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> (n <span class="dt">ADD</span> m) <span class="dt">ZERO</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lambda-calculus-multiplication"><span class="math inline"><em>λ</em></span>-calculus: Multiplication</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">--  Call `f` on `x` exactly `n * m` times</span>
+<span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (<span class="dt">ADD</span> m) <span class="dt">ZERO</span></code></pre></div>
+<p><br> <br> <br></p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval two_times_three <span class="fu">:</span>
+  <span class="dt">MULT</span> <span class="dt">TWO</span> <span class="dt">THREE</span>
+  <span class="fu">=~&gt;</span> <span class="dt">SIX</span></code></pre></div>
                 <hr>
             </div>
         </div>
