@@ -468,7 +468,7 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
     
 ## Exams    
 
-- Midterm: in-class on *May 7*
+- Midterm: in-class on *May 4*
     - subject to change but unlikely 
 - Final: *June 11*
 - 2-sided printed "cheat sheet"
