@@ -10,7 +10,7 @@ mins over the deadline is equal to 1 late day.
 
 ## Assignments
 
-- [HW #0](https://github.com/cse130-sp18/00-lambda), due Fri 4/13 by 23:59pm
+- [HW #0](https://github.com/cse130-sp18/00-lambda), due ~~Fri 4/13~~ Mon 4/16 by 23:59pm
 
 <!--
 - [HW #1](assignments/01-ocaml.html),  due Mon 4/24 by 23:59pm
