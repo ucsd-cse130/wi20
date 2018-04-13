@@ -1684,9 +1684,13 @@ eval add_one_zero :
 How shall we implement `MULT`?
 
 **A.**  `let MULT = \n m -> n ADD m`
+
 **B.**  `let MULT = \n m -> n (ADD m) ZERO`
+
 **C.**  `let MULT = \n m -> m (ADD n) ZERO`
+
 **D.**  `let MULT = \n m -> n (ADD m ZERO)`
+
 **E.**  `let MULT = \n m -> (n ADD m) ZERO`
 
 <br>
@@ -1717,9 +1721,239 @@ let MULT = \n m -> n (ADD m) ZERO
 
 ```haskell
 eval two_times_three :
-  MULT TWO THREE
-  =~> SIX
+  MULT TWO ONE
+  =~> TWO
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Programming in $\lambda$-calculus
+
+- **Booleans** \[done\]
+- **Records** (structs, tuples) \[done\]
+- **Numbers** \[done\]
+- **Functions** \[we got those\]
+- Recursion
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## $\lambda$-calculus: Recursion
+
+<br>
+
+I want to write a function that sums up natural numbers up to `n`:
+
+```
+\n -> ...          -- 1 + 2 + ... + n
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+My first try:
+
+```
+\n -> ITE (ISZ n) 
+        ZERO 
+        (ADD n (SUM (DEC n))) -- But SUM is not a thing!
+```
+
+<br>
+<br>
+
+**Recursion:** 
+
+ - I want to call *the same function* on `DEC n`
+
+<br>
+<br>
+
+Looks like we can't do recursion,
+because it requires being able to refer to functions *by name*,
+but in $\lambda$-calculus functions are *anonymous*.
+
+Right?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## $\lambda$-calculus: Recursion
+
+Think again!
+
+<br>
+<br>
+
+**Recursion:** 
+
+ - ~~I want to call *the same function* on `DEC n`~~
+ - I want to call *a function* on `DEC n`
+ - *And BTW,* I want it to be the same function 
+ 
+<br>
+<br>
+
+**Step 1:** Pass in the function to call "recursively"
+ 
+```
+let STEP = 
+  \rec -> \n -> ITE (ISZ n) 
+                  ZERO 
+                  (ADD n (rec (DEC n))) -- Call some rec
+```
+<br>
+<br>
+
+**Step 2:** Do something clever to `STEP`, so that the function passed as `rec`
+itself becomes `\n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))`
+ 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ 
+## $\lambda$-calculus: Fixpoint Combinator 
+
+**Wanted:** a combinator `FIX` such that `FIX STEP`
+calls `STEP` with itself as the first argument:
+
+```
+FIX STEP
+=*> STEP (FIX STEP)
+```
+
+<br>
+
+(In math: a *fixpoint* of a function $f(x)$ is a point $x$, such that $f(x) = x$)
+
+<br>
+<br>
+<br>
+<br>
+
+Once we have it, we can define:
+
+```
+let SUM = FIX STEP
+
+
+eval sum_one:
+  SUM ONE
+  =d> FIX STEP ONE                       -- def of SUM
+  =*> STEP (FIX STEP) ONE                -- property of FIX
+  =d> (\rec n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))) (FIX STEP) ONE
+  =b> (\n -> ITE (ISZ n) ZERO (ADD n (FIX STEP (DEC n)))) ONE
+  =b> ITE (ISZ ONE) ZERO (ADD ONE (FIX STEP (DEC ONE)))
+  =*> ADD ONE (FIX STEP (DEC ONE))       -- def of ISZ, ITE, ...
+  =*> ADD ONE (FIX STEP ZERO)            -- def of DEC, ...
+  =*> ADD ONE (STEP (FIX STEP) ZERO)     -- property of FIX
+  =d> ADD ONE ((\rec n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))) (FIX STEP) ZERO)
+  =b> ADD ONE ((\n -> ITE (ISZ n) ZERO (ADD n ((FIX STEP) (DEC n)))) ZERO)
+  =b> ADD ONE (ITE (ISZ ZERO) ZERO (ADD ZERO ((FIX STEP) (DEC ZERO))))
+  =b> ADD ONE ZERO                       -- def of ISZ, ITE, ...
+  =~> ONE
+```
+
+
+How should we define `FIX`???
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## The Y combinator 
+ 
+Remember $\Omega$?
+ 
+```haskell
+(\x -> x x) (\x -> x x)
+=b> (\x -> x x) (\x -> x x)
+``` 
+ 
+This is *self-replcating code*! We need something like this but a bit more involved...
+
+<br>
+<br>
+<br>
+<br>
+
+The Y combinator discovered by Haskell Curry:
+
+```haskell
+let FIX   = \stp -> (\x -> stp (x x)) (\x -> stp (x x))
+``` 
+<br>
+<br>
+
+How does it work?
+
+```haskell
+eval fix_step:
+  FIX STEP
+  =d> (\stp -> (\x -> stp (x x)) (\x -> stp (x x))) STEP
+  =b> (\x -> STEP (x x)) (\x -> STEP (x x))
+  =b> STEP ((\x -> STEP (x x)) (\x -> STEP (x x)))
+``` 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+That's all folks!
 
 
 [elsa-ite]: http://goto.ucsd.edu:8095/index.html#?demo=ite.lc

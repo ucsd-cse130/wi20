@@ -842,7 +842,11 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-6">QUIZ</h2>
 <p>How shall we implement <code class="sourceCode haskell"><span class="dt">MULT</span></code>?</p>
-<p><strong>A.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n <span class="dt">ADD</span> m</code> <strong>B.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (<span class="dt">ADD</span> m) <span class="dt">ZERO</span></code> <strong>C.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> m (<span class="dt">ADD</span> n) <span class="dt">ZERO</span></code> <strong>D.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (<span class="dt">ADD</span> m <span class="dt">ZERO</span>)</code> <strong>E.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> (n <span class="dt">ADD</span> m) <span class="dt">ZERO</span></code></p>
+<p><strong>A.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n <span class="dt">ADD</span> m</code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (<span class="dt">ADD</span> m) <span class="dt">ZERO</span></code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> m (<span class="dt">ADD</span> n) <span class="dt">ZERO</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> n (<span class="dt">ADD</span> m <span class="dt">ZERO</span>)</code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">MULT</span> <span class="fu">=</span> \n m <span class="ot">-&gt;</span> (n <span class="dt">ADD</span> m) <span class="dt">ZERO</span></code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="lambda-calculus-multiplication"><span class="math inline"><em>λ</em></span>-calculus: Multiplication</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">--  Call `f` on `x` exactly `n * m` times</span>
@@ -850,8 +854,99 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <p><br> <br> <br></p>
 <p><strong>Example:</strong></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval two_times_three <span class="fu">:</span>
-  <span class="dt">MULT</span> <span class="dt">TWO</span> <span class="dt">THREE</span>
-  <span class="fu">=~&gt;</span> <span class="dt">SIX</span></code></pre></div>
+  <span class="dt">MULT</span> <span class="dt">TWO</span> <span class="dt">ONE</span>
+  <span class="fu">=~&gt;</span> <span class="dt">TWO</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="programming-in-lambda-calculus-3">Programming in <span class="math inline"><em>λ</em></span>-calculus</h2>
+<ul>
+<li><strong>Booleans</strong> [done]</li>
+<li><strong>Records</strong> (structs, tuples) [done]</li>
+<li><strong>Numbers</strong> [done]</li>
+<li><strong>Functions</strong> [we got those]</li>
+<li>Recursion</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lambda-calculus-recursion"><span class="math inline"><em>λ</em></span>-calculus: Recursion</h2>
+<p><br></p>
+<p>I want to write a function that sums up natural numbers up to <code class="sourceCode haskell">n</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\n <span class="ot">-&gt;</span> <span class="fu">...</span>          <span class="co">-- 1 + 2 + ... + n</span></code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<p>My first try:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) 
+        <span class="dt">ZERO</span> 
+        (<span class="dt">ADD</span> n (<span class="dt">SUM</span> (<span class="dt">DEC</span> n))) <span class="co">-- But SUM is not a thing!</span></code></pre></div>
+<p><br> <br></p>
+<p><strong>Recursion:</strong></p>
+<ul>
+<li>I want to call <em>the same function</em> on <code class="sourceCode haskell"><span class="dt">DEC</span> n</code></li>
+</ul>
+<p><br> <br></p>
+<p>Looks like we can’t do recursion, because it requires being able to refer to functions <em>by name</em>, but in <span class="math inline"><em>λ</em></span>-calculus functions are <em>anonymous</em>.</p>
+<p>Right?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lambda-calculus-recursion-1"><span class="math inline"><em>λ</em></span>-calculus: Recursion</h2>
+<p>Think again!</p>
+<p><br> <br></p>
+<p><strong>Recursion:</strong></p>
+<ul>
+<li><del>I want to call <em>the same function</em> on <code class="sourceCode haskell"><span class="dt">DEC</span> n</code></del></li>
+<li>I want to call <em>a function</em> on <code class="sourceCode haskell"><span class="dt">DEC</span> n</code></li>
+<li><em>And BTW,</em> I want it to be the same function</li>
+</ul>
+<p><br> <br></p>
+<p><strong>Step 1:</strong> Pass in the function to call “recursively”</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">STEP</span> <span class="fu">=</span> 
+  \rec <span class="ot">-&gt;</span> \n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) 
+                  <span class="dt">ZERO</span> 
+                  (<span class="dt">ADD</span> n (rec (<span class="dt">DEC</span> n))) <span class="co">-- Call some rec</span></code></pre></div>
+<p><br> <br></p>
+<p><strong>Step 2:</strong> Do something clever to <code class="sourceCode haskell"><span class="dt">STEP</span></code>, so that the function passed as <code class="sourceCode haskell">rec</code> itself becomes <code class="sourceCode haskell">\n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) <span class="dt">ZERO</span> (<span class="dt">ADD</span> n (rec (<span class="dt">DEC</span> n)))</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lambda-calculus-fixpoint-combinator"><span class="math inline"><em>λ</em></span>-calculus: Fixpoint Combinator</h2>
+<p><strong>Wanted:</strong> a combinator <code class="sourceCode haskell"><span class="dt">FIX</span></code> such that <code class="sourceCode haskell"><span class="dt">FIX</span> <span class="dt">STEP</span></code> calls <code class="sourceCode haskell"><span class="dt">STEP</span></code> with itself as the first argument:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FIX</span> <span class="dt">STEP</span>
+<span class="fu">=*&gt;</span> <span class="dt">STEP</span> (<span class="dt">FIX</span> <span class="dt">STEP</span>)</code></pre></div>
+<p><br></p>
+<p>(In math: a <em>fixpoint</em> of a function <span class="math inline"><em>f</em>(<em>x</em>)</span> is a point <span class="math inline"><em>x</em></span>, such that <span class="math inline"><em>f</em>(<em>x</em>)=<em>x</em></span>)</p>
+<p><br> <br> <br> <br></p>
+<p>Once we have it, we can define:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">SUM</span> <span class="fu">=</span> <span class="dt">FIX</span> <span class="dt">STEP</span>
+
+
+eval sum_one<span class="fu">:</span>
+  <span class="dt">SUM</span> <span class="dt">ONE</span>
+  <span class="fu">=</span>d<span class="fu">&gt;</span> <span class="dt">FIX</span> <span class="dt">STEP</span> <span class="dt">ONE</span>                       <span class="co">-- def of SUM</span>
+  <span class="fu">=*&gt;</span> <span class="dt">STEP</span> (<span class="dt">FIX</span> <span class="dt">STEP</span>) <span class="dt">ONE</span>                <span class="co">-- property of FIX</span>
+  <span class="fu">=</span>d<span class="fu">&gt;</span> (\rec n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) <span class="dt">ZERO</span> (<span class="dt">ADD</span> n (rec (<span class="dt">DEC</span> n)))) (<span class="dt">FIX</span> <span class="dt">STEP</span>) <span class="dt">ONE</span>
+  <span class="fu">=</span>b<span class="fu">&gt;</span> (\n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) <span class="dt">ZERO</span> (<span class="dt">ADD</span> n (<span class="dt">FIX</span> <span class="dt">STEP</span> (<span class="dt">DEC</span> n)))) <span class="dt">ONE</span>
+  <span class="fu">=</span>b<span class="fu">&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> <span class="dt">ONE</span>) <span class="dt">ZERO</span> (<span class="dt">ADD</span> <span class="dt">ONE</span> (<span class="dt">FIX</span> <span class="dt">STEP</span> (<span class="dt">DEC</span> <span class="dt">ONE</span>)))
+  <span class="fu">=*&gt;</span> <span class="dt">ADD</span> <span class="dt">ONE</span> (<span class="dt">FIX</span> <span class="dt">STEP</span> (<span class="dt">DEC</span> <span class="dt">ONE</span>))       <span class="co">-- def of ISZ, ITE, ...</span>
+  <span class="fu">=*&gt;</span> <span class="dt">ADD</span> <span class="dt">ONE</span> (<span class="dt">FIX</span> <span class="dt">STEP</span> <span class="dt">ZERO</span>)            <span class="co">-- def of DEC, ...</span>
+  <span class="fu">=*&gt;</span> <span class="dt">ADD</span> <span class="dt">ONE</span> (<span class="dt">STEP</span> (<span class="dt">FIX</span> <span class="dt">STEP</span>) <span class="dt">ZERO</span>)     <span class="co">-- property of FIX</span>
+  <span class="fu">=</span>d<span class="fu">&gt;</span> <span class="dt">ADD</span> <span class="dt">ONE</span> ((\rec n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) <span class="dt">ZERO</span> (<span class="dt">ADD</span> n (rec (<span class="dt">DEC</span> n)))) (<span class="dt">FIX</span> <span class="dt">STEP</span>) <span class="dt">ZERO</span>)
+  <span class="fu">=</span>b<span class="fu">&gt;</span> <span class="dt">ADD</span> <span class="dt">ONE</span> ((\n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) <span class="dt">ZERO</span> (<span class="dt">ADD</span> n ((<span class="dt">FIX</span> <span class="dt">STEP</span>) (<span class="dt">DEC</span> n)))) <span class="dt">ZERO</span>)
+  <span class="fu">=</span>b<span class="fu">&gt;</span> <span class="dt">ADD</span> <span class="dt">ONE</span> (<span class="dt">ITE</span> (<span class="dt">ISZ</span> <span class="dt">ZERO</span>) <span class="dt">ZERO</span> (<span class="dt">ADD</span> <span class="dt">ZERO</span> ((<span class="dt">FIX</span> <span class="dt">STEP</span>) (<span class="dt">DEC</span> <span class="dt">ZERO</span>))))
+  <span class="fu">=</span>b<span class="fu">&gt;</span> <span class="dt">ADD</span> <span class="dt">ONE</span> <span class="dt">ZERO</span>                       <span class="co">-- def of ISZ, ITE, ...</span>
+  <span class="fu">=~&gt;</span> <span class="dt">ONE</span></code></pre></div>
+<p>How should we define <code class="sourceCode haskell"><span class="dt">FIX</span></code>???</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-y-combinator">The Y combinator</h2>
+<p>Remember <span class="math inline"><em>Ω</em></span>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x x) (\x <span class="ot">-&gt;</span> x x)
+<span class="fu">=</span>b<span class="fu">&gt;</span> (\x <span class="ot">-&gt;</span> x x) (\x <span class="ot">-&gt;</span> x x)</code></pre></div>
+<p>This is <em>self-replcating code</em>! We need something like this but a bit more involved…</p>
+<p><br> <br> <br> <br></p>
+<p>The Y combinator discovered by Haskell Curry:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">FIX</span>   <span class="fu">=</span> \stp <span class="ot">-&gt;</span> (\x <span class="ot">-&gt;</span> stp (x x)) (\x <span class="ot">-&gt;</span> stp (x x))</code></pre></div>
+<p><br> <br></p>
+<p>How does it work?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval fix_step<span class="fu">:</span>
+  <span class="dt">FIX</span> <span class="dt">STEP</span>
+  <span class="fu">=</span>d<span class="fu">&gt;</span> (\stp <span class="ot">-&gt;</span> (\x <span class="ot">-&gt;</span> stp (x x)) (\x <span class="ot">-&gt;</span> stp (x x))) <span class="dt">STEP</span>
+  <span class="fu">=</span>b<span class="fu">&gt;</span> (\x <span class="ot">-&gt;</span> <span class="dt">STEP</span> (x x)) (\x <span class="ot">-&gt;</span> <span class="dt">STEP</span> (x x))
+  <span class="fu">=</span>b<span class="fu">&gt;</span> <span class="dt">STEP</span> ((\x <span class="ot">-&gt;</span> <span class="dt">STEP</span> (x x)) (\x <span class="ot">-&gt;</span> <span class="dt">STEP</span> (x x)))</code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<p>That’s all folks!</p>
                 <hr>
             </div>
         </div>
