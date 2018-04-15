@@ -30,6 +30,7 @@ Lecture schedule is subject to change!
 | 5/18       | contd.                        |                           |               |
 | 5/21       | Polymorphism and Type Classes |                           |               |
 | 5/23       | contd.                        |                           |               |
+| 5/25       | contd.                        |                           |               |
 | 5/30       | Prolog: Programs              |                           |               |
 | 6/1        | contd.                        |                           |               |
 | 6/4        | contd.                        |                           |               |
@@ -37,12 +38,7 @@ Lecture schedule is subject to change!
 | 6/8        | contd.                        |                           |               |
 | 6/11       | **Final**                     |                           |               |
 
-<!--
-## Interesting Piazza Questions
 
-- [html](lectures/piazza.md)
-- [md](http://github.com/ucsd-cse130/web/blob/master/lectures/piazza.md)
--->
 
 ## Discussions
 
