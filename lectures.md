@@ -44,7 +44,7 @@ Lecture schedule is subject to change!
 
 | Date       | Topic                    | Notes         |  Code      |
 |:----------:|:-------------------------|:-------------:|:----------:|
-| 4/11       | Running Haskell in Lab   | TBD           | TBD        |
+| 4/11       | Lambda Calculus          | TBD           | TBD        |
 
 
 [lec0]: lectures/00-hello.html

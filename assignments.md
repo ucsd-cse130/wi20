@@ -10,9 +10,9 @@ mins over the deadline is equal to 1 late day.
 
 ## Assignments
 
-- [HW #0](https://github.com/cse130-sp18/00-lambda), due ~~Fri 4/13~~ Mon 4/16 by 23:59pm
+- [HW #0](https://github.com/cse130-sp18/00-lambda): The Lambda Calculus (due ~~Fri 4/13~~ Mon 4/16 by 23:59pm)
 
-- [HW #1](https://github.com/cse130-sp18/01-haskell),  due Fri 4/20 by 23:59pm
+- [HW #1](https://github.com/cse130-sp18/01-haskell): Introduction to Haskell (due Fri 4/20 by 23:59pm)
 
 <!--
 - [HW #2](assignments/02-random.html), due Mon 5/1 by 23:59pm

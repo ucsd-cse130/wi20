@@ -786,6 +786,12 @@ y[x := e]            = y            -- assuming x /= y
 
 ```
 
+(I) final
+    
+    *Answer*: We leave `e1` above alone even though it might contain `x`, 
+    because in `\x -> e1` every occurrence of `x` is bound by `\x`
+    (hence, there are *no free occurrences* of `x`)
+
 <br>
 <br>
 <br>
@@ -854,13 +860,29 @@ What's wrong with these?
 ```haskell
 -- (A)
 \f -> f x    =a>   \x -> x x
+```
 
+(I) final
+
+    *Answer:* it violates the side-condition for $\alpha$-renaming that the new formal (`x`) must not occur freely in the body 
+
+```haskell
 -- (B)
 (\x -> \y -> y) y   =a>   (\x -> \z -> z) z
+```
 
+(I) final
+     
+    *Answer:* we should only rename within the body of the abstraction; the second `y` is a free variable, and hence must remain unchanged     
+
+```haskell
 -- (C)
 \x -> \y -> x y   =a>    \apple -> \orange -> apple orange
 ```
+     
+(I) final
+     
+    *Answer:* it's fine, but technically it's two $\alpha$-steps and not one
 
 <br>
 <br>
@@ -881,11 +903,21 @@ What's wrong with these?
 
 <br>
 
-```haskell
-(\x -> (\y -> x)) y
-=a> ???
-```
+(I) lecture
 
+    ```haskell
+    (\x -> (\y -> x)) y
+    =a> ???
+    ```
+    
+(I) final
+
+    ```haskell
+    (\x -> (\y -> x)) y
+    =a> (\x -> (\z -> x)) y
+    =b> \z -> y
+    ```
+    
 <br>
 <br>
 To avoid getting confused, you can always rename formals, so that different variables have different names!
@@ -943,6 +975,10 @@ Which of the following term are **not** in _normal form_ ?
 
 **E.** C and D
 
+(I) final
+     
+    *Answer:* C
+
 <br>
 <br>
 <br>
@@ -988,15 +1024,39 @@ e =?> e_1 =?> ... =?> e_N =?> e'
   =b> apple
 ```
 
-```haskell
-(\f -> f (\x -> x)) (\x -> x)
-  =?> ???
-```
+<br> 
 
-```haskell
-(\x -> x x) (???)
-  =?> ???
-```
+(I) lecture
+         
+    ```haskell
+    (\f -> f (\x -> x)) (\x -> x)
+      =?> ???
+    ```
+    
+(I) final
+         
+    ```haskell
+    (\f -> f (\x -> x)) (\x -> x)
+      =b> (\x -> x) (\x -> x)
+      =b> \x -> x
+    ```
+    
+<br>    
+
+(I) lecture
+    
+    ```haskell
+    (\x -> x x) (???)
+      =?> ???
+    ```
+
+(I) final
+         
+    ```haskell
+    (\x -> x x) (\x -> x)
+      =b> (\x -> x) (\x -> x)
+      =b> \x -> x
+    ```
 
 <br>
 <br>
@@ -1209,14 +1269,30 @@ Now you try it!
 Can you [fill in the blanks to make it happen?][elsa-ite]
 
 
-```haskell
-eval ite_false:
-  ITE FALSE e1 e2
+(I) lecture
 
-  -- fill the steps in!
+    ```haskell
+    eval ite_false:
+      ITE FALSE e1 e2
 
-  =b> e2  
-```
+      -- fill the steps in!
+
+      =b> e2  
+    ```
+
+(I) final
+
+    ```haskell
+    eval ite_false:
+      ITE FALSE e1 e2
+      =d> (\b x y -> b     x  y) FALSE e1 e2   -- expand def ITE  
+      =b>   (\x y -> FALSE x  y)       e1 e2   -- beta-step
+      =b>     (\y -> FALSE e1 y)          e2   -- beta-step
+      =b>            FALSE e1 e2               -- expand def FALSE
+      =d>      (\x y -> y) e1 e2               -- beta-step
+      =b>        (\y -> y)    e2               -- beta-step
+      =b> e2
+    ```
 
 
 <br>
@@ -1414,12 +1490,23 @@ let SND  = \p -> p FALSE  -- call w/ FALSE, get second value
 
 How can we implement a record that contains **three** values?
 
-```haskell
-let TRIPLE = \x y z -> ???
-let FST3  = \t -> ???
-let SND3  = \t -> ???
-let TRD3  = \t -> ???
-```
+(I) lecture
+
+    ```haskell
+    let TRIPLE = \x y z -> ???
+    let FST3  = \t -> ???
+    let SND3  = \t -> ???
+    let TRD3  = \t -> ???
+    ```
+
+(I) final
+
+    ```haskell
+    let TRIPLE = \x y z -> PAIR x (PAIR y z)
+    let FST3  = \t -> FST t
+    let SND3  = \t -> FST (SND t)
+    let TRD3  = \t -> SND (SND t)
+    ```
 
 
 <br>
@@ -1553,12 +1640,19 @@ Which of these is a valid encoding of `ZERO` ?
 
 - **E**: None of the above
 
+(I) final
+
+    *Answer:* A
 
 <br>
 <br>
 <br>
 
 Does this function look familiar?
+
+(I) final
+
+    *Answer:* It's the same as `FALSE`!
 
 <br>
 <br>
@@ -1575,10 +1669,20 @@ Does this function look familiar?
 
 ## $\lambda$-calculus: Increment
 
-```haskell
--- Call `f` on `x` one more time than `n` does
-let INC   = \n -> (\f x -> ???)
-```
+(I) lecture
+
+    ```haskell
+    -- Call `f` on `x` one more time than `n` does
+    let INC   = \n -> (\f x -> ???)
+    ```
+    
+(I) final
+
+    ```haskell
+    -- Call `f` on `x` one more time than `n` does
+    let INC   = \n -> (\f x -> f (n f x))
+    ```
+    
 
 <br>
 <br>
@@ -1631,6 +1735,11 @@ How shall we implement `ADD`?
 **D.**  `let ADD = \n m -> n (m INC)`
 
 **E.**  `let ADD = \n m -> n (INC m)`
+
+(I) final
+
+    *Answer:* A
+
 
 <br>
 <br>
@@ -1692,6 +1801,10 @@ How shall we implement `MULT`?
 **D.**  `let MULT = \n m -> n (ADD m ZERO)`
 
 **E.**  `let MULT = \n m -> (n ADD m) ZERO`
+
+(I) final
+
+    *Answer:* B or C
 
 <br>
 <br>
