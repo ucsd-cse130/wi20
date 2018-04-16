@@ -4,559 +4,511 @@ date: 2016-09-26
 headerImg: books.jpg
 ---
 
-We're going to do this real fast; for 131:
+## What is Haskell?
 
-> Haskell = Ocaml + Better syntax
+<br>
 
-*We assume you are familiar with Ocaml*
+A **typed**, **lazy**, **purely functional** programming language
 
-So: we'll learn Haskell by comparison.
+<br>
 
-## Type Ascription
+Haskell = $\lambda$-calculus + 
 
-**Ocaml** uses  `:` for type ascription
+  + better syntax
+  + types
+  + built-in features
+    - booleans, numbers, characters
+    - records (tuples)
+    - lists
+    - recursion
+    - ...
+    
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>    
+    
+## Why Haskell?
 
-* `e : t` means `e` has type `t`
+Haskell programs tend to be *simple* and *correct*   
 
-```ocaml
-(12 : int)
-```
-
-vs.
-
-**Haskell** uses `::` for type ascription
-
-* `e :: t` means `e` has type `t`
-
-```Haskell
-(12 :: Int)
-```
-
-
-
-
-## Function Definitions and Calls
-
-**Ocaml**
-
-```ocaml
-(* val incr : int -> int *)
-let incr x = x + 1
-
-let eleven = incr 10
-```
-
-vs
-
-**Haskell**
+### QuickSort in Haskell
 
 ```haskell
-incr :: Int -> Int
-incr x = x + 1
-
-eleven = incr 10
-```
-
-`let` not needed for top-level binding.
-
-## Pattern Matching
-
-**Ocaml**
-
-```ocaml
-(* val listSum : int list -> int list *)
-let rec listSum xs = match xs with
-  | []       -> 0
-  | (x::xs') -> x + listSum xs'
-```
-
-vs
-
-**Haskell**
-
-```haskell
-listSum :: [Int] -> [Int]
-listSum xs = case xs of
-               []    -> 0
-               x:xs' -> x + listSum xs'
-```
-
-or better,
-
-```haskell
-listSum :: [Int] -> [Int]
-listSum []     = 0
-listSum (x:xs) = x + listSum xs
-```
-
-Haskell allows **different equations** for different cases.
-
-
-
-
-## Colon vs. Double-Colon
-
-**Ocaml**
-
-* uses `::` for *"cons"*
-* uses `:`  for *"has type"*
-
-vs
-
-**Haskell**
-
-* uses `:`   for *"cons"*
-* uses `::`  for *"has type"*
-
-
-A handy table
-
-| Operator | Ocaml       | Haskell     |
-|:--------:|:-----------:|:-----------:|
-| `::`     | "cons"      | "has type"  |
-| `:`      | "has type"  | "cons"      |
-
-
-
-
-
-## Local Variables
-
-**Ocaml**
-
-```ocaml
-(* val filter : ('a -> bool) -> 'a list -> 'a list *)
-let filter f xs = match xs with
-  | []     -> []
-  | x::xs' -> let rest = filter f xs' in
-              if f x then x :: rest else rest
-```
-
-vs
-
-**Haskell**
-
-```haskell
-filter :: (a -> Bool) -> [a] -> [a]
-filter f []     = []
-filter f (x:xs) let rest = filter f xs' in
-                if f x then x:rest else rest
-```
-
-## QUIZ: Local Variables
-
-```haskell
-quiz    = x + y
-  where
-    x   = 0
-    y   = 1
-```
-
-What is the value of `quiz`?
-
-A. Syntax error
-B. Type Error
-C. `0`
-D. `1`
-E. Other
-
-## QUIZ: Local Variables
-
-```haskell
-quiz    = x + y
-  where
-    x   = 0
-    y   = x + 1
-```
-
-What is the value of `quiz`?
-
-A. Syntax error
-B. Type Error
-C. `0`
-D. `1`
-E. Other
-
-## QUIZ: Local Variables
-
-```haskell
-quiz    = x + y
-  where
-    y   = x + 1
-    x   = 0
-```
-
-What is the value of `quiz`?
-
-A. Syntax error
-B. Type Error
-C. `0`
-D. `1`
-E. Other
-
-## QUIZ: Local Variables
-
-```haskell
-quiz    = x + y
-  where
-    y   = x + 1
-    x   = y
-```
-
-What is the value of `quiz`?
-
-A. Syntax error
-B. Type Error
-C. `0`
-D. `1`
-E. Other
-
-
-## Local Variables (revisited)
-
-So we can take
-
-```haskell
-filter :: (a -> Bool) -> [a] -> [a]
-filter f []     = []
-filter f (x:xs) let rest = filter f xs' in
-                if f x then x:rest else rest
-```
-
-and write it better as
-
-```haskell
-filter :: (a -> Bool) -> [a] -> [a]
-filter f []     = []
-filter f (x:xs) = if f x then x:rest else rest
-  where
-    rest        = filter f xs'
-```
-
-**where** lets you pull local variables aside:
-
-* meaning _exactly same as_ `let`, but
-* can specify them in _any_ order.
-
-(Seems strange at first, but truly beautiful.)
-
-
-## Anonymous Functions
-
-
-**Ocaml**
-
-```ocaml
-(* val negate : ('a -> bool) -> 'a -> bool *)
-let negate f = fun x -> not (f x)
-```
-
-vs
-
-**Haskell**
-
-```haskell
-negate :: (a -> Bool) -> a -> Bool
-negate f = \x -> not (f x)
-```
-
-Very similar: Ocaml's `fun` is replaced with Haskell's `\`
-
-## Tuples and Lists
-
-**Ocaml**
-
-```ocaml
-(* val partition: ('a -> bool) -> 'a list -> ('a list * 'a list) *)
-let partition f xs = (filter f xs, filter (negate f) xs)
-```
-
-vs
-
-**Haskell**
-
-```haskell
-partition :: (a -> Bool) -> [a] -> ([a], [a])
-partition f xs = (filter f xs, filter (negate f) xs)
-```
-
-**Note**
-
-+ Haskell uses `(t1, t2)` vs Ocaml's `(t1 * t2)`
-+ Haskell uses `[t]`      vs Ocaml's `t list`
-
-
-## Larger Example
-
-**Ocaml**
-
-```ocaml
-(* val sort : 'a list -> 'a list *)
-let rec sort xs = match xs with
-  | []     -> []
-  | (h::t) -> let (ls, rs) = partition (fun x -> x < h) t in
-              sort ls @ [h] @ sort rs
-```
-
-vs
-
-**Haskell**
-
-```haskell
-sort :: (Ord a) => [a] -> [a]
 sort []     = []
-sort (h:t)  = sort ls ++ [h] ++ sort rs
+sort (x:xs) = sort ls ++ [x] ++ sort rs
   where
-    (ls,rs) = partition (\x -> x < h) t
+    ls      = [ l | l <- xs, l <= x ]
+    rs      = [ r | r <- xs, x <  r ]
 ```
 
-## QUIZ: List Comprehensions
+### Goals for this week
 
-What is the value of
+1. Understand the code above
+2. Understand what **typed**, **lazy**, and **purely functional** means (and why it's cool)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Haskell vs $\lambda$-calculus: similarities
+
+### (1) Programs
+
+A program is an **expression** (*not* a sequence of statements)
+
+It **evaluates** to a value (it *does not* perform actions)
+
+  * **$\lambda$**:
+
+    ```
+    (\x -> x) apple     -- =~> apple
+    ```
+
+  * **Haskell**:
+  
+    ```
+    (\x -> x) "apple"   -- =~> "apple"
+    ```
+
+### (2) Functions    
+      
+Functions are *first-class values*:
+
+* can be *passed as arguments* to other functions
+* can be *returned as results* from other functions
+* can be *partially applied* (arguments passed *one at a time*)
+   
+```haskell
+(\x -> (\y -> x (x y))) (\z -> z + 1) 0   -- =~> ???
+```
+
+*But:* unlike $\lambda$-calculus, not everything is a function!
+
+     
+### (3) Top-level bindings
+
+Like in Elsa, we can *name* terms to use them later
+ 
+**Elsa**:
 
 ```haskell
-quiz = [0..5]
+let T    = \x y -> x
+let F    = \x y -> y
+
+let PAIR = \x y -> \b -> ITE b x y
+let FST  = \p -> p T
+let SND  = \p -> p F
+
+eval fst:
+ FST (PAIR apple orange)
+ =~> apple
 ```
 
-A. Syntax Error
-B. Type Error
-C. `[0, 5]`
-D. `[0, 1, 2, 3, 4]`
-E. `[0, 1, 2, 3, 4, 5]`
-
-
-
-
-
-## QUIZ: List Comprehensions
-
-What is the value of
+**Haskell**:
 
 ```haskell
-quiz   = [x * 10 | x <- xs]
-  where
-    xs = [0..5]
-```
+haskellIsAwesome = True
 
-A. Syntax Error
-B. Type Error
-C. `[0, 50]`
-D. `[0, 10, 20, 30, 40]`
-E. `[0, 10, 20, 30, 40, 50]`
+pair = \x y -> \b -> if b then x else y
+fst = \p -> p haskellIsAwesome
+snd = \p -> p False
 
+-- In GHCi:
+> fst (pair "apple" "orange")   -- "apple"
+```   
+    
+The names are called **top-level variables**
 
+Their definitions are called **top-level bindings**
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    
+## Better Syntax: Equations and Patterns
 
-## QUIZ: List Comprehensions
-
-What is the value of
-
-```haskell
-quiz   = [x * 10 | x <- xs, x < 3]
-  where
-    xs = [0..5]
-```
-
-A. `[]`
-B. `[0]`
-C. `[0, 10]`
-D. `[0, 10, 20]`
-E. `[0, 10, 20, 30]`
-
-
-
-
-
-## QUIZ: List Comprehensions
-
-We can simplify the `sort` using list comprehensions, as in Python:
+You can define function bidings using **equations**:
 
 ```haskell
-sort :: (Ord a) => [a] -> [a]
-sort []     = []
-sort (h:t)  = sort ls ++ [h] ++ sort rs
-  where
-    ls      = [x | x <- t, x <= h]
-    rs      = [x | x <- t,  h < x]
+pair x y b = if b then x else y
+fst p      = p True
+snd p      = p False
 ```
+<br>
+<br>
+<br>
 
-## Defining Data
-
-**Ocaml**
-
-```ocaml
-type expr
-  = Number of float
-  | Plus   of expr * expr
-  | Minus  of expr * expr
-  | Times  of expr * expr
-```
-
-vs
-
-**Haskell**
+Can define multiple equations with different **patterns**:
 
 ```haskell
-data Expr
-  = Number Double
-  | Plus   Expr Expr
-  | Minus  Expr Expr
-  | Times  Expr Expr
+pair x y True  = x  -- If 3rd arg matches True,
+                    -- use this equation;
+pair x y False = y  -- Otherwise, if 3rd arg matches False,
+                    -- use this equation.
 ```
 
-## Constructing Data
-
-**Ocaml**
-
-```ocaml
-let ex0 = Number 5.
-let ex1 = Plus  (ex0, Number 7.)
-let ex2 = Minus (Number 4., Number 2.)
-let ex3 = Times (ex1, ex2)
-```
-
-vs
-
-**Haskell**
+Same as:
 
 ```haskell
-ex0 = Number 5
-ex1 = Plus  ex0 (Number 7)
-ex2 = Minus (Number 4) (Number 2)
-ex3 = Times ex1 ex2
+pair x y True  = x  -- If 3rd arg matches True,
+                    -- use this equation;
+pair x y b     = y  -- Otherwise, use this equation.
 ```
 
-**Note**
-
-The _tags_ `Plus`, `Number` etc. are (constructor) functions
+Same as:
 
 ```haskell
-Plus   :: Expr -> Expr -> Expr
-Minus  :: Expr -> Expr -> Expr
-Times  :: Expr -> Expr -> Expr
+pair x y True  = x
+pair x y _     = y
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-## QUIZ: Constructor Types
+## QUIZ
 
-Given
+Which of the following definitions of `pair` is **incorrect**?
+
+**A.** `pair x y = \b -> if b then x else y`
+
+**B.** `pair x = \y b -> if b then x else y`
+
+**C.**
+```haskell
+pair x _ True  = x
+pair _ y _     = y
+```
+
+**D.**
+```haskell
+pair x y b     = x
+pair x y False = y
+```
+
+**E.**  all of the above
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Equations with guards
+
+An equation can have multiple guards (Boolean expressions):
 
 ```haskell
-data Expr
-  = Number Double
-  | Plus   Expr Expr
-  | Minus  Expr Expr
-  | Times  Expr Expr
+cmpSquare x y  |  x > y*y   =  "bigger :)"
+               |  x == y*y  =  "same :|"
+               |  x < y*y   =  "smaller :("
 ```
 
-What is the *type of* `Number` ?
-
-A. `Expr`
-B. `Double`
-C. `Double -> Expr`
-D. `Expr -> Double`
-E. `Expr -> Expr`
-
-
-## Destructing (Accessing) Data
-
-**Ocaml**
-
-```ocaml
-(* val eval: expr -> float *)
-let rec eval e = match e with
-  | Number n       -> n
-  | Plus  (e1, e2) -> eval e1 +. eval e2
-  | Minus (e1, e2) -> eval e1 -. eval e2
-  | Times (e1, e2) -> eval e1 *. eval e2
-```
-
-vs
-
-**Haskell**
+Same as:
 
 ```haskell
-eval :: Expr -> Double
-eval (Number    n) = n
-eval (Plus  e1 e2) = eval e1 + eval e2
-eval (Minus e1 e2) = eval e1 - eval e2
-eval (Times e1 e2) = eval e1 * eval e2
+cmpSquare x y  |  x > y*y   =  "bigger :)"
+               |  x == y*y  =  "same :|"
+               |  otherwise =  "smaller :("
 ```
 
-Oh look, we wrote a _compiler_!
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-+ What's the _source_ language?
-+ What's the _target_ language?
+## Recusion
 
-## Recursive Functions
-
-**Ocaml**
-
-```ocaml
-let fact n = if n <= 0 then 1 else n * fact (n-1)
-```
-
-vs.
-
-**Haskell**
+Recursion is built-in, so you can write:
 
 ```haskell
-fact n = if n <= 0 then 1 else n * fact (n-1)
+sum 0 = 0
+sum n = n + sum (n - 1)
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
 
+## The scope of variables
 
-## Printf Debugging
-
-**Very Very Important**
-
-Q: How to **print out** each input-output pair for calls to `fact`?
-
-**Ocaml**
-
-(as in Java, C, Python...), just print it:
-
-```ocaml
-let fact n =
-  let res = if n <= 0 then 1 else n * fact (n-1)        in
-  let _   = Printf.printf "fact n = %d, res = %d\n" n d in
-  res
-```
-
-vs
-
-**Haskell**
-
-You can't _just_ print stuff (for very good reasons...)
-
-However, you _can_ do this:
+Top-level variable have **global** scope,
+so you can write:
 
 ```haskell
-import Text.Printf (printf)
-import Debug.Trace (trace)
-
--- trace :: String -> a -> a
-fact n  = trace msg res
-  where
-    msg = printf "fact n = %d, res = %d\n" n res
-    res = if n <= 0 then 1 else n * fact (n-1)
+message = if haskellIsAwesome          -- this var defined below
+            then "I love CSE 130"
+            else "I'm dropping CSE 130"
+            
+haskellIsAwesome = True
 ```
 
-Which pretty much does what you want.
+<br>
+<br>
+
+Or you can write:
 
 ```haskell
-*Foo> fact 5
-fact n = 0, res = 1
+-- What does f compute?
+f 0 = True
+f n = g (n - 1) -- mutual recursion!
 
-fact n = 1, res = 1
-
-fact n = 2, res = 2
-
-fact n = 3, res = 6
-
-fact n = 4, res = 24
-
-fact n = 5, res = 120
-
-120
+g 0 = False
+g n = f (n - 1) -- mutual recursion!
 ```
+
+<br>
+<br>
+<br>
+
+Is this allowed?
+
+```haskell
+haskellIsAwesome = True
+
+haskellIsAwesome = False -- changed my mind
+```
+
+<br>
+<br>
+<br>
+<br>
+
+### Local variables
+
+You can introduce a *new* (local) scope using a `let`-expression:
+
+```haskell
+sum 0 = 0
+sum n = let n' = n - 1          
+        in n + sum n'  -- the scope of n' is the term after in
+```
+
+<br>
+<br>
+<br>
+
+Syntactic sugar for nested `let`-expressions:
+
+```haskell
+sum 0 = 0
+sum n = let 
+          n'   = n - 1
+          sum' = sum n'
+        in n + sum'
+```
+
+<br>
+<br>
+<br>
+
+If you need a variable whose scope is an equation, use the `where` clause instead:
+
+```haskell
+cmpSquare x y  |  x > z   =  "bigger :)"
+               |  x == z  =  "same :|"
+               |  x < z   =  "smaller :("
+  where z = y*y
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Types
+
+<br>
+<br>
+<br>
+<br>
+
+What would *Elsa* say?
+
+```haskell
+let WEIRDO = ONE ZERO
+```
+
+<br>
+<br>
+<br>
+<br>
+
+What would *Python* say?
+
+```python
+def weirdo():
+  return 0(1)
+```
+
+<br>
+<br>
+<br>
+<br>
+
+What would *Java* say?
+
+```java
+void weirdo() {
+  int zero;
+  zero(1);
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Is *Haskell* every expression has a **type**
+and ill-typed expressions are rejected **statically**
+(at compile-time, before executing them)
+
+  * like in Java
+  * unlike $\lambda$-calculus, Python, or JavaScript
+
+```haskell
+weirdo = 1 0     -- rejected by GHC
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Type annotations
+
+You can annotate your bindings with their types using `::`, like so:
+
+```haskell
+-- | This is a Boolean:
+haskellIsAwesome :: Bool            
+haskellIsAwesome = True
+
+-- | This is a string
+message :: String
+message = if haskellIsAwesome
+            then "I love CSE 130"
+            else "I'm dropping CSE 130"
+            
+-- | This is a word-size integer
+rating :: Int
+rating = if haskellIsAwesome then 10 else 0
+
+-- | This is an arbitrary precision integer
+bigNumber :: Integer
+bigNumber = factorial 100
+```
+
+If you omit annotations, GHC will infer them for you
+
+  * Inspect types in GHCi using `:t`
+  * You should annotate all top-level bindings anyway! (Why?)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Function Types
+
+Functions have **arrow types**:
+
+* `\x -> e` has type `A -> B`
+* if `e` has type `B` assuming `x` has type `A`
+
+For example:
+
+```haskell
+> :t (\x -> if x then `a` else `b`)  -- ???
+```
+
+<br>
+<br>
+<br>
+<br>
+
+You should annotate your function bindings:
+
+```haskell
+sum :: Int -> Int
+sum 0 = 0
+sum n = n + sum (n - 1)
+```
+
+With multiple arguments:
+
+```haskell
+pair :: String -> (String -> (Bool -> String))
+pair x y b = if b then x else y
+```
+
+Same as:
+
+```haskell
+pair :: String -> String -> Bool -> String
+pair x y b = if b then x else y
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## QUIZ
+
+With `pair :: String -> String -> Bool -> String`,
+what would GHCi say to 
+
+```haskell
+>:t pair "apple" "orage"
+```
+
+**A.** Syntax error
+
+**B.** The term is ill-typed
+
+**C.** `String`
+
+**D.** `Bool -> String`
+
+**E.** `String -> String -> Bool -> String`
+
+
+
+
+   
+
+
