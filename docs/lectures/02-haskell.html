@@ -469,6 +469,115 @@ pair x y b <span class="fu">=</span> <span class="kw">if</span> b <span class="k
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">String</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">String</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">String</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lists">Lists</h2>
+<p>A list is</p>
+<ul>
+<li><p>either an <em>empty list</em></p>
+<p><code class="sourceCode haskell">[]       <span class="co">-- pronounced &quot;nil&quot;</span></code></p></li>
+<li><p>or a <em>head element</em> attached to a <em>tail list</em></p>
+<p><code class="sourceCode haskell">x<span class="fu">:</span>xs     <span class="co">-- pronounced &quot;x cons xs&quot;</span></code></p></li>
+</ul>
+<p><br> <br></p>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[]                <span class="co">-- A list with zero elements</span>
+
+<span class="dv">1</span><span class="fu">:</span>[]              <span class="co">-- A list with one element: 1</span>
+
+(<span class="fu">:</span>) <span class="dv">1</span> []          <span class="co">-- Same thing: for any infix op, </span>
+                  <span class="co">-- (op) is a regular function!</span>
+
+<span class="dv">1</span><span class="fu">:</span>(<span class="dv">2</span><span class="fu">:</span>(<span class="dv">3</span><span class="fu">:</span>(<span class="dv">4</span><span class="fu">:</span>[])))  <span class="co">-- A list with four elements: 1, 2, 3, 4</span>
+
+<span class="dv">1</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span><span class="dv">3</span><span class="fu">:</span><span class="dv">4</span><span class="fu">:</span>[]        <span class="co">-- Same thing (: is right associative)</span>
+
+[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]         <span class="co">-- Same thing (syntactic sugar)</span></code></pre></div>
+<p><br> <br></p>
+<h3 id="terminology-constructors-and-values">Terminology: constructors and values</h3>
+<p><code class="sourceCode haskell">[]</code> and <code class="sourceCode haskell">(<span class="fu">:</span>)</code> are called the list <strong>constructors</strong></p>
+<p>We’ve seen constructors before:</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="dt">True</span></code> and <code class="sourceCode haskell"><span class="dt">False</span></code> are <code class="sourceCode haskell"><span class="dt">Bool</span></code> constructors</li>
+<li><code class="sourceCode haskell"><span class="dv">0</span></code>, <code class="sourceCode haskell"><span class="dv">1</span></code>, <code class="sourceCode haskell"><span class="dv">2</span></code> are… well, it’s complicated, but you can think of them as <code class="sourceCode haskell"><span class="dt">Int</span></code> constructors</li>
+<li>these constructions didn’t take any parameters, so we just called them <em>values</em></li>
+</ul>
+<p>In general, a <strong>value</strong> is a constructor applied to <em>other values</em></p>
+<ul>
+<li>examples above are list values</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-type-of-a-list">The Type of a List</h2>
+<p>A list has type <code class="sourceCode haskell">[<span class="dt">A</span>]</code> if each one of its elements has type <code class="sourceCode haskell"><span class="dt">A</span></code></p>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">myList ::</span> [<span class="dt">Int</span>]
+myList <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]
+
+
+<span class="co">-- myList' :: ??</span>
+myList' <span class="fu">=</span> [<span class="ch">'h'</span>, <span class="ch">'e'</span>, <span class="ch">'l'</span>, <span class="ch">'l'</span>, <span class="ch">'o'</span>]
+
+
+<span class="co">-- myList'' :: ???</span>
+myList'' <span class="fu">=</span> [<span class="dv">1</span>, <span class="ch">'h'</span>]
+
+<span class="co">-- myList''' :: ???</span>
+myList''' <span class="fu">=</span> []</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="functions-on-lists-range">Functions on lists: range</h2>
+<pre class="haksell"><code>-- | List of integers from n upto (m - 1)
+upto :: Int -&gt; Int -&gt; [Int]
+upto n m = ???</code></pre>
+<p><br> <br> <br> <br> <br></p>
+<p>There’s also syntactic sugar for this!</p>
+<pre class="haksell"><code>[1..7]    -- [1,2,3,4,5,6,7]
+[1,3..7]  -- [1,3,5,7]</code></pre>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="functions-on-lists-length">Functions on lists: length</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Length of the list</span>
+length<span class="ot"> ::</span> <span class="fu">???</span>
+length xs <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="pattern-matching-on-lists">Pattern matching on lists</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Length of the list</span>
+length<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+length []     <span class="fu">=</span> <span class="dv">0</span>
+length (_<span class="fu">:</span>xs) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> length xs</code></pre></div>
+<p><br> <br></p>
+<p><del>A pattern is either a <em>variable</em> (incl. <code class="sourceCode haskell">_</code>) or a <em>value</em></del></p>
+<p>A pattern is</p>
+<ul>
+<li>either a <em>variable</em> (incl. <code class="sourceCode haskell">_</code>)</li>
+<li>or a <em>constructor</em> applied to other <em>patterns</em></li>
+</ul>
+<p><br> <br></p>
+<p><strong>Pattern mathching</strong> attempts to match <em>values</em> against <em>patterns</em> and, if desired, <em>bind</em> variables to successful matches.</p>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-2">QUIZ</h2>
+<p>Which of the following is <strong>not</strong> a pattern?</p>
+<p><strong>A.</strong> <code class="sourceCode haskell">(<span class="dv">1</span><span class="fu">:</span>xs)</code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell">(_<span class="fu">:</span>_<span class="fu">:</span>_)</code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell">[x]</code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell">[<span class="dv">1</span><span class="fu">+</span><span class="dv">2</span>,x,y]</code></p>
+<p><strong>E.</strong> all of the above</p>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="some-useful-library-functions">Some useful library functions</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Is the list empty?</span>
+null<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+
+<span class="co">-- | Head of the list</span>
+head<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+
+<span class="co">-- | Tail of the list</span>
+tail<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>]
+
+<span class="co">-- | Length of the list</span>
+length<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+
+<span class="co">-- | Append two lists</span>
+<span class="ot">(++) ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>]
+
+<span class="co">-- | Are two lists equal?</span>
+<span class="ot">(==) ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
                 <hr>
             </div>
         </div>

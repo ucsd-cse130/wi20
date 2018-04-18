@@ -506,7 +506,233 @@ what would GHCi say to
 
 **E.** `String -> String -> Bool -> String`
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
+## Lists
+
+A list is
+
+  * either an *empty list*
+    
+    `[]       -- pronounced "nil"`
+    
+  * or a *head element* attached to a *tail list* 
+  
+    `x:xs     -- pronounced "x cons xs"`
+    
+<br>
+<br>    
+  
+Examples:
+
+```haskell
+[]                -- A list with zero elements
+
+1:[]              -- A list with one element: 1
+
+(:) 1 []          -- Same thing: for any infix op, 
+                  -- (op) is a regular function!
+
+1:(2:(3:(4:[])))  -- A list with four elements: 1, 2, 3, 4
+
+1:2:3:4:[]        -- Same thing (: is right associative)
+
+[1,2,3,4]         -- Same thing (syntactic sugar)
+```  
+
+<br>
+<br>
+
+### Terminology: constructors and values
+
+`[]` and `(:)` are called the list **constructors**
+
+We've seen constructors before:
+
+  * `True` and `False` are `Bool` constructors
+  * `0`, `1`, `2` are... well, it's complicated, but you can think of them as `Int` constructors
+  * these constructions didn't take any parameters, so we just called them *values*
+
+In general, a **value** is a constructor applied to *other values*
+
+  * examples above are list values
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## The Type of a List
+
+A list has type `[A]` if each one of its elements has type `A`
+
+Examples:
+
+```haskell
+myList :: [Int]
+myList = [1,2,3,4]
+
+
+-- myList' :: ??
+myList' = ['h', 'e', 'l', 'l', 'o']
+
+
+-- myList'' :: ???
+myList'' = [1, 'h']
+
+-- myList''' :: ???
+myList''' = []
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+  
+## Functions on lists: range
+
+```haksell
+-- | List of integers from n upto (m - 1)
+upto :: Int -> Int -> [Int]
+upto n m = ???
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+There's also syntactic sugar for this!
+
+```haksell
+[1..7]    -- [1,2,3,4,5,6,7]
+[1,3..7]  -- [1,3,5,7]
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Functions on lists: length
+
+```haskell
+-- | Length of the list
+length :: ???
+length xs = ???
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Pattern matching on lists
+
+```haskell
+-- | Length of the list
+length :: [Int] -> Int
+length []     = 0
+length (_:xs) = 1 + length xs
+```
+
+<br>
+<br>
+
+~~A pattern is either a *variable* (incl. `_`) or a *value*~~
+
+A pattern is 
+
+  * either a *variable* (incl. `_`)
+  * or a *constructor* applied to other *patterns*
+  
+<br>
+<br>  
+
+**Pattern mathching** attempts to match *values* against *patterns* and, 
+if desired, *bind* variables to successful matches.
+  
+  
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## QUIZ
+
+Which of the following is **not** a pattern?
+
+**A.** `(1:xs)`
+
+**B.** `(_:_:_)`
+
+**C.** `[x]`
+
+**D.** `[1+2,x,y]`
+
+**E.**  all of the above
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>  
+
+
+## Some useful library functions
+
+```haskell
+-- | Is the list empty?
+null :: [Int] -> Bool
+
+-- | Head of the list
+head :: [Int] -> Int
+
+-- | Tail of the list
+tail :: [Int] -> [Int]
+
+-- | Length of the list
+length :: [Int] -> Int
+
+-- | Append two lists
+(++) :: [Int] -> [Int] -> [Int]
+
+-- | Are two lists equal?
+(==) :: [Int] -> [Int] -> Bool
+```
 
 
    
