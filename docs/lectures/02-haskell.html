@@ -524,7 +524,7 @@ myList'' <span class="fu">=</span> [<span class="dv">1</span>, <span class="ch">
 myList''' <span class="fu">=</span> []</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-on-lists-range">Functions on lists: range</h2>
-<pre class="haksell"><code>-- | List of integers from n upto (m - 1)
+<pre class="haksell"><code>-- | List of integers from n upto m
 upto :: Int -&gt; Int -&gt; [Int]
 upto n m = ???</code></pre>
 <p><br> <br> <br> <br> <br></p>
@@ -578,6 +578,18 @@ length<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot"
 
 <span class="co">-- | Are two lists equal?</span>
 <span class="ot">(==) ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="list-comprehensions">List comprehensions</h2>
+<p>A convenient way to construct lists from other lists:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[toUpper c <span class="fu">|</span> c <span class="ot">&lt;-</span> s]  <span class="co">-- Convert string s to upper case</span>
+
+
+[(i,j) <span class="fu">|</span> i <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">3</span>],
+         j <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="fu">..</span>i] ] <span class="co">-- Multiple generators</span>
+         
+[(i,j) <span class="fu">|</span> i <span class="ot">&lt;-</span> [<span class="dv">0</span><span class="fu">..</span><span class="dv">5</span>],
+         j <span class="ot">&lt;-</span> [<span class="dv">0</span><span class="fu">..</span><span class="dv">5</span>],
+         i <span class="fu">+</span> j <span class="fu">==</span> <span class="dv">5</span>] <span class="co">-- Guards         </span></code></pre></div>
                 <hr>
             </div>
         </div>

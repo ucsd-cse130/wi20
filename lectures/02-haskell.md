@@ -607,7 +607,7 @@ myList''' = []
 ## Functions on lists: range
 
 ```haksell
--- | List of integers from n upto (m - 1)
+-- | List of integers from n upto m
 upto :: Int -> Int -> [Int]
 upto n m = ???
 ```
@@ -734,6 +734,29 @@ length :: [Int] -> Int
 (==) :: [Int] -> [Int] -> Bool
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>  
+
+## List comprehensions
+
+A convenient way to construct lists from other lists:
+
+
+```haskell
+[toUpper c | c <- s]  -- Convert string s to upper case
+
+
+[(i,j) | i <- [1..3],
+         j <- [1..i] ] -- Multiple generators
+         
+[(i,j) | i <- [0..5],
+         j <- [0..5],
+         i + j == 5] -- Guards         
+```
 
    
 
