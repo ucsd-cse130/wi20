@@ -719,10 +719,10 @@ Which of the following is **not** a pattern?
 null :: [Int] -> Bool
 
 -- | Head of the list
-head :: [Int] -> Int
+head :: [Int] -> Int   -- careful: partial function!
 
 -- | Tail of the list
-tail :: [Int] -> [Int]
+tail :: [Int] -> [Int] -- careful: partial function!
 
 -- | Length of the list
 length :: [Int] -> Int
@@ -732,6 +732,82 @@ length :: [Int] -> Int
 
 -- | Are two lists equal?
 (==) :: [Int] -> [Int] -> Bool
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Pairs
+
+```haskell
+myPair :: (String, Int)  -- pair of String and Int
+myPair = ("apple", 3)
+
+-- field access:
+
+whichFruit = fst myPair  -- "apple"
+howMany    = snd myPair  -- 3
+```
+<br>
+
+`(,)` is the *pair constructor*
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### Pattern matching with pairs
+
+Is this pattern matching correct? What does this function do?
+
+```haskell
+f :: String -> [(String, Int)] -> Int
+f _ []   = 0
+f x ((k,v) : ps)
+  | x == k    = v
+  | otherwise = f x ps
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Tuples
+
+Can we implement triples like in $\lambda$-calculus?
+
+<br>
+<br>
+<br>
+<br>
+
+Sure! But Haskell has native support for $n$-tuples:
+
+```haskell
+myPair   :: (String, Int)
+myPair   = ("apple", 3)
+
+myTriple :: (Bool, Int, [Int])
+myTriple = (True, 1, [1,2,3])
+
+my4tuple :: (Float, Float, Float, Float)
+my4tuple = (pi, sin pi, cos pi, sqrt 2)
+
+...
+
+-- And also:
+myUnit   :: ()
+myUnit   = ()
 ```
 
 <br>
@@ -757,6 +833,116 @@ A convenient way to construct lists from other lists:
          j <- [0..5],
          i + j == 5] -- Guards         
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>  
+
+## QuickSort in Haskell
+
+```haskell
+sort :: [Int] -> [Int]
+sort []     = []
+sort (x:xs) = sort ls ++ [x] ++ sort rs
+  where
+    ls      = [ l | l <- xs, l <= x ]
+    rs      = [ r | r <- xs, x <  r ]
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## What is Haskell?
+
+<br>
+
+A **typed**, **lazy**, **purely functional** programming language
+
+<br>
+<br>
+<br>
+
+### Haskell is statically typed\
+
+Every expression has a type,
+and ill-typed programs are rejected at compile time
+
+<br>
+
+**Why is this good?**
+
+  * catches errors early
+  * types are contracts (you don't have to handle ill-typed inputs!)
+  * enables compiler optimizations
+  
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### Haskell is purely functional
+
+**Functional** = functions are *first-class values*
+
+**Pure** = a program is an expression that evaluates to a value
+
+  * no side effects!
+  
+**Referential transparency:** The same expression always evaluates to the same value
+
+  * More precisely: In a scope where `x1, ..., xn` are defined,
+    all occurrences of `e` with `FV(e) = {x1, ..., xn}` have the same value
+
+<br>
+  
+**Why is this good?**
+
+  * easier to reason about (remember `x++` vs `++x` in C++?)
+  * enables compiler optimizations 
+  * especially great for parallelization (`e1 + e2`: we can always compute `e1` and `e2` in parallel!)
+  
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### Haskell is lazy
+
+An expression is evaluated only when its result is needed
+  
+Example: `head [1 .. (factorial 100)]`
+
+<br>
+
+**Why is this good?**
+
+  * can implement cool stuff like infinite lists: `[1..]`
+  
+    ```haskell
+    -- first n pairs of co-primes: 
+    take n [(i,j) | i <- [1..],
+                    j <- [1..i],
+                    gcd i j == 1]
+    ```
+
+  
+  * encourages simple, general solutions
+  * but has its problems too :(
+           
+  
+  
+  
 
    
 

@@ -565,10 +565,10 @@ length (_<span class="fu">:</span>xs) <span class="fu">=</span> <span class="dv"
 null<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span>
 
 <span class="co">-- | Head of the list</span>
-head<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+head<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>   <span class="co">-- careful: partial function!</span>
 
 <span class="co">-- | Tail of the list</span>
-tail<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>]
+tail<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="co">-- careful: partial function!</span>
 
 <span class="co">-- | Length of the list</span>
 length<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
@@ -578,6 +578,44 @@ length<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot"
 
 <span class="co">-- | Are two lists equal?</span>
 <span class="ot">(==) ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="pairs">Pairs</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">myPair ::</span> (<span class="dt">String</span>, <span class="dt">Int</span>)  <span class="co">-- pair of String and Int</span>
+myPair <span class="fu">=</span> (<span class="st">&quot;apple&quot;</span>, <span class="dv">3</span>)
+
+<span class="co">-- field access:</span>
+
+whichFruit <span class="fu">=</span> fst myPair  <span class="co">-- &quot;apple&quot;</span>
+howMany    <span class="fu">=</span> snd myPair  <span class="co">-- 3</span></code></pre></div>
+<p><br></p>
+<p><code class="sourceCode haskell">(,)</code> is the <em>pair constructor</em></p>
+<p><br> <br> <br> <br> <br> <br></p>
+<h3 id="pattern-matching-with-pairs">Pattern matching with pairs</h3>
+<p>Is this pattern matching correct? What does this function do?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">f ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> [(<span class="dt">String</span>, <span class="dt">Int</span>)] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+f _ []   <span class="fu">=</span> <span class="dv">0</span>
+f x ((k,v) <span class="fu">:</span> ps)
+  <span class="fu">|</span> x <span class="fu">==</span> k    <span class="fu">=</span> v
+  <span class="fu">|</span> otherwise <span class="fu">=</span> f x ps</code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="tuples">Tuples</h2>
+<p>Can we implement triples like in <span class="math inline"><em>λ</em></span>-calculus?</p>
+<p><br> <br> <br> <br></p>
+<p>Sure! But Haskell has native support for <span class="math inline"><em>n</em></span>-tuples:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">myPair   ::</span> (<span class="dt">String</span>, <span class="dt">Int</span>)
+myPair   <span class="fu">=</span> (<span class="st">&quot;apple&quot;</span>, <span class="dv">3</span>)
+
+<span class="ot">myTriple ::</span> (<span class="dt">Bool</span>, <span class="dt">Int</span>, [<span class="dt">Int</span>])
+myTriple <span class="fu">=</span> (<span class="dt">True</span>, <span class="dv">1</span>, [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])
+
+<span class="ot">my4tuple ::</span> (<span class="dt">Float</span>, <span class="dt">Float</span>, <span class="dt">Float</span>, <span class="dt">Float</span>)
+my4tuple <span class="fu">=</span> (pi, sin pi, cos pi, sqrt <span class="dv">2</span>)
+
+<span class="fu">...</span>
+
+<span class="co">-- And also:</span>
+<span class="ot">myUnit   ::</span> ()
+myUnit   <span class="fu">=</span> ()</code></pre></div>
 <p><br> <br> <br> <br> <br> <br></p>
 <h2 id="list-comprehensions">List comprehensions</h2>
 <p>A convenient way to construct lists from other lists:</p>
@@ -590,6 +628,62 @@ length<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot"
 [(i,j) <span class="fu">|</span> i <span class="ot">&lt;-</span> [<span class="dv">0</span><span class="fu">..</span><span class="dv">5</span>],
          j <span class="ot">&lt;-</span> [<span class="dv">0</span><span class="fu">..</span><span class="dv">5</span>],
          i <span class="fu">+</span> j <span class="fu">==</span> <span class="dv">5</span>] <span class="co">-- Guards         </span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="quicksort-in-haskell-1">QuickSort in Haskell</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sort<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>]
+sort []     <span class="fu">=</span> []
+sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span class="fu">++</span> [x] <span class="fu">++</span> sort rs
+  <span class="kw">where</span>
+    ls      <span class="fu">=</span> [ l <span class="fu">|</span> l <span class="ot">&lt;-</span> xs, l <span class="fu">&lt;=</span> x ]
+    rs      <span class="fu">=</span> [ r <span class="fu">|</span> r <span class="ot">&lt;-</span> xs, x <span class="fu">&lt;</span>  r ]</code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="what-is-haskell-1">What is Haskell?</h2>
+<p><br></p>
+<p>A <strong>typed</strong>, <strong>lazy</strong>, <strong>purely functional</strong> programming language</p>
+<p><br> <br> <br></p>
+<h3 id="haskell-is-statically-typed">Haskell is statically typed<br />
+</h3>
+<p>Every expression has a type, and ill-typed programs are rejected at compile time</p>
+<p><br></p>
+<p><strong>Why is this good?</strong></p>
+<ul>
+<li>catches errors early</li>
+<li>types are contracts (you don’t have to handle ill-typed inputs!)</li>
+<li>enables compiler optimizations</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br></p>
+<h3 id="haskell-is-purely-functional">Haskell is purely functional</h3>
+<p><strong>Functional</strong> = functions are <em>first-class values</em></p>
+<p><strong>Pure</strong> = a program is an expression that evaluates to a value</p>
+<ul>
+<li>no side effects!</li>
+</ul>
+<p><strong>Referential transparency:</strong> The same expression always evaluates to the same value</p>
+<ul>
+<li>More precisely: In a scope where <code class="sourceCode haskell">x1, <span class="fu">...</span>, xn</code> are defined, all occurrences of <code class="sourceCode haskell">e</code> with <code class="sourceCode haskell"><span class="dt">FV</span>(e) <span class="fu">=</span> {x1, <span class="fu">...</span>, xn}</code> have the same value</li>
+</ul>
+<p><br></p>
+<p><strong>Why is this good?</strong></p>
+<ul>
+<li>easier to reason about (remember <code class="sourceCode haskell">x<span class="fu">++</span></code> vs <code class="sourceCode haskell"><span class="fu">++</span>x</code> in C++?)</li>
+<li>enables compiler optimizations</li>
+<li>especially great for parallelization (<code class="sourceCode haskell">e1 <span class="fu">+</span> e2</code>: we can always compute <code class="sourceCode haskell">e1</code> and <code class="sourceCode haskell">e2</code> in parallel!)</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br></p>
+<h3 id="haskell-is-lazy">Haskell is lazy</h3>
+<p>An expression is evaluated only when its result is needed</p>
+<p>Example: <code class="sourceCode haskell">head [<span class="dv">1</span> <span class="fu">..</span> (factorial <span class="dv">100</span>)]</code></p>
+<p><br></p>
+<p><strong>Why is this good?</strong></p>
+<ul>
+<li><p>can implement cool stuff like infinite lists: <code class="sourceCode haskell">[<span class="dv">1</span><span class="fu">..</span>]</code></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- first n pairs of co-primes: </span>
+take n [(i,j) <span class="fu">|</span> i <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="fu">..</span>],
+                j <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="fu">..</span>i],
+                gcd i j <span class="fu">==</span> <span class="dv">1</span>]</code></pre></div></li>
+<li>encourages simple, general solutions</li>
+<li><p>but has its problems too :(</p></li>
+</ul>
                 <hr>
             </div>
         </div>
