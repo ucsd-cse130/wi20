@@ -14,9 +14,9 @@ mins over the deadline is equal to 1 late day.
 
 - [HW #1](https://github.com/cse130-sp18/01-haskell): Introduction to Haskell (due Fri 4/20 by 23:59pm)
 
-<!--
-- [HW #2](assignments/02-random.html), due Mon 5/1 by 23:59pm
+- [HW #2](https://github.com/cse130-sp18/02-random-art): Random Art (due Fri 4/27 by 23:59pm)
 
+<!--
 - [HW #3](assignments/03-fold.html), due Wed 5/10  by 23:59pm
 
 - [HW #4](assignments/04-nanoml.html), due Wed 5/31 by 23:59pm
