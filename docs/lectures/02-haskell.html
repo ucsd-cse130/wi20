@@ -281,7 +281,7 @@ sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span clas
 <li>can be <em>returned as results</em> from other functions</li>
 <li>can be <em>partially applied</em> (arguments passed <em>one at a time</em>)</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x (x y))) (\z <span class="ot">-&gt;</span> z <span class="fu">+</span> <span class="dv">1</span>) <span class="dv">0</span>   <span class="co">-- =~&gt; ???</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x (x y))) (\z <span class="ot">-&gt;</span> z <span class="fu">+</span> <span class="dv">1</span>) <span class="dv">0</span>   <span class="co">-- =~&gt; 2</span></code></pre></div>
 <p><em>But:</em> unlike <span class="math inline"><em>λ</em></span>-calculus, not everything is a function!</p>
 <h3 id="top-level-bindings">(3) Top-level bindings</h3>
 <p>Like in Elsa, we can <em>name</em> terms to use them later</p>
@@ -338,7 +338,9 @@ pair _ y _     <span class="fu">=</span> y</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pair x y b     <span class="fu">=</span> x
 pair x y <span class="dt">False</span> <span class="fu">=</span> y</code></pre></div>
 <p><strong>E.</strong> all of the above</p>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> <strong>D</strong></p>
+<p><br> <br> <br> <br> <br></p>
 <h2 id="equations-with-guards">Equations with guards</h2>
 <p>An equation can have multiple guards (Boolean expressions):</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">cmpSquare x y  <span class="fu">|</span>  x <span class="fu">&gt;</span> y<span class="fu">*</span>y   <span class="fu">=</span>  <span class="st">&quot;bigger :)&quot;</span>
@@ -369,11 +371,13 @@ f n <span class="fu">=</span> g (n <span class="fu">-</span> <span class="dv">1<
 
 g <span class="dv">0</span> <span class="fu">=</span> <span class="dt">False</span>
 g n <span class="fu">=</span> f (n <span class="fu">-</span> <span class="dv">1</span>) <span class="co">-- mutual recursion!</span></code></pre></div>
+<p>Answer: <code class="sourceCode haskell">f</code> is <code class="sourceCode haskell">isEven</code>, <code class="sourceCode haskell">g</code> is <code class="sourceCode haskell">isOdd</code></p>
 <p><br> <br> <br></p>
 <p>Is this allowed?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">haskellIsAwesome <span class="fu">=</span> <span class="dt">True</span>
 
 haskellIsAwesome <span class="fu">=</span> <span class="dt">False</span> <span class="co">-- changed my mind</span></code></pre></div>
+<p>Answer: no, a variable can be defined once per scope; no mutation!</p>
 <p><br> <br> <br> <br></p>
 <h3 id="local-variables">Local variables</h3>
 <p>You can introduce a <em>new</em> (local) scope using a <code class="sourceCode haskell"><span class="kw">let</span></code>-expression:</p>
@@ -398,18 +402,24 @@ sum n <span class="fu">=</span> <span class="kw">let</span>
 <p><br> <br> <br> <br></p>
 <p>What would <em>Elsa</em> say?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">WEIRDO</span> <span class="fu">=</span> <span class="dt">ONE</span> <span class="dt">ZERO</span></code></pre></div>
-<p><br> <br> <br> <br></p>
+<p><br></p>
+<p>Answer: Nothing. When evaluated will crunch to something nonsensical. <span class="math inline"><em>l</em><em>a</em><em>m</em><em>b</em><em>d</em><em>a</em></span>-calculus is <strong>untyped</strong>.</p>
+<p><br> <br> <br></p>
 <p>What would <em>Python</em> say?</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> weirdo():
   <span class="cf">return</span> <span class="dv">0</span>(<span class="dv">1</span>)</code></pre></div>
-<p><br> <br> <br> <br></p>
+<p><br></p>
+<p>Answer: Nothing. When evaluated will cause a run-time error. Python is <strong>dynamically typed</strong>.</p>
+<p><br> <br> <br></p>
 <p>What would <em>Java</em> say?</p>
 <div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="dt">void</span> <span class="fu">weirdo</span>() {
   <span class="dt">int</span> zero;
   <span class="fu">zero</span>(<span class="dv">1</span>);
 }</code></pre></div>
-<p><br> <br> <br> <br> <br> <br> <br></p>
-<p>Is <em>Haskell</em> every expression has a <strong>type</strong> and ill-typed expressions are rejected <strong>statically</strong> (at compile-time, before executing them)</p>
+<p><br></p>
+<p>Answer: Java compiler will reject this. Java is <strong>statically typed</strong>.</p>
+<p><br> <br> <br> <br> <br> <br></p>
+<p>In <em>Haskell</em> every expression has a <strong>type</strong> and ill-typed expressions are rejected <strong>statically</strong> (at compile-time, before executing them)</p>
 <ul>
 <li>like in Java</li>
 <li>unlike <span class="math inline"><em>λ</em></span>-calculus, Python, or JavaScript</li>
@@ -448,7 +458,8 @@ bigNumber <span class="fu">=</span> factorial <span class="dv">100</span></code>
 <li>if <code class="sourceCode haskell">e</code> has type <code class="sourceCode haskell"><span class="dt">B</span></code> assuming <code class="sourceCode haskell">x</code> has type <code class="sourceCode haskell"><span class="dt">A</span></code></li>
 </ul>
 <p>For example:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">:</span>t (\x <span class="ot">-&gt;</span> <span class="kw">if</span> x <span class="kw">then</span> <span class="ot">`a`</span> <span class="kw">else</span> <span class="ot">`b`</span>)  <span class="co">-- ???</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">:</span>t (\x <span class="ot">-&gt;</span> <span class="kw">if</span> x <span class="kw">then</span> <span class="ot">`a`</span> <span class="kw">else</span> <span class="ot">`b`</span>)
+(\x <span class="ot">-&gt;</span> <span class="kw">if</span> x <span class="kw">then</span> <span class="ot">`a`</span> <span class="kw">else</span> <span class="ot">`b`</span>)<span class="ot"> ::</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Char</span></code></pre></div>
 <p><br> <br> <br> <br></p>
 <p>You should annotate your function bindings:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum<span class="ot"> ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
@@ -469,7 +480,9 @@ pair x y b <span class="fu">=</span> <span class="kw">if</span> b <span class="k
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">String</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">String</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">String</span></code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> <strong>D</strong></p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="lists">Lists</h2>
 <p>A list is</p>
 <ul>
@@ -510,23 +523,23 @@ pair x y b <span class="fu">=</span> <span class="kw">if</span> b <span class="k
 <p>A list has type <code class="sourceCode haskell">[<span class="dt">A</span>]</code> if each one of its elements has type <code class="sourceCode haskell"><span class="dt">A</span></code></p>
 <p>Examples:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">myList ::</span> [<span class="dt">Int</span>]
-myList <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]
-
-
-<span class="co">-- myList' :: ??</span>
-myList' <span class="fu">=</span> [<span class="ch">'h'</span>, <span class="ch">'e'</span>, <span class="ch">'l'</span>, <span class="ch">'l'</span>, <span class="ch">'o'</span>]
-
-
-<span class="co">-- myList'' :: ???</span>
-myList'' <span class="fu">=</span> [<span class="dv">1</span>, <span class="ch">'h'</span>]
-
-<span class="co">-- myList''' :: ???</span>
+myList <span class="fu">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</code></pre></div>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">myList' ::</span> [<span class="dt">Char</span>]                   <span class="co">-- or :: String</span>
+myList' <span class="fu">=</span> [<span class="ch">'h'</span>, <span class="ch">'e'</span>, <span class="ch">'l'</span>, <span class="ch">'l'</span>, <span class="ch">'o'</span>] <span class="co">-- or = &quot;hello&quot;</span></code></pre></div>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- myList'' :: Type error: elements have different types!</span>
+myList'' <span class="fu">=</span> [<span class="dv">1</span>, <span class="ch">'h'</span>]</code></pre></div>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">myList''' ::</span> [t] <span class="co">-- Generic: works for any type t!</span>
 myList''' <span class="fu">=</span> []</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-on-lists-range">Functions on lists: range</h2>
-<pre class="haksell"><code>-- | List of integers from n upto m
-upto :: Int -&gt; Int -&gt; [Int]
-upto n m = ???</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | List of integers from n upto m</span>
+<span class="ot">upto ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> [<span class="dt">Int</span>]
+upto n m
+  <span class="fu">|</span> n <span class="fu">&gt;</span> m     <span class="fu">=</span> []
+  <span class="fu">|</span> otherwise <span class="fu">=</span> n <span class="fu">:</span> (upto (n <span class="fu">+</span> <span class="dv">1</span>) m)</code></pre></div>
 <p><br> <br> <br> <br> <br></p>
 <p>There’s also syntactic sugar for this!</p>
 <pre class="haksell"><code>[1..7]    -- [1,2,3,4,5,6,7]
@@ -559,7 +572,9 @@ length (_<span class="fu">:</span>xs) <span class="fu">=</span> <span class="dv"
 <p><strong>C.</strong> <code class="sourceCode haskell">[x]</code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell">[<span class="dv">1</span><span class="fu">+</span><span class="dv">2</span>,x,y]</code></p>
 <p><strong>E.</strong> all of the above</p>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> <strong>D</strong> (<code class="sourceCode haskell"><span class="dv">1</span><span class="fu">+</span><span class="dv">2</span></code> is a function application, not a constructor application)</p>
+<p><br> <br> <br> <br> <br></p>
 <h2 id="some-useful-library-functions">Some useful library functions</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Is the list empty?</span>
 null<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span>
@@ -597,7 +612,10 @@ f _ []   <span class="fu">=</span> <span class="dv">0</span>
 f x ((k,v) <span class="fu">:</span> ps)
   <span class="fu">|</span> x <span class="fu">==</span> k    <span class="fu">=</span> v
   <span class="fu">|</span> otherwise <span class="fu">=</span> f x ps</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><br></p>
+<p><em>Answer:</em> a lsit of pairs represents key-value pairs in a dictionary; <code class="sourceCode haskell">f</code> performs lookup by key</p>
+<p><br> <br> <br> <br> <br></p>
 <h2 id="tuples">Tuples</h2>
 <p>Can we implement triples like in <span class="math inline"><em>λ</em></span>-calculus?</p>
 <p><br> <br> <br> <br></p>
@@ -641,8 +659,7 @@ sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span clas
 <p><br></p>
 <p>A <strong>typed</strong>, <strong>lazy</strong>, <strong>purely functional</strong> programming language</p>
 <p><br> <br> <br></p>
-<h3 id="haskell-is-statically-typed">Haskell is statically typed<br />
-</h3>
+<h3 id="haskell-is-statically-typed">Haskell is statically typed</h3>
 <p>Every expression has a type, and ill-typed programs are rejected at compile time</p>
 <p><br></p>
 <p><strong>Why is this good?</strong></p>
@@ -672,7 +689,14 @@ sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span clas
 <p><br> <br> <br> <br> <br> <br></p>
 <h3 id="haskell-is-lazy">Haskell is lazy</h3>
 <p>An expression is evaluated only when its result is needed</p>
-<p>Example: <code class="sourceCode haskell">head [<span class="dv">1</span> <span class="fu">..</span> (factorial <span class="dv">100</span>)]</code></p>
+<p>Example: <code class="sourceCode haskell">take <span class="dv">2</span> [<span class="dv">1</span> <span class="fu">..</span> (factorial <span class="dv">100</span>)]</code></p>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">        take <span class="dv">2</span> (   upto <span class="dv">1</span> (factorial <span class="dv">100</span>))
+<span class="ot">=&gt;</span>      take <span class="dv">2</span> (<span class="dv">1</span><span class="fu">:</span>(upto <span class="dv">2</span> (factorial <span class="dv">100</span>))) <span class="co">-- def upto</span>
+<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span>  (take <span class="dv">1</span> (   upto <span class="dv">2</span> (factorial <span class="dv">100</span>))) <span class="co">-- def take 3</span>
+<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span>  (take <span class="dv">1</span> (<span class="dv">2</span><span class="fu">:</span>(upto <span class="dv">3</span> (factorial <span class="dv">100</span>))) <span class="co">-- def upto</span>
+<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span>(take <span class="dv">0</span> (   upto <span class="dv">3</span> (factorial <span class="dv">100</span>))) <span class="co">-- def take 3</span>
+<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span>[]                                   <span class="co">-- def take 1</span></code></pre></div>
 <p><br></p>
 <p><strong>Why is this good?</strong></p>
 <ul>
@@ -684,6 +708,8 @@ take n [(i,j) <span class="fu">|</span> i <span class="ot">&lt;-</span> [<span c
 <li>encourages simple, general solutions</li>
 <li><p>but has its problems too :(</p></li>
 </ul>
+<p><br> <br> <br> <br> <br></p>
+<p>That’s all folks!</p>
                 <hr>
             </div>
         </div>

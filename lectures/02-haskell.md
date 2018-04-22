@@ -83,10 +83,19 @@ Functions are *first-class values*:
 * can be *passed as arguments* to other functions
 * can be *returned as results* from other functions
 * can be *partially applied* (arguments passed *one at a time*)
-   
-```haskell
-(\x -> (\y -> x (x y))) (\z -> z + 1) 0   -- =~> ???
-```
+
+(I) lecture
+ 
+    ```haskell
+    (\x -> (\y -> x (x y))) (\z -> z + 1) 0   -- =~> ???
+    ```
+    
+(I) final    
+
+    ```haskell
+    (\x -> (\y -> x (x y))) (\z -> z + 1) 0   -- =~> 2
+    ```
+
 
 *But:* unlike $\lambda$-calculus, not everything is a function!
 
@@ -201,6 +210,11 @@ pair x y False = y
 **E.**  all of the above
 
 <br>
+
+(I) final
+
+    _Answer:_ **D**
+
 <br>
 <br>
 <br>
@@ -274,6 +288,10 @@ g 0 = False
 g n = f (n - 1) -- mutual recursion!
 ```
 
+(I) final
+
+    Answer: `f` is `isEven`, `g` is `isOdd` 
+
 <br>
 <br>
 <br>
@@ -285,6 +303,10 @@ haskellIsAwesome = True
 
 haskellIsAwesome = False -- changed my mind
 ```
+
+(I) final
+
+    Answer: no, a variable can be defined once per scope; no mutation!
 
 <br>
 <br>
@@ -351,6 +373,12 @@ let WEIRDO = ONE ZERO
 ```
 
 <br>
+
+(I) final
+
+    Answer: Nothing. When evaluated will crunch to something nonsensical.
+    $lambda$-calculus is **untyped**.
+
 <br>
 <br>
 <br>
@@ -363,6 +391,12 @@ def weirdo():
 ```
 
 <br>
+
+(I) final
+
+    Answer: Nothing. When evaluated will cause a run-time error.
+    Python is **dynamically typed**.
+
 <br>
 <br>
 <br>
@@ -377,6 +411,12 @@ void weirdo() {
 ```
 
 <br>
+
+(I) final
+
+    Answer: Java compiler will reject this.
+    Java is **statically typed**.
+
 <br>
 <br>
 <br>
@@ -384,7 +424,7 @@ void weirdo() {
 <br>
 <br>
 
-Is *Haskell* every expression has a **type**
+In *Haskell* every expression has a **type**
 and ill-typed expressions are rejected **statically**
 (at compile-time, before executing them)
 
@@ -449,9 +489,18 @@ Functions have **arrow types**:
 
 For example:
 
-```haskell
-> :t (\x -> if x then `a` else `b`)  -- ???
-```
+(I) lecture
+ 
+    ```haskell
+    > :t (\x -> if x then `a` else `b`)  -- ???
+    ```    
+    
+(I) final    
+
+    ```haskell
+    > :t (\x -> if x then `a` else `b`)
+    (\x -> if x then `a` else `b`) :: Bool -> Char
+    ```
 
 <br>
 <br>
@@ -507,6 +556,11 @@ what would GHCi say to
 **E.** `String -> String -> Bool -> String`
 
 <br>
+
+(I) final
+
+    _Answer:_ **D**
+
 <br>
 <br>
 <br>
@@ -582,18 +636,55 @@ Examples:
 ```haskell
 myList :: [Int]
 myList = [1,2,3,4]
+```
 
+<br>
 
--- myList' :: ??
-myList' = ['h', 'e', 'l', 'l', 'o']
+(I) lecture
+ 
+    ```haskell
+    -- myList' :: ??
+    myList' = ['h', 'e', 'l', 'l', 'o']
+    ```
+    
+(I) final    
 
+    ```haskell
+    myList' :: [Char]                   -- or :: String
+    myList' = ['h', 'e', 'l', 'l', 'o'] -- or = "hello"
+    ```
 
--- myList'' :: ???
-myList'' = [1, 'h']
+<br>
 
--- myList''' :: ???
-myList''' = []
-```  
+(I) lecture
+ 
+    ```haskell
+    -- myList'' :: ???
+    myList'' = [1, 'h']    
+    ```
+    
+(I) final    
+
+    ```haskell
+    -- myList'' :: Type error: elements have different types!
+    myList'' = [1, 'h']
+    ```
+    
+<br>
+
+(I) lecture
+ 
+    ```haskell
+    -- myList''' :: ???
+    myList''' = []
+    ```      
+    
+(I) final    
+
+    ```haskell
+    myList''' :: [t] -- Generic: works for any type t!
+    myList''' = []
+    ```
 
 <br>
 <br>
@@ -606,11 +697,23 @@ myList''' = []
   
 ## Functions on lists: range
 
-```haksell
--- | List of integers from n upto m
-upto :: Int -> Int -> [Int]
-upto n m = ???
-```
+(I) lecture
+ 
+    ```haksell
+    -- | List of integers from n upto m
+    upto :: Int -> Int -> [Int]
+    upto n m = ???
+    ```
+    
+(I) final    
+
+    ```haskell
+    -- | List of integers from n upto m
+    upto :: Int -> Int -> [Int]
+    upto n m
+      | n > m     = []
+      | otherwise = n : (upto (n + 1) m)
+    ```
 
 <br>
 <br>
@@ -705,6 +808,11 @@ Which of the following is **not** a pattern?
 **E.**  all of the above
 
 <br>
+
+(I) final
+
+    _Answer:_ **D** (`1+2` is a function application, not a constructor application)
+
 <br>
 <br>
 <br>
@@ -776,6 +884,15 @@ f x ((k,v) : ps)
 ```
 
 <br>
+
+<br>
+
+(I) final
+
+    _Answer:_ a lsit of pairs represents key-value pairs in a dictionary; 
+    `f` performs lookup by key
+
+
 <br>
 <br>
 <br>
@@ -869,7 +986,7 @@ A **typed**, **lazy**, **purely functional** programming language
 <br>
 <br>
 
-### Haskell is statically typed\
+### Haskell is statically typed
 
 Every expression has a type,
 and ill-typed programs are rejected at compile time
@@ -921,7 +1038,18 @@ and ill-typed programs are rejected at compile time
 
 An expression is evaluated only when its result is needed
   
-Example: `head [1 .. (factorial 100)]`
+Example: `take 2 [1 .. (factorial 100)]`
+
+<br>
+
+```haskell
+        take 2 (   upto 1 (factorial 100))
+=>      take 2 (1:(upto 2 (factorial 100))) -- def upto
+=> 1:  (take 1 (   upto 2 (factorial 100))) -- def take 3
+=> 1:  (take 1 (2:(upto 3 (factorial 100))) -- def upto
+=> 1:2:(take 0 (   upto 3 (factorial 100))) -- def take 3
+=> 1:2:[]                                   -- def take 1
+```
 
 <br>
 
@@ -940,7 +1068,13 @@ Example: `head [1 .. (factorial 100)]`
   * encourages simple, general solutions
   * but has its problems too :(
            
-  
+<br>
+<br>
+<br>
+<br>
+<br>
+
+That's all folks!  
   
   
 
