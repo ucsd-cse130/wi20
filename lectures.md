@@ -13,7 +13,7 @@ Lecture schedule is subject to change!
 | 4/9        | contd.                        |                           |               |
 | 4/11       | contd.                        |                           |               |
 | 4/13       | contd.                        |                           |               |
-| 4/16       | A crash course in Haskell     | [html][lec2]              |               |
+| 4/16       | A crash course in Haskell     | [html][lec2]              | [intro]       |
 | 4/18       | contd.                        |                           |               |
 | 4/20       | contd.                        |                           |               |
 | 4/23       | Datatypes and Recursion       |                           |               |
@@ -92,3 +92,5 @@ Lecture schedule is subject to change!
 
 [ml-5-26]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-26.ml
 [ml-5-31]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-31.ml
+
+[intro]: /static/raw/code/Intro.hs

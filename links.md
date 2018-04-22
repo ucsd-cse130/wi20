@@ -44,29 +44,6 @@ that explore various class topics in more depth.
   [Atom](https://atom.io/packages/ide-haskell)
   [Vim](http://projects.haskell.org/haskellmode-vim/)
 
-<!--
-## OCaml
-
-- [How to run Ocaml in lab](/homeworks/info_ocaml.html)
-- [How to run Ocaml at home](/homeworks/info_ocaml.html)
-- [Objective Caml Home Page](http://caml.inria.fr/ocaml/)
-- [Ocaml: Wikipedia](http://caml.inria.fr/ocaml/)
-- [Ocaml Tutorial](http://ocaml.org/learn/tutorials/basics.html)
-- [Awesome Ocaml](https://github.com/rizo/awesome-ocaml)
-- [O'Reilly Book](http://caml.inria.fr/pub/docs/oreilly-book/)
-- [Emacs Mode](http://www-rocq.inria.fr/~acohen/tuareg/mode)
-- [Eclipse Plugin](http://www.cocan.org/ocaml_and_eclipse)
-- [F#: ML meets .net](http://research.microsoft.com/fsharp/fsharp.aspx)
-
-## Scala
-
-- [scala-lang.org](http://www.scala-lang.org)
-- [Installing on Linux/Mac](http://wiki.summercode.com/how_to_install_scala_on_ubuntu_scala_2_8_1_and_ubuntu_10_04)
-- [Hello World](http://www.scala-lang.org/node/166)
-- [Scala For Java Programmers](http://www.scala-lang.org/docu/files/ScalaTutorial.pdf)
-- [Scala By Example](http://www.scala-lang.org/docu/files/ScalaByExample.pdf)
-- [More Tutorials](http://www.scala-lang.org/node/1305)
--->
 
 ## Prolog
 
