@@ -93,4 +93,4 @@ Lecture schedule is subject to change!
 [ml-5-26]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-26.ml
 [ml-5-31]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-31.ml
 
-[intro]: /static/raw/code/Intro.hs
+[intro]: /static/raw/Intro.hs
