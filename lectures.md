@@ -16,7 +16,7 @@ Lecture schedule is subject to change!
 | 4/16       | A crash course in Haskell     | [html][lec2]              | [intro]       |
 | 4/18       | contd.                        |                           |               |
 | 4/20       | contd.                        |                           |               |
-| 4/23       | Datatypes and Recursion       |                           |               |
+| 4/23       | Datatypes and Recursion       | [html][lec3]              |               |
 | 4/25       | contd.                        |                           |               |
 | 4/27       | contd.                        |                           |               |
 | 4/30       | Higher Order Functions        |                           |               |
@@ -50,7 +50,7 @@ Lecture schedule is subject to change!
 [lec0]: lectures/00-hello.html
 [lec1]: lectures/01-lambda.html
 [lec2]: lectures/02-haskell.html
-[lec3]: http://github.com/ucsd-cse130/web/blob/master/static/raw/03-ocaml.pdf
+[lec3]: lectures/03-datatypes.html
 [lec3s]: http://github.com/ucsd-cse130/web/blob/master/static/raw/03-ocaml-small.pdf
 [lec4]: http://github.com/ucsd-cse130/web/blob/master/static/raw/04-datatypes.pdf
 [lec4s]: http://github.com/ucsd-cse130/web/blob/master/static/raw/04-datatypes-small.pdf
