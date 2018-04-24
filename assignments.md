@@ -26,6 +26,10 @@ mins over the deadline is equal to 1 late day.
 
 ## Sample Exam Questions
 
+Note: old exams use OCaml instead of Haskell.
+Check out these [lecture notes](https://ucsd-cse130.github.io/web/lectures/02-haskell.html) 
+for a comparison between the two languages.
+
 - [Sample 1](static/raw/sample-questions1-scala.txt),
   [Sample 2](static/raw/sample-questions2.html)
 
