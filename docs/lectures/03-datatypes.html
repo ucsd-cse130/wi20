@@ -339,9 +339,9 @@ deadlineTime <span class="fu">=</span> <span class="dt">Time</span> <span class=
 </ul>
 <p>I want to store all paragraphs in a <em>list</em></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">doc <span class="fu">=</span> [
-    (<span class="dv">1</span>, <span class="st">&quot;Notes from 130&quot;</span>)                 <span class="co">-- Lvl 1 heading</span>
-  , <span class="st">&quot;There are two types of languages:&quot;</span>   <span class="co">-- Plain text</span>
-  , (<span class="dt">True</span>, [<span class="st">&quot;purely functional&quot;</span>, <span class="st">&quot;evil&quot;</span>]) <span class="co">-- Ordered list</span>
+    (<span class="dv">1</span>, <span class="st">&quot;Notes from 130&quot;</span>)                        <span class="co">-- Lvl 1 heading</span>
+  , <span class="st">&quot;There are two types of languages:&quot;</span>          <span class="co">-- Plain text</span>
+  , (<span class="dt">True</span>, [<span class="st">&quot;purely functional&quot;</span>, <span class="st">&quot;purely evil&quot;</span>]) <span class="co">-- Ordered list</span>
   ]
   
 <span class="co">-- But this doesn't type check!!!</span></code></pre></div>
@@ -427,10 +427,11 @@ deadlineTime <span class="fu">=</span> <span class="dt">Time</span> <span class=
 doc <span class="fu">=</span> [
     <span class="dt">Heading</span> <span class="dv">1</span> <span class="st">&quot;Notes from 130&quot;</span>
   , <span class="dt">Text</span> <span class="st">&quot;There are two types of languages:&quot;</span>
-  , <span class="dt">List</span> <span class="dt">True</span> [<span class="st">&quot;purely functional&quot;</span>, <span class="st">&quot;evil&quot;</span>]
+  , <span class="dt">List</span> <span class="dt">True</span> [<span class="st">&quot;purely functional&quot;</span>, <span class="st">&quot;purely evil&quot;</span>]
   ]</code></pre></div>
-<p><br></p>
-<p>Now I want converts documents in to HTML. I need to write a function:</p>
+<p><br> <br></p>
+<p>Now I want <strong>convert documents in to HTML</strong>.</p>
+<p>I need to write a function:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">html ::</span> <span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
 html p <span class="fu">=</span> <span class="fu">???</span> <span class="co">-- depends on the kind of paragraph!</span></code></pre></div>
 <p><br> <br></p>
@@ -445,6 +446,11 @@ html p <span class="fu">=</span> <span class="fu">???</span> <span class="co">--
 <li>we’ve seen it before</li>
 <li>but now for arbitrary datatypes</li>
 </ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">html ::</span> <span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+html (<span class="dt">Text</span> str)        <span class="fu">=</span> <span class="fu">...</span> <span class="co">-- It's a plain text! Get string</span>
+html (<span class="dt">Heading</span> lvl str) <span class="fu">=</span> <span class="fu">...</span> <span class="co">-- It's a heading! Get level and string</span>
+html (<span class="dt">List</span> ord items)  <span class="fu">=</span> <span class="fu">...</span> <span class="co">-- It's a list! Get ordered and items</span></code></pre></div>
+<p><br> <br> <br> <br> <br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">html ::</span> <span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
 html (<span class="dt">Text</span> str) <span class="fu">=</span>           <span class="co">-- It's a plain text! Get string</span>
   unlines [open <span class="st">&quot;p&quot;</span>, str, close <span class="st">&quot;p&quot;</span>]
@@ -481,14 +487,42 @@ html (<span class="dt">List</span> ord items)  <span class="fu">=</span> <span c
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="pattern-matching-expression">Pattern matching expression</h2>
-<p>You can also pattern-match <em>inside</em> a term using the <code class="sourceCode haskell"><span class="kw">case</span></code> expression:</p>
+<p>We’ve seen: pattern matching in <em>equations</em></p>
+<p>You can also pattern-match <em>inside your program</em> using the <code class="sourceCode haskell"><span class="kw">case</span></code> expression:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">html ::</span> <span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
-html p <span class="fu">=</span> <span class="kw">case</span> p <span class="kw">of</span>
-          <span class="dt">Text</span> str <span class="ot">-&gt;</span> unlines [open <span class="st">&quot;p&quot;</span>, str, close <span class="st">&quot;p&quot;</span>]
-          <span class="dt">Heading</span> lvl str <span class="ot">-&gt;</span> <span class="fu">...</span>
-          <span class="dt">List</span> ord items <span class="ot">-&gt;</span> <span class="fu">...</span></code></pre></div>
+html p <span class="fu">=</span> 
+  <span class="kw">case</span> p <span class="kw">of</span>
+    <span class="dt">Text</span> str <span class="ot">-&gt;</span> unlines [open <span class="st">&quot;p&quot;</span>, str, close <span class="st">&quot;p&quot;</span>]
+    <span class="dt">Heading</span> lvl str <span class="ot">-&gt;</span> <span class="fu">...</span>
+    <span class="dt">List</span> ord items <span class="ot">-&gt;</span> <span class="fu">...</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-2">QUIZ</h2>
+<p>What is the type of</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> p <span class="fu">=</span> <span class="dt">Text</span> <span class="st">&quot;Hey there!&quot;</span>
+<span class="kw">in</span> <span class="kw">case</span> p <span class="kw">of</span>
+    <span class="dt">Text</span> str <span class="ot">-&gt;</span> str
+    <span class="dt">Heading</span> lvl _ <span class="ot">-&gt;</span> lvl
+    <span class="dt">List</span> ord _ <span class="ot">-&gt;</span> ord     </code></pre></div>
+<p><strong>A.</strong> Syntax error</p>
+<p><strong>B.</strong> Type error</p>
+<p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">String</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span></code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="pattern-matching-expression-typing">Pattern matching expression: typing</h2>
+<p>The <code class="sourceCode haskell"><span class="kw">case</span></code> expression</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">case</span> e <span class="kw">of</span>
+  pattern1 <span class="ot">-&gt;</span> e1
+  pattern2 <span class="ot">-&gt;</span> e2
+  <span class="fu">...</span>
+  patternN <span class="ot">-&gt;</span> eN</code></pre></div>
+<p>has type <code class="sourceCode haskell"><span class="dt">T</span></code> if</p>
+<ul>
+<li>all of <code class="sourceCode haskell">e1</code>…<code class="sourceCode haskell">eN</code> have type <code class="sourceCode haskell"><span class="dt">T</span></code></li>
+<li><code class="sourceCode haskell">e</code> has some type <code class="sourceCode haskell"><span class="dt">D</span></code>, and all of <code class="sourceCode haskell">pattern1</code>…<code class="sourceCode haskell">patternN</code> are valid patterns for <code class="sourceCode haskell"><span class="dt">D</span></code></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-3">QUIZ</h2>
 <p>What is the type of</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> p <span class="fu">=</span> <span class="dt">Text</span> <span class="st">&quot;Hey there!&quot;</span>
 <span class="kw">in</span> <span class="kw">case</span> p <span class="kw">of</span>
@@ -500,6 +534,171 @@ html p <span class="fu">=</span> <span class="kw">case</span> p <span class="kw"
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Int</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="building-data-types-2">Building data types</h2>
+<p><br></p>
+<p>Three key ways to build complex types/values:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Product types</strong> (<strong>each-of</strong>): a value of <code class="sourceCode haskell"><span class="dt">T</span></code> contains a value of <code class="sourceCode haskell"><span class="dt">T1</span></code> <em>and</em> a value of <code class="sourceCode haskell"><span class="dt">T2</span></code> <strong>[done]</strong></p>
+<ul>
+<li>Cartesian <em>product</em> of two sets: <span class="math inline"><em>v</em>(<em>T</em>)=<em>v</em>(<em>T</em>1)×<em>v</em>(<em>T</em>2)</span></li>
+</ul></li>
+<li><p><strong>Sum types</strong> (<strong>one-of</strong>): a value of <code class="sourceCode haskell"><span class="dt">T</span></code> contains a value of <code class="sourceCode haskell"><span class="dt">T1</span></code> <em>or</em> a value of <code class="sourceCode haskell"><span class="dt">T2</span></code> <strong>[done]</strong></p>
+<ul>
+<li>Union (<em>sum</em>) of two sets: <span class="math inline"><em>v</em>(<em>T</em>)=<em>v</em>(<em>T</em>1)∪<em>v</em>(<em>T</em>2)</span></li>
+</ul></li>
+<li><p><strong>Recursive types</strong>: a value of <code class="sourceCode haskell"><span class="dt">T</span></code> contains a <em>sub-value</em> of the same type <code class="sourceCode haskell"><span class="dt">T</span></code></p></li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="recursive-types">Recursive types</h2>
+<p>Let’s define <strong>natural numbers</strong> from scratch:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">Zero</span> <span class="fu">|</span> <span class="dt">Succ</span> <span class="dt">Nat</span></code></pre></div>
+<p>A <code class="sourceCode haskell"><span class="dt">Nat</span></code> value is:</p>
+<ul>
+<li>either an <em>empty</em> box labeled <code class="sourceCode haskell"><span class="dt">Zero</span></code></li>
+<li>or a box labeled <code class="sourceCode haskell"><span class="dt">Succ</span></code> with another <code class="sourceCode haskell"><span class="dt">Nat</span></code> in it!</li>
+</ul>
+<p>Some <code class="sourceCode haskell"><span class="dt">Nat</span></code> values:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Zero</span>
+<span class="dt">Succ</span> <span class="dt">Zero</span>
+<span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>)
+<span class="dt">Succ</span> (<span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>))
+<span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="functions-on-recursive-types">Functions on recursive types</h2>
+<p><strong>Recursive code mirrors recursive data</strong></p>
+<h3 id="recursive-type-as-a-parameter">1. Recursive type as a parameter</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">Zero</span>     <span class="co">-- base constructor</span>
+         <span class="fu">|</span> <span class="dt">Succ</span> <span class="dt">Nat</span> <span class="co">-- inductive constructor</span></code></pre></div>
+<p><strong>Step 1:</strong> add a pattern per constructor</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">toInt<span class="ot"> ::</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+toInt <span class="dt">Zero</span>     <span class="fu">=</span> <span class="fu">...</span> <span class="co">-- base case</span>
+toInt (<span class="dt">Succ</span> n) <span class="fu">=</span> <span class="fu">...</span> <span class="co">-- inductive case</span>
+                     <span class="co">-- (recursive call goes here)</span></code></pre></div>
+<p><strong>Step 2:</strong> fill in base case:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">toInt<span class="ot"> ::</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+toInt <span class="dt">Zero</span>     <span class="fu">=</span> <span class="dv">0</span>   <span class="co">-- base case</span>
+toInt (<span class="dt">Succ</span> n) <span class="fu">=</span> <span class="fu">...</span> <span class="co">-- inductive case</span>
+                     <span class="co">-- (recursive call goes here)</span></code></pre></div>
+<p><strong>Step 2:</strong> fill in inductive case using a recursive call:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">toInt<span class="ot"> ::</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+toInt <span class="dt">Zero</span>     <span class="fu">=</span> <span class="dv">0</span>           <span class="co">-- base case</span>
+toInt (<span class="dt">Succ</span> n) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> toInt n <span class="co">-- inductive case</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-4">QUIZ</h2>
+<p>What does this evaluate to?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> foo i <span class="fu">=</span> <span class="kw">if</span> i <span class="fu">&lt;=</span> <span class="dv">0</span> <span class="kw">then</span> <span class="dt">Zero</span> <span class="kw">else</span> <span class="dt">Succ</span> (foo (i <span class="fu">-</span> <span class="dv">1</span>))
+<span class="kw">in</span> foo <span class="dv">2</span> </code></pre></div>
+<p><strong>A.</strong> Syntax error</p>
+<p><strong>B.</strong> Type error</p>
+<p><strong>C.</strong> <code class="sourceCode haskell"><span class="dv">2</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Succ</span> <span class="dt">Zero</span></code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>)</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="recursive-type-as-a-result">2. Recursive type as a result</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">Zero</span>     <span class="co">-- base constructor</span>
+         <span class="fu">|</span> <span class="dt">Succ</span> <span class="dt">Nat</span> <span class="co">-- inductive constructor</span>
+
+         
+fromInt<span class="ot"> ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span>
+fromInt n
+  <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">0</span>    <span class="fu">=</span> <span class="dt">Zero</span>                   <span class="co">-- base case</span>
+  <span class="fu">|</span> otherwise <span class="fu">=</span> <span class="dt">Succ</span> (fromInt (n <span class="fu">-</span> <span class="dv">1</span>)) <span class="co">-- inductive case</span>
+                                       <span class="co">-- (recursive call goes here)</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<h3 id="putting-the-two-together">3. Putting the two together</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">Zero</span>     <span class="co">-- base constructor</span>
+         <span class="fu">|</span> <span class="dt">Succ</span> <span class="dt">Nat</span> <span class="co">-- inductive constructor</span>
+
+         
+<span class="ot">add ::</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span>
+add n m <span class="fu">=</span> <span class="fu">???</span>
+
+<span class="ot">sub ::</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span>
+sub n m <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">Zero</span>     <span class="co">-- base constructor</span>
+         <span class="fu">|</span> <span class="dt">Succ</span> <span class="dt">Nat</span> <span class="co">-- inductive constructor</span>
+
+         
+<span class="ot">add ::</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span>
+add <span class="dt">Zero</span>     m <span class="fu">=</span> m              <span class="co">-- base case</span>
+add (<span class="dt">Succ</span> n) m <span class="fu">=</span> <span class="dt">Succ</span> (add n m) <span class="co">-- inductive case</span>
+
+<span class="ot">sub ::</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span>
+sub n        <span class="dt">Zero</span>     <span class="fu">=</span> n       <span class="co">-- base case 1</span>
+sub <span class="dt">Zero</span>     _        <span class="fu">=</span> <span class="dt">Zero</span>    <span class="co">-- base case 2</span>
+sub (<span class="dt">Succ</span> n) (<span class="dt">Succ</span> m) <span class="fu">=</span> sub n m <span class="co">-- inductive case</span></code></pre></div>
+<p>Lessons learned:</p>
+<ul>
+<li><strong>Recursive code mirrors recursive data</strong></li>
+<li>With <strong>multiple</strong> arguments of a recursive type, which one should I recurse on?</li>
+<li>The name of the game is to pick the right <strong>inductive strategy</strong>!</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lists">Lists</h2>
+<p>Lists aren’t built-in! They are an <em>algebraic data type</em> like any other:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span>           <span class="co">-- base constructor</span>
+          <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span> <span class="co">-- inductive constructor</span></code></pre></div>
+<ul>
+<li><p>List <code class="sourceCode haskell">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</code> is <em>represented</em> as <code class="sourceCode haskell"><span class="dt">Cons</span> <span class="dv">1</span> (<span class="dt">Cons</span> <span class="dv">2</span> (<span class="dt">Cons</span> <span class="dv">3</span> <span class="dt">Nil</span>))</code></p></li>
+<li><p>Built-in list constructors <code class="sourceCode haskell">[]</code> and <code class="sourceCode haskell">(<span class="fu">:</span>)</code> are just fancy syntax for <code class="sourceCode haskell"><span class="dt">Nil</span></code> and <code class="sourceCode haskell"><span class="dt">Cons</span></code></p></li>
+</ul>
+<p><br> <br></p>
+<p>Functions on lists follow the same general strategy:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">length<span class="ot"> ::</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+length <span class="dt">Nil</span>         <span class="fu">=</span> <span class="dv">0</span>              <span class="co">-- base case</span>
+length (<span class="dt">Cons</span> _ xs) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> length xs  <span class="co">-- inductive case</span></code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<p>What is the right <em>inductive strategy</em> for appending two lists?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">append ::</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span>
+append xs ys <span class="fu">=</span> <span class="fu">??</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="trees">Trees</h2>
+<p>Lists are <em>unary trees</em> with values stored in the nodes:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span> <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span></code></pre></div>
+<p><br> <br></p>
+<p>How do we represent <em>binary trees</em> with values stored in the nodes?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()
+  <span class="fu">|</span>   <span class="fu">|</span>   \ ()
+  <span class="fu">|</span>   \ ()
+  \ <span class="dv">4</span> <span class="fu">-</span> ()
+      \ ()  </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></pre></div>
+<p><br> <br> <br> <br></p>
+<p>How do we represent binary trees with values stored <em>in the leafs</em>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">() <span class="fu">-</span> () <span class="fu">-</span> () <span class="fu">-</span> <span class="dv">1</span>
+   <span class="fu">|</span>    <span class="fu">|</span>    \ <span class="dv">2</span>
+   <span class="fu">|</span>    \ <span class="dv">3</span>
+   \ () <span class="fu">-</span> <span class="dv">4</span>
+        \ <span class="dv">5</span>  </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="example-calculator">Example: Calculator</h2>
+<p>I want to implement an arithmetic calculator to evaluate expressions like:</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span></code></li>
+<li>3.78 – 5.92</li>
+<li>(4.0 + 2.9) * (3.78 -5.92)</li>
+</ul>
+<p>What is a Haskell datatype to <em>represent</em> these expressions?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Float</span>
+          <span class="fu">|</span> <span class="dt">Add</span> <span class="dt">Expr</span> <span class="dt">Expr</span>
+          <span class="fu">|</span> <span class="dt">Sub</span> <span class="dt">Expr</span> <span class="dt">Expr</span>
+          <span class="fu">|</span> <span class="dt">Mul</span> <span class="dt">Expr</span> <span class="dt">Expr</span></code></pre></div>
+<p><br> <br></p>
+<p>How do we write a function to <em>evaluate</em> an expression?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Float</span>
+eval e <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
                 <hr>
             </div>
         </div>
