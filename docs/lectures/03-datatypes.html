@@ -657,38 +657,73 @@ length (<span class="dt">Cons</span> _ xs) <span class="fu">=</span> <span class
 append xs ys <span class="fu">=</span> <span class="fu">??</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="trees">Trees</h2>
-<p>Lists are <em>unary trees</em> with values stored in the nodes:</p>
+<p>Lists are <em>unary trees</em> with elements stored in the nodes:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span> <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span></code></pre></div>
-<p><br> <br></p>
-<p>How do we represent <em>binary trees</em> with values stored in the nodes?</p>
+<p>How do we represent <em>binary trees</em> with elements stored in the nodes?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()
   <span class="fu">|</span>   <span class="fu">|</span>   \ ()
   <span class="fu">|</span>   \ ()
   \ <span class="dv">4</span> <span class="fu">-</span> ()
       \ ()  </code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-binary-trees-i">QUIZ: Binary trees I</h2>
+<p>What is a Haskell datatype for <em>binary trees</em> with elements stored in the nodes?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()
+  <span class="fu">|</span>   <span class="fu">|</span>   \ ()
+  <span class="fu">|</span>   \ ()
+  \ <span class="dv">4</span> <span class="fu">-</span> ()
+      \ ()  </code></pre></div>
+<p><strong>(A)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span></code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></pre></div>
-<p><br> <br> <br> <br></p>
-<p>How do we represent binary trees with values stored <em>in the leafs</em>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()
+  <span class="fu">|</span>   <span class="fu">|</span>   \ ()
+  <span class="fu">|</span>   \ ()
+  \ <span class="dv">4</span> <span class="fu">-</span> ()
+      \ ()  </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span>
+
+t1234 <span class="fu">=</span> <span class="dt">Node</span> <span class="dv">1</span> 
+          (<span class="dt">Node</span> <span class="dv">2</span> (<span class="dt">Node</span> <span class="dv">3</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>) <span class="dt">Leaf</span>) 
+          (<span class="dt">Node</span> <span class="dv">4</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>)</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-binary-trees-ii">QUIZ: Binary trees II</h2>
+<p>What is a Haskell datatype for <em>binary trees</em> with elements stored in the leaves?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">() <span class="fu">-</span> () <span class="fu">-</span> () <span class="fu">-</span> <span class="dv">1</span>
    <span class="fu">|</span>    <span class="fu">|</span>    \ <span class="dv">2</span>
    <span class="fu">|</span>    \ <span class="dv">3</span>
    \ () <span class="fu">-</span> <span class="dv">4</span>
         \ <span class="dv">5</span>  </code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><strong>(A)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span></code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">() <span class="fu">-</span> () <span class="fu">-</span> () <span class="fu">-</span> <span class="dv">1</span>
+   <span class="fu">|</span>    <span class="fu">|</span>    \ <span class="dv">2</span>
+   <span class="fu">|</span>    \ <span class="dv">3</span>
+   \ () <span class="fu">-</span> <span class="dv">4</span>
+        \ <span class="dv">5</span>  </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span>
+
+t12345 <span class="fu">=</span> <span class="dt">Node</span>
+          (<span class="dt">Node</span> (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">1</span>) (<span class="dt">Leaf</span> <span class="dv">2</span>)) (<span class="dt">Leaf</span> <span class="dv">3</span>))
+          (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">4</span>) (<span class="dt">Leaf</span> <span class="dv">5</span>))</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="example-calculator">Example: Calculator</h2>
 <p>I want to implement an arithmetic calculator to evaluate expressions like:</p>
 <ul>
 <li><code class="sourceCode haskell"><span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span></code></li>
-<li>3.78 – 5.92</li>
-<li>(4.0 + 2.9) * (3.78 -5.92)</li>
+<li><code class="sourceCode haskell"><span class="fl">3.78</span> – <span class="fl">5.92</span></code></li>
+<li><code class="sourceCode haskell">(<span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span>) <span class="fu">*</span> (<span class="fl">3.78</span> <span class="fu">-</span><span class="fl">5.92</span>)</code></li>
 </ul>
 <p>What is a Haskell datatype to <em>represent</em> these expressions?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Float</span>
           <span class="fu">|</span> <span class="dt">Add</span> <span class="dt">Expr</span> <span class="dt">Expr</span>
@@ -699,6 +734,115 @@ append xs ys <span class="fu">=</span> <span class="fu">??</span></code></pre></
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Float</span>
 eval e <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="recursion-is">Recursion is…</h2>
+<p>Building solutions for <em>big problems</em> from solutions for <em>sub-problems</em></p>
+<ul>
+<li><strong>Base case:</strong> what is the <em>simplest version</em> of this problem and how do I solve it?</li>
+<li><strong>Inductive strategy:</strong> how do I <em>break down</em> this problem into sub-problems?</li>
+<li><strong>Inductive case:</strong> how do I solve the problem <em>given</em> the solutions for subproblems?</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="why-use-recursion">Why use Recursion?</h2>
+<ol style="list-style-type: decimal">
+<li><p>Often far simpler and cleaner than loops</p>
+<ul>
+<li>But not always…</li>
+</ul></li>
+<li><p>Structure often forced by recursive data</p></li>
+<li><p>Forces you to factor code into reusable units</p>
+<ul>
+<li>Only way to “reuse” loop is via cut-paste</li>
+</ul></li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="why-not-use-recursion">Why <strong>not</strong> use Recursion?</h2>
+<ol style="list-style-type: decimal">
+<li><p>???</p></li>
+<li><p>???</p></li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="example-factorial">Example: factorial</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fac ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+fac n
+  <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> <span class="dv">1</span>
+  <span class="fu">|</span> otherwise <span class="fu">=</span> n <span class="fu">*</span> fac (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
+<p><br> <br></p>
+<p>Lets see how <code class="sourceCode haskell">fac <span class="dv">4</span></code> is evaluated:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&lt;</span>fac <span class="dv">4</span><span class="fu">&gt;</span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">3</span><span class="fu">&gt;&gt;</span>              <span class="co">-- recursively call `fact 3`</span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">2</span><span class="fu">&gt;&gt;&gt;</span>        <span class="co">--   recursively call `fact 2`</span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">2</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">1</span><span class="fu">&gt;&gt;&gt;&gt;</span>  <span class="co">--     recursively call `fact 1`</span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">2</span> <span class="fu">*</span> <span class="dv">1</span><span class="fu">&gt;&gt;&gt;</span>        <span class="co">--     multiply 2 to result </span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="dv">2</span><span class="fu">&gt;&gt;</span>              <span class="co">--   multiply 3 to result</span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="dv">6</span><span class="fu">&gt;</span>                    <span class="co">-- multiply 4 to result</span>
+  <span class="fu">==&gt;</span> <span class="dv">24</span></code></pre></div>
+<p><br> <br></p>
+<p>Each <em>function call</em> <code class="sourceCode haskell"><span class="fu">&lt;&gt;</span></code> allocates a frame on the <em>call stack</em></p>
+<ul>
+<li>expensive</li>
+<li>the stack has a finite size</li>
+</ul>
+<p>Can we do recursion without allocating stack frames?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="tail-recursion">Tail Recursion</h2>
+<p>Recursive call is the <em>top-most</em> sub-expression in the function body</p>
+<ul>
+<li><p>i.e. no computations allowed on recursively returned value</p></li>
+<li><p>i.e. value returned by the recursive call == value returned by function</p></li>
+</ul>
+<p><br> <br></p>
+<h3 id="quiz-is-this-function-tail-recursive">QUIZ: Is this function tail recursive?</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fac ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+fac n
+  <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> <span class="dv">1</span>
+  <span class="fu">|</span> otherwise <span class="fu">=</span> n <span class="fu">*</span> fac (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
+<p><strong>A.</strong> Yes</p>
+<p><strong>B.</strong> No</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="tail-recursive-factorial">Tail recursive factorial</h2>
+<p>Let’s write a tail-recursive factorial!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">facTR ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+facTR n <span class="fu">=</span> <span class="fu">...</span> </code></pre></div>
+<p><br> <br> <br> <br></p>
+<p>Lets see how <code class="sourceCode haskell">facTR</code> is evaluated:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&lt;</span>facTR <span class="dv">4</span><span class="fu">&gt;</span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span>loop <span class="dv">1</span>  <span class="dv">4</span><span class="fu">&gt;</span>   <span class="co">-- recursively call loop 1 4</span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span>loop <span class="dv">4</span>  <span class="dv">3</span><span class="fu">&gt;</span>   <span class="co">-- recursively call loop 4 3 </span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span>loop <span class="dv">12</span> <span class="dv">2</span><span class="fu">&gt;</span>   <span class="co">-- recursively call loop 12 2</span>
+  <span class="fu">==&gt;</span> <span class="fu">&lt;</span>loop <span class="dv">24</span> <span class="dv">1</span><span class="fu">&gt;</span>   <span class="co">-- recursively call loop 24 1</span>
+  <span class="fu">==&gt;</span> <span class="dv">24</span>            <span class="co">-- return result 24! </span></code></pre></div>
+<p>Each recursive call <strong>directly</strong> returns the result</p>
+<ul>
+<li><p>without further computation</p></li>
+<li><p>so no need to remember what to do next!</p></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="why-care-about-tail-recursion">Why care about Tail Recursion?</h2>
+<p>Because <em>compiler</em> can transform it into a <em>fast loop</em></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">facTR n <span class="fu">=</span> loop <span class="dv">1</span> n
+  <span class="kw">where</span>
+    loop acc n
+      <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> acc
+      <span class="fu">|</span> otherwise <span class="fu">=</span> loop (acc <span class="fu">*</span> n) (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">facTR</span>(n)<span class="op">{</span> 
+  <span class="kw">var</span> acc <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>
+  <span class="cf">while</span> (<span class="kw">true</span>) <span class="op">{</span>
+    <span class="cf">if</span> (n <span class="op">&lt;=</span> <span class="dv">1</span>) <span class="op">{</span> <span class="cf">return</span> acc <span class="op">;</span> <span class="op">}</span>
+    <span class="cf">else</span>        <span class="op">{</span> acc <span class="op">=</span> acc <span class="op">*</span> n<span class="op">;</span> n <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<ul>
+<li><p>Tail recursive calls can be optimized as a <strong>loop</strong></p>
+<ul>
+<li>no stack frames needed!</li>
+</ul></li>
+<li><p>Part of the language specification of most functional languages</p>
+<ul>
+<li>compiler <strong>guarantees</strong> to optimize tail calls</li>
+</ul></li>
+</ul>
+<p><br> <br> <br> <br> <br></p>
+<p>That’s all folks!</p>
                 <hr>
             </div>
         </div>
