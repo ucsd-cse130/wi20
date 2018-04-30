@@ -16,10 +16,10 @@ Lecture schedule is subject to change!
 | 4/16       | A crash course in Haskell     | [html][lec2]              | [intro]       |
 | 4/18       | contd.                        |                           |               |
 | 4/20       | contd.                        |                           |               |
-| 4/23       | Datatypes and Recursion       | [html][lec3]              |               |
+| 4/23       | Datatypes and Recursion       | [html][lec3]              | [datatypes]   |
 | 4/25       | contd.                        |                           |               |
-| 4/27       | contd.                        |                           |               |
-| 4/30       | Higher Order Functions        |                           |               |
+| 4/27       | contd.                        |                           | [tail]        |
+| 4/30       | Higher Order Functions        | [html][lec4]              |               |
 | 5/2        | contd.                        |                           |               |
 | 5/4        | **Midterm**                   |                           |               |
 | 5/7        | Environments and Closures     |                           |               |
@@ -39,58 +39,23 @@ Lecture schedule is subject to change!
 | 6/11       | **Final**                     |                           |               |
 
 
-
+<!--
 ## Discussions
 
 | Date       | Topic                    | Notes         |  Code      |
 |:----------:|:-------------------------|:-------------:|:----------:|
 | 4/11       | Lambda Calculus          | TBD           | TBD        |
+-->
 
 
 [lec0]: lectures/00-hello.html
 [lec1]: lectures/01-lambda.html
 [lec2]: lectures/02-haskell.html
 [lec3]: lectures/03-datatypes.html
-[lec3s]: http://github.com/ucsd-cse130/web/blob/master/static/raw/03-ocaml-small.pdf
-[lec4]: http://github.com/ucsd-cse130/web/blob/master/static/raw/04-datatypes.pdf
-[lec4s]: http://github.com/ucsd-cse130/web/blob/master/static/raw/04-datatypes-small.pdf
-[lec5]: http://github.com/ucsd-cse130/web/blob/master/static/raw/05-rec-hof.pdf
-[lec5s]: http://github.com/ucsd-cse130/web/blob/master/static/raw/05-rec-hof-small.pdf
-[lec6]: http://github.com/ucsd-cse130/web/blob/master/static/raw/06-closure.pdf
-[lec6s]: http://github.com/ucsd-cse130/web/blob/master/static/raw/06-closure-small.pdf
-[lec7]: lectures/07-parsing.html
-[lec8]: http://github.com/ucsd-cse130/web/blob/master/static/raw/08-polymorphism.pdf
-[lec8s]: http://github.com/ucsd-cse130/web/blob/master/static/raw/08-polymorphism-small.pdf
-
-[md0]: http://github.com/ucsd-cse130/web/blob/master/lectures/00-hello.md
-[md1]: http://github.com/ucsd-cse130/web/blob/master/lectures/01-lambda.md
-[md2]: http://github.com/ucsd-cse130/web/blob/master/lectures/02-haskell.md
-
-[lec9]: lectures/09-prolog.html
-[md9]: http://github.com/ucsd-cse130/web/blob/master/lectures/09-prolog.md
-[txt9]: static/raw/prolog.txt
-[lec10]: lectures/10-puzzles.html
-[md10]: http://github.com/ucsd-cse130/web/blob/master/lectures/10-puzzles.md
+[lec4]: lectures/04-hof.html
 
 
-
-
-
-[lc-4-7]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-4-7.lc
-[lc-4-10]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-4-10.lc
 [elsa]: https://github.com/ucsd-progsys/elsa
-[ml3]: http://github.com/ucsd-cse130/web/blob/master/static/raw/03-ocaml.ml
-[ml4]: http://github.com/ucsd-cse130/web/blob/master/static/raw/04-datatypes.ml
-[ml5]: http://github.com/ucsd-cse130/web/blob/master/static/raw/05-rec-hof.ml
-
-[ml-5-15]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-15.ml
-[ml-5-17]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-17.ml
-[ml-5-19]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-19.ml
-[ml-5-22]: http://github.com/ucsd-cse130/web/blob/master/static/raw/hw4/arith_notes/
-[pl-6-2]: http://github.com/ucsd-cse130/web/blob/master/static/raw/prolog.pl
-
-
-[ml-5-26]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-26.ml
-[ml-5-31]: http://github.com/ucsd-cse130/web/blob/master/static/raw/code-5-31.ml
-
 [intro]: /static/raw/Intro.hs
+[datatypes]: /static/raw/Datatypes.hs
+[tail]: /static/raw/Tail.hs
