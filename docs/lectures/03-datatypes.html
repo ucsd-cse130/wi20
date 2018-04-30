@@ -369,7 +369,9 @@ deadlineTime <span class="fu">=</span> <span class="dt">Time</span> <span class=
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">Text</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">String</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span></code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> E</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="constructing-datatypes">Constructing datatypes</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">T</span> <span class="fu">=</span> 
     <span class="dt">C1</span> <span class="dt">T11</span> <span class="fu">..</span> <span class="dt">T1k</span> 
@@ -418,7 +420,9 @@ deadlineTime <span class="fu">=</span> <span class="dt">Time</span> <span class=
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell">[<span class="dt">Paragraph</span>]</code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell">[<span class="dt">String</span>]</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> D</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="example-nanomd-1">Example: NanoMD</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Paragraph</span> <span class="fu">=</span> 
     <span class="dt">Text</span> <span class="dt">String</span> <span class="fu">|</span> <span class="dt">Heading</span> <span class="dt">Int</span> <span class="dt">String</span> <span class="fu">|</span> <span class="dt">List</span> <span class="dt">Bool</span> [<span class="dt">String</span>]</code></pre></div>
@@ -469,7 +473,8 @@ html (<span class="dt">Text</span> str) <span class="fu">=</span> <span class="f
 html (<span class="dt">List</span> ord items) <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
 <p>What would GHCi say to:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">html (<span class="dt">Heading</span> <span class="dv">1</span> <span class="st">&quot;Introduction&quot;</span>)</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> Runtime error (no matching pattern) <br> <br> <br> <br> <br></p>
 <h3 id="dangers-of-pattern-matching-2">Dangers of pattern matching (2)</h3>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">html ::</span> <span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
 html (<span class="dt">Text</span> str)        <span class="fu">=</span> unlines [open <span class="st">&quot;p&quot;</span>, str, close <span class="st">&quot;p&quot;</span>]
@@ -478,7 +483,9 @@ html (<span class="dt">Heading</span> <span class="dv">0</span> str)   <span cla
 html (<span class="dt">List</span> ord items)  <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
 <p>What would GHCi say to:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">html (<span class="dt">Heading</span> <span class="dv">0</span> <span class="st">&quot;Introduction&quot;</span>)</code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> <code class="sourceCode haskell"><span class="dt">Heading</span> <span class="dv">0</span> <span class="st">&quot;Introduction&quot;</span></code> will be matched by <code class="sourceCode haskell"><span class="dt">Heading</span> lvl str</code></p>
+<p><br> <br> <br> <br> <br></p>
 <h3 id="dangers-of-pattern-matching">Dangers of pattern matching</h3>
 <p>Beware of <strong>missing</strong> and <strong>overlapped</strong> patterns</p>
 <ul>
@@ -508,7 +515,9 @@ html p <span class="fu">=</span>
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">String</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span></code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> B (cases have different types)</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="pattern-matching-expression-typing">Pattern matching expression: typing</h2>
 <p>The <code class="sourceCode haskell"><span class="kw">case</span></code> expression</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">case</span> e <span class="kw">of</span>
@@ -534,7 +543,9 @@ html p <span class="fu">=</span>
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Int</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> D</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="building-data-types-2">Building data types</h2>
 <p><br></p>
 <p>Three key ways to build complex types/values:</p>
@@ -596,7 +607,9 @@ toInt (<span class="dt">Succ</span> n) <span class="fu">=</span> <span class="dv
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dv">2</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Succ</span> <span class="dt">Zero</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>)</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> E</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h3 id="recursive-type-as-a-result">2. Recursive type as a result</h3>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">Zero</span>     <span class="co">-- base constructor</span>
          <span class="fu">|</span> <span class="dt">Succ</span> <span class="dt">Nat</span> <span class="co">-- inductive constructor</span>
@@ -654,7 +667,8 @@ length (<span class="dt">Cons</span> _ xs) <span class="fu">=</span> <span class
 <p><br> <br> <br> <br> <br></p>
 <p>What is the right <em>inductive strategy</em> for appending two lists?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">append ::</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span>
-append xs ys <span class="fu">=</span> <span class="fu">??</span></code></pre></div>
+append <span class="dt">Nil</span> ys <span class="fu">=</span> ys
+append (<span class="dt">Cons</span> x xs) ys <span class="fu">=</span> <span class="dt">Cons</span> x (append xs ys)    </code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="trees">Trees</h2>
 <p>Lists are <em>unary trees</em> with elements stored in the nodes:</p>
@@ -679,7 +693,8 @@ append xs ys <span class="fu">=</span> <span class="fu">??</span></code></pre></
 <p><strong>(C)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> C <br> <br> <br> <br> <br> <br> <br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()
   <span class="fu">|</span>   <span class="fu">|</span>   \ ()
   <span class="fu">|</span>   \ ()
@@ -703,7 +718,9 @@ t1234 <span class="fu">=</span> <span class="dt">Node</span> <span class="dv">1<
 <p><strong>(C)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> D</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">() <span class="fu">-</span> () <span class="fu">-</span> () <span class="fu">-</span> <span class="dv">1</span>
    <span class="fu">|</span>    <span class="fu">|</span>    \ <span class="dv">2</span>
    <span class="fu">|</span>    \ <span class="dv">3</span>
@@ -732,7 +749,10 @@ t12345 <span class="fu">=</span> <span class="dt">Node</span>
 <p><br> <br></p>
 <p>How do we write a function to <em>evaluate</em> an expression?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Float</span>
-eval e <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+eval (<span class="dt">Num</span> f)     <span class="fu">=</span> f
+eval (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">+</span> eval e2
+eval (<span class="dt">Sub</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">-</span> eval e2
+eval (<span class="dt">Mul</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">*</span> eval e2</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="recursion-is">Recursion is…</h2>
 <p>Building solutions for <em>big problems</em> from solutions for <em>sub-problems</em></p>
@@ -757,8 +777,8 @@ eval e <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="why-not-use-recursion">Why <strong>not</strong> use Recursion?</h2>
 <ol style="list-style-type: decimal">
-<li><p>???</p></li>
-<li><p>???</p></li>
+<li><p>Slow</p></li>
+<li><p>Can cause stack overflow</p></li>
 </ol>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="example-factorial">Example: factorial</h2>
@@ -798,11 +818,17 @@ fac n
   <span class="fu">|</span> otherwise <span class="fu">=</span> n <span class="fu">*</span> fac (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
 <p><strong>A.</strong> Yes</p>
 <p><strong>B.</strong> No</p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> B <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="tail-recursive-factorial">Tail recursive factorial</h2>
 <p>Let’s write a tail-recursive factorial!</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">facTR ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
-facTR n <span class="fu">=</span> <span class="fu">...</span> </code></pre></div>
+facTR n <span class="fu">=</span> loop <span class="dv">1</span> n
+  <span class="kw">where</span>
+<span class="ot">    loop ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+    loop acc n
+      <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">==</span> acc
+      <span class="fu">|</span> otherwise <span class="fu">==</span> loop (acc <span class="fu">*</span> n) (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
 <p><br> <br> <br> <br></p>
 <p>Lets see how <code class="sourceCode haskell">facTR</code> is evaluated:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&lt;</span>facTR <span class="dv">4</span><span class="fu">&gt;</span>
