@@ -466,12 +466,272 @@ quiz <span class="fu">=</span> map (\(x, y) <span class="ot">-&gt;</span> x <spa
 <ul>
 <li><p>Reuse iteration pattern</p>
 <ul>
-<li><p>thinking in terms of standard patterns</p></li>
+<li><p>think in terms of standard patterns</p></li>
 <li><p>less to write</p></li>
 <li><p>easier to communicate</p></li>
 </ul></li>
 <li><p>Avoid bugs due to repetition</p></li>
 </ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="recall-length-of-a-list">Recall: length of a list</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- len []      ==&gt; 0</span>
+<span class="co">-- len [&quot;carne&quot;,&quot;asada&quot;] ==&gt; 2</span>
+<span class="ot">len ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+len []     <span class="fu">=</span> <span class="dv">0</span>
+len (x<span class="fu">:</span>xs) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> len xs</code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<h2 id="recall-summing-a-list">Recall: summing a list</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- sum []      ==&gt; 0</span>
+<span class="co">-- sum [1,2,3] ==&gt; 6</span>
+sum<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+sum []     <span class="fu">=</span> <span class="dv">0</span>
+sum (x<span class="fu">:</span>xs) <span class="fu">=</span> x <span class="fu">+</span> sum xs</code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<h2 id="example-string-concatenation">Example: string concatenation</h2>
+<p>Let’s write a function <code class="sourceCode haskell">cat</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- cat [] ==&gt; &quot;&quot;</span>
+<span class="co">-- cat [&quot;carne&quot;,&quot;asada&quot;,&quot;torta&quot;] ==&gt; &quot;carneasadatorta&quot;</span>
+<span class="ot">cat ::</span> [<span class="dt">String</span>] <span class="ot">-&gt;</span> <span class="dt">String</span>
+cat []     <span class="fu">=</span> <span class="fu">...</span>
+cat (x<span class="fu">:</span>xs) <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="can-you-spot-the-pattern">Can you spot the pattern?</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- len</span>
+foo []     <span class="fu">=</span> <span class="dv">0</span>
+foo (x<span class="fu">:</span>xs) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> foo xs
+
+<span class="co">-- sum</span>
+foo []     <span class="fu">=</span> <span class="dv">0</span>
+foo (x<span class="fu">:</span>xs) <span class="fu">=</span> x <span class="fu">+</span> foo xs
+
+<span class="co">-- cat</span>
+foo []     <span class="fu">=</span> <span class="st">&quot;&quot;</span>
+foo (x<span class="fu">:</span>xs) <span class="fu">=</span> x <span class="fu">++</span> foo xs</code></pre></div>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pattern <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-fold-right-pattern">The “fold-right” pattern</h2>
+<div class="figure">
+<img src="../static/img/foldr-pattern.png" alt="The foldr Pattern" />
+<p class="caption">The <code class="sourceCode haskell">foldr</code> Pattern</p>
+</div>
+<p>General Pattern</p>
+<ul>
+<li>Recurse on tail</li>
+<li>Combine result with the head using some binary operation</li>
+</ul>
+<p><br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr f b []     <span class="fu">=</span> b
+foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)</code></pre></div>
+<p><br> <br></p>
+<p>Let’s refactor <code class="sourceCode haskell">sum</code>, <code class="sourceCode haskell">len</code> and <code class="sourceCode haskell">cat</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum <span class="fu">=</span> foldr <span class="fu">...</span>  <span class="fu">...</span>
+
+cat <span class="fu">=</span> foldr <span class="fu">...</span>  <span class="fu">...</span>
+
+len <span class="fu">=</span> foldr <span class="fu">...</span>  <span class="fu">...</span></code></pre></div>
+<p>Factor the recursion out!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="figure">
+<img src="../static/img/foldr-pattern-instance.png" alt="foldr instances" />
+<p class="caption"><code class="sourceCode haskell">foldr</code> instances</p>
+</div>
+<p>You can write it more clearly as</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum <span class="fu">=</span> foldr (<span class="fu">+</span>) <span class="dv">0</span>
+
+cat <span class="fu">=</span> foldr (<span class="fu">++</span>) <span class="st">&quot;&quot;</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-2">QUIZ</h2>
+<p>What does this evaluate to?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr f b []     <span class="fu">=</span> b
+foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)
+
+quiz <span class="fu">=</span> foldr (<span class="fu">:</span>) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<p><strong>(A)</strong> Type error</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-3">QUIZ</h2>
+<p>What is the most general type of <code class="sourceCode haskell">foldr</code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr f b []     <span class="fu">=</span> b
+foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)</code></pre></div>
+<p><strong>(A)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> a</code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">(b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-fold-right-pattern-1">The “fold-right” pattern</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr f b [x1, x2, x3, x4]
+  <span class="fu">==&gt;</span> f x1 (foldr f b [x2, x3, x4])
+  <span class="fu">==&gt;</span> f x1 (f x2 (foldr f b [x3, x4]))
+  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (foldr f b [x4])))
+  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (f x4 (foldr f b []))))
+  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (f x4 b)))</code></pre></div>
+<p>Accumulate the values from the <strong>right</strong></p>
+<p>For example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]
+  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">1</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])
+  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">3</span>, <span class="dv">4</span>]))
+  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">4</span>])))
+  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> []))))
+  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">0</span>)))</code></pre></div>
+<p>Is <code class="sourceCode haskell">foldr</code> <strong>tail recursive</strong>?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="what-about-tail-recursive-versions">What about tail-recursive versions?</h2>
+<p>Let’s write tail-recursive <code class="sourceCode haskell">sum</code>!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">sumTR ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+sumTR <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>Lets run <code class="sourceCode haskell">sumTR</code> to see how it works</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sumTR [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+  <span class="fu">==&gt;</span> helper <span class="dv">0</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+  <span class="fu">==&gt;</span> helper <span class="dv">1</span>   [<span class="dv">2</span>,<span class="dv">3</span>]    <span class="co">-- 0 + 1 ==&gt; 1</span>
+  <span class="fu">==&gt;</span> helper <span class="dv">3</span>     [<span class="dv">3</span>]    <span class="co">-- 1 + 2 ==&gt; 3</span>
+  <span class="fu">==&gt;</span> helper <span class="dv">6</span>      []    <span class="co">-- 3 + 3 ==&gt; 6 </span>
+  <span class="fu">==&gt;</span> <span class="dv">6</span></code></pre></div>
+<p><strong>Note:</strong> <code class="sourceCode haskell">helper</code> directly returns the result of recursive call!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>Let’s write tail-recursive <code class="sourceCode haskell">cat</code>!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">catTR ::</span> [<span class="dt">String</span>] <span class="ot">-&gt;</span> <span class="dt">String</span> 
+catTR <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>Lets run <code class="sourceCode haskell">catTR</code> to see how it works</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">catTR                 [<span class="st">&quot;carne&quot;</span>, <span class="st">&quot;asada&quot;</span>, <span class="st">&quot;torta&quot;</span>]
+
+  <span class="fu">==&gt;</span> helper <span class="st">&quot;&quot;</span>       [<span class="st">&quot;carne&quot;</span>, <span class="st">&quot;asada&quot;</span>, <span class="st">&quot;torta&quot;</span>]
+
+  <span class="fu">==&gt;</span> helper <span class="st">&quot;carne&quot;</span>           [<span class="st">&quot;asada&quot;</span>, <span class="st">&quot;torta&quot;</span>]
+
+  <span class="fu">==&gt;</span> helper <span class="st">&quot;carneasada&quot;</span>               [<span class="st">&quot;torta&quot;</span>]
+
+  <span class="fu">==&gt;</span> helper <span class="st">&quot;carneasadatorta&quot;</span>                 []
+
+  <span class="fu">==&gt;</span> <span class="st">&quot;carneasadatorta&quot;</span></code></pre></div>
+<p><strong>Note:</strong> <code class="sourceCode haskell">helper</code> directly returns the result of recursive call!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="can-you-spot-the-pattern-1">Can you spot the pattern?</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- sumTR</span>
+foo xs                <span class="fu">=</span> helper <span class="dv">0</span> xs
+  <span class="kw">where</span>
+    helper acc []     <span class="fu">=</span> acc
+    helper acc (x<span class="fu">:</span>xs) <span class="fu">=</span> helper (acc <span class="fu">+</span> x) xs
+
+
+<span class="co">-- catTR</span>
+foo xs                <span class="fu">=</span> helper <span class="st">&quot;&quot;</span> xs
+  <span class="kw">where</span>
+    helper acc []     <span class="fu">=</span> acc
+    helper acc (x<span class="fu">:</span>xs) <span class="fu">=</span> helper (acc <span class="fu">++</span> x) xs</code></pre></div>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pattern <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-fold-left-pattern">The “fold-left” pattern</h2>
+<div class="figure">
+<img src="../static/img/foldl-pattern.png" alt="The foldl Pattern" />
+<p class="caption">The <code class="sourceCode haskell">foldl</code> Pattern</p>
+</div>
+<p>General Pattern</p>
+<ul>
+<li>Use a helper function with an extra accumulator argument</li>
+<li>To compute new accumulator, combine current accumulator with the head using some binary operation</li>
+</ul>
+<p><br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl f b xs          <span class="fu">=</span> helper b xs
+  <span class="kw">where</span>
+    helper acc []     <span class="fu">=</span> acc
+    helper acc (x<span class="fu">:</span>xs) <span class="fu">=</span> helper (f acc x) xs</code></pre></div>
+<p><br> <br></p>
+<p>Let’s refactor <code class="sourceCode haskell">sumTR</code> and <code class="sourceCode haskell">catTR</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sumTR <span class="fu">=</span> foldl <span class="fu">...</span>  <span class="fu">...</span>
+
+catTR <span class="fu">=</span> foldl <span class="fu">...</span>  <span class="fu">...</span></code></pre></div>
+<p>Factor the tail-recursion out!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-4">QUIZ</h2>
+<p>What does this evaluate to?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl f b xs          <span class="fu">=</span> helper b xs
+  <span class="kw">where</span>
+    helper acc []     <span class="fu">=</span> acc
+    helper acc (x<span class="fu">:</span>xs) <span class="fu">=</span> helper (f acc x) xs
+
+quiz <span class="fu">=</span> foldl (<span class="fu">:</span>) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<p><br></p>
+<p><strong>(A)</strong> Type error</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-5">QUIZ</h2>
+<p>What does this evaluate to?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl f b xs          <span class="fu">=</span> helper b xs
+  <span class="kw">where</span>
+    helper acc []     <span class="fu">=</span> acc
+    helper acc (x<span class="fu">:</span>xs) <span class="fu">=</span> helper (f acc x) xs
+
+quiz <span class="fu">=</span> foldl (\xs x <span class="ot">-&gt;</span> x <span class="fu">:</span> xs) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<p><br></p>
+<p><strong>(A)</strong> Type error</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
+<p><br> <br> <br> <br> <br></p>
+<p><strong>Pro tip:</strong></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- you can write</span>
+foldl (\xs x <span class="ot">-&gt;</span> x <span class="fu">:</span> xs) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+
+<span class="co">-- more concisely like so:</span>
+foldl (flip (<span class="fu">:</span>))        [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<p>What is the type of <code class="sourceCode haskell">flip</code>?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-fold-left-pattern-1">The “fold-left” pattern</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl f b                     [x1, x2, x3, x4]
+  <span class="fu">==&gt;</span> helper b                [x1, x2, x3, x4]
+  <span class="fu">==&gt;</span> helper (f b x1)             [x2, x3, x4]
+  <span class="fu">==&gt;</span> helper (f (f b x1) x2)          [x3, x4]
+  <span class="fu">==&gt;</span> helper (f (f (f b x1) x2) x3)       [x4]
+  <span class="fu">==&gt;</span> helper (f (f (f (f b x1) x2) x3) x4)  []
+  <span class="fu">==&gt;</span> (f (f (f (f b x1) x2) x3) x4)</code></pre></div>
+<p>Accumulate the values from the <strong>left</strong></p>
+<p>For example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl (<span class="fu">+</span>) <span class="dv">0</span>                   [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]
+  <span class="fu">==&gt;</span> helper <span class="dv">0</span>                [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]
+  <span class="fu">==&gt;</span> helper (<span class="dv">0</span> <span class="fu">+</span> <span class="dv">1</span>)             [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]
+  <span class="fu">==&gt;</span> helper ((<span class="dv">0</span> <span class="fu">+</span> <span class="dv">1</span>) <span class="fu">+</span> <span class="dv">2</span>)          [<span class="dv">3</span>, <span class="dv">4</span>]
+  <span class="fu">==&gt;</span> helper (((<span class="dv">0</span> <span class="fu">+</span> <span class="dv">1</span>) <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> <span class="dv">3</span>)       [<span class="dv">4</span>]
+  <span class="fu">==&gt;</span> helper ((((<span class="dv">0</span> <span class="fu">+</span> <span class="dv">1</span>) <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> <span class="dv">3</span>) <span class="fu">+</span> <span class="dv">4</span>)  []
+  <span class="fu">==&gt;</span> ((((<span class="dv">0</span> <span class="fu">+</span> <span class="dv">1</span>) <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> <span class="dv">3</span>) <span class="fu">+</span> <span class="dv">4</span>)</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="left-vs.right">Left vs. Right</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl f b [x1, x2, x3]  <span class="fu">==&gt;</span> f (f (f b x1) x2) x3  <span class="co">-- Left</span>
+
+foldr f b [x1, x2, x3]  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 b))  <span class="co">-- Right</span></code></pre></div>
+<p>For example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]  <span class="fu">==&gt;</span> ((<span class="dv">0</span> <span class="fu">+</span> <span class="dv">1</span>) <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> <span class="dv">3</span>  <span class="co">-- Left</span>
+
+foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> <span class="dv">0</span>))  <span class="co">-- Right</span></code></pre></div>
+<p>Different types!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl<span class="ot"> ::</span> (b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b  <span class="co">-- Left</span>
+
+foldr<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b  <span class="co">-- Right</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="higher-order-functions">Higher Order Functions</h2>
+<p>Functions taking and returning functions</p>
+<ul>
+<li><strong>Filter</strong> values in a collection given a <em>predicate</em></li>
+<li><strong>Map</strong> (iterate) a given <em>transformation</em> over a collection</li>
+<li><strong>Fold</strong> (reduce) a collection into a value, given a <em>binary operation</em> to combine results</li>
+</ul>
+<p><br></p>
+<p>HOFs can be put into libraries to enable code reuse!</p>
+<p>They make you think in terms of standard patterns</p>
+<p>Enabled the “big data” revolution e.g. <em>MapReduce</em>, <em>Spark</em></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>That’s all folks!</p>
                 <hr>
             </div>
         </div>
