@@ -16,9 +16,9 @@ mins over the deadline is equal to 1 late day.
 
 - [HW #2](https://github.com/cse130-sp18/02-random-art): Random Art (due ~~Fri 4/27~~ Mon 4/30 by 23:59pm)
 
-<!--
-- [HW #3](assignments/03-fold.html), due Wed 5/10  by 23:59pm
+- [HW #3](https://github.com/cse130-sp18/03-fold): All about Fold (due Fri 5/11 by 23:59pm)
 
+<!--
 - [HW #4](assignments/04-nanoml.html), due Wed 5/31 by 23:59pm
 
 - [HW #5](assignments/05-logic.html), due Sun 6/11 by 23:59pm
