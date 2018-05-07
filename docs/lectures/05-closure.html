@@ -376,7 +376,10 @@ x <span class="fu">+</span> y</code></pre></div>
 
 <span class="kw">data</span> <span class="dt">Env</span> <span class="fu">=</span> <span class="fu">...</span> <span class="co">-- representation not that important</span>
 
+<span class="co">-- | Add a new binding</span>
 <span class="ot">add    ::</span> <span class="dt">Id</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Env</span>
+
+<span class="co">-- | Lookup the most recently added binding</span>
 lookup<span class="ot"> ::</span> <span class="dt">Id</span> <span class="ot">-&gt;</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="evaluating-expressions">Evaluating expressions</h2>

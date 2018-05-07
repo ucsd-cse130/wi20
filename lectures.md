@@ -22,7 +22,7 @@ Lecture schedule is subject to change!
 | 4/30       | Higher Order Functions        | [html][lec4]              |               |
 | 5/2        | contd.                        |                           |               |
 | 5/4        | **Midterm**                   |                           |               |
-| 5/7        | Environments and Closures     |                           |               |
+| 5/7        | Environments and Closures     | [html][lec5]              |               |
 | 5/9        | contd.                        |                           |               |
 | 5/11       | contd.                        |                           |               |
 | 5/14       | Lexing and Parsing            |                           |               |
@@ -53,6 +53,7 @@ Lecture schedule is subject to change!
 [lec2]: lectures/02-haskell.html
 [lec3]: lectures/03-datatypes.html
 [lec4]: lectures/04-hof.html
+[lec5]: lectures/05-closure.html
 
 
 [elsa]: https://github.com/ucsd-progsys/elsa
