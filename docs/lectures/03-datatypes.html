@@ -827,8 +827,8 @@ facTR n <span class="fu">=</span> loop <span class="dv">1</span> n
   <span class="kw">where</span>
 <span class="ot">    loop ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
     loop acc n
-      <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">==</span> acc
-      <span class="fu">|</span> otherwise <span class="fu">==</span> loop (acc <span class="fu">*</span> n) (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
+      <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> acc
+      <span class="fu">|</span> otherwise <span class="fu">=</span> loop (acc <span class="fu">*</span> n) (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
 <p><br> <br> <br> <br></p>
 <p>Lets see how <code class="sourceCode haskell">facTR</code> is evaluated:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&lt;</span>facTR <span class="dv">4</span><span class="fu">&gt;</span>

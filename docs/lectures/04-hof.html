@@ -679,14 +679,24 @@ quiz <span class="fu">=</span> foldl (\xs x <span class="ot">-&gt;</span> x <spa
 <p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
-<p><br> <br> <br> <br> <br></p>
-<p><strong>Pro tip:</strong></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="useful-hof-flip">Useful HOF: flip</h3>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- you can write</span>
 foldl (\xs x <span class="ot">-&gt;</span> x <span class="fu">:</span> xs) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
 
 <span class="co">-- more concisely like so:</span>
 foldl (flip (<span class="fu">:</span>))        [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
 <p>What is the type of <code class="sourceCode haskell">flip</code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">flip<span class="ot"> ::</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="useful-hof-compose">Useful HOF: compose</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- you can write</span>
+map (\x <span class="ot">-&gt;</span> f (g x)) ys
+
+<span class="co">-- more concisely like so:</span>
+map (f <span class="fu">.</span> g) ys</code></pre></div>
+<p>What is the type of <code class="sourceCode haskell">(<span class="fu">.</span>)</code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.) ::</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-fold-left-pattern-1">The “fold-left” pattern</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl f b                     [x1, x2, x3, x4]
@@ -720,15 +730,30 @@ foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1<
 foldr<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b  <span class="co">-- Right</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="higher-order-functions">Higher Order Functions</h2>
-<p>Functions taking and returning functions</p>
+<p>Iteration patterns over collections:</p>
 <ul>
 <li><strong>Filter</strong> values in a collection given a <em>predicate</em></li>
 <li><strong>Map</strong> (iterate) a given <em>transformation</em> over a collection</li>
 <li><strong>Fold</strong> (reduce) a collection into a value, given a <em>binary operation</em> to combine results</li>
 </ul>
+<p>Useful helper HOFs:</p>
+<ul>
+<li><strong>Flip</strong> the order of function’s (first two) arguments</li>
+<li><strong>Compose</strong> two functions</li>
+</ul>
 <p><br></p>
-<p>HOFs can be put into libraries to enable code reuse!</p>
-<p>They make you think in terms of standard patterns</p>
+<p>HOFs can be put into libraries to enable modularity</p>
+<ul>
+<li><p>Data structure <strong>library</strong> implements <code class="sourceCode haskell">map</code>, <code class="sourceCode haskell">filter</code>, <code class="sourceCode haskell">fold</code> for its collections</p>
+<ul>
+<li><p>generic efficient implementation</p></li>
+<li><p>generic optimizations: <code class="sourceCode haskell">map f (map g xs) <span class="fu">--&gt;</span> map (f<span class="fu">.</span>g) xs</code></p></li>
+</ul></li>
+<li><p>Data structure <strong>clients</strong> use HOFs with specific operations</p>
+<ul>
+<li>no need to know the implementation of the collection</li>
+</ul></li>
+</ul>
 <p>Enabled the “big data” revolution e.g. <em>MapReduce</em>, <em>Spark</em></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <p>That’s all folks!</p>
