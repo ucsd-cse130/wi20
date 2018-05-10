@@ -21,7 +21,7 @@ Lecture schedule is subject to change!
 | 4/27       | contd.                        |                           | [tail]        |
 | 4/30       | Higher Order Functions        | [html][lec4]              |               |
 | 5/2        | contd.                        |                           |               |
-| 5/4        | **Midterm**                   |                           |               |
+| 5/4        | **Midterm**                   | [exam][midterm] [solution][midterm-sol] | |
 | 5/7        | Environments and Closures     | [html][lec5]              |               |
 | 5/9        | contd.                        |                           |               |
 | 5/11       | contd.                        |                           |               |
@@ -60,3 +60,6 @@ Lecture schedule is subject to change!
 [intro]: /static/raw/Intro.hs
 [datatypes]: /static/raw/Datatypes.hs
 [tail]: /static/raw/Tail.hs
+
+[midterm]: /static/raw/130-midterm-sp18.pdf
+[midterm-sol]: /static/raw/130-midterm-sp18-solution.pdf
