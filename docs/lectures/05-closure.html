@@ -724,8 +724,272 @@ cTimes <span class="dv">2</span></code></pre></div>
         <span class="kw">let</span> g <span class="fu">=</span> \z <span class="ot">-&gt;</span> y <span class="fu">+</span> z <span class="kw">in</span>
         a <span class="fu">+</span> g x <span class="co">-- a is the only free variable!</span>
   <span class="kw">in</span> <span class="fu">...</span>        </code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="evaluator">Evaluator</h2>
+<p>Let’s modify our evaluator to handle functions!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Value</span> <span class="fu">=</span> <span class="dt">VNum</span> <span class="dt">Int</span>
+           <span class="fu">|</span> <span class="dt">VClos</span> <span class="dt">Env</span> <span class="dt">Id</span> <span class="dt">Expr</span> <span class="co">-- env + formal + body</span>
+           
+<span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span>
+eval env (<span class="dt">Num</span> n)        <span class="fu">=</span> <span class="dt">VNum</span> n <span class="co">-- must wrap in VNum now!</span>
+eval env (<span class="dt">Var</span> x)        <span class="fu">=</span> lookup x env
+eval env (<span class="dt">Bin</span> op e1 e2) <span class="fu">=</span> <span class="dt">VNum</span> (f v1 v2)
+  <span class="kw">where</span>
+    (<span class="dt">VNum</span> v1) <span class="fu">=</span> eval env e1
+    (<span class="dt">VNum</span> v2) <span class="fu">=</span> eval env e2
+    f <span class="fu">=</span> <span class="fu">...</span> <span class="co">-- as before</span>
+eval env (<span class="dt">Let</span> x e1 e2) <span class="fu">=</span> eval env' e2
+  <span class="kw">where</span>
+    v <span class="fu">=</span> eval env e1
+    env' <span class="fu">=</span> add x v env
+eval env (<span class="dt">Lam</span> x body) <span class="fu">=</span> <span class="fu">???</span> <span class="co">-- construct a closure</span>
+eval env (<span class="dt">App</span> fun arg) <span class="fu">=</span> <span class="fu">???</span> <span class="co">-- eval fun, then arg, then apply</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>Evaluating functions:</p>
+<ul>
+<li><strong>Construct a closure</strong>: save environment at function definition</li>
+<li><strong>Apply a closure</strong>: restore saved environment, add formal, evaluate the body</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span>
+<span class="fu">...</span>
+eval env (<span class="dt">Lam</span> x body) <span class="fu">=</span> <span class="dt">VClos</span> env x body
+eval env (<span class="dt">App</span> fun arg) <span class="fu">=</span> eval bodyEnv body
+  <span class="kw">where</span>
+    (<span class="dt">VClos</span> closEnv x body) <span class="fu">=</span> eval env fun <span class="co">-- eval function to closure</span>
+    vArg                   <span class="fu">=</span> eval env arg <span class="co">-- eval argument</span>
+    bodyEnv                <span class="fu">=</span> add x vArg closEnv</code></pre></div>
+<h2 id="quiz-5">QUIZ</h2>
+<p>With <code class="sourceCode haskell">eval</code> as defined above, what does this evaluate to?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> f <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> y <span class="kw">in</span>
+<span class="kw">let</span> y <span class="fu">=</span> <span class="dv">10</span> <span class="kw">in</span>
+f <span class="dv">5</span></code></pre></div>
+<p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dv">15</span></code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">5</span></code></p>
+<p><strong>(C)</strong> Error: unbound variable <code class="sourceCode haskell">x</code></p>
+<p><strong>(D)</strong> Error: unbound variable <code class="sourceCode haskell">y</code></p>
+<p><strong>(E)</strong> Error: unbound variable <code class="sourceCode haskell">f</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;f&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>))) <span class="fu">...</span>)
+<span class="ot">=&gt;</span> eval [(<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>)))]
+    (<span class="dt">Let</span> <span class="st">&quot;y&quot;</span> (<span class="dt">Num</span> <span class="dv">10</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) (<span class="dt">Num</span> <span class="dv">5</span>)))
+<span class="ot">=&gt;</span> eval [(<span class="st">&quot;y&quot;</span>,<span class="dt">VNum</span> <span class="dv">10</span>), (<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> <span class="fu">...</span>)]
+    (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) (<span class="dt">Num</span> <span class="dv">5</span>))
+<span class="ot">=&gt;</span> eval [(<span class="st">&quot;y&quot;</span>,<span class="dt">VNum</span> <span class="dv">10</span>), (<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> <span class="fu">...</span>)]
+    (<span class="dt">App</span> (<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>))) (<span class="dt">Num</span> <span class="dv">5</span>))    
+<span class="ot">=&gt;</span> eval [(<span class="st">&quot;x&quot;</span>,<span class="dt">VNum</span> <span class="dv">5</span>)] <span class="co">-- env got replaced by closure env + formal!</span>
+     (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>))</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-6">QUIZ</h2>
+<p>With <code class="sourceCode haskell">eval</code> as defined above, what does this evaluate to?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> f <span class="fu">=</span> \n <span class="ot">-&gt;</span> n <span class="fu">*</span> f (n <span class="fu">-</span> <span class="dv">1</span>) <span class="kw">in</span>
+f <span class="dv">5</span></code></pre></div>
+<p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dv">120</span></code></p>
+<p><strong>(B)</strong> Evaluation does not terminate</p>
+<p><strong>(C)</strong> Error: unbound variable <code class="sourceCode haskell">f</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;f&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;n&quot;</span> <span class="fu">...</span>) <span class="fu">...</span>)
+<span class="ot">=&gt;</span> eval [(<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;n&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>)))]
+    (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) (<span class="dt">Num</span> <span class="dv">5</span>))
+<span class="ot">=&gt;</span> eval [(<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;n&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>)))]
+    (<span class="dt">App</span> (<span class="dt">VClos</span> [] <span class="st">&quot;n&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>))) (<span class="dt">Num</span> <span class="dv">5</span>))   
+<span class="ot">=&gt;</span> eval [(<span class="st">&quot;n&quot;</span>,<span class="dt">VNum</span> <span class="dv">5</span>)] <span class="co">-- env got replaced by closure env + formal!</span>
+    (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>)) <span class="co">-- f is unbound!</span></code></pre></div>
+<p><strong>Lesson learned:</strong> to support recursion, we need a different way of constructing the closure environment!</p>
+<ul>
+<li>This is part of HW4</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="formalizing-nano">Formalizing Nano</h2>
+<p><strong>Goal:</strong> we want to guarantee properties about programs, such as:</p>
+<ul>
+<li>evaluation is deterministic</li>
+<li>all programs terminate</li>
+<li>certain programs never fail at run time</li>
+<li>etc.</li>
+</ul>
+<p>To prove theorems about programs we first need to define formally</p>
+<ul>
+<li>their <em>syntax</em> (what programs look like)</li>
+<li>their <em>semantics</em> (what it means to run a program)</li>
+</ul>
+<p>Let’s formalize Nano w/o functions and prove some stuff!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="nano-syntax">Nano: Syntax</h2>
+<p>We need to define the syntax for <em>expressions</em> (<em>terms</em>) and <em>values</em> using a grammar:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">e <span class="ot">::</span><span class="fu">=</span> n <span class="fu">|</span> x             <span class="co">-- expressions</span>
+    <span class="fu">|</span> e1 <span class="fu">+</span> e2
+    <span class="fu">|</span> <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2
+
+v <span class="ot">::</span><span class="fu">=</span> n                 <span class="co">-- values</span></code></pre></div>
+<p>where <span class="math inline"><em>n</em> ∈ ℕ, <em>x</em> ∈ <em>V</em><em>a</em><em>r</em></span></p>
+<p><br> <br> <br></p>
+<h2 id="nano-operational-semantics">Nano: Operational Semantics</h2>
+<p><strong>Operational semantics</strong> defines how to execute a program step by step</p>
 <p><br></p>
-<p>Should we also save <code class="sourceCode haskell">f</code> itself???</p>
+<p>Let’s define a <em>step relation</em> (<em>reduction relation</em>) <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code></p>
+<ul>
+<li>where <span class="math inline"><em>S</em>: <em>V</em><em>a</em><em>r</em> → ℕ</span> is an environment</li>
+<li>a pair <code class="sourceCode haskell"><span class="dt">S</span>,e</code> of an environment and an expression is called a <em>configuration</em> (or <em>evaluation state</em>)</li>
+<li>we read this as “expression <code class="sourceCode haskell">e</code> in an environment <code class="sourceCode haskell"><span class="dt">S</span></code> makes a step to an expression <code class="sourceCode haskell">e'</code> and a new environment <code class="sourceCode haskell"><span class="dt">S'</span></code>”</li>
+</ul>
+<p><br></p>
+<p>We define this relation <em>inductively</em> through a set of <em>rules</em>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dt">Var</span>]     <span class="dt">S</span>, x <span class="ot">=&gt;</span> <span class="dt">S</span>, s[x]          <span class="kw">if</span> x <span class="kw">in</span> dom(<span class="dt">S</span>)
+
+[<span class="dt">Add</span>]     <span class="dt">S</span>, n1 <span class="fu">+</span> n2 <span class="ot">=&gt;</span> <span class="dt">S</span>, n       <span class="kw">where</span> n <span class="fu">==</span> n1 <span class="fu">+</span> n2
+
+               <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'        <span class="co">-- premise</span>
+[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>]   <span class="fu">--------------------------</span>
+          <span class="dt">S</span>, e1 <span class="fu">+</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1' <span class="fu">+</span> e2   <span class="co">-- conclusion</span>
+
+               <span class="dt">S</span>, e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e2'
+[<span class="dt">Add</span><span class="fu">-</span><span class="dt">R</span>]   <span class="fu">--------------------------</span>
+          <span class="dt">S</span>, n1 <span class="fu">+</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, n1 <span class="fu">+</span> e2'
+        
+[<span class="dt">Let</span>]     <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> n <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S</span>[x<span class="ot">-&gt;</span>n], e2
+
+                        <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
+[<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>] <span class="fu">--------------------------------------------</span>
+          <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, <span class="kw">let</span> x <span class="fu">=</span> e1' <span class="kw">in</span> e2</code></pre></div>
+<p><br></p>
+<p>There are two important observations to make about the step relation.</p>
+<p><br> <br> <br> <br> <br></p>
+<h3 id="normal-forms">1. Normal forms</h3>
+<p>There are no reduction rules for:</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="dt">S</span>,n</code></li>
+<li><code class="sourceCode haskell"><span class="dt">S</span>,x</code> where <code class="sourceCode haskell">not (x <span class="kw">in</span> dom(<span class="dt">S</span>))</code></li>
+</ul>
+<p>Both of these states are <em>normal forms</em> (cannot be further reduced), however:</p>
+<ul>
+<li>in <code class="sourceCode haskell"><span class="dt">S</span>,n</code>, the expression <code class="sourceCode haskell">n</code> is a <em>value</em>
+<ul>
+<li>intuitively, corresponds to successful evaluation</li>
+</ul></li>
+<li>in <code class="sourceCode haskell"><span class="dt">S</span>,x</code>, the expression <code class="sourceCode haskell">x</code> is <em>not</em> a value
+<ul>
+<li>intuitively, corresponds to a run-time error!</li>
+<li>we say that a configuration <code class="sourceCode haskell"><span class="dt">S</span>,x</code> is <strong>stuck</strong></li>
+</ul></li>
+</ul>
+<p><br> <br> <br> <br><br />
+<br></p>
+<h3 id="evaluation-order">2. Evaluation order</h3>
+<p>In <code class="sourceCode haskell">e1 <span class="fu">+</span> e2</code>, which side should we evaluate first?</p>
+<p>In other words, which one of these reductions is valid (or both)?</p>
+<ol style="list-style-type: decimal">
+<li><code class="sourceCode haskell"><span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="dv">3</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> <span class="dv">5</span>)</code></li>
+<li><code class="sourceCode haskell"><span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> <span class="dv">9</span></code></li>
+</ol>
+<p><br> <br></p>
+<p>Reduction (1) is <em>valid</em> because we can build a <strong>derivation</strong> using the rules:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">               [<span class="dt">Add</span>] <span class="fu">----------------</span>
+                     <span class="dt">S</span>, <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="ot">=&gt;</span> <span class="dt">S</span>, <span class="dv">3</span>
+[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>] <span class="fu">----------------------------------------</span>
+        <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="dv">3</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> <span class="dv">5</span>)</code></pre></div>
+<p>Reduction (2) is <em>invalid</em> because we cannot build a derivation:</p>
+<ul>
+<li>there is <em>no rule</em> whose conclusion matches this reduction!</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">                           <span class="fu">???</span> 
+[<span class="fu">???</span>] <span class="fu">----------------------------------------</span>
+      <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> <span class="dv">9</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-7">QUIZ</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dt">Let</span>]     <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> n <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S</span>[x<span class="ot">-&gt;</span>n], e2
+
+                        <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
+[<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>] <span class="fu">--------------------------------------------</span>
+          <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, <span class="kw">let</span> x <span class="fu">=</span> e1' <span class="kw">in</span> e2</code></pre></div>
+<p>If these are the only rules for <code class="sourceCode haskell"><span class="kw">let</span></code> bindings are, which reductions are valid?</p>
+<p><strong>(A)</strong> <code class="sourceCode haskell">(<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)</code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">(<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">9</span> <span class="fu">+</span> x)</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">(<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
+<p><strong>(D)</strong> A and B</p>
+<p><strong>(E)</strong> All of the above</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="evaluation-relation">Evaluation relation</h2>
+<p>Like in <span class="math inline"><em>λ</em></span>-calculus, we define the <strong>multi-step reduction</strong> relation <code class="sourceCode haskell"><span class="dt">S</span>, e <span class="fu">=*&gt;</span> <span class="dt">S'</span>, e'</code>:</p>
+<p><code class="sourceCode haskell"><span class="dt">S</span>, e <span class="fu">=*&gt;</span> <span class="dt">S'</span>, e'</code> iff there exists a sequence of states <code class="sourceCode haskell">(<span class="dt">S1</span>, e1), <span class="fu">...</span>, (<span class="dt">Sn</span>, en)</code> such that</p>
+<ul>
+<li><code class="sourceCode haskell">(<span class="dt">S</span>, e) <span class="fu">=</span> (<span class="dt">S1</span>, e1)</code></li>
+<li><code class="sourceCode haskell">(<span class="dt">Sn</span>, en) <span class="fu">=</span> (<span class="dt">S'</span>, e')</code></li>
+<li><code class="sourceCode haskell"><span class="dt">Si</span>, ei <span class="ot">=&gt;</span> <span class="dt">S</span>(i<span class="fu">+</span><span class="dv">1</span>), e(i<span class="fu">+</span><span class="dv">1</span>)</code> for each <code class="sourceCode haskell">i <span class="kw">in</span> [<span class="dv">0</span><span class="fu">..</span>n)</code></li>
+</ul>
+<p><br></p>
+<p>Now we define the <strong>evaluation relation</strong> <code class="sourceCode haskell"><span class="dt">S</span>, e <span class="fu">=~&gt;</span> <span class="dt">S'</span>, e'</code>:</p>
+<p><code class="sourceCode haskell"><span class="dt">S</span>,e <span class="fu">=~&gt;</span> <span class="dt">S'</span>,e'</code> iff</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="dt">S</span>, e <span class="fu">=*&gt;</span> <span class="dt">S'</span>, e'</code></li>
+<li><code class="sourceCode haskell"><span class="dt">S'</span>, e'</code> is in normal form</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="theorem-termination">Theorem: Termination</h2>
+<p>Let’s prove something about Nano!</p>
+<p><strong>Theorem I</strong> [Termination]: For any state <code class="sourceCode haskell"><span class="dt">S</span>,e</code> there exists <code class="sourceCode haskell"><span class="dt">S'</span>,e'</code> such that <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="fu">=~&gt;</span> <span class="dt">S'</span>,e'</code>.</p>
+<p>Proof idea: let’s define the <em>size</em> of an expression such that</p>
+<ul>
+<li>size of each expression is positive</li>
+<li>each reduction step strictly decreases the size</li>
+</ul>
+<p>Then the length of the execution sequence for <code class="sourceCode haskell"><span class="dt">S</span>,e</code> is <em>bounded</em> by the size of <code class="sourceCode haskell">e</code>!</p>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">size n                  <span class="fu">=</span> <span class="fu">???</span>
+size x                  <span class="fu">=</span> <span class="fu">???</span>
+size (e1 <span class="fu">+</span> e1)          <span class="fu">=</span> <span class="fu">???</span>
+size (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">size n                  <span class="fu">=</span> <span class="dv">1</span>
+size x                  <span class="fu">=</span> <span class="dv">2</span>
+size (e1 <span class="fu">+</span> e1)          <span class="fu">=</span> size e1 <span class="fu">+</span> size e2
+size (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">=</span> size e1 <span class="fu">+</span> size e2</code></pre></div>
+<p><strong>Lemma</strong>: For any <code class="sourceCode haskell"><span class="dt">S</span>, e, <span class="dt">S'</span>, e'</code> such that <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code>:</p>
+<ul>
+<li><code class="sourceCode haskell">size e' <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
+<li><code class="sourceCode haskell">size e' <span class="fu">&lt;</span> size e</code></li>
+</ul>
+<p><strong>Proof:</strong> By induction on the <em>derivation</em> of <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code>.</p>
+<p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Var</span>]</code>.</p>
+<ul>
+<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Var</span>]</code>: <code class="sourceCode haskell"><span class="dt">S</span>, x <span class="ot">=&gt;</span> <span class="dt">S</span>, n</code> where <code class="sourceCode haskell">n <span class="fu">=</span> s[x]</code></li>
+<li>To prove: <code class="sourceCode haskell">size n <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
+<li>To prove: <code class="sourceCode haskell">size n <span class="fu">&lt;</span> size x</code></li>
+<li>Follows by def. of <code class="sourceCode haskell">size</code>: <code class="sourceCode haskell">size n <span class="fu">=</span> <span class="dv">1</span></code>, <code class="sourceCode haskell">size x <span class="fu">=</span> <span class="dv">2</span></code></li>
+</ul>
+<p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Add</span>]</code>.</p>
+<ul>
+<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Add</span>]</code>: <code class="sourceCode haskell"><span class="dt">S</span>, n1 <span class="fu">+</span> n2 <span class="ot">=&gt;</span> <span class="dt">S</span>, n</code></li>
+</ul>
+<p><em>Inductive case</em> <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>]</code>.</p>
+<ul>
+<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>]</code>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">     <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
+<span class="fu">--------------------------</span>
+<span class="dt">S</span>, e1 <span class="fu">+</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1' <span class="fu">+</span> e2</code></pre></div>
+<ul>
+<li>To prove: <code class="sourceCode haskell">size (e1' <span class="fu">+</span> e2) <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
+<li>To prove: <code class="sourceCode haskell">size (e1' <span class="fu">+</span> e2) <span class="fu">&lt;</span> size (e1 <span class="fu">+</span> e2)</code></li>
+<li>IH1: <code class="sourceCode haskell">size e1' <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
+<li>IH2: <code class="sourceCode haskell">size e1' <span class="fu">&lt;</span> size e1</code></li>
+<li>Follows by IH and definition of <code class="sourceCode haskell">size</code></li>
+</ul>
+<p>…</p>
+<p><strong>QED.</strong></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="theorem-closed-programs-dont-get-stuck">Theorem: Closed Programs don’t Get Stuck</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fv n                  <span class="fu">=</span> {}
+fv x                  <span class="fu">=</span> {x}
+fv (e1 <span class="fu">+</span> e1)          <span class="fu">=</span> fv e1 <span class="fu">+</span> fv e2
+fv (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">=</span> fv e1 <span class="fu">+</span> (fv e2 <span class="fu">/</span> {x})</code></pre></div>
+<p><strong>Theorem II</strong> [No errors]: For any <code class="sourceCode haskell">e</code> such that <code class="sourceCode haskell">fv e <span class="fu">=</span> {}</code> if <code class="sourceCode haskell">[],e <span class="fu">=*&gt;</span> <span class="dt">S'</span>,e'</code> and <code class="sourceCode haskell"><span class="dt">S'</span>,e'</code> is in normal form, then <code class="sourceCode haskell">e'</code> is a value.</p>
+<p>Proof idea: proof by induction on the number of reduction steps</p>
+<ul>
+<li>for each reduction step, if we weren’t stuck before, we’re not stuck after</li>
+<li>but in the middle of execution, our term might have free variables!</li>
+<li>need to <em>generalize</em> the theorem so that we can prove it by induction</li>
+</ul>
+<p><strong>Lemma</strong>: For any <code class="sourceCode haskell"><span class="dt">S</span>,e</code>, if <code class="sourceCode haskell">fv e <span class="fu">&lt;=</span> dom <span class="dt">S</span></code>, then there exists <code class="sourceCode haskell"><span class="dt">S'</span>,e'</code> such that <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code>, <code class="sourceCode haskell">fv e' <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code>, and <code class="sourceCode haskell">dom <span class="dt">S</span> <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
                 <hr>
             </div>
