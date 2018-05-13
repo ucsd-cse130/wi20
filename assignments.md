@@ -18,6 +18,8 @@ mins over the deadline is equal to 1 late day.
 
 - [HW #3](https://github.com/cse130-sp18/03-fold): All about Fold (due Fri 5/11 by 23:59pm)
 
+- [HW #4](https://github.com/cse130-sp18/04-nano): Nano (due Fri 5/18 by 23:59pm)
+
 <!--
 - [HW #4](assignments/04-nanoml.html), due Wed 5/31 by 23:59pm
 
