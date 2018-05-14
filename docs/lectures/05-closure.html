@@ -812,9 +812,9 @@ f <span class="dv">5</span></code></pre></div>
 <li>their <em>syntax</em> (what programs look like)</li>
 <li>their <em>semantics</em> (what it means to run a program)</li>
 </ul>
-<p>Let’s formalize Nano w/o functions and prove some stuff!</p>
+<p>Let’s start with Nano1 (Nano w/o functions) and prove some stuff!</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
-<h2 id="nano-syntax">Nano: Syntax</h2>
+<h2 id="nano1-syntax">Nano1: Syntax</h2>
 <p>We need to define the syntax for <em>expressions</em> (<em>terms</em>) and <em>values</em> using a grammar:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">e <span class="ot">::</span><span class="fu">=</span> n <span class="fu">|</span> x             <span class="co">-- expressions</span>
     <span class="fu">|</span> e1 <span class="fu">+</span> e2
@@ -823,7 +823,7 @@ f <span class="dv">5</span></code></pre></div>
 v <span class="ot">::</span><span class="fu">=</span> n                 <span class="co">-- values</span></code></pre></div>
 <p>where <span class="math inline"><em>n</em> ∈ ℕ, <em>x</em> ∈ <em>V</em><em>a</em><em>r</em></span></p>
 <p><br> <br> <br></p>
-<h2 id="nano-operational-semantics">Nano: Operational Semantics</h2>
+<h2 id="nano1-operational-semantics">Nano1: Operational Semantics</h2>
 <p><strong>Operational semantics</strong> defines how to execute a program step by step</p>
 <p><br></p>
 <p>Let’s define a <em>step relation</em> (<em>reduction relation</em>) <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code></p>
@@ -846,7 +846,7 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
 [<span class="dt">Add</span><span class="fu">-</span><span class="dt">R</span>]   <span class="fu">--------------------------</span>
           <span class="dt">S</span>, n1 <span class="fu">+</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, n1 <span class="fu">+</span> e2'
         
-[<span class="dt">Let</span>]     <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> n <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S</span>[x<span class="ot">-&gt;</span>n], e2
+[<span class="dt">Let</span>]     <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> v <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S</span>[x<span class="ot">-&gt;</span>v], e2
 
                         <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
 [<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>] <span class="fu">--------------------------------------------</span>
@@ -878,7 +878,7 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
 <p>In <code class="sourceCode haskell">e1 <span class="fu">+</span> e2</code>, which side should we evaluate first?</p>
 <p>In other words, which one of these reductions is valid (or both)?</p>
 <ol style="list-style-type: decimal">
-<li><code class="sourceCode haskell"><span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="dv">3</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> <span class="dv">5</span>)</code></li>
+<li><code class="sourceCode haskell"><span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)</code></li>
 <li><code class="sourceCode haskell"><span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> <span class="dv">9</span></code></li>
 </ol>
 <p><br> <br></p>
@@ -886,7 +886,7 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">               [<span class="dt">Add</span>] <span class="fu">----------------</span>
                      <span class="dt">S</span>, <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="ot">=&gt;</span> <span class="dt">S</span>, <span class="dv">3</span>
 [<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>] <span class="fu">----------------------------------------</span>
-        <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="dv">3</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> <span class="dv">5</span>)</code></pre></div>
+        <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)</code></pre></div>
 <p>Reduction (2) is <em>invalid</em> because we cannot build a derivation:</p>
 <ul>
 <li>there is <em>no rule</em> whose conclusion matches this reduction!</li>
@@ -896,15 +896,15 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
       <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> <span class="dv">9</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-7">QUIZ</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dt">Let</span>]     <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> n <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S</span>[x<span class="ot">-&gt;</span>n], e2
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dt">Let</span>]     <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> v <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S</span>[x<span class="ot">-&gt;</span>v], e2
 
                         <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
 [<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>] <span class="fu">--------------------------------------------</span>
           <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, <span class="kw">let</span> x <span class="fu">=</span> e1' <span class="kw">in</span> e2</code></pre></div>
 <p>If these are the only rules for <code class="sourceCode haskell"><span class="kw">let</span></code> bindings are, which reductions are valid?</p>
-<p><strong>(A)</strong> <code class="sourceCode haskell">(<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)</code></p>
-<p><strong>(B)</strong> <code class="sourceCode haskell">(<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">9</span> <span class="fu">+</span> x)</code></p>
-<p><strong>(C)</strong> <code class="sourceCode haskell">(<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
+<p><strong>(A)</strong> <code class="sourceCode haskell">[], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  [], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)</code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">[], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  [], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">9</span> <span class="fu">+</span> x)</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">[], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  [], (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
 <p><strong>(D)</strong> A and B</p>
 <p><strong>(E)</strong> All of the above</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
@@ -917,15 +917,88 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
 <li><code class="sourceCode haskell"><span class="dt">Si</span>, ei <span class="ot">=&gt;</span> <span class="dt">S</span>(i<span class="fu">+</span><span class="dv">1</span>), e(i<span class="fu">+</span><span class="dv">1</span>)</code> for each <code class="sourceCode haskell">i <span class="kw">in</span> [<span class="dv">0</span><span class="fu">..</span>n)</code></li>
 </ul>
 <p><br></p>
+<p><em>Example:</em></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    [], (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  
+<span class="fu">=*&gt;</span> [], <span class="dv">3</span> <span class="fu">+</span> <span class="dv">9</span></code></pre></div>
+<p>because</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   [], (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  
+<span class="ot">=&gt;</span> [], <span class="dv">3</span>       <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)
+<span class="ot">=&gt;</span> [], <span class="dv">3</span>       <span class="fu">+</span> <span class="dv">9</span></code></pre></div>
+<p><br> <br></p>
 <p>Now we define the <strong>evaluation relation</strong> <code class="sourceCode haskell"><span class="dt">S</span>, e <span class="fu">=~&gt;</span> <span class="dt">S'</span>, e'</code>:</p>
 <p><code class="sourceCode haskell"><span class="dt">S</span>,e <span class="fu">=~&gt;</span> <span class="dt">S'</span>,e'</code> iff</p>
 <ul>
 <li><code class="sourceCode haskell"><span class="dt">S</span>, e <span class="fu">=*&gt;</span> <span class="dt">S'</span>, e'</code></li>
 <li><code class="sourceCode haskell"><span class="dt">S'</span>, e'</code> is in normal form</li>
 </ul>
+<p><br></p>
+<p>Example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    [], (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  
+<span class="fu">=~&gt;</span> [], <span class="dv">12</span></code></pre></div>
+<p>because</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   [], (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)  
+<span class="ot">=&gt;</span> [], <span class="dv">3</span>       <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>)
+<span class="ot">=&gt;</span> [], <span class="dv">3</span>       <span class="fu">+</span> <span class="dv">9</span>
+<span class="ot">=&gt;</span> [], <span class="dv">12</span></code></pre></div>
+<p>and <code class="sourceCode haskell"><span class="dv">12</span></code> is a <em>value</em> (normal form)</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="theorems-about-nano1">Theorems about Nano1</h2>
+<p>Let’s prove something about Nano1!</p>
+<ol style="list-style-type: decimal">
+<li>Every Nano1 program terminates</li>
+<li>Closed Nano1 programs don’t get stuck<br />
+</li>
+<li><em>Corollary (1 + 2):</em> Every closed Nano1 program evaluates to a value</li>
+</ol>
+<p><br></p>
+<p>How do we prove theorems about languages?</p>
+<p><strong>By induction.</strong></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="mathematical-induction-in-pl">Mathematical induction in PL</h2>
+<h3 id="induction-on-natural-numbers">1. Induction on natural numbers</h3>
+<p>To prove <span class="math inline">∀<em>n</em>.<em>P</em>(<em>n</em>)</span> we need to prove:</p>
+<ul>
+<li><em>Base case:</em> <span class="math inline"><em>P</em>(0)</span></li>
+<li><em>Inductive case:</em> <span class="math inline"><em>P</em>(<em>n</em> + 1)</span> assuming the <em>induction hypothesis</em> (IH): that <span class="math inline"><em>P</em>(<em>n</em>)</span> holds</li>
+</ul>
+<p><br></p>
+<p>Compare with inductive definition for natural numbers:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">Zero</span>     <span class="co">-- base case</span>
+         <span class="fu">|</span> <span class="dt">Succ</span> <span class="dt">Nat</span> <span class="co">-- inductive case</span></code></pre></div>
+<p>No reason why this would only work for natural numbers…</p>
+<p>In fact we can do induction on <em>any</em> inductively defined mathematical object (= any datatype)!</p>
+<ul>
+<li>lists</li>
+<li>trees</li>
+<li>programs (terms)</li>
+<li>etc</li>
+</ul>
+<p><br> <br> <br></p>
+<h3 id="induction-on-terms">2. Induction on terms</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">e <span class="ot">::</span><span class="fu">=</span> n <span class="fu">|</span> x
+    <span class="fu">|</span> e1 <span class="fu">+</span> e2
+    <span class="fu">|</span> <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2</code></pre></div>
+<p>To prove <span class="math inline">∀<em>e</em>.<em>P</em>(<em>e</em>)</span> we need to prove:</p>
+<ul>
+<li><em>Base case 1:</em> <code class="sourceCode haskell"><span class="dt">P</span>(n)</code></li>
+<li><em>Base case 2:</em> <code class="sourceCode haskell"><span class="dt">P</span>(x)</code></li>
+<li><em>Inductive case 1:</em> <code class="sourceCode haskell"><span class="dt">P</span>(e1 <span class="fu">+</span> e2)</code> assuming the IH: that <code class="sourceCode haskell"><span class="dt">P</span>(e1)</code> and <code class="sourceCode haskell"><span class="dt">P</span>(e2)</code> hold</li>
+<li><em>Inductive case 2:</em> <code class="sourceCode haskell"><span class="dt">P</span>(<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2)</code> assuming the IH: that <code class="sourceCode haskell"><span class="dt">P</span>(e1)</code> and <code class="sourceCode haskell"><span class="dt">P</span>(e2)</code> hold</li>
+</ul>
+<p><br> <br> <br></p>
+<h3 id="induction-on-derivations">3. Induction on derivations</h3>
+<p>Our reduction relation <code class="sourceCode haskell"><span class="ot">=&gt;</span></code> is also defined <em>inductively</em>!</p>
+<ul>
+<li>Axioms are bases cases</li>
+<li>Rules with premises are inductive cases</li>
+</ul>
+<p>To prove <span class="math inline">∀<em>S</em>, <em>e</em>, <em>S</em>′,<em>e</em>′.<em>P</em>(<em>S</em>, <em>e</em> ⇒ <em>S</em>′,<em>e</em>′)</span> we need to prove:</p>
+<ul>
+<li><em>Base cases:</em> <code class="sourceCode haskell">[<span class="dt">Var</span>]</code>, <code class="sourceCode haskell">[<span class="dt">Add</span>]</code>, <code class="sourceCode haskell">[<span class="dt">Let</span>]</code></li>
+<li><em>Inductive cases:</em> <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>]</code>, <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">R</span>]</code>, <code class="sourceCode haskell">[<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>]</code> assuming the IH: that <code class="sourceCode haskell"><span class="dt">P</span></code> holds of their premise</li>
+</ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="theorem-termination">Theorem: Termination</h2>
-<p>Let’s prove something about Nano!</p>
 <p><strong>Theorem I</strong> [Termination]: For any state <code class="sourceCode haskell"><span class="dt">S</span>,e</code> there exists <code class="sourceCode haskell"><span class="dt">S'</span>,e'</code> such that <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="fu">=~&gt;</span> <span class="dt">S'</span>,e'</code>.</p>
 <p>Proof idea: let’s define the <em>size</em> of an expression such that</p>
 <ul>
@@ -939,27 +1012,30 @@ size x                  <span class="fu">=</span> <span class="fu">???</span>
 size (e1 <span class="fu">+</span> e1)          <span class="fu">=</span> <span class="fu">???</span>
 size (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>Term size:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">size n                  <span class="fu">=</span> <span class="dv">1</span>
 size x                  <span class="fu">=</span> <span class="dv">2</span>
 size (e1 <span class="fu">+</span> e1)          <span class="fu">=</span> size e1 <span class="fu">+</span> size e2
 size (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">=</span> size e1 <span class="fu">+</span> size e2</code></pre></div>
-<p><strong>Lemma</strong>: For any <code class="sourceCode haskell"><span class="dt">S</span>, e, <span class="dt">S'</span>, e'</code> such that <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code>:</p>
+<p><strong>Lemma 1</strong>: For any <code class="sourceCode haskell">e</code>, <code class="sourceCode haskell">size e <span class="fu">&gt;</span> <span class="dv">0</span></code>.</p>
+<p><strong>Proof:</strong> By induction on the <em>term</em> <code class="sourceCode haskell">e</code>.</p>
 <ul>
-<li><code class="sourceCode haskell">size e' <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
-<li><code class="sourceCode haskell">size e' <span class="fu">&lt;</span> size e</code></li>
+<li><em>Base case 1:</em> <code class="sourceCode haskell">size n <span class="fu">=</span> <span class="dv">1</span> <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
+<li><em>Base case 2:</em> <code class="sourceCode haskell">size x <span class="fu">=</span> <span class="dv">2</span> <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
+<li><em>Inductive case 1:</em> <code class="sourceCode haskell">size (e1 <span class="fu">+</span> e2) <span class="fu">=</span> size e1 <span class="fu">+</span> size e2 <span class="fu">&gt;</span> <span class="dv">0</span></code> because <code class="sourceCode haskell">size e1 <span class="fu">&gt;</span> <span class="dv">0</span></code> and <code class="sourceCode haskell">size e2 <span class="fu">&gt;</span> <span class="dv">0</span></code> by IH.</li>
+<li><em>Inductive case 2:</em> similar.</li>
 </ul>
+<p><strong>QED.</strong></p>
+<p><br> <br> <br> <br></p>
+<p><strong>Lemma 2</strong>: For any <code class="sourceCode haskell"><span class="dt">S</span>, e, <span class="dt">S'</span>, e'</code> such that <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code>, <code class="sourceCode haskell">size e' <span class="fu">&lt;</span> size e</code>.</p>
 <p><strong>Proof:</strong> By induction on the <em>derivation</em> of <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code>.</p>
 <p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Var</span>]</code>.</p>
 <ul>
-<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Var</span>]</code>: <code class="sourceCode haskell"><span class="dt">S</span>, x <span class="ot">=&gt;</span> <span class="dt">S</span>, n</code> where <code class="sourceCode haskell">n <span class="fu">=</span> s[x]</code></li>
-<li>To prove: <code class="sourceCode haskell">size n <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
+<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Var</span>]</code>: <code class="sourceCode haskell"><span class="dt">S</span>,x <span class="ot">=&gt;</span> <span class="dt">S</span>,n</code> where <code class="sourceCode haskell">n <span class="fu">=</span> s[x]</code></li>
 <li>To prove: <code class="sourceCode haskell">size n <span class="fu">&lt;</span> size x</code></li>
-<li>Follows by def. of <code class="sourceCode haskell">size</code>: <code class="sourceCode haskell">size n <span class="fu">=</span> <span class="dv">1</span></code>, <code class="sourceCode haskell">size x <span class="fu">=</span> <span class="dv">2</span></code></li>
+<li><code class="sourceCode haskell">size n <span class="fu">=</span> <span class="dv">1</span> <span class="fu">&lt;</span> <span class="dv">2</span> <span class="fu">=</span> size x</code></li>
 </ul>
-<p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Add</span>]</code>.</p>
-<ul>
-<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Add</span>]</code>: <code class="sourceCode haskell"><span class="dt">S</span>, n1 <span class="fu">+</span> n2 <span class="ot">=&gt;</span> <span class="dt">S</span>, n</code></li>
-</ul>
+<p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Add</span>]</code>. Try at home.</p>
 <p><em>Inductive case</em> <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>]</code>.</p>
 <ul>
 <li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>]</code>:</li>
@@ -968,29 +1044,187 @@ size (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw
 <span class="fu">--------------------------</span>
 <span class="dt">S</span>, e1 <span class="fu">+</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1' <span class="fu">+</span> e2</code></pre></div>
 <ul>
-<li>To prove: <code class="sourceCode haskell">size (e1' <span class="fu">+</span> e2) <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
 <li>To prove: <code class="sourceCode haskell">size (e1' <span class="fu">+</span> e2) <span class="fu">&lt;</span> size (e1 <span class="fu">+</span> e2)</code></li>
-<li>IH1: <code class="sourceCode haskell">size e1' <span class="fu">&gt;</span> <span class="dv">0</span></code></li>
-<li>IH2: <code class="sourceCode haskell">size e1' <span class="fu">&lt;</span> size e1</code></li>
-<li>Follows by IH and definition of <code class="sourceCode haskell">size</code></li>
+<li>IH: <code class="sourceCode haskell">size e1' <span class="fu">&lt;</span> size e1</code></li>
 </ul>
-<p>…</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  size (e1' <span class="fu">+</span> e2) 
+<span class="fu">=</span> <span class="co">-- def. size</span>
+  size e1' <span class="fu">+</span> size e2 
+<span class="fu">&lt;</span> <span class="co">-- IH</span>
+  size e1 <span class="fu">+</span> size e2
+<span class="fu">=</span> <span class="co">-- def. size</span>
+  size (e1 <span class="fu">+</span> e2)</code></pre></div>
+<p><em>Inductive case</em> <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">R</span>]</code>. Try at home</p>
+<p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Let</span>]</code>. Try at home</p>
+<p><em>Inductive case</em> <code class="sourceCode haskell">[<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>]</code>. Try at home</p>
 <p><strong>QED.</strong></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-8">QUIZ</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">                        <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
+[<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>] <span class="fu">--------------------------------------------</span>
+          <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, <span class="kw">let</span> x <span class="fu">=</span> e1' <span class="kw">in</span> e2</code></pre></div>
+<p>What is the IH for the inductive case <code class="sourceCode haskell">[<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>]</code>?</p>
+<p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'</code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">size e1' <span class="fu">&lt;</span> size e1</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">size (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">&lt;</span> size (<span class="kw">let</span> x <span class="fu">=</span> e1' <span class="kw">in</span> e2)</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="theorem-closed-programs-dont-get-stuck">Theorem: Closed Programs don’t Get Stuck</h2>
+<p>First we need to define what are free variables <code class="sourceCode haskell">fv</code> of an expression:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fv n                  <span class="fu">=</span> {}
 fv x                  <span class="fu">=</span> {x}
 fv (e1 <span class="fu">+</span> e1)          <span class="fu">=</span> fv e1 <span class="fu">+</span> fv e2
-fv (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">=</span> fv e1 <span class="fu">+</span> (fv e2 <span class="fu">/</span> {x})</code></pre></div>
-<p><strong>Theorem II</strong> [No errors]: For any <code class="sourceCode haskell">e</code> such that <code class="sourceCode haskell">fv e <span class="fu">=</span> {}</code> if <code class="sourceCode haskell">[],e <span class="fu">=*&gt;</span> <span class="dt">S'</span>,e'</code> and <code class="sourceCode haskell"><span class="dt">S'</span>,e'</code> is in normal form, then <code class="sourceCode haskell">e'</code> is a value.</p>
-<p>Proof idea: proof by induction on the number of reduction steps</p>
+fv (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">=</span> fv e1 <span class="fu">+</span> fv e2 <span class="fu">/</span> {x}</code></pre></div>
+<p><strong>Theorem II</strong> [No errors]: For any <code class="sourceCode haskell">e</code> such that <code class="sourceCode haskell">fv e <span class="fu">=</span> {}</code>, if <code class="sourceCode haskell">[],e <span class="fu">=~&gt;</span> <span class="dt">S'</span>,e'</code> then <code class="sourceCode haskell">e'</code> is a value.</p>
+<p>Proof idea:</p>
 <ul>
-<li>for each reduction step, if we weren’t stuck before, we’re not stuck after</li>
-<li>but in the middle of execution, our term might have free variables!</li>
-<li>need to <em>generalize</em> the theorem so that we can prove it by induction</li>
+<li>Proof by induction on the number of reduction steps</li>
+<li>We can’t get stuck in 0 steps</li>
+<li>With <span class="math inline"><em>k</em> + 1</span> steps: we are never stuck in the first step, and the other <span class="math inline"><em>k</em></span> steps follow by IH?</li>
+<li>But in the middle of evaluation <span class="math inline"><em>e</em></span> might have free variables!</li>
+<li>Need to <em>generalize</em> the theorem so that we can prove it by induction!</li>
 </ul>
-<p><strong>Lemma</strong>: For any <code class="sourceCode haskell"><span class="dt">S</span>,e</code>, if <code class="sourceCode haskell">fv e <span class="fu">&lt;=</span> dom <span class="dt">S</span></code>, then there exists <code class="sourceCode haskell"><span class="dt">S'</span>,e'</code> such that <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code>, <code class="sourceCode haskell">fv e' <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code>, and <code class="sourceCode haskell">dom <span class="dt">S</span> <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code></p>
+<p><br> <br></p>
+<p><strong>Lemma 3</strong>: For any <code class="sourceCode haskell"><span class="dt">S</span>,e</code> such that <code class="sourceCode haskell">fv e <span class="fu">&lt;=</span> dom <span class="dt">S</span></code>, if <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="fu">=~&gt;</span> <span class="dt">S'</span>,e'</code> then <code class="sourceCode haskell">e'</code> is a value</p>
+<p><strong>Proof:</strong> by induction on the number <span class="math inline"><em>k</em></span> of reduction steps:</p>
+<ul>
+<li>Base case (<span class="math inline"><em>k</em> = 0</span>): then <code class="sourceCode haskell"><span class="dt">S'</span>,e' <span class="fu">=</span> <span class="dt">S</span>,e</code>, and since <code class="sourceCode haskell">fv e <span class="fu">&lt;=</span> dom <span class="dt">S</span></code>, then <code class="sourceCode haskell">e</code> can’t be an unbound variable</li>
+<li>Inductive case (<span class="math inline"><em>k</em> &gt; 0</span>): then <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S1</span>,e1 <span class="fu">=~&gt;</span> <span class="dt">S'</span>,e'</code>. To apply IH, we need to show: <code class="sourceCode haskell">fv e1 <span class="fu">&lt;=</span> dom <span class="dt">S1</span></code>. We need an auxiliary lemma!</li>
+</ul>
+<p><br> <br> <br></p>
+<p><strong>Lemma 4</strong>: For any <code class="sourceCode haskell"><span class="dt">S</span>,e</code> such that <code class="sourceCode haskell">fv e <span class="fu">&lt;=</span> dom <span class="dt">S</span></code>, if <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code> then <code class="sourceCode haskell">fv e' <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code>, and <code class="sourceCode haskell">dom <span class="dt">S</span> <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code></p>
+<p><strong>Proof:</strong> By induction on the <em>derivation</em> of <code class="sourceCode haskell"><span class="dt">S</span>,e <span class="ot">=&gt;</span> <span class="dt">S'</span>,e'</code>.</p>
+<p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Var</span>]</code>.</p>
+<ul>
+<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Var</span>]</code>: <code class="sourceCode haskell"><span class="dt">S</span>, x <span class="ot">=&gt;</span> <span class="dt">S</span>, n</code> where <code class="sourceCode haskell">n <span class="fu">=</span> s[x]</code></li>
+<li>To prove: <code class="sourceCode haskell">fv n <span class="fu">&lt;=</span> dom <span class="dt">S</span></code></li>
+<li>To prove: <code class="sourceCode haskell">dom <span class="dt">S</span> <span class="fu">&lt;=</span> dom <span class="dt">S</span></code></li>
+</ul>
+<p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Add</span>]</code>. Try at home.</p>
+<p><em>Inductive case</em> <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>]</code>.</p>
+<ul>
+<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">L</span>]</code>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">     <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
+<span class="fu">--------------------------</span>
+<span class="dt">S</span>, e1 <span class="fu">+</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1' <span class="fu">+</span> e2</code></pre></div>
+<ul>
+<li>Given: <code class="sourceCode haskell">fv (e1 <span class="fu">+</span> e2) <span class="fu">&lt;=</span> dom <span class="dt">S</span></code></li>
+<li>To prove: <code class="sourceCode haskell">fv (e1' <span class="fu">+</span> e2) <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code></li>
+<li>To prove: <code class="sourceCode haskell">dom <span class="dt">S'</span> <span class="fu">&lt;=</span> dom <span class="dt">S</span></code></li>
+<li>IH1: <code class="sourceCode haskell">fv e1' <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code></li>
+<li>IH2: <code class="sourceCode haskell">dom <span class="dt">S</span> <span class="fu">&lt;=</span> dom <span class="dt">S'</span></code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  fv (e1' <span class="fu">+</span> e2) <span class="fu">&lt;=</span> dom <span class="dt">S'</span>
+<span class="fu">&lt;==&gt;</span> <span class="co">-- def. fv</span>
+  fv e1' <span class="fu">+</span> fv e2 <span class="fu">&lt;=</span> dom <span class="dt">S'</span>
+<span class="fu">&lt;==&gt;</span>
+  (fv e1' <span class="fu">&lt;=</span> dom <span class="dt">S'</span>) <span class="fu">&amp;</span> (fv e2 <span class="fu">&lt;=</span> dom <span class="dt">S'</span>)
+<span class="fu">&lt;==&gt;</span> <span class="co">-- IH1</span>
+  fv e2 <span class="fu">&lt;=</span> dom <span class="dt">S'</span>
+<span class="fu">&lt;==</span> <span class="co">-- IH2</span>
+  fv e2 <span class="fu">&lt;=</span> dom <span class="dt">S</span>
+<span class="fu">&lt;==</span> <span class="co">-- def fv</span>
+  fv (e1 <span class="fu">+</span> e2) <span class="fu">&lt;=</span> dom <span class="dt">S</span></code></pre></div>
+<p><em>Inductive case</em> <code class="sourceCode haskell">[<span class="dt">Add</span><span class="fu">-</span><span class="dt">R</span>]</code>. Try at home</p>
+<p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Let</span>]</code>.</p>
+<ul>
+<li>Given: the root of the derivation is <code class="sourceCode haskell">[<span class="dt">Let</span>]</code>: <code class="sourceCode haskell"><span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> n <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S</span>[x<span class="ot">-&gt;</span>n], e2</code></li>
+<li>Given: <code class="sourceCode haskell">fv (<span class="kw">let</span> x <span class="fu">=</span> n <span class="kw">in</span> e2) <span class="fu">&lt;=</span> <span class="dt">S</span></code></li>
+<li>To prove: <code class="sourceCode haskell">fv e2 <span class="fu">&lt;=</span> dom (<span class="dt">S</span>[x<span class="ot">-&gt;</span>n])</code></li>
+<li>To prove: <code class="sourceCode haskell">dom <span class="dt">S</span> <span class="fu">&lt;=</span> dom (<span class="dt">S</span>[x<span class="ot">-&gt;</span>n])</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  fv e2 <span class="fu">&lt;=</span> dom (<span class="dt">S</span>[x<span class="ot">-&gt;</span>n])
+<span class="fu">&lt;==&gt;</span> <span class="co">-- def. dom</span>
+  fv e2 <span class="fu">&lt;=</span> dom <span class="dt">S</span> <span class="fu">+</span> {x}
+<span class="fu">&lt;==&gt;</span>  
+  fv e2 <span class="fu">/</span> {x} <span class="fu">&lt;=</span> dom <span class="dt">S</span>
+<span class="fu">&lt;==&gt;</span> <span class="co">-- def. fv, twice</span>
+  fv (<span class="kw">let</span> x <span class="fu">=</span> n <span class="kw">in</span> e2) <span class="fu">&lt;=</span> dom <span class="dt">S</span></code></pre></div>
+<p><em>Inductive case</em> <code class="sourceCode haskell">[<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>]</code>. Try at home.</p>
+<p><strong>QED.</strong></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="nano2-adding-functions">Nano2: adding functions</h2>
+<p><br> <br></p>
+<h3 id="syntax">Syntax</h3>
+<p>We need to extend the syntax of expressions and values:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">e <span class="ot">::</span><span class="fu">=</span> n <span class="fu">|</span> x             <span class="co">-- expressions</span>
+    <span class="fu">|</span> e1 <span class="fu">+</span> e2
+    <span class="fu">|</span> <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2
+    <span class="fu">|</span> \x <span class="ot">-&gt;</span> e       <span class="co">-- abstraction</span>
+    <span class="fu">|</span> e1 e2         <span class="co">-- application</span>
+
+v <span class="ot">::</span><span class="fu">=</span> n                 <span class="co">-- values</span>
+    <span class="fu">|</span> <span class="fu">&lt;</span><span class="dt">S</span>,\x <span class="ot">-&gt;</span> e<span class="fu">&gt;</span>   <span class="co">-- closure</span></code></pre></div>
+<p><br> <br></p>
+<h3 id="operational-semantics">Operational semantics</h3>
+<p>We need to extend our reduction relation with rules for abstraction and application:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dt">Abs</span>]   <span class="dt">S</span>, \x <span class="ot">-&gt;</span> e <span class="ot">=&gt;</span> <span class="dt">S</span>, <span class="fu">&lt;</span><span class="dt">S</span>,\x <span class="ot">-&gt;</span> e<span class="fu">&gt;</span>
+
+[<span class="dt">App</span>]   <span class="dt">S</span>, <span class="fu">&lt;</span><span class="dt">S1</span>,\x <span class="ot">-&gt;</span> e<span class="fu">&gt;</span> v <span class="ot">=&gt;</span> <span class="dt">S1</span>[x<span class="ot">-&gt;</span>v], e  
+
+           <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
+[<span class="dt">App</span><span class="fu">-</span><span class="dt">L</span>] <span class="fu">----------------------</span>
+        <span class="dt">S</span>, e1 e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1' e2
+        
+          <span class="dt">S</span>, e <span class="ot">=&gt;</span> <span class="dt">S'</span>, e'
+[<span class="dt">App</span><span class="fu">-</span><span class="dt">R</span>] <span class="fu">----------------------</span>
+        <span class="dt">S</span>, v e <span class="ot">=&gt;</span> <span class="dt">S'</span>, v e'        </code></pre></div>
+<h3 id="quiz-9">QUIZ</h3>
+<p>With rules defined as above and <code class="sourceCode haskell"><span class="dt">S</span> <span class="fu">=</span> [x<span class="ot">-&gt;</span><span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span>]</code>, which reductions are valid?</p>
+<p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, x (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, x <span class="dv">3</span></code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, x (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> <span class="dv">3</span></code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">9</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
+<p><strong>(E)</strong> B and C</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="evaluation-order-1">Evaluation Order</h2>
+<p>With <code class="sourceCode haskell"><span class="dt">S</span> <span class="fu">=</span> [x<span class="ot">-&gt;</span><span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span>]</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   <span class="dt">S</span>, x (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)
+<span class="ot">=&gt;</span> <span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>) <span class="co">-- [App-L], [Var]</span>
+<span class="ot">=&gt;</span> <span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> <span class="dv">3</span>       <span class="co">-- [App-R], [Add]</span>
+<span class="ot">=&gt;</span> [y<span class="ot">-&gt;</span><span class="dv">3</span>], <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span>               <span class="co">-- [App]</span>
+<span class="ot">=&gt;</span> [y<span class="ot">-&gt;</span><span class="dv">3</span>], <span class="dv">9</span>                   <span class="co">-- [Add]</span></code></pre></div>
+<p>Our rules define <strong>call-by-value</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Evaluate the function (to a closure)</li>
+<li>Evaluate the argument (to some value)</li>
+<li>“Make the call”: evaluate the closure-body in the closure-env extended with formal mapped to actual</li>
+</ol>
+<p>The alternative is <strong>call-by-name</strong>:</p>
+<ul>
+<li>do not evaluate the argument before “making the call”</li>
+<li>can we modify the application rules for Nano2 to make it call-by-name?</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="theorems-about-nano2">Theorems about Nano2</h2>
+<p>Let’s prove something about Nano2!</p>
+<ol style="list-style-type: decimal">
+<li>Every Nano2 program terminates (?)</li>
+<li>Closed Nano2 programs don’t get stuck (?)</li>
+</ol>
+<h3 id="quiz-10">QUIZ</h3>
+<p>Are these theorems still true?</p>
+<p><strong>(A)</strong> Both true</p>
+<p><strong>(B)</strong> 1 is true, 2 is false</p>
+<p><strong>(C)</strong> 1 is false, 2 is true</p>
+<p><strong>(D)</strong> Both false</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="theorems-about-nano2-1">Theorems about Nano2</h2>
+<ol style="list-style-type: decimal">
+<li><p>Every Nano2 program terminates (?)</p>
+<p>What about <code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x x) (\x <span class="ot">-&gt;</span> x x)</code>?</p></li>
+<li><p>Closed Nano2 programs don’t get stuck (?)</p>
+<p>What about <code class="sourceCode haskell"><span class="dv">1</span> <span class="dv">2</span></code>?</p></li>
+</ol>
+<p>Both theorems are now false!</p>
+<p>To recover these properties, we need to add <em>types</em>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Every <em>well-typed</em> Nano2 program terminates</p></li>
+<li><p><em>Well-typed</em> Nano2 programs don’t get stuck</p></li>
+</ol>
+<p>We’ll do that next week!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>That’s all folks!</p>
                 <hr>
             </div>
         </div>

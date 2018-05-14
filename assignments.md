@@ -21,9 +21,9 @@ mins over the deadline is equal to 1 late day.
 - [HW #4](https://github.com/cse130-sp18/04-nano): Nano (due Fri 5/18 by 23:59pm)
 
 <!--
-- [HW #4](assignments/04-nanoml.html), due Wed 5/31 by 23:59pm
+- [HW #5](https://github.com/cse130-sp18/05-nano-infer): Type Inference for Nano (due Fri 5/25 by 23:59pm)
 
-- [HW #5](assignments/05-logic.html), due Sun 6/11 by 23:59pm
+- [HW #6](https://github.com/cse130-sp18/06-logic): The Logical Conclusion (due Fri 6/8 by 23:59pm)
 -->
 
 ## Sample Exam Questions
