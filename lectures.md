@@ -25,7 +25,7 @@ Lecture schedule is subject to change!
 | 5/7        | Environments and Closures     | [html][lec5]              |               |
 | 5/9        | contd.                        |                           |               |
 | 5/11       | contd.                        |                           |               |
-| 5/14       | Lexing and Parsing            |                           |               |
+| 5/14       | Lexing and Parsing            | [html][lec6]  [tutorial][parsing]      |  |
 | 5/16       | contd.                        |                           |               |
 | 5/18       | contd.                        |                           |               |
 | 5/21       | Polymorphism and Type Classes |                           |               |
@@ -54,7 +54,9 @@ Lecture schedule is subject to change!
 [lec3]: lectures/03-datatypes.html
 [lec4]: lectures/04-hof.html
 [lec5]: lectures/05-closure.html
+[lec6]: lectures/06-parsing.html
 
+[parsing]: https://github.com/cse130-sp18/arith
 
 [elsa]: https://github.com/ucsd-progsys/elsa
 [intro]: /static/raw/Intro.hs

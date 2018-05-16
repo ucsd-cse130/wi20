@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <!--
+      loads the http over https ssl -
+      welcome to my website!
+
+	this theme is based off the Ice & Fire theme created by Lucas Gatsas
+      https://www.twitter.com/LucasGatsas
+      www.lucasgatsas.ch - switzerland.
+  -->
+
+
+<!-- Microsoft Internet Explorer documentMode compatMode setting IE Modus -->
+<script type="text/javascript">
+var IE = null;
+if (window.navigator.appName == "Microsoft Internet Explorer") {
+  if (document.documentMode) {
+
+    IE = document.documentMode;
+    } else {
+
+        IE = 5;
+          if (document.compatMode) {
+      if (document.compatMode == "CSS1Compat")
+      IE = 11;
+      }
+    }
+  }
+</script>
+
+    <meta charset="utf-8">
+    <!-- X-UA -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <link rel="author" title="Ranjit Jhala" href="http://ranjitjhala.github.io" />
+
+    <meta name="google" content="notranslate" />
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- index ROBOTS follow -->
+    <meta name="robots" content="index, follow" />
+    <!-- Site Desciption -->
+    <meta name="description" content="UCSD CSE 130">
+    <!-- Site Desciption -->
+    <meta name="keywords" content="haskell, refinement types, liquid types, formal methods, type systems">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://nadia-polikarpova.github.io/cse130-sp18/static/img/ico.png" type="image/x-icon" />
+    <!-- Blog Title -->
+    <title>cse130</title>
+
+    <!--     <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+-->
+    <!-- Property Metas -->
+    <meta property="og:image" content="https://nadia-polikarpova.github.io/cse130-sp18/static/img/ix.png" />
+    <meta property="og:title" content="UCSD CSE 130" />
+    <meta property="og:site_name" content="UCSD CSE 130" />
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseUrl | prepend: site.url }}">
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/spaceg.stylesheets.css"> -->
+    <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/ronacher.css" type="text/css">
+
+    <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/syntax.css">
+    <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/liquid-light.css">
+
+    <!-- Fonts
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+	#preloader {position:fixed;top:0;left:0;right:0;bottom:0;background-color:#fff; /* change if the mask should have another color then white */z-index:99; /* makes sure it stays on top */}
+	#status {width:200px;height:200px;position:absolute;left:50%; /* centers the loading animation horizontally one the screen */top:50%; /* centers the loading animation vertically one the screen */background-image:url("/static/img/preloader.gif"); /* path to your loading animation */background-repeat:no-repeat;background-position:center;margin:-100px 0 0 -100px; /* is width and height divided by two */}
+	ul, ol {margin-top: 0;margin-bottom: 10px;}
+	.navbar-inverse {background-color: #FFF;border-color: #FFFFFF;}
+</style>
+<!--link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/prettify.css"-->
+<style>
+  /* HEADER IMAGE */
+  header.intro-header {background: #6f5499;background: no-repeat center center;background-attachment: scroll;-webkit-background-size: cover;-moz-background-size: cover;background-size: cover;-o-background-size: cover;}
+
+	/* Preloader */#preloader {position:fixed;top:0;left:0;right:0;bottom:0;background-color:#fff; /* change if the mask should have another color then white */z-index:99; /* makes sure it stays on top */}
+	#status {width:200px;height:200px;position:absolute;left:50%; /* centers the loading animation horizontally one the screen */top:50%; /* centers the loading animation vertically one the screen */background-image:; /* path to your loading animation */background-repeat:no-repeat;background-position:center;margin:-100px 0 0 -100px; /* is width and height divided by two */}
+	li {list-style: none;}
+            body.modal-open
+            {overflow: hidden;padding-right: 0px;
+        }
+	article li {list-style: inherit;}
+	article .figure {text-align: center}
+    </style>
+    <!-- end Loading front stylesheet here -->
+    </head>
+
+    <body>
+	    
+	<!-- 	
+        <div id="preloader">
+	    <div id="status">
+	    </div>
+	</div>  
+	-->
+	<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://nadia-polikarpova.github.io/cse130-sp18" id="blog-title-left-top">cse130</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/calendar.html">Calendar</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/contact.html">Contact</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/grades.html">Grades</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/lectures.html">Lectures</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/assignments.html">Assignments</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/links.html">Links</a></li>
+                <li><a href="https://www.piazza.com/ucsd/spring2018/cse130/home" id="roundbutton" target="_blank"><i class="fa fa-twitter"></i>Piazza</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Portfolio Modals -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px; overflow: hidden;">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h1 class="font-style-inline-small-h1">Ranjit Jhala</h1>
+                            <hr class="star-primary">
+                            <img src="https://nadia-polikarpova.github.io/cse130-sp18/static/img/ico.png" class="img-responsive img-centered" alt title>
+                            <p class="font-style-inline-small">
+                                <a href="https://www.twitter.com/polikarn" target="_blank">follow me</a>. <br>
+                                <a href="https://www.github.com/nadia-polikarpova" target="_blank">    <i class="fa fa-github" id="spaceg-social-modal"></i> </a>
+                                <a href="https://www.twitter.com/polikarn" target="_blank"><i class="fa fa-twitter" id="spaceg-social-modal"></i> </a>
+                                <a href="https://plus.google.com/u/0/104385825850161331469" target="_blank"> <i class="fa fa-google-plus" id="spaceg-social-modal"></i></a>
+                            </p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Menu Modals Add New Sa.21.Feb.2015 03:22:25 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px; overflow: hidden;">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h1 class="font-style-inline-small-h1">Nadia Polikarpova</h1>
+                            <hr class="star-primary">
+                            <p class="font-style-inline-small">
+                              <a href="https://www.twitter.com/polikarn" target="_blank">follow</a>. <br>
+                              <a href="https://www.github.com/nadia-polikarpova" target="_blank">    <i class="fa fa-github" id="spaceg-social-modal"></i> </a>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/calendar.html">Calendar</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/contact.html">Contact</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/grades.html">Grades</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/lectures.html">Lectures</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/assignments.html">Assignments</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/links.html">Links</a></li>
+                              <li><a href="https://www.piazza.com/ucsd/spring2018/cse130/home" id="roundbutton" target="_blank"><i class="fa fa-twitter"></i>Piazza</a></li>
+                            </p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div id="content">
+            <!-- Post Header -->
+    <header class="intro-header" style="background-image: url('https://nadia-polikarpova.github.io/cse130-sp18/static/img/books.jpg')" alt title>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Lexing and Parsing</h1>
+                    
+                    <span class="meta">
+		    
+		    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<h2 id="plan-for-this-week">Plan for this week</h2>
+<p><strong>Last week:</strong></p>
+<ul>
+<li>How do we <em>evaluate</em> a program given its AST?</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></code></pre></div>
+<p><strong>This week:</strong></p>
+<ul>
+<li>How do we <em>convert</em> program text into an AST?</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">parse ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="example-calculator-with-variables">Example: calculator with variables</h2>
+<p>AST representation:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Aexpr</span> 
+  <span class="fu">=</span> <span class="dt">AConst</span>  <span class="dt">Int</span>
+  <span class="fu">|</span> <span class="dt">AVar</span>    <span class="dt">Id</span>
+  <span class="fu">|</span> <span class="dt">APlus</span>   <span class="dt">Aexpr</span> <span class="dt">Aexpr</span>
+  <span class="fu">|</span> <span class="dt">AMinus</span>  <span class="dt">Aexpr</span> <span class="dt">Aexpr</span>
+  <span class="fu">|</span> <span class="dt">AMul</span>    <span class="dt">Aexpr</span> <span class="dt">Aexpr</span>
+  <span class="fu">|</span> <span class="dt">ADiv</span>    <span class="dt">Aexpr</span> <span class="dt">Aexpr</span>    </code></pre></div>
+<p><br></p>
+<p>Evaluator:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Aexpr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span>
+<span class="fu">...</span></code></pre></div>
+<p><br></p>
+<p>Using the evaluator:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> eval [] (<span class="dt">APlus</span> (<span class="dt">AConst</span> <span class="dv">2</span>) (<span class="dt">AConst</span> <span class="dv">6</span>))
+<span class="dv">8</span>
+
+λ<span class="fu">&gt;</span> eval [(<span class="st">&quot;x&quot;</span>, <span class="dv">16</span>), (<span class="st">&quot;y&quot;</span>, <span class="dv">10</span>)] (<span class="dt">AMinus</span> (<span class="dt">AVar</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">AVar</span> <span class="st">&quot;y&quot;</span>))
+<span class="dv">6</span>
+
+λ<span class="fu">&gt;</span> eval [(<span class="st">&quot;x&quot;</span>, <span class="dv">16</span>), (<span class="st">&quot;y&quot;</span>, <span class="dv">10</span>)] (<span class="dt">AMinus</span> (<span class="dt">AVar</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">AVar</span> <span class="st">&quot;z&quot;</span>))
+<span class="fu">***</span> <span class="dt">Exception</span><span class="fu">:</span> <span class="dt">Error</span> {errMsg <span class="fu">=</span> <span class="st">&quot;Unbound variable z&quot;</span>}</code></pre></div>
+<p><br></p>
+<p>But writing ASTs explicitly is really tedious, we are used to writing programs as text!</p>
+<p><br></p>
+<p>We want to write a function that converts strings to ASTs if possible:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">parse ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Aexpr</span></code></pre></div>
+<p><br></p>
+<p>For example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> parse <span class="st">&quot;2 + 6&quot;</span>
+<span class="dt">APlus</span> (<span class="dt">AConst</span> <span class="dv">2</span>) (<span class="dt">AConst</span> <span class="dv">6</span>)
+
+λ<span class="fu">&gt;</span> parse <span class="st">&quot;(x - y) / 2&quot;</span>
+<span class="dt">ADiv</span> (<span class="dt">AMinus</span> (<span class="dt">AVar</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">AVar</span> <span class="st">&quot;y&quot;</span>)) (<span class="dt">AConst</span> <span class="dv">2</span>)
+
+λ<span class="fu">&gt;</span> parse <span class="st">&quot;2 +&quot;</span>
+<span class="fu">***</span> <span class="dt">Exception</span><span class="fu">:</span> <span class="dt">Error</span> {errMsg <span class="fu">=</span> <span class="st">&quot;Syntax error&quot;</span>}</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="two-step-strategy">Two-step-strategy</h2>
+<p>How do I read a sentence “He ate a bagel”?</p>
+<ul>
+<li>First split into words: <code class="sourceCode haskell">[<span class="st">&quot;He&quot;</span>, <span class="st">&quot;ate&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;bagel&quot;</span>]</code></li>
+<li>Then relate words to each other: “He” is the subject, “ate” is the verb, etc</li>
+</ul>
+<p><br></p>
+<p>Let’s do the same thing to “read” programs!</p>
+<p><br> <br> <br> <br></p>
+<h3 id="step-1-lexing-from-string-to-tokens">Step 1 (Lexing) : From String to Tokens</h3>
+<p>A string is a list of <em>characters</em>:</p>
+<div class="figure">
+<img src="../static/img/info_parser.001a.jpg" alt="Characters" id="fig:chars" style="width:70.0%" />
+<p class="caption">Characters</p>
+</div>
+<p>First we aggregate characters that “belong together” into <strong>tokens</strong> (i.e. the “words” of the program):</p>
+<div class="figure">
+<img src="../static/img/info_parser.001b.jpg" alt="Tokens" id="fig:tokens" style="width:70.0%" />
+<p class="caption">Tokens</p>
+</div>
+<p>We distinguish tokens of different kinds based on their format:</p>
+<ul>
+<li>all numbers: integer constant</li>
+<li>alphanumeric, starts with a letter: identifier</li>
+<li><code class="sourceCode haskell"><span class="fu">+</span></code>: plus operator</li>
+<li>etc</li>
+</ul>
+<p><br> <br> <br> <br></p>
+<h3 id="step-2-parsing-from-tokens-to-ast">Step 2 (Parsing) : From Tokens to AST</h3>
+<p>Next, we convert a sequence of tokens into an AST</p>
+<ul>
+<li>This is hard…</li>
+<li>… but the hard parts do not depend on the language!</li>
+</ul>
+<p><br></p>
+<p><strong>Parser generators</strong></p>
+<ul>
+<li>Given the description of the <em>token format</em> generates a <em>lexer</em></li>
+<li>Given the description of the <em>grammar</em> generates a <em>parser</em></li>
+</ul>
+<p>We will be using parser generators, so we only care about how to describe the token format and the grammar</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lexing">Lexing</h2>
+<p>We will use the tool called <code class="sourceCode haskell">alex</code> to generate the lexer</p>
+<p>We describe the token format in a <code class="sourceCode haskell"><span class="fu">.</span>x</code> file</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="tokens">Tokens</h2>
+<p>First we list the kinds of tokens we have in the language:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Token</span>
+  <span class="fu">=</span> <span class="dt">NUM</span>    <span class="dt">AlexPosn</span> <span class="dt">Int</span>
+  <span class="fu">|</span> <span class="dt">ID</span>     <span class="dt">AlexPosn</span> <span class="dt">String</span>
+  <span class="fu">|</span> <span class="dt">PLUS</span>   <span class="dt">AlexPosn</span>
+  <span class="fu">|</span> <span class="dt">MINUS</span>  <span class="dt">AlexPosn</span>
+  <span class="fu">|</span> <span class="dt">MUL</span>    <span class="dt">AlexPosn</span>
+  <span class="fu">|</span> <span class="dt">DIV</span>    <span class="dt">AlexPosn</span>
+  <span class="fu">|</span> <span class="dt">LPAREN</span> <span class="dt">AlexPosn</span>
+  <span class="fu">|</span> <span class="dt">RPAREN</span> <span class="dt">AlexPosn</span>
+  <span class="fu">|</span> <span class="dt">EOF</span>    <span class="dt">AlexPosn</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="token-rules">Token rules</h2>
+<p>Next we describe the format of each kind of token using a rule:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  [\<span class="fu">+</span>]                          { \p _ <span class="ot">-&gt;</span> <span class="dt">PLUS</span>   p }
+  [\<span class="fu">-</span>]                          { \p _ <span class="ot">-&gt;</span> <span class="dt">MINUS</span>  p }
+  [\<span class="fu">*</span>]                          { \p _ <span class="ot">-&gt;</span> <span class="dt">MUL</span>    p }
+  [\<span class="fu">/</span>]                          { \p _ <span class="ot">-&gt;</span> <span class="dt">DIV</span>    p }
+  \(                            { \p _ <span class="ot">-&gt;</span> <span class="dt">LPAREN</span> p }
+  \)                            { \p _ <span class="ot">-&gt;</span> <span class="dt">RPAREN</span> p }
+  <span class="fu">$</span>alpha [<span class="fu">$</span>alpha <span class="fu">$</span>digit \_ \<span class="ch">']* { \p s -&gt; ID     p s }</span>
+  <span class="fu">$</span>digit<span class="fu">+</span>                       { \p s <span class="ot">-&gt;</span> <span class="dt">NUM</span> p (read s) }</code></pre></div>
+<p>Each line consist of:</p>
+<ul>
+<li>a <em>regular expression</em> that describes which strings should be recognized as this token</li>
+<li>a Haskell expression that generates the token</li>
+</ul>
+<p>You read it as:</p>
+<ul>
+<li>if at position <code class="sourceCode haskell">p</code> in the input string</li>
+<li>you encounter a substring <code class="sourceCode haskell">s</code> that matches the <em>regular expression</em></li>
+<li>evaluate the Haskell expression with arguments <code class="sourceCode haskell">p</code> and <code class="sourceCode haskell">s</code></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="regular-expressions">Regular Expressions</h2>
+<p>A regular expression has one of the following forms:</p>
+<ul>
+<li><p><code class="sourceCode haskell">[c1 c2 <span class="fu">...</span> cn]</code> matches <em>any of</em> the characters <code class="sourceCode haskell">c1 <span class="fu">..</span> cn</code></p>
+<ul>
+<li><code class="sourceCode haskell">[<span class="dv">0</span><span class="fu">-</span><span class="dv">9</span>]</code> matches <em>any digit</em></li>
+<li><code class="sourceCode haskell">[a<span class="fu">-</span>z]</code> matches <em>any lower-case letter</em><br />
+</li>
+<li><code class="sourceCode haskell">[<span class="dt">A</span><span class="fu">-</span><span class="dt">Z</span>]</code> matches <em>any upper-case letter</em></li>
+<li><code class="sourceCode haskell">[a<span class="fu">-</span>z <span class="dt">A</span><span class="fu">-</span><span class="dt">Z</span>]</code> matches <em>any letter</em></li>
+</ul></li>
+<li><p><code class="sourceCode haskell"><span class="dt">R1</span> <span class="dt">R2</span></code> matches a string <code class="sourceCode haskell">s1 <span class="fu">++</span> s2</code> where <code class="sourceCode haskell">s1</code> matches <code class="sourceCode haskell"><span class="dt">R1</span></code> and <code class="sourceCode haskell">s2</code> matches <code class="sourceCode haskell"><span class="dt">R2</span></code></p>
+<ul>
+<li>e.g. <code class="sourceCode haskell">[<span class="dv">0</span><span class="fu">-</span><span class="dv">9</span>] [<span class="dv">0</span><span class="fu">-</span><span class="dv">9</span>]</code> matches any two-digit string</li>
+</ul></li>
+<li><p><code class="sourceCode haskell"><span class="dt">R</span><span class="fu">+</span></code> matches <em>one or more</em> repetitions of what <code class="sourceCode haskell"><span class="dt">R</span></code> matches</p>
+<ul>
+<li>e.g. <code class="sourceCode haskell">[<span class="dv">0</span><span class="fu">-</span><span class="dv">9</span>]<span class="fu">+</span></code> matches a natural number</li>
+</ul></li>
+<li><p><code class="sourceCode haskell"><span class="dt">R</span><span class="fu">*</span></code> matches <em>zero or more</em> repetitions of what <code class="sourceCode haskell"><span class="dt">R</span></code> matches</p></li>
+</ul>
+<p><br> <br></p>
+<h2 id="quiz">QUIZ</h2>
+<p>Which of the following strings are matched by <code class="sourceCode haskell">[a<span class="fu">-</span>z <span class="dt">A</span><span class="fu">-</span><span class="dt">Z</span>] [a<span class="fu">-</span>z <span class="dt">A</span><span class="fu">-</span><span class="dt">Z</span> <span class="dv">0</span><span class="fu">-</span><span class="dv">9</span>]<span class="fu">*</span></code>?</p>
+<p><strong>(A)</strong> (empty string)</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">5</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">x5</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">x</code></p>
+<p><strong>(E)</strong> C and D</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="back-to-token-rules">Back to token rules</h2>
+<p>We can <strong>name</strong> some common regexps like:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">$</span>digit <span class="fu">=</span> [<span class="dv">0</span><span class="fu">-</span><span class="dv">9</span>]
+<span class="fu">$</span>alpha <span class="fu">=</span> [a<span class="fu">-</span>zA<span class="fu">-</span><span class="dt">Z</span>]</code></pre></div>
+<p>and write <code class="sourceCode haskell">[a<span class="fu">-</span>z <span class="dt">A</span><span class="fu">-</span><span class="dt">Z</span>] [a<span class="fu">-</span>z <span class="dt">A</span><span class="fu">-</span><span class="dt">Z</span> <span class="dv">0</span><span class="fu">-</span><span class="dv">9</span>]<span class="fu">*</span></code> as <code class="sourceCode haskell"><span class="fu">$</span>alpha [<span class="fu">$</span>alpha <span class="fu">$</span>digit]<span class="fu">*</span></code></p>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  [\<span class="fu">+</span>]                          { \p _ <span class="ot">-&gt;</span> <span class="dt">PLUS</span>   p }
+  [\<span class="fu">-</span>]                          { \p _ <span class="ot">-&gt;</span> <span class="dt">MINUS</span>  p }
+  [\<span class="fu">*</span>]                          { \p _ <span class="ot">-&gt;</span> <span class="dt">MUL</span>    p }
+  [\<span class="fu">/</span>]                          { \p _ <span class="ot">-&gt;</span> <span class="dt">DIV</span>    p }
+  \(                            { \p _ <span class="ot">-&gt;</span> <span class="dt">LPAREN</span> p }
+  \)                            { \p _ <span class="ot">-&gt;</span> <span class="dt">RPAREN</span> p }
+  <span class="fu">$</span>alpha [<span class="fu">$</span>alpha <span class="fu">$</span>digit \_ \<span class="ch">']* { \p s -&gt; ID     p s }</span>
+  <span class="fu">$</span>digit<span class="fu">+</span>                       { \p s <span class="ot">-&gt;</span> <span class="dt">NUM</span> p (read s) }</code></pre></div>
+<ul>
+<li>When you encounter a <code class="sourceCode haskell"><span class="fu">+</span></code>, generate a <code class="sourceCode haskell"><span class="dt">PLUS</span></code> token</li>
+<li>…</li>
+<li>When you encounter a nonempty string of digits, convert it into an integer and generate a <code class="sourceCode haskell"><span class="dt">NUM</span></code></li>
+<li>When you encounter an alphanumeric string that starts with a letter, save it in an `ID token</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="running-the-lexer">Running the Lexer</h2>
+<p>From the token rules, <code class="sourceCode haskell">alex</code> generates a function <code class="sourceCode haskell">alexScan</code> which</p>
+<ul>
+<li>given an input string, find the <em>longest</em> prefix <code class="sourceCode haskell">p</code> that matches one of the rules</li>
+<li>if <code class="sourceCode haskell">p</code> is empty, it fails</li>
+<li>otherwise, it converts <code class="sourceCode haskell">p</code> into a token and returns the rest of the string</li>
+</ul>
+<p>We wrap this function into a handy function</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">parseTokens ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Either</span> <span class="dt">ErrMsg</span> [<span class="dt">Token</span>]</code></pre></div>
+<p>which repeatedly calls <code class="sourceCode haskell">alexScan</code> until it consumes the whole input string or fails</p>
+<p><br></p>
+<p>We can test the function like so:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> parseTokens <span class="st">&quot;23 + 4 / off -&quot;</span>
+<span class="dt">Right</span> [ <span class="dt">NUM</span> (<span class="dt">AlexPn</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span>) <span class="dv">23</span>
+      , <span class="dt">PLUS</span> (<span class="dt">AlexPn</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">4</span>)
+      , <span class="dt">NUM</span> (<span class="dt">AlexPn</span> <span class="dv">5</span> <span class="dv">1</span> <span class="dv">6</span>) <span class="dv">4</span>
+      , <span class="dt">DIV</span> (<span class="dt">AlexPn</span> <span class="dv">7</span> <span class="dv">1</span> <span class="dv">8</span>)
+      , <span class="dt">ID</span> (<span class="dt">AlexPn</span> <span class="dv">9</span> <span class="dv">1</span> <span class="dv">10</span>) <span class="st">&quot;off&quot;</span>
+      , <span class="dt">MINUS</span> (<span class="dt">AlexPn</span> <span class="dv">13</span> <span class="dv">1</span> <span class="dv">14</span>) 
+      ]      </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> parseTokens <span class="st">&quot;%&quot;</span>
+<span class="dt">Left</span> <span class="st">&quot;lexical error at 1 line, 1 column&quot;</span></code></pre></div>
+<p><br> <br> <br> <br></p>
+<h2 id="quiz-1">QUIZ</h2>
+<p>What is the result of <code class="sourceCode haskell">parseTokens <span class="st">&quot;92zoo&quot;</span></code> (positions omitted for readability)?</p>
+<p><strong>(A)</strong> Lexical error</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">[<span class="dt">ID</span> <span class="st">&quot;92zoo&quot;</span>]</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dt">NUM</span> <span class="st">&quot;92&quot;</span>]</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">[<span class="dt">NUM</span> <span class="st">&quot;92&quot;</span>, <span class="dt">ID</span> <span class="st">&quot;zoo&quot;</span>]</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+                <hr>
+            </div>
+        </div>
+    </div>
+</article>
+
+        </div>
+        <div id="footer">
+        </div>
+      <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://nadia-polikarpova.github.io/cse130-sp18/feed.xml" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/polikarn" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://plus.google.com/u/0/104385825850161331469" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/nadia-polikarpova" target="_blank">
+                            <span class="fa-stack fa-lg">
+
+                              <i class="fa fa-arrow-circle-o-down"></i>
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+		    
+                </ul>
+                <p class="copyright text-muted">
+                
+                  Generated by <a href="http://jaspervdj.be/hakyll">Hakyll</a>,
+                  template by <a href="http://lucumr.pocoo.org">Armin Ronacher</a>,
+                  suggest improvements <a href="https://github.com/ucsd-progsys/liquidhaskell-blog/">here</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- jQuery -->
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/jquery.min.js"></script>
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/spaceg.stylesheets.min.js"></script>
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/bootstrap.min.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/anim.js"></script>
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/scripts.js"></script>
+
+    </body>
+</html>
