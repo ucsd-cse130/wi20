@@ -18,7 +18,7 @@ mins over the deadline is equal to 1 late day.
 
 - [HW #3](https://github.com/cse130-sp18/03-fold): All about Fold (due Fri 5/11 by 23:59pm)
 
-- [HW #4](https://github.com/cse130-sp18/04-nano): Nano (due Fri 5/18 by 23:59pm)
+- [HW #4](https://github.com/cse130-sp18/04-nano): Nano (due ~~Fri 5/18~~ Mon 5/21 by 23:59pm)
 
 <!--
 - [HW #5](https://github.com/cse130-sp18/05-nano-infer): Type Inference for Nano (due Fri 5/25 by 23:59pm)

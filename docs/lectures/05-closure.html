@@ -327,10 +327,10 @@ eval (<span class="dt">Var</span> x)         <span class="fu">=</span> <span cla
 <span class="fu">=</span>[x<span class="fu">:</span><span class="dv">17</span>, y<span class="fu">:</span><span class="dv">2</span>]<span class="ot">=&gt;</span> <span class="dv">34</span>
 
 x <span class="fu">*</span> y
-<span class="fu">=</span>[x<span class="fu">:</span><span class="dv">17</span>]<span class="ot">=&gt;</span> <span class="fu">???</span>
+<span class="fu">=</span>[x<span class="fu">:</span><span class="dv">17</span>]<span class="ot">=&gt;</span> <span class="dt">Error</span><span class="fu">:</span> unbound variable y
 
 x <span class="fu">*</span> (<span class="kw">let</span> y <span class="fu">=</span> <span class="dv">2</span> <span class="kw">in</span> y)
-<span class="fu">=</span>[x<span class="fu">:</span><span class="dv">17</span>]<span class="ot">=&gt;</span> <span class="fu">???</span></code></pre></div>
+<span class="fu">=</span>[x<span class="fu">:</span><span class="dv">17</span>]<span class="ot">=&gt;</span> <span class="dv">34</span></code></pre></div>
 <p><br> <br></p>
 <ul>
 <li>How should we represent the environment?</li>
@@ -348,7 +348,9 @@ y</code></pre></div>
 <p><strong>(C)</strong> Error: unbound variable <code class="sourceCode haskell">x</code></p>
 <p><strong>(D)</strong> Error: unbound variable <code class="sourceCode haskell">y</code></p>
 <p><strong>(E)</strong> Error: unbound variable <code class="sourceCode haskell">z</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> E</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-1">QUIZ</h2>
 <p>What should this evaluate to?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="kw">in</span>
@@ -360,7 +362,9 @@ x <span class="fu">+</span> y</code></pre></div>
 <p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dv">10</span></code></p>
 <p><strong>(D)</strong> Error: unbound variable <code class="sourceCode haskell">x</code></p>
 <p><strong>(E)</strong> Error: unbound variable <code class="sourceCode haskell">y</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> A</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="environment-api">Environment: API</h2>
 <p>To evaluate <code class="sourceCode haskell"><span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2</code> in <code class="sourceCode haskell">env</code>:</p>
 <ul>
