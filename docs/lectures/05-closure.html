@@ -490,7 +490,9 @@ x <span class="fu">+</span> y</code></pre></div>
 <p><strong>(B)</strong> <code class="sourceCode haskell">x</code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell">y</code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">x y</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> B</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="extension-functions">Extension: functions</h2>
 <p>Let’s add lambda abstraction and function application!</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">e <span class="ot">::</span><span class="fu">=</span> n <span class="fu">|</span> x
@@ -558,6 +560,7 @@ cTimes <span class="dv">2</span></code></pre></div>
 <span class="kw">let</span> f <span class="fu">=</span> \x <span class="ot">-&gt;</span> \y <span class="ot">-&gt;</span> <span class="dv">2</span> <span class="fu">*</span> (x <span class="fu">+</span> y) <span class="kw">in</span>
 f <span class="dv">5</span>
 <span class="fu">==&gt;</span> <span class="fu">???</span></code></pre></div>
+<p>Conceptually, (1) evaluates to itself (not exactly, see later). while (2) evaluates to something equivalent to <code class="sourceCode haskell">\y <span class="ot">-&gt;</span> <span class="dv">2</span> <span class="fu">*</span> (<span class="dv">5</span> <span class="fu">+</span> y)</code></p>
 <p><br> <br> <br> <br> <br> <br></p>
 <p><strong>Now:</strong> a program evaluates to an integer or <em>a lambda abstraction</em> (or fails)</p>
 <ul>
@@ -609,7 +612,9 @@ cTimes <span class="dv">2</span></code></pre></div>
 <p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dv">84</span></code></p>
 <p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">10</span></code></p>
 <p><strong>(C)</strong> Error: multiple definitions of <code class="sourceCode haskell">c</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> A</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="static-vs-dynamic-scoping">Static vs Dynamic Scoping</h2>
 <p>What we want:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> c <span class="fu">=</span> <span class="dv">42</span> <span class="kw">in</span>
@@ -711,7 +716,9 @@ cTimes <span class="dv">2</span></code></pre></div>
 <p><strong>(C)</strong> <code class="sourceCode haskell">y g</code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">a y g</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">a x y g z</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> A</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="free-vs-bound-variables-1">Free vs bound variables</h2>
 <ul>
 <li>An occurrence of <code class="sourceCode haskell">x</code> is <strong>free</strong> if it is not <strong>bound</strong></li>
@@ -772,7 +779,9 @@ f <span class="dv">5</span></code></pre></div>
 <p><strong>(C)</strong> Error: unbound variable <code class="sourceCode haskell">x</code></p>
 <p><strong>(D)</strong> Error: unbound variable <code class="sourceCode haskell">y</code></p>
 <p><strong>(E)</strong> Error: unbound variable <code class="sourceCode haskell">f</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> D</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;f&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>))) <span class="fu">...</span>)
 <span class="ot">=&gt;</span> eval [(<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>)))]
     (<span class="dt">Let</span> <span class="st">&quot;y&quot;</span> (<span class="dt">Num</span> <span class="dv">10</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) (<span class="dt">Num</span> <span class="dv">5</span>)))
@@ -790,7 +799,9 @@ f <span class="dv">5</span></code></pre></div>
 <p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dv">120</span></code></p>
 <p><strong>(B)</strong> Evaluation does not terminate</p>
 <p><strong>(C)</strong> Error: unbound variable <code class="sourceCode haskell">f</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> C</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;f&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;n&quot;</span> <span class="fu">...</span>) <span class="fu">...</span>)
 <span class="ot">=&gt;</span> eval [(<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;n&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>)))]
     (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) (<span class="dt">Num</span> <span class="dv">5</span>))
@@ -911,7 +922,9 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
 <p><strong>(C)</strong> <code class="sourceCode haskell">[], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  [], (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
 <p><strong>(D)</strong> A and B</p>
 <p><strong>(E)</strong> All of the above</p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> A</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="evaluation-relation">Evaluation relation</h2>
 <p>Like in <span class="math inline"><em>λ</em></span>-calculus, we define the <strong>multi-step reduction</strong> relation <code class="sourceCode haskell"><span class="dt">S</span>, e <span class="fu">=*&gt;</span> <span class="dt">S'</span>, e'</code>:</p>
 <p><code class="sourceCode haskell"><span class="dt">S</span>, e <span class="fu">=*&gt;</span> <span class="dt">S'</span>, e'</code> iff there exists a sequence of states <code class="sourceCode haskell">(<span class="dt">S1</span>, e1), <span class="fu">...</span>, (<span class="dt">Sn</span>, en)</code> such that</p>
@@ -1071,7 +1084,9 @@ size (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw
 <p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'</code></p>
 <p><strong>(B)</strong> <code class="sourceCode haskell">size e1' <span class="fu">&lt;</span> size e1</code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell">size (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">&lt;</span> size (<span class="kw">let</span> x <span class="fu">=</span> e1' <span class="kw">in</span> e2)</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> B</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="theorem-closed-programs-dont-get-stuck">Theorem: Closed Programs don’t Get Stuck</h2>
 <p>First we need to define what are free variables <code class="sourceCode haskell">fv</code> of an expression:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fv n                  <span class="fu">=</span> {}
@@ -1174,13 +1189,15 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
 [<span class="dt">App</span><span class="fu">-</span><span class="dt">R</span>] <span class="fu">----------------------</span>
         <span class="dt">S</span>, v e <span class="ot">=&gt;</span> <span class="dt">S'</span>, v e'        </code></pre></div>
 <h3 id="quiz-9">QUIZ</h3>
-<p>With rules defined as above and <code class="sourceCode haskell"><span class="dt">S</span> <span class="fu">=</span> [x<span class="ot">-&gt;</span><span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span>]</code>, which reductions are valid?</p>
+<p>With rules defined as above and <code class="sourceCode haskell"><span class="dt">S</span> <span class="fu">=</span> [x <span class="ot">-&gt;</span> <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span>]</code>, which reductions are valid?</p>
 <p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, x (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, x <span class="dv">3</span></code></p>
 <p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, x (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> <span class="dv">3</span></code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell"><span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)  <span class="ot">=&gt;</span>  <span class="dt">S</span>, <span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">9</span><span class="fu">&gt;</span> (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
 <p><strong>(E)</strong> B and C</p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> E</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="evaluation-order-1">Evaluation Order</h2>
 <p>With <code class="sourceCode haskell"><span class="dt">S</span> <span class="fu">=</span> [x<span class="ot">-&gt;</span><span class="fu">&lt;</span>[],\y <span class="ot">-&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span><span class="fu">&gt;</span>]</code>:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   <span class="dt">S</span>, x (<span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)
@@ -1212,7 +1229,9 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
 <p><strong>(B)</strong> 1 is true, 2 is false</p>
 <p><strong>(C)</strong> 1 is false, 2 is true</p>
 <p><strong>(D)</strong> Both false</p>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Answer:</em> D</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="theorems-about-nano2-1">Theorems about Nano2</h2>
 <ol style="list-style-type: decimal">
 <li><p>Every Nano2 program terminates (?)</p>
