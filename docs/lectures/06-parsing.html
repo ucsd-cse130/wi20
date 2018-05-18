@@ -326,8 +326,8 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>We will be using parser generators, so we only care about how to describe the token format and the grammar</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="lexing">Lexing</h2>
-<p>We will use the tool called <code class="sourceCode haskell">alex</code> to generate the lexer</p>
-<p>We describe the token format in a <code class="sourceCode haskell"><span class="fu">.</span>x</code> file</p>
+<p>We will use the tool called <code class="sourceCode haskell">alex</code> to generate the <strong>lexer</strong></p>
+<p>Input to <code class="sourceCode haskell">alex</code>: a <code class="sourceCode haskell"><span class="fu">.</span>x</code> file that describes the <em>token format</em></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="tokens">Tokens</h2>
 <p>First we list the kinds of tokens we have in the language:</p>
@@ -445,6 +445,179 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dt">NUM</span> <span class="st">&quot;92&quot;</span>]</code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">[<span class="dt">NUM</span> <span class="st">&quot;92&quot;</span>, <span class="dt">ID</span> <span class="st">&quot;zoo&quot;</span>]</code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="parsing">Parsing</h2>
+<p>We will use the tool called <code class="sourceCode haskell">happy</code> to generate the <strong>parser</strong></p>
+<p>Input to <code class="sourceCode haskell">happy</code>: a <code class="sourceCode haskell"><span class="fu">.</span>y</code> file that describes the <em>grammar</em></p>
+<p><br> <br></p>
+<p>Wait, wasn’t this the grammar?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Aexpr</span> 
+  <span class="fu">=</span> <span class="dt">AConst</span>  <span class="dt">Int</span>
+  <span class="fu">|</span> <span class="dt">AVar</span>    <span class="dt">Id</span>
+  <span class="fu">|</span> <span class="dt">APlus</span>   <span class="dt">Aexpr</span> <span class="dt">Aexpr</span>
+  <span class="fu">|</span> <span class="dt">AMinus</span>  <span class="dt">Aexpr</span> <span class="dt">Aexpr</span>
+  <span class="fu">|</span> <span class="dt">AMul</span>    <span class="dt">Aexpr</span> <span class="dt">Aexpr</span>
+  <span class="fu">|</span> <span class="dt">ADiv</span>    <span class="dt">Aexpr</span> <span class="dt">Aexpr</span>    </code></pre></div>
+<p>This was <em>abstract syntax</em></p>
+<p>Now we need to describe <em>concrete syntax</em></p>
+<ul>
+<li>What programs look like when written as text</li>
+<li>and how to map that text into the abstract syntax</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="grammars">Grammars</h2>
+<p>A grammar is a recursive definition of a set of trees</p>
+<ul>
+<li>each tree is a <em>parse tree</em> for some string</li>
+<li><em>parse</em> a string <code class="sourceCode haskell">s</code> = find a parse tree for <code class="sourceCode haskell">s</code> that belongs to the grammar</li>
+</ul>
+<p><br> <br></p>
+<p>A grammar is made of:</p>
+<ul>
+<li><p><strong>Terminals</strong>: the leaves of the tree (tokens!)</p></li>
+<li><p><strong>Nonterminals:</strong> the internal nodes of the tree</p></li>
+<li><p><strong>Production Rules</strong> that describe how to “produce” a non-terminal from terminals and other non-terminals</p>
+<ul>
+<li>i.e. what children each nonterminal can have:</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">BinExpr</span> <span class="fu">:</span>   <span class="co">-- NT BinExpr can have as children:</span>
+  <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr</span>  { <span class="fu">...</span> } <span class="co">-- NT Aexpr, T '+', and NT Aexpr, or </span>
+  <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">AExpr</span>  { <span class="fu">...</span> } <span class="co">-- NT Aexpr, T '-', and NT Aexpr, or </span>
+  <span class="fu">|</span> <span class="fu">...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="terminals">Terminals</h2>
+<p>Terminals correspond to the <em>tokens</em> returned by the lexer</p>
+<p>In the <code class="sourceCode haskell"><span class="fu">.</span>y</code> file, we have to declare with terminals in the rules correspond to which tokens from the <code class="sourceCode haskell"><span class="dt">Token</span></code> datatype:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">%</span>token
+    <span class="dt">TNUM</span>  { <span class="dt">NUM</span> _ <span class="fu">$$</span> }
+    <span class="dt">ID</span>    { <span class="dt">ID</span> _ <span class="fu">$$</span>  }
+    <span class="ch">'+'</span>   { <span class="dt">PLUS</span> _   }
+    <span class="ch">'-'</span>   { <span class="dt">MINUS</span> _  }
+    <span class="ch">'*'</span>   { <span class="dt">MUL</span> _    }
+    <span class="ch">'/'</span>   { <span class="dt">DIV</span> _    }
+    <span class="ch">'('</span>   { <span class="dt">LPAREN</span> _ }
+    <span class="ch">')'</span>   { <span class="dt">RPAREN</span> _ }</code></pre></div>
+<ul>
+<li><p>Each thing on the left is terminal (as appears in the production rules)</p></li>
+<li><p>Each thing on the right is a Haskell pattern for datatype <code class="sourceCode haskell"><span class="dt">Token</span></code></p></li>
+<li><p>We use <code class="sourceCode haskell"><span class="fu">$$</span></code> to designate one parameter of a token constructor as the <strong>value</strong> of that token</p>
+<ul>
+<li>we will refer back to it from the production rules</li>
+</ul></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="production-rules">Production rules</h2>
+<p>Next we define productions for our language:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Aexpr</span> <span class="fu">:</span> <span class="dt">BinExp</span>                   { <span class="fu">$</span><span class="dv">1</span>           }
+      <span class="fu">|</span> <span class="dt">TNUM</span>                     { <span class="dt">AConst</span> <span class="fu">$</span><span class="dv">1</span>    }
+      <span class="fu">|</span> <span class="dt">ID</span>                       { <span class="dt">AVar</span>   <span class="fu">$</span><span class="dv">1</span>    }
+      <span class="fu">|</span> <span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span>            { <span class="fu">$</span><span class="dv">2</span>           }
+
+<span class="dt">BinExp</span> <span class="fu">:</span> <span class="dt">Aexpr</span> <span class="ch">'*'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMul</span>   <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }
+       <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr</span>         { <span class="dt">APlus</span>  <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> } 
+       <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMinus</span> <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }</code></pre></div>
+<p>The expression on the right computes the <em>value</em> of this node</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">2</span> <span class="fu">$</span><span class="dv">3</span></code> refer to the <em>values</em> of the respective child nodes</li>
+</ul>
+<p><br> <br></p>
+<p><strong>Example:</strong> parsing <code class="sourceCode haskell">(<span class="dv">2</span>)</code> as <code class="sourceCode haskell"><span class="dt">AExpr</span></code>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Lexer returns a sequence of <code class="sourceCode haskell"><span class="dt">Token</span></code>s: <code class="sourceCode haskell">[<span class="dt">LPAREN</span>, <span class="dt">NUM</span> <span class="dv">2</span>, <span class="dt">RPAREN</span>]</code></p></li>
+<li><p><code class="sourceCode haskell"><span class="dt">LPAREN</span></code> is the token for terminal <code class="sourceCode haskell">(</code>, so let’s pick production <code class="sourceCode haskell"><span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span></code></p></li>
+<li><p>Now we have to parse <code class="sourceCode haskell"><span class="dt">NUM</span> <span class="dv">2</span></code> as <code class="sourceCode haskell"><span class="dt">Aexpr</span></code> and <code class="sourceCode haskell"><span class="dt">RPAREN</span></code> as ‘)’</p></li>
+<li><p><code class="sourceCode haskell"><span class="dt">NUM</span> <span class="dv">2</span></code> is a token for nonterminal <code class="sourceCode haskell"><span class="dt">TNUM</span></code>, so let’s pick production <code class="sourceCode haskell"><span class="dt">TNUM</span></code></p></li>
+<li><p>The value of this <code class="sourceCode haskell"><span class="dt">Aexpr</span></code> node is <code class="sourceCode haskell"><span class="dt">AConst</span> <span class="dv">2</span></code>, since the value of <code class="sourceCode haskell"><span class="dt">TNUM</span></code> is <code class="sourceCode haskell"><span class="dv">2</span></code></p></li>
+<li><p>The value of the top-level <code class="sourceCode haskell"><span class="dt">Aexpr</span></code> node is also <code class="sourceCode haskell"><span class="dt">AConst</span> <span class="dv">2</span></code> (see the <code class="sourceCode haskell"><span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span></code> production)</p></li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-2">QUIZ</h2>
+<p>What is the value of the root <code class="sourceCode haskell"><span class="dt">AExpr</span></code> node when parsing <code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Aexpr</span> <span class="fu">:</span> <span class="dt">BinExp</span>                   { <span class="fu">$</span><span class="dv">1</span>           }
+      <span class="fu">|</span> <span class="dt">TNUM</span>                     { <span class="dt">AConst</span> <span class="fu">$</span><span class="dv">1</span>    }
+      <span class="fu">|</span> <span class="dt">ID</span>                       { <span class="dt">AVar</span>   <span class="fu">$</span><span class="dv">1</span>    }
+      <span class="fu">|</span> <span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span>            { <span class="fu">$</span><span class="dv">2</span>           }
+<span class="dt">BinExp</span> <span class="fu">:</span> <span class="dt">Aexpr</span> <span class="ch">'*'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMul</span>   <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }
+       <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr</span>         { <span class="dt">APlus</span>  <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> } 
+       <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMinus</span> <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }</code></pre></div>
+<p><strong>(A)</strong> Cannot be parsed as <code class="sourceCode haskell"><span class="dt">AExpr</span></code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">6</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dt">APlus</span> (<span class="dt">APlus</span> (<span class="dt">AConst</span> <span class="dv">1</span>) (<span class="dt">AConst</span> <span class="dv">2</span>)) (<span class="dt">AConst</span> <span class="dv">3</span>)</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dt">APlus</span> (<span class="dt">AConst</span> <span class="dv">1</span>) (<span class="dt">APlus</span> (<span class="dt">AConst</span> <span class="dv">2</span>) (<span class="dt">AConst</span> <span class="dv">3</span>))</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="running-the-parser">Running the Parser</h2>
+<p>First, we should tell the parser that the top-level non-terminal is <code class="sourceCode haskell"><span class="dt">AExpr</span></code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">%</span>name aexpr</code></pre></div>
+<p>From the production rules and this line, <code class="sourceCode haskell">happy</code> generates a function <code class="sourceCode haskell">aexpr</code> that tries to parse a sequence of tokens as <code class="sourceCode haskell"><span class="dt">AExpr</span></code></p>
+<p>We package this function together with the lexer and the evaluator into a handy function</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">evalString ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></code></pre></div>
+<p><br></p>
+<p>We can test the function like so:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> evalString [] <span class="st">&quot;1 + 3 + 6&quot;</span>
+<span class="dv">10</span>
+
+λ<span class="fu">&gt;</span> evalString [(<span class="st">&quot;x&quot;</span>, <span class="dv">100</span>), (<span class="st">&quot;y&quot;</span>, <span class="dv">20</span>)] <span class="st">&quot;x - y&quot;</span>
+<span class="fu">???</span>
+
+λ<span class="fu">&gt;</span> evalString [] <span class="st">&quot;2 * 5 + 5&quot;</span>
+<span class="fu">???</span>
+
+λ<span class="fu">&gt;</span> evalString [] <span class="st">&quot;2 - 1 - 1&quot;</span>
+<span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="precedence-and-associativity">Precedence and associativity</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> evalString [] <span class="st">&quot;2 * 5 + 5&quot;</span>
+<span class="dv">20</span></code></pre></div>
+<p>The problem is that our grammar is <strong>ambiguous</strong>!</p>
+<p>There are multiple ways of parsing the string <code class="sourceCode haskell"><span class="dv">2</span> <span class="fu">*</span> <span class="dv">5</span> <span class="fu">+</span> <span class="dv">5</span></code>, namely</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="dt">APlus</span> (<span class="dt">AMul</span> (<span class="dt">AConst</span> <span class="dv">2</span>) (<span class="dt">AConst</span> <span class="dv">5</span>)) (<span class="dt">AConst</span> <span class="dv">5</span>)</code> (good)</li>
+<li><code class="sourceCode haskell"><span class="dt">AMul</span>  (<span class="dt">AConst</span> <span class="dv">2</span>) (<span class="dt">APlus</span> (<span class="dt">AConst</span> <span class="dv">5</span>) (<span class="dt">AConst</span> <span class="dv">5</span>))</code> (bad!)</li>
+</ul>
+<p><em>Wanted:</em> tell <code class="sourceCode haskell">happy</code> that <code class="sourceCode haskell"><span class="fu">*</span></code> has higher <strong>precedence</strong> than <code class="sourceCode haskell"><span class="fu">+</span></code>!</p>
+<p><br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> evalString [] <span class="st">&quot;2 - 1 - 1&quot;</span>
+<span class="dv">2</span></code></pre></div>
+<p>There are multiple ways of parsing <code class="sourceCode haskell"><span class="dv">2</span> <span class="fu">-</span> <span class="dv">1</span> <span class="fu">-</span> <span class="dv">1</span></code>, namely</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="dt">AMinus</span> (<span class="dt">AMinus</span> (<span class="dt">AConst</span> <span class="dv">2</span>) (<span class="dt">AConst</span> <span class="dv">1</span>)) (<span class="dt">AConst</span> <span class="dv">1</span>)</code> (good)</li>
+<li><code class="sourceCode haskell"><span class="dt">AMinus</span> (<span class="dt">AConst</span> <span class="dv">2</span>) (<span class="dt">AMinus</span> (<span class="dt">AConst</span> <span class="dv">1</span>) (<span class="dt">AConst</span> <span class="dv">1</span>))</code> (bad!)</li>
+</ul>
+<p><em>Wanted:</em> tell <code class="sourceCode haskell">happy</code> that <code class="sourceCode haskell"><span class="fu">-</span></code> is <strong>left-associative</strong>!</p>
+<p><br> <br></p>
+<p>How do we communicate precedence and associativity to <code class="sourceCode haskell">happy</code>?</p>
+<p><br> <br> <br> <br></p>
+<h3 id="solution-1-grammar-factoring">Solution 1: Grammar factoring</h3>
+<p>We can split the <code class="sourceCode haskell"><span class="dt">AExpr</span></code> non-terminal into multiple “levels”</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Aexpr</span> <span class="fu">:</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr2</span>
+      <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">Aexpr2</span>
+      <span class="fu">|</span> <span class="dt">Aexpr2</span>
+
+<span class="dt">Aexpr2</span> <span class="fu">:</span> <span class="dt">Aexpr2</span> <span class="ch">'*'</span> <span class="dt">Aexpr3</span>
+       <span class="fu">|</span> <span class="dt">Aexpr2</span> <span class="ch">'/'</span> <span class="dt">Aexpr3</span>
+       <span class="fu">|</span> <span class="dt">Aexpr3</span>
+
+<span class="dt">Aexpr3</span> <span class="fu">:</span> <span class="dt">TNUM</span>
+       <span class="fu">|</span> <span class="dt">ID</span>
+       <span class="fu">|</span> <span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span></code></pre></div>
+<p>Intuition: <code class="sourceCode haskell"><span class="dt">AExpr2</span></code> “binds tighter” than <code class="sourceCode haskell"><span class="dt">AExpr</span></code>, and <code class="sourceCode haskell"><span class="dt">AExpr3</span></code> is the tightest</p>
+<p>Now I cannot parse the string <code class="sourceCode haskell"><span class="dv">2</span> <span class="fu">*</span> <span class="dv">5</span> <span class="fu">+</span> <span class="dv">5</span></code> as</p>
+<ul>
+<li><p><code class="sourceCode haskell"><span class="dt">AMul</span>  (<span class="dt">AConst</span> <span class="dv">2</span>) (<span class="dt">APlus</span> (<span class="dt">AConst</span> <span class="dv">5</span>) (<span class="dt">AConst</span> <span class="dv">5</span>))</code></p></li>
+<li><p>Why?</p></li>
+</ul>
+<p><br> <br> <br> <br></p>
+<h3 id="solution-2-parser-directives">Solution 2: Parser directives</h3>
+<p>This problem is so common that parser generators have a special syntax for it!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">%</span>left <span class="ch">'+'</span> <span class="ch">'-'</span>
+<span class="fu">%</span>left <span class="ch">'*'</span> <span class="ch">'/'</span></code></pre></div>
+<p>What this means:</p>
+<ul>
+<li>All our operators are left-associative</li>
+<li>Operators on the lower line have higher precedence</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>That’s all folks!</p>
                 <hr>
             </div>
         </div>
