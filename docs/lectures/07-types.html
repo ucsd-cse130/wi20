@@ -679,6 +679,14 @@ a         and  a           is []
 
 a         and a <span class="ot">-&gt;</span> a       cannot unify<span class="fu">!</span>   </code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-3">QUIZ</h2>
+<p>What is the unifier of <code class="sourceCode haskell">a <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></code> and <code class="sourceCode haskell">b <span class="ot">-&gt;</span> c</code>?</p>
+<p><strong>(A)</strong> Cannot unify</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">[b <span class="fu">/</span> a, c <span class="fu">/</span> <span class="dt">Int</span>]</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">[b <span class="fu">/</span> a, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">[a <span class="fu">/</span> b, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x x</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
                 <hr>
             </div>
         </div>
