@@ -581,7 +581,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li><p>If no rule applies, report a type error</p></li>
 </ol>
 <p><br></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">--|</span> <span class="dt">This</span> is not a final version<span class="fu">!!!</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | This is not the final version!!!</span>
 <span class="ot">infer ::</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Type</span>
 infer _    (<span class="dt">Num</span> _)     <span class="fu">=</span> <span class="dt">TInt</span>
 infer tEnv var         <span class="fu">=</span> lookup var tEnv
@@ -646,16 +646,29 @@ infer tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span>
 <li><p>this step is called <strong>unification</strong></p></li>
 </ul></li>
 </ol>
+<p><br> <br> <br> <br> <br></p>
+<h3 id="example">Example</h3>
+<p>Let’s infer the type of <code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span></code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- TEnv     Expression    Step           Subst     Inferred type</span>
+
+<span class="dv">1</span>  []       \x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span>   [<span class="dt">T</span><span class="fu">-</span><span class="dt">Abs</span>]        []
+<span class="dv">2</span>  [x<span class="fu">:</span>a0]         x <span class="fu">+</span> <span class="dv">1</span>   [<span class="dt">T</span><span class="fu">-</span><span class="dt">Add</span>]        
+<span class="dv">3</span>                 x       [<span class="dt">T</span><span class="fu">-</span><span class="dt">Var</span>]                  a0
+<span class="dv">4</span>                 x <span class="fu">+</span> <span class="dv">1</span>   unify a0 <span class="dt">Int</span>   [a0<span class="fu">/</span><span class="dt">Int</span>]
+<span class="dv">5</span>  [x<span class="fu">:</span><span class="dt">Int</span>]            <span class="dv">1</span>   [<span class="dt">T</span><span class="fu">-</span><span class="dt">Num</span>]                  <span class="dt">Int</span>
+<span class="dv">6</span>                 x <span class="fu">+</span> <span class="dv">1</span>   unify <span class="dt">Int</span> <span class="dt">Int</span>   
+<span class="dv">7</span>                 x <span class="fu">+</span> <span class="dv">1</span>                            <span class="dt">Int</span> 
+<span class="dv">8</span>  []       \x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span>                            <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>          </code></pre></div>
 <p><br></p>
-<p><strong>Example:</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>Infer the type of <code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span>)</code> in <code class="sourceCode haskell">[]</code> (apply <code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Abs</span>]</code>)</p></li>
-<li><p>For the type of <code class="sourceCode haskell">x</code>, pick <em>fresh type variable</em> (say, <code class="sourceCode haskell">a0</code>)</p></li>
-<li><p>Infer the type of <code class="sourceCode haskell">x <span class="fu">+</span> <span class="dv">1</span></code> in <code class="sourceCode haskell">[x<span class="fu">:</span> a0]</code> (apply <code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Add</span>]</code>)</p></li>
-<li><p>Infer the type of <code class="sourceCode haskell">x</code> in <code class="sourceCode haskell">[x<span class="fu">:</span> a0]</code> (apply <code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Var</span>]</code>); result: <code class="sourceCode haskell">a0</code></p></li>
-<li><p><code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Add</span>]</code> <em>imposes a constraint</em>: its LHS must be of type <code class="sourceCode haskell"><span class="dt">Int</span></code></p></li>
-<li><p><em>Unify</em> <code class="sourceCode haskell">a0</code> and <code class="sourceCode haskell"><span class="dt">Int</span></code> to get the substitution <code class="sourceCode haskell">[a0 <span class="fu">/</span> <span class="dt">Int</span>]</code></p></li>
-<li><p>Apply the substitution <code class="sourceCode haskell">[a0 <span class="fu">/</span> <span class="dt">Int</span>]</code> to the type environment <code class="sourceCode haskell">[x<span class="fu">:</span> a0]</code> to get <code class="sourceCode haskell">[x<span class="fu">:</span> <span class="dt">Int</span>]</code>. From now on, we know that <code class="sourceCode haskell">x</code> has type <code class="sourceCode haskell"><span class="dt">Int</span></code>!</p></li>
+<li><p>For the type of <code class="sourceCode haskell">x</code>, pick <em>fresh type variable</em> (say, <code class="sourceCode haskell">a0</code>); infer the type of <code class="sourceCode haskell">x <span class="fu">+</span> <span class="dv">1</span></code> in <code class="sourceCode haskell">[x<span class="fu">:</span>a0]</code> (apply <code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Add</span>]</code>)</p></li>
+<li><p>Infer the type of <code class="sourceCode haskell">x</code> in <code class="sourceCode haskell">[x<span class="fu">:</span>a0]</code> (apply <code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Var</span>]</code>); result: <code class="sourceCode haskell">a0</code></p></li>
+<li><p><code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Add</span>]</code> <em>imposes a constraint</em>: its LHS must be of type <code class="sourceCode haskell"><span class="dt">Int</span></code>, so <em>unify</em> <code class="sourceCode haskell">a0</code> and <code class="sourceCode haskell"><span class="dt">Int</span></code> and update the <em>current substitution</em> to <code class="sourceCode haskell">[a0 <span class="fu">/</span> <span class="dt">Int</span>]</code></p></li>
+<li><p><em>Apply</em> the current substitution <code class="sourceCode haskell">[a0<span class="fu">/</span><span class="dt">Int</span>]</code> to the type environment <code class="sourceCode haskell">[x<span class="fu">:</span>a0]</code> to get <code class="sourceCode haskell">[x<span class="fu">:</span><span class="dt">Int</span>]</code>. Infer the type of <code class="sourceCode haskell"><span class="dv">1</span></code> in <code class="sourceCode haskell">[x<span class="fu">:</span><span class="dt">Int</span>]</code> (apply <code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Num</span>]</code>); result: <code class="sourceCode haskell"><span class="dt">Int</span></code></p></li>
+<li><p><code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Add</span>]</code> <em>imposes a constraint</em>: its RHS must be of type <code class="sourceCode haskell"><span class="dt">Int</span></code>, so <em>unify</em> <code class="sourceCode haskell"><span class="dt">Int</span></code> and <code class="sourceCode haskell"><span class="dt">Int</span></code>; current substitution doesn’t change</p></li>
+<li><p>By conclusion of <code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Add</span>]</code>: return <code class="sourceCode haskell"><span class="dt">Int</span></code> as the inferred type</p></li>
+<li><p>By conclusion of <code class="sourceCode haskell">[<span class="dt">T</span><span class="fu">-</span><span class="dt">Lam</span>]</code>: return <code class="sourceCode haskell"><span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></code> as the inferred type</p></li>
 </ol>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="unification">Unification</h2>
@@ -667,26 +680,174 @@ infer tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span>
 
 a <span class="ot">-&gt;</span> a    and  <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>  is [a <span class="fu">/</span> <span class="dt">Int</span>]
 
-a <span class="ot">-&gt;</span> <span class="dt">Int</span>  and  <span class="dt">Int</span> <span class="ot">-&gt;</span> b    is [a <span class="fu">/</span> <span class="dt">Int</span>, b <span class="fu">/</span> <span class="dt">Int</span>]
+a <span class="ot">-&gt;</span> <span class="dt">Int</span>  and  <span class="dt">Int</span> <span class="ot">-&gt;</span> b    is <span class="fu">???</span>
 
-<span class="dt">Int</span>       and  <span class="dt">Int</span>         is []
+<span class="dt">Int</span>       and  <span class="dt">Int</span>         is <span class="fu">???</span>
 
-a         and  a           is []
+a         and  a           is <span class="fu">???</span>
 
-<span class="dt">Int</span>       and <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>   cannot unify<span class="fu">!</span>
+<span class="dt">Int</span>       and <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>   is <span class="fu">???</span>
 
-<span class="dt">Int</span>       and a <span class="ot">-&gt;</span> a       cannot unify<span class="fu">!</span>
+<span class="dt">Int</span>       and a <span class="ot">-&gt;</span> a       is <span class="fu">???</span>
 
-a         and a <span class="ot">-&gt;</span> a       cannot unify<span class="fu">!</span>   </code></pre></div>
+a         and a <span class="ot">-&gt;</span> a       is <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-3">QUIZ</h2>
-<p>What is the unifier of <code class="sourceCode haskell">a <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></code> and <code class="sourceCode haskell">b <span class="ot">-&gt;</span> c</code>?</p>
+<p>What is the unifier of the following two types?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span><span class="fu">.</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+<span class="dv">2</span><span class="fu">.</span> b <span class="ot">-&gt;</span> c</code></pre></div>
 <p><strong>(A)</strong> Cannot unify</p>
 <p><strong>(B)</strong> <code class="sourceCode haskell">[b <span class="fu">/</span> a, c <span class="fu">/</span> <span class="dt">Int</span>]</code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell">[b <span class="fu">/</span> a, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">[a <span class="fu">/</span> b, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
-<p><strong>(E)</strong> <code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x x</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">[a <span class="fu">/</span> <span class="dt">Int</span>, b <span class="fu">/</span> <span class="dt">Int</span>, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>(C), (D) and (E) are all unifiers!</p>
+<p>But somehow (C) and (D) are <em>better</em> than (E)</p>
+<ul>
+<li><p>they make the <em>least commitment</em> required to make these types equal</p></li>
+<li><p>this is called <strong>the most general unifier</strong></p></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="infer-take-2">Infer: take 2</h2>
+<p>Let’s add constraint-based typing to <code class="sourceCode haskell">infer</code>!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Now has to keep track of current substitution!</span>
+<span class="ot">infer ::</span> <span class="dt">Subst</span> <span class="ot">-&gt;</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> (<span class="dt">Subst</span>, <span class="dt">Type</span>)
+infer sub _    (<span class="dt">Num</span> _)     <span class="fu">=</span> (sub, <span class="dt">TInt</span>)
+infer sub tEnv var         <span class="fu">=</span> (sub, lookup var tEnv)
+
+<span class="co">-- Lambda case: simply generate fresh type variable! </span>
+infer sub tEnv (<span class="dt">Lam</span> x e)   <span class="fu">=</span> infer sub tEnv' e
+  <span class="kw">where</span>
+    tEnv' <span class="fu">=</span> extendTEnv x tX tEnv
+    tX    <span class="fu">=</span> freshTV <span class="co">-- we'll get to this</span>
+
+<span class="co">-- Add case: recursively infer types of operands </span>
+<span class="co">-- and enforce constraint that they are both Int</span>
+infer sub tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> (sub4, <span class="dt">TInt</span>)
+  <span class="kw">where</span>
+    (sub1, t1) <span class="fu">=</span> infer sub tEnv e1   <span class="co">-- 1. infer type of e1</span>
+    sub2       <span class="fu">=</span> unify sub1 t1 <span class="dt">Int</span>   <span class="co">-- 2. enforce constraint: t1 is Int</span>
+    tEnv'      <span class="fu">=</span> apply sub2 tEnv     <span class="co">-- 3. apply substitution to context      </span>
+    (sub3, t2) <span class="fu">=</span> infer sub2 tEnv' e2 <span class="co">-- 4. infer type of e2 in new ctx</span>
+    sub4       <span class="fu">=</span> unify sub3 t2 <span class="dt">Int</span>   <span class="co">-- 5. enforce constraint: t2 is Int</span></code></pre></div>
+<p><br></p>
+<p>Why are all these steps necessary? Can’t we just return <code class="sourceCode haskell">(sub, <span class="dt">TInt</span>)</code>?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-4">QUIZ</h2>
+<p>Which of these programs will type-check if we skip step 3?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">infer sub tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> (sub4, <span class="dt">TInt</span>)
+  <span class="kw">where</span>
+    (sub1, t1) <span class="fu">=</span> infer sub tEnv e1   <span class="co">-- 1. infer type of e1</span>
+    sub2       <span class="fu">=</span> unify sub1 t1 <span class="dt">Int</span>   <span class="co">-- 2. enforce constraint: t1 is Int</span>
+    tEnv'      <span class="fu">=</span> apply sub2 tEnv     <span class="co">-- 3. apply substitution to context      </span>
+    (sub3, t2) <span class="fu">=</span> infer sub2 tEnv' e2 <span class="co">-- 4. infer type of e2 in new ctx</span>
+    sub4       <span class="fu">=</span> unify sub3 t2 <span class="dt">Int</span>   <span class="co">-- 5. enforce constraint: t2 is Int</span></code></pre></div>
+<p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dv">1</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="dv">3</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x) <span class="fu">+</span> <span class="dv">1</span></code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">+</span> (\x <span class="ot">-&gt;</span> x)</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x <span class="fu">+</span> x <span class="dv">5</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="fresh-type-variables">Fresh type variables</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Now has to keep track of current substitution!</span>
+<span class="ot">infer ::</span> <span class="dt">Subst</span> <span class="ot">-&gt;</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> (<span class="dt">Subst</span>, <span class="dt">Type</span>)
+
+<span class="co">-- Lambda case: simply generate fresh type variable! </span>
+infer sub tEnv (<span class="dt">Lam</span> x e)   <span class="fu">=</span> infer sub tEnv' e
+  <span class="kw">where</span>
+    tEnv' <span class="fu">=</span> extendTEnv x tX tEnv
+    tX    <span class="fu">=</span> freshTV <span class="co">-- how do we do this?</span></code></pre></div>
+<p><br> <br></p>
+<p>Intended behavior:</p>
+<ul>
+<li>First time we call <code class="sourceCode haskell">freshTV</code> it returns <code class="sourceCode haskell">a0</code></li>
+<li>Second time it returns <code class="sourceCode haskell">a1</code></li>
+<li>Third time it returns <code class="sourceCode haskell">a2</code></li>
+<li>.. and so on</li>
+</ul>
+<p><br> <br></p>
+<p>Can we do that in Haskell?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="polymorphism-the-final-frontier">Polymorphism: the final frontier</h2>
+<p>Back to double identity:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> id <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="kw">in</span>   <span class="co">-- Must generalize the type of id</span>
+  <span class="kw">let</span> y <span class="fu">=</span> id <span class="dv">5</span> <span class="kw">in</span>     <span class="co">-- Instantiate with Int</span>
+    id (\z <span class="ot">-&gt;</span> z <span class="fu">+</span> y)  <span class="co">-- Instantiate with (Int -&gt; Int)</span></code></pre></div>
+<p><br></p>
+<ul>
+<li><p>When should we to generalize a type like <code class="sourceCode haskell">a <span class="ot">-&gt;</span> a</code> into a polymorphic type like <code class="sourceCode haskell">forall a <span class="fu">.</span> a <span class="ot">-&gt;</span> a</code>?</p></li>
+<li><p>When should we instantiate a polymorphic type like <code class="sourceCode haskell">forall a <span class="fu">.</span> a <span class="ot">-&gt;</span> a</code> and with what?</p></li>
+</ul>
+<p><br></p>
+<p><strong>Generalization and instantiation:</strong></p>
+<ul>
+<li><p>Whenever we infer a type for a let-defined variable, generalize it!</p>
+<ul>
+<li>it’s safe to do so, even when not strictly necessary</li>
+</ul></li>
+<li><p>Whenever we see a variable with a polymorphic type, instantiate it</p>
+<ul>
+<li><p>with what type?</p></li>
+<li><p>well, what do we use when we don’t know what type to use?</p></li>
+<li><p><em>fresh type variables!</em></p></li>
+</ul></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="example-1">Example</h3>
+<p>Let’s infer the type of <code class="sourceCode haskell"><span class="kw">let</span> id <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="kw">in</span> id <span class="dv">5</span></code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- TEnv   Expression             Step           Subst           Type</span>
+
+<span class="dv">1</span>  []     <span class="kw">let</span> id<span class="fu">=</span>\x<span class="ot">-&gt;</span>x <span class="kw">in</span> id <span class="dv">5</span>   [<span class="dt">T</span><span class="fu">-</span><span class="dt">Let</span>]        []
+<span class="dv">2</span>                \x<span class="ot">-&gt;</span>x           [<span class="dt">T</span><span class="fu">-</span><span class="dt">Abs</span>]         
+<span class="dv">3</span>  [x<span class="fu">:</span>a0]            x           [<span class="dt">T</span><span class="fu">-</span><span class="dt">Var</span>]                        a0
+<span class="dv">4</span>                \x<span class="ot">-&gt;</span>x                                          a0 <span class="ot">-&gt;</span> a0
+<span class="dv">5</span>  []     <span class="kw">let</span> id<span class="fu">=</span>\x<span class="ot">-&gt;</span>x <span class="kw">in</span> id <span class="dv">5</span>   generalize a0
+<span class="dv">6</span>  tEnv                   id <span class="dv">5</span>   [<span class="dt">T</span><span class="fu">-</span><span class="dt">App</span>]          
+<span class="dv">7</span>                         id     [<span class="dt">T</span><span class="fu">-</span><span class="dt">Var</span>]                     
+<span class="dv">8</span>                         id     instantiate                    a1 <span class="ot">-&gt;</span> a1
+<span class="dv">9</span>                            <span class="dv">5</span>   [<span class="dt">T</span><span class="fu">-</span><span class="dt">Num</span>]                        <span class="dt">Int</span>
+<span class="dv">10</span>                        id <span class="dv">5</span>   unify (a1<span class="ot">-&gt;</span>a1) 
+                                      (<span class="dt">Int</span><span class="ot">-&gt;</span>a2) [a1<span class="fu">/</span><span class="dt">Int</span>,a2<span class="fu">/</span><span class="dt">Int</span>]
+<span class="dv">10</span>                        id <span class="dv">5</span>                                  <span class="dt">Int</span>
+<span class="dv">11</span> []     <span class="kw">let</span> id<span class="fu">=</span>\x<span class="ot">-&gt;</span>x <span class="kw">in</span> id <span class="dv">5</span>                                  <span class="dt">Int</span> </code></pre></div>
+<p>Here <code class="sourceCode haskell">tEnv <span class="fu">=</span> [id <span class="fu">:</span> forall a0<span class="fu">.</span>a0<span class="ot">-&gt;</span>a0]</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="infer-take-3">Infer: take 3</h2>
+<p>Let’s add polymorphism to <code class="sourceCode haskell">infer</code>!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">infer ::</span> <span class="dt">Subst</span> <span class="ot">-&gt;</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> (<span class="dt">Subst</span>, <span class="dt">Type</span>)
+
+<span class="co">-- Variable case: add instantiation!</span>
+infer sub tEnv var         <span class="fu">=</span> (sub, t)
+  <span class="kw">where</span>
+    t <span class="fu">=</span> instantiate (lookup var tEnv)
+
+<span class="co">-- Let case: add generalization!</span>
+infer sub tEnv (<span class="dt">Let</span> x e1 e2)   <span class="fu">=</span> infer sub1 tEnv2 e2
+  <span class="kw">where</span>
+    (sub1, t1) <span class="fu">=</span> infer sub tEnv e1     <span class="co">-- 1. infer type of e1</span>
+    tEnv1      <span class="fu">=</span> apply sub1 tEnv       <span class="co">-- 2. apply substitution to context</span>
+    s1         <span class="fu">=</span> generalize tEnv1 t1   <span class="co">-- 3. generalize</span>
+    tEnv2      <span class="fu">=</span> extendTEnv x s1 tEnv1 <span class="co">-- 4. add x to context</span></code></pre></div>
+<p><strong>Note:</strong> this version still doesn’t properly handle</p>
+<ul>
+<li>generating fresh type variables</li>
+<li>recursive definitions</li>
+</ul>
+<p>You’ll have to do that in the homework!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="what-we-learned-this-week">What we learned this week</h2>
+<p><strong>Type system:</strong> a set of rules about which expressions have which types</p>
+<p><strong>Type environment (or context):</strong> a mapping of variables to their types</p>
+<p><strong>Polymorphic type:</strong> a type parameterized with type variables that can be instantiated with any concrete type</p>
+<p><strong>Type substitution:</strong> a mapping of type variables to types; you can <strong>apply</strong> a substitution to a type by replacing all its variables with their values in the substitution</p>
+<p><strong>Unifier</strong> of two types: a substitution that makes them equal; <strong>unification</strong> is the process of finding a unifier</p>
+<p><strong>Type inference:</strong> an algorithm to determine the type of an expression</p>
+<p><strong>Constraint-based type inference:</strong> a type inference technique that uses fresh type variables and unification</p>
+<p><strong>Generalization:</strong> turning a mono-type with free type variables into a polymorphic type (by binding its variables with a <code class="sourceCode haskell">forall</code>)</p>
+<p><strong>Instantiation:</strong> turning a polymorphic type into a mono-type by substituting type variables in its body with some types</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>That’s all folks</p>
                 <hr>
             </div>
         </div>
