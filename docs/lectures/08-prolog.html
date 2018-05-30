@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <!--
+      loads the http over https ssl -
+      welcome to my website!
+
+	this theme is based off the Ice & Fire theme created by Lucas Gatsas
+      https://www.twitter.com/LucasGatsas
+      www.lucasgatsas.ch - switzerland.
+  -->
+
+
+<!-- Microsoft Internet Explorer documentMode compatMode setting IE Modus -->
+<script type="text/javascript">
+var IE = null;
+if (window.navigator.appName == "Microsoft Internet Explorer") {
+  if (document.documentMode) {
+
+    IE = document.documentMode;
+    } else {
+
+        IE = 5;
+          if (document.compatMode) {
+      if (document.compatMode == "CSS1Compat")
+      IE = 11;
+      }
+    }
+  }
+</script>
+
+    <meta charset="utf-8">
+    <!-- X-UA -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <link rel="author" title="Ranjit Jhala" href="http://ranjitjhala.github.io" />
+
+    <meta name="google" content="notranslate" />
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- index ROBOTS follow -->
+    <meta name="robots" content="index, follow" />
+    <!-- Site Desciption -->
+    <meta name="description" content="UCSD CSE 130">
+    <!-- Site Desciption -->
+    <meta name="keywords" content="haskell, refinement types, liquid types, formal methods, type systems">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://nadia-polikarpova.github.io/cse130-sp18/static/img/ico.png" type="image/x-icon" />
+    <!-- Blog Title -->
+    <title>cse130</title>
+
+    <!--     <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+-->
+    <!-- Property Metas -->
+    <meta property="og:image" content="https://nadia-polikarpova.github.io/cse130-sp18/static/img/ix.png" />
+    <meta property="og:title" content="UCSD CSE 130" />
+    <meta property="og:site_name" content="UCSD CSE 130" />
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseUrl | prepend: site.url }}">
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/spaceg.stylesheets.css"> -->
+    <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/ronacher.css" type="text/css">
+
+    <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/syntax.css">
+    <link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/liquid-light.css">
+
+    <!-- Fonts
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+	#preloader {position:fixed;top:0;left:0;right:0;bottom:0;background-color:#fff; /* change if the mask should have another color then white */z-index:99; /* makes sure it stays on top */}
+	#status {width:200px;height:200px;position:absolute;left:50%; /* centers the loading animation horizontally one the screen */top:50%; /* centers the loading animation vertically one the screen */background-image:url("/static/img/preloader.gif"); /* path to your loading animation */background-repeat:no-repeat;background-position:center;margin:-100px 0 0 -100px; /* is width and height divided by two */}
+	ul, ol {margin-top: 0;margin-bottom: 10px;}
+	.navbar-inverse {background-color: #FFF;border-color: #FFFFFF;}
+</style>
+<!--link rel="stylesheet" href="https://nadia-polikarpova.github.io/cse130-sp18/static/css/prettify.css"-->
+<style>
+  /* HEADER IMAGE */
+  header.intro-header {background: #6f5499;background: no-repeat center center;background-attachment: scroll;-webkit-background-size: cover;-moz-background-size: cover;background-size: cover;-o-background-size: cover;}
+
+	/* Preloader */#preloader {position:fixed;top:0;left:0;right:0;bottom:0;background-color:#fff; /* change if the mask should have another color then white */z-index:99; /* makes sure it stays on top */}
+	#status {width:200px;height:200px;position:absolute;left:50%; /* centers the loading animation horizontally one the screen */top:50%; /* centers the loading animation vertically one the screen */background-image:; /* path to your loading animation */background-repeat:no-repeat;background-position:center;margin:-100px 0 0 -100px; /* is width and height divided by two */}
+	li {list-style: none;}
+            body.modal-open
+            {overflow: hidden;padding-right: 0px;
+        }
+	article li {list-style: inherit;}
+	article .figure {text-align: center}
+    </style>
+    <!-- end Loading front stylesheet here -->
+    </head>
+
+    <body>
+	    
+	<!-- 	
+        <div id="preloader">
+	    <div id="status">
+	    </div>
+	</div>  
+	-->
+	<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://nadia-polikarpova.github.io/cse130-sp18" id="blog-title-left-top">cse130</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/calendar.html">Calendar</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/contact.html">Contact</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/grades.html">Grades</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/lectures.html">Lectures</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/assignments.html">Assignments</a></li>
+                <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/links.html">Links</a></li>
+                <li><a href="https://www.piazza.com/ucsd/spring2018/cse130/home" id="roundbutton" target="_blank"><i class="fa fa-twitter"></i>Piazza</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Portfolio Modals -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px; overflow: hidden;">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h1 class="font-style-inline-small-h1">Ranjit Jhala</h1>
+                            <hr class="star-primary">
+                            <img src="https://nadia-polikarpova.github.io/cse130-sp18/static/img/ico.png" class="img-responsive img-centered" alt title>
+                            <p class="font-style-inline-small">
+                                <a href="https://www.twitter.com/polikarn" target="_blank">follow me</a>. <br>
+                                <a href="https://www.github.com/nadia-polikarpova" target="_blank">    <i class="fa fa-github" id="spaceg-social-modal"></i> </a>
+                                <a href="https://www.twitter.com/polikarn" target="_blank"><i class="fa fa-twitter" id="spaceg-social-modal"></i> </a>
+                                <a href="https://plus.google.com/u/0/104385825850161331469" target="_blank"> <i class="fa fa-google-plus" id="spaceg-social-modal"></i></a>
+                            </p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Menu Modals Add New Sa.21.Feb.2015 03:22:25 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px; overflow: hidden;">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h1 class="font-style-inline-small-h1">Nadia Polikarpova</h1>
+                            <hr class="star-primary">
+                            <p class="font-style-inline-small">
+                              <a href="https://www.twitter.com/polikarn" target="_blank">follow</a>. <br>
+                              <a href="https://www.github.com/nadia-polikarpova" target="_blank">    <i class="fa fa-github" id="spaceg-social-modal"></i> </a>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/calendar.html">Calendar</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/contact.html">Contact</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/grades.html">Grades</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/lectures.html">Lectures</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/assignments.html">Assignments</a></li>
+                              <li><a href="https://nadia-polikarpova.github.io/cse130-sp18/links.html">Links</a></li>
+                              <li><a href="https://www.piazza.com/ucsd/spring2018/cse130/home" id="roundbutton" target="_blank"><i class="fa fa-twitter"></i>Piazza</a></li>
+                            </p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div id="content">
+            <!-- Post Header -->
+    <header class="intro-header" style="background-image: url('https://nadia-polikarpova.github.io/cse130-sp18/static/img/sea.jpg')" alt title>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Logic Programming</h1>
+                    
+                    <span class="meta">
+		    
+		    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<h2 id="logic-programming">Logic Programming</h2>
+<p><strong>Imperative/functional programming</strong></p>
+<ul>
+<li><p>Program = Algorithm + Data Structures</p></li>
+<li><p>Execute</p></li>
+</ul>
+<p><strong>Logic programming</strong></p>
+<ul>
+<li><p>Program = Facts + Rules</p></li>
+<li><p>Query</p></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="example">Example</h2>
+<p><strong>Collection of Facts</strong></p>
+<ul>
+<li>Carnitas is Mexican</li>
+<li><code class="sourceCode haskell">isMexican(carnitas)<span class="fu">.</span></code></li>
+</ul>
+<p><strong>Collection of Rules</strong></p>
+<ul>
+<li>All Mexican food is delicious</li>
+<li><code class="sourceCode haskell">isDelicious(<span class="dt">X</span>) <span class="fu">:-</span> isMexican(<span class="dt">X</span>)<span class="fu">.</span></code></li>
+</ul>
+<p><strong>Query</strong></p>
+<ul>
+<li>Hey Prolog! What is a delicious food ?</li>
+<li><code class="sourceCode haskell"><span class="fu">?-</span> isDelicious(<span class="dt">Y</span>)</code></li>
+</ul>
+<p><strong>Answer</strong></p>
+<ul>
+<li>Carnitas!</li>
+</ul>
+<p><br> <br></p>
+<p>You don’t “run” a Prolog program, you <em>ask it questions</em>!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="why-prolog">Why Prolog?</h2>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="prolog-history">Prolog History</h2>
+<p>1970s: developed for <em>Artificial Intelligence</em></p>
+<ul>
+<li>original vision “expert systems”</li>
+</ul>
+<p>Out came the whole field of <strong>declarative programming</strong>:</p>
+<ul>
+<li><p>Specify <em>what</em> you want</p></li>
+<li><p>Not <em>how</em> to obtain result</p></li>
+<li><p>Ideal for searching large space of results</p></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="declarative-programming-example">Declarative Programming: Example</h2>
+<p>Flight search: Orbitz / Expedia / etc.</p>
+<p><strong>Collection of Facts</strong></p>
+<ul>
+<li>Airports, Flights, Times, Durations, Costs</li>
+</ul>
+<p><strong>Collection of Rules</strong></p>
+<ul>
+<li><em>If</em> travel from <code class="sourceCode haskell"><span class="dt">A</span></code> to <code class="sourceCode haskell"><span class="dt">B</span></code> with price (<code class="sourceCode haskell"><span class="dt">P1</span></code>) <em>AND</em> <code class="sourceCode haskell"><span class="dt">B</span></code> to <code class="sourceCode haskell"><span class="dt">C</span></code> with price (<code class="sourceCode haskell"><span class="dt">P2</span></code>)</li>
+<li><em>then</em> travel from <code class="sourceCode haskell"><span class="dt">A</span></code> to <code class="sourceCode haskell"><span class="dt">C</span></code> with price (<code class="sourceCode haskell"><span class="dt">P1</span> <span class="fu">+</span> <span class="dt">P2</span></code>)</li>
+</ul>
+<p><strong>Queries</strong></p>
+<ul>
+<li>What is cheapest flight from SAN to JFK with duration &lt; 6 Hrs ?</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="declarative-programming-applications">Declarative Programming: Applications</h2>
+<p>Used heavily in many domains (together with statistical methods)</p>
+<ul>
+<li><p>Scheduling</p>
+<ul>
+<li>travel, sports, …</li>
+</ul></li>
+<li><p>Rule-based Anomaly detection</p>
+<ul>
+<li>Credit card fraud</li>
+</ul></li>
+<li><p>SQL (and similar DB Query Languages)</p></li>
+</ul>
+<p>Many of these are inspired-by or are subsets of Prolog</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="why-prolog-1">Why Prolog?</h2>
+<p><br></p>
+<p>Most importantly:</p>
+<p>yet another <strong>new</strong> way to think about programming!</p>
+<p><br></p>
+<p>(Remember the goal of this class: open your mind)</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan">Plan</h2>
+<p><strong>Language</strong></p>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li>Queries
+<ul>
+<li>implementation: unification</li>
+</ul></li>
+<li>Rules</li>
+<li>Programs
+<ul>
+<li>implementation: backtracking search</li>
+</ul></li>
+</ol>
+<p><strong>Programming</strong></p>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="language-terms">Language: Terms</h2>
+<p>Prolog Program</p>
+<ul>
+<li>Facts</li>
+<li>Rules</li>
+<li>Queries</li>
+</ul>
+<p>… <strong>about what</strong> ? Terms!</p>
+<p><br> <br></p>
+<p>Syntax of Prolog terms:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">t <span class="ot">::</span><span class="fu">=</span> n                <span class="co">-- number: 1, 92, 4.4</span>
+    <span class="fu">|</span> a                <span class="co">-- atom</span>
+    <span class="fu">|</span> <span class="dt">X</span>                <span class="co">-- variable</span>
+    <span class="fu">|</span> a (t1, t2, <span class="fu">..</span>)   <span class="co">-- compound term</span></code></pre></div>
+<p>where * <code class="sourceCode haskell">a</code> is an identifier that starts with a lower-case letter * <code class="sourceCode haskell"><span class="dt">X</span></code> is an identifier that starts with an upper-case letter</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="prolog-terms-atoms">Prolog Terms: Atoms</h3>
+<p><strong>Atom:</strong> any identifier starting with <em>lower</em>-case</p>
+<p><strong>Examples:</strong> <code class="sourceCode haskell">x</code>, <code class="sourceCode haskell">alice</code>, <code class="sourceCode haskell">taco</code>, <code class="sourceCode haskell">giraffe</code>, <code class="sourceCode haskell">appleSauce</code></p>
+<p><br> <br></p>
+<p>Prolog knows <em>NOTHING</em> about the atoms, except that:</p>
+<ul>
+<li>Each atom is <em>equal to</em> itself
+<ul>
+<li><code class="sourceCode haskell">alice <span class="fu">=</span> alice</code></li>
+<li><code class="sourceCode haskell">taco <span class="fu">=</span> taco</code></li>
+</ul></li>
+<li>Each atem is <em>disequal to</em> every other atom
+<ul>
+<li><code class="sourceCode haskell">alice <span class="fu">=</span> taco</code> <em>never</em> holds</li>
+</ul></li>
+</ul>
+<p><br> <br></p>
+<p>You can think of atoms as constructors of a single mega <em>enum</em> type:</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Atom</span> <span class="fu">=</span> x <span class="fu">|</span> alice <span class="fu">|</span> taco <span class="fu">|</span> giraffe <span class="fu">|</span> appleSauce <span class="fu">|</span> <span class="fu">...</span></code></li>
+<li>except that in Haskell, constructors start with upper case :(</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="prolog-terms-variables">Prolog Terms: Variables</h2>
+<p><strong>Variable:</strong> any identifier starting with <em>upper</em>-case</p>
+<ul>
+<li><p><strong>Examples:</strong> <code class="sourceCode haskell"><span class="dt">X</span></code>, <code class="sourceCode haskell"><span class="dt">Y</span></code>, <code class="sourceCode haskell"><span class="dt">Z</span></code>, <code class="sourceCode haskell"><span class="dt">Head</span></code>, <code class="sourceCode haskell"><span class="dt">Tail</span></code>, <code class="sourceCode haskell"><span class="dt">Taco</span></code>, <code class="sourceCode haskell"><span class="dt">Burrito</span></code>, <code class="sourceCode haskell"><span class="dt">Alice</span></code>, <code class="sourceCode haskell"><span class="dt">Bob</span></code></p></li>
+<li><p><code class="sourceCode haskell">_</code> is the <em>wildcard</em> variable, similar to Haskell</p></li>
+</ul>
+<p><br> <br></p>
+<p>A variable <em>stands for</em> (and can be <em>substituted with</em>) any term:</p>
+<ul>
+<li><code class="sourceCode haskell">alice <span class="fu">=</span> taco</code> <em>never</em> holds</li>
+<li>but <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> taco</code> holds is we replace <code class="sourceCode haskell">[<span class="dt">X</span> <span class="ot">-&gt;</span> taco]</code></li>
+<li>what about <code class="sourceCode haskell"><span class="dt">Alice</span> <span class="fu">=</span> taco</code>?</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="prolog-terms-compound-terms">Prolog Terms: Compound Terms</h2>
+<p><strong>Compound</strong> terms are of the form</p>
+<p><code class="sourceCode haskell">a (t1, t2, t3, <span class="fu">..</span>)</code></p>
+<p>where</p>
+<ul>
+<li><code class="sourceCode haskell">a</code> is a lower-case string (a <em>function symbol</em>)</li>
+<li>each <code class="sourceCode haskell">ti</code> is a term (an argument to the function symbol)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">x(y<span class="kw">,</span> z)              <span class="co">% y, z       are atoms</span>
+parent(alice<span class="kw">,</span> bob)   <span class="co">% alice, bob are atoms</span>
+parent(alice<span class="kw">,</span> <span class="dt">Child</span>) <span class="co">% alice is an atom, Child is a variable</span></code></pre></div>
+<p>You can think of compound terms as trees:</p>
+<p><img src="../static/img/prolog_tree1.png" width="400" align="middle" /></p>
+<p>They are not function calls!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="prolog-terms-haskell-representation">Prolog terms: Haskell representation</h2>
+<p>If we were <em>implementing</em> a Prolog interpreter in Haskell, we would <em>represent</em> terms like so:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Term</span>
+  <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Int</span>
+  <span class="fu">|</span> <span class="dt">Atom</span> <span class="dt">LId</span>
+  <span class="fu">|</span> <span class="dt">Var</span> <span class="dt">UId</span>
+  <span class="fu">|</span> <span class="dt">Compound</span> <span class="dt">LId</span> [<span class="dt">Term</span>]
+  
+<span class="kw">type</span> <span class="dt">LId</span> <span class="fu">=</span> <span class="dt">String</span> <span class="co">-- lower-case</span>
+<span class="kw">type</span> <span class="dt">UId</span> <span class="fu">=</span> <span class="dt">String</span> <span class="co">-- upper-case</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz">QUIZ</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Term</span>
+  <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Int</span>
+  <span class="fu">|</span> <span class="dt">Atom</span> <span class="dt">LId</span>
+  <span class="fu">|</span> <span class="dt">Var</span> <span class="dt">UId</span>
+  <span class="fu">|</span> <span class="dt">Compound</span> <span class="dt">LId</span> [<span class="dt">Term</span>]</code></pre></div>
+<p>What <em>Haskell</em> value of type <code class="sourceCode haskell"><span class="dt">Term</span></code> represents <em>Prolog</em> term <code class="sourceCode haskell">parent(alice, <span class="dt">Bob</span>)</code> ?</p>
+<p><strong>A.</strong> <code class="sourceCode haskell">parent (<span class="st">&quot;alice&quot;</span>, <span class="st">&quot;Bob&quot;</span>)</code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell">parent (<span class="dt">Atom</span> <span class="st">&quot;alice&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;Bob&quot;</span>)</code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell">[<span class="dt">Atom</span> <span class="st">&quot;parent&quot;</span>, <span class="dt">Atom</span> <span class="st">&quot;alice&quot;</span>, <span class="dt">Var</span> <span class="st">&quot;Bob&quot;</span>]</code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Compound</span> <span class="st">&quot;parent&quot;</span> [<span class="dt">Atom</span> <span class="st">&quot;alice&quot;</span>, <span class="dt">Var</span> <span class="st">&quot;Bob&quot;</span>]</code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Compound</span> (<span class="dt">Atom</span> <span class="st">&quot;parent&quot;</span>) [<span class="dt">Atom</span> <span class="st">&quot;alice&quot;</span>, <span class="dt">Var</span> <span class="st">&quot;Bob&quot;</span>]</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-1">QUIZ</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Term</span>
+  <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Int</span>
+  <span class="fu">|</span> <span class="dt">Atom</span> <span class="dt">LId</span>
+  <span class="fu">|</span> <span class="dt">Var</span> <span class="dt">UId</span>
+  <span class="fu">|</span> <span class="dt">Compound</span> <span class="dt">LId</span> [<span class="dt">Term</span>]</code></pre></div>
+<p>What <em>Haskell</em> value of type <code class="sourceCode haskell"><span class="dt">Term</span></code> represents <em>Prolog</em> term <code class="sourceCode haskell">factorial(<span class="dv">5</span>)</code> ?</p>
+<p><strong>A.</strong> <code class="sourceCode haskell">factorial(<span class="dv">5</span>)</code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell">factorial(<span class="dt">Atom</span> <span class="dv">5</span>)</code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell"><span class="dv">120</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Num</span> <span class="dv">120</span></code></p>
+<p><strong>E.</strong> `Compound “factorial” [Num 5]</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="prolog-terms">Prolog Terms</h2>
+<p>Prolog term <code class="sourceCode haskell">factorial(<span class="dv">5</span>)</code> is simply the tree</p>
+<p><img src="../static/img/prolog_tree3.png" width="200" align="middle" /></p>
+<p>Prolog has <strong>no idea</strong> what <code class="sourceCode haskell">factorial</code> is (it’s just a name)</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-1">Plan</h2>
+<p><strong>Language</strong></p>
+<ol style="list-style-type: decimal">
+<li><del>Terms [done]</del></li>
+<li><strong>Facts</strong></li>
+<li>Queries</li>
+<li>Rules</li>
+<li>Programs</li>
+</ol>
+<p><strong>Programming</strong></p>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="language-facts">Language: Facts</h2>
+<p>A <strong>fact</strong> is a “boolean” term (typically without variables) followed by <code class="sourceCode haskell"><span class="fu">.</span></code></p>
+<p><strong>Examples:</strong></p>
+<p>The following facts specify a list of <em>parent-child</em> relationships:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">parent(kim<span class="kw">,</span> holly)<span class="kw">.</span>  
+parent(margaret<span class="kw">,</span> kim)<span class="kw">.</span>  
+parent(herbert<span class="kw">,</span> margaret)<span class="kw">.</span>
+parent(john<span class="kw">,</span> kim)<span class="kw">.</span>
+parent(felix<span class="kw">,</span> john)<span class="kw">.</span>  
+parent(albert<span class="kw">,</span> felix)<span class="kw">.</span></code></pre></div>
+<p>Here:</p>
+<ul>
+<li><code class="sourceCode haskell">kim</code>, <code class="sourceCode haskell">holly</code>, <code class="sourceCode haskell">margaret</code> etc. are all atoms</li>
+<li><code class="sourceCode haskell">parent</code> is a <strong>predicate</strong> (i.e. a boolean function symbol)</li>
+<li>… of <strong>arity</strong> 2 (i.e. takes two arguments)</li>
+</ul>
+<p><br> <br></p>
+<p>Predicates have <em>no meaning</em> to Prolog, but the programmer <em>mentally notes</em> that:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">*</span> <span class="ot">`parent(kim, holly)`</span>    <span class="fu">**</span>means<span class="fu">**</span> <span class="ot">`kim`</span> is a <span class="st">&quot;parent-of&quot;</span> <span class="ot">`holly`</span>
+<span class="fu">*</span> <span class="ot">`parent(margaret, kim)`</span> <span class="fu">**</span>means<span class="fu">**</span> <span class="ot">`margaret`</span> is a <span class="st">&quot;parent-of&quot;</span> <span class="ot">`kim`</span>
+<span class="fu">*</span> etc<span class="fu">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="database-of-facts">Database of facts</h2>
+<p>Prolog maintains a database (collection) of facts</p>
+<p>Suppose we have a collection of facts saved in <a href="../code/intro.pl">intro.pl</a></p>
+<p>You can <strong>load</strong> the facts into the Prolog interpreter</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> consult('<span class="er">intro</span>.<span class="er">pl</span>')<span class="kw">.</span>
+<span class="kw">true.</span></code></pre></div>
+<p>… or you can <strong>add</strong> them one-at-a-time</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> assert(parent(margaret<span class="kw">,</span> kim))<span class="kw">.</span></code></pre></div>
+<p>Once facts are loaded, you <strong>query</strong> Prolog</p>
+<ul>
+<li>“Hey Prolog! Is this new fact <strong>in</strong> your Database … or can it be <strong>inferred</strong> from your database?”</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-2">Plan</h2>
+<h3 id="language">Language</h3>
+<ol style="list-style-type: decimal">
+<li>Terms</li>
+<li>Facts</li>
+<li><strong>Queries</strong> (Implementation: Unification)</li>
+<li>Rules</li>
+<li>Programs (Implementation: Backtracking Search)</li>
+</ol>
+<h3 id="programming">Programming</h3>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="language-query">Language: Query</h2>
+<p>A <strong>query</strong> is a boolean term (possibly with variables), which we type into a prompt</p>
+<p><br> <br></p>
+<p><strong>Example 1:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> kim)<span class="kw">.</span></code></pre></div>
+<p>Prolog replies:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="kw">true.</span></code></pre></div>
+<ul>
+<li>As this was indeed one of the facts loaded in <a href="../code/intro.pl">intro</a></li>
+</ul>
+<p><br> <br></p>
+<p><strong>Example 2:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> john)<span class="kw">.</span>  </code></pre></div>
+<p>What does Prolog reply? Why?</p>
+<p><br> <br> <br> <br></p>
+<p>The meaning of the query is “Is this fact <strong>provable</strong>”?</p>
+<p>So the answer is: “No”</p>
+<p><br> <br></p>
+<p>Pfft. Big deal? Is Prolog just a table lookup?!</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="queries-with-variables">Queries With Variables</h2>
+<p>What should Prolog reply to this query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<p><strong>Meaning:</strong></p>
+<p>“Hey Prolog, for <strong>which value(s)</strong> of <code class="sourceCode haskell"><span class="dt">X</span></code> is the fact <strong>provable</strong>”?</p>
+<p><strong>Prolog replies:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></code></pre></div>
+<ul>
+<li>Because it can <em>plug-in</em> <code class="sourceCode haskell">kim</code> for <code class="sourceCode haskell"><span class="dt">X</span></code>,</li>
+<li>and then can infer <code class="sourceCode haskell">parent(margaret, kim)</code> from the facts</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="more-examples">More examples</h2>
+<p><strong>Example 2:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span></code></pre></div>
+<p>Meaning: ???</p>
+<p>Prolog replies: ???</p>
+<p><br> <br></p>
+<p><strong>Example 3:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>Meaning: ???</p>
+<p>Prolog replies: ???</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-2">QUIZ</h2>
+<p>How do we ask Prolog the following query:</p>
+<blockquote>
+<p>Does there exist <strong>any</strong> person who is their <strong>own parent</strong> ?</p>
+</blockquote>
+<p><strong>A.</strong> <code class="sourceCode haskell">parent(kim, kim)</code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell">parent(x, x)</code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell">parent(<span class="dt">X</span>, <span class="dt">X</span>)</code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell">parent(<span class="dt">X</span>, <span class="dt">Y</span>)</code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell">parent(<span class="dt">Y</span>, <span class="dt">X</span>)</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="more-examples-1">More examples</h2>
+<p><strong>Example 4:</strong></p>
+<p>How do we ask Prolog:</p>
+<blockquote>
+<p>Does there exist <strong>any</strong> person who has more than one child?</p>
+</blockquote>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+                <hr>
+            </div>
+        </div>
+    </div>
+</article>
+
+        </div>
+        <div id="footer">
+        </div>
+      <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://nadia-polikarpova.github.io/cse130-sp18/feed.xml" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/polikarn" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://plus.google.com/u/0/104385825850161331469" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/nadia-polikarpova" target="_blank">
+                            <span class="fa-stack fa-lg">
+
+                              <i class="fa fa-arrow-circle-o-down"></i>
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+		    
+                </ul>
+                <p class="copyright text-muted">
+                
+                  Generated by <a href="http://jaspervdj.be/hakyll">Hakyll</a>,
+                  template by <a href="http://lucumr.pocoo.org">Armin Ronacher</a>,
+                  suggest improvements <a href="https://github.com/ucsd-progsys/liquidhaskell-blog/">here</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- jQuery -->
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/jquery.min.js"></script>
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/spaceg.stylesheets.min.js"></script>
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/bootstrap.min.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/anim.js"></script>
+<script src="https://nadia-polikarpova.github.io/cse130-sp18/static/js/scripts.js"></script>
+
+    </body>
+</html>

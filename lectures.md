@@ -31,7 +31,7 @@ Lecture schedule is subject to change!
 | 5/21       | Polymorphism and Type Inference | [html][lec7]              |               |
 | 5/23       | contd.                          |                           |               |
 | 5/25       | contd.                          |                           |               |
-| 5/30       | Prolog                          |                           |               |
+| 5/30       | Logic Programming               | [html][lec8]              |               |
 | 6/1        | contd.                          |                           |               |
 | 6/4        | contd.                          |                           |               |
 | 6/6        | contd.                          |                           |               |
@@ -56,6 +56,7 @@ Lecture schedule is subject to change!
 [lec5]: lectures/05-closure.html
 [lec6]: lectures/06-parsing.html
 [lec7]: lectures/07-types.html
+[lec8]: lectures/08-prolog.html
 
 [parsing]: https://github.com/cse130-sp18/arith
 
