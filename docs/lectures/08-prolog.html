@@ -477,7 +477,18 @@ parent(margaret<span class="kw">,</span> kim)<span class="kw">.</span>
 parent(herbert<span class="kw">,</span> margaret)<span class="kw">.</span>
 parent(john<span class="kw">,</span> kim)<span class="kw">.</span>
 parent(felix<span class="kw">,</span> john)<span class="kw">.</span>  
-parent(albert<span class="kw">,</span> felix)<span class="kw">.</span></code></pre></div>
+parent(albert<span class="kw">,</span> felix)<span class="kw">.</span>
+parent(albert<span class="kw">,</span> dana)<span class="kw">.</span>
+parent(felix<span class="kw">,</span> maya)<span class="kw">.</span>  </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">                  albert
+                  <span class="fu">|</span>    <span class="fu">|</span>
+herbert        felix    dana
+    <span class="fu">|</span>         <span class="fu">|</span>    <span class="fu">|</span>
+  margaret  john   maya
+         <span class="fu">|</span>  <span class="fu">|</span>
+         kim
+          <span class="fu">|</span>    
+        holly</code></pre></div>
 <p>Here:</p>
 <ul>
 <li><code class="sourceCode haskell">kim</code>, <code class="sourceCode haskell">holly</code>, <code class="sourceCode haskell">margaret</code> etc. are all atoms</li>
@@ -486,13 +497,15 @@ parent(albert<span class="kw">,</span> felix)<span class="kw">.</span></code></p
 </ul>
 <p><br> <br></p>
 <p>Predicates have <em>no meaning</em> to Prolog, but the programmer <em>mentally notes</em> that:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">*</span> <span class="ot">`parent(kim, holly)`</span>    <span class="fu">**</span>means<span class="fu">**</span> <span class="ot">`kim`</span> is a <span class="st">&quot;parent-of&quot;</span> <span class="ot">`holly`</span>
-<span class="fu">*</span> <span class="ot">`parent(margaret, kim)`</span> <span class="fu">**</span>means<span class="fu">**</span> <span class="ot">`margaret`</span> is a <span class="st">&quot;parent-of&quot;</span> <span class="ot">`kim`</span>
-<span class="fu">*</span> etc<span class="fu">.</span></code></pre></div>
+<ul>
+<li><code class="sourceCode haskell">parent(kim, holly)</code> <strong>means</strong> <code class="sourceCode haskell">kim</code> is a “parent-of” <code class="sourceCode haskell">holly</code></li>
+<li><code class="sourceCode haskell">parent(margaret, kim)</code> <strong>means</strong> <code class="sourceCode haskell">margaret</code> is a “parent-of” <code class="sourceCode haskell">kim</code></li>
+<li>etc.</li>
+</ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="database-of-facts">Database of facts</h2>
 <p>Prolog maintains a database (collection) of facts</p>
-<p>Suppose we have a collection of facts saved in <a href="../code/intro.pl">intro.pl</a></p>
+<p>Suppose we have a collection of facts saved in <a href="../static/raw/intro.pl">intro.pl</a></p>
 <p>You can <strong>load</strong> the facts into the Prolog interpreter</p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> consult('<span class="er">intro</span>.<span class="er">pl</span>')<span class="kw">.</span>
 <span class="kw">true.</span></code></pre></div>
@@ -527,7 +540,7 @@ parent(albert<span class="kw">,</span> felix)<span class="kw">.</span></code></p
 <p>Prolog replies:</p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="kw">true.</span></code></pre></div>
 <ul>
-<li>As this was indeed one of the facts loaded in <a href="../code/intro.pl">intro</a></li>
+<li>As this was indeed one of the facts loaded in <a href="../static/raw/intro.pl">intro</a></li>
 </ul>
 <p><br> <br></p>
 <p><strong>Example 2:</strong></p>
@@ -581,6 +594,426 @@ parent(albert<span class="kw">,</span> felix)<span class="kw">.</span></code></p
 <p>Does there exist <strong>any</strong> person who has more than one child?</p>
 </blockquote>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="queries-work-like-magic">Queries work like magic</h2>
+<p>In Java/C#/Haskell you would need</p>
+<ul>
+<li>Some <code class="sourceCode haskell">parentOf</code> or <code class="sourceCode haskell">childOf</code> data structure / methods
+<ul>
+<li>to represent parent-child relationship</li>
+</ul></li>
+<li>Some looping or iteration
+<ul>
+<li>to search through all pairs</li>
+</ul></li>
+<li>Instead, Prolog uses <em>facts</em> and <em>queries</em>
+<ul>
+<li>to search <em>forwards</em> and <em>backwards</em></li>
+<li>to enumerate all results</li>
+<li>in a single uniform <em>declarative</em> manner!</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>How?</p>
+<p><br></p>
+<p><strong>Magic</strong> = <strong>Unification</strong> + <strong>Backtracking Search</strong></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-3">Plan</h2>
+<p><strong>Language</strong></p>
+<ol style="list-style-type: decimal">
+<li><del>Terms</del></li>
+<li><del>Facts</del></li>
+<li>Queries
+<ul>
+<li>implementation: <strong>unification</strong></li>
+</ul></li>
+<li>Rules</li>
+<li>Programs
+<ul>
+<li>implementation: backtracking search</li>
+</ul></li>
+</ol>
+<p><strong>Programming</strong></p>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="unification">Unification</h2>
+<p>When does one term <em>match</em> (= <em>unify with</em>) another?</p>
+<p><br> <br> <br> <br> <br></p>
+<p>A term <strong>unifies with</strong> another terms when we can <em>substitute</em> values for their <em>variables</em> to make them <em>identical</em></p>
+<p><br> <br></p>
+<p>Unification is the computational heart of Prolog</p>
+<p><br></p>
+<p>When you write</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> term1 <span class="kw">=</span> term2<span class="kw">.</span></code></pre></div>
+<p>you are asking whether <code class="sourceCode haskell">term1</code> <em>can be unified with</em> <code class="sourceCode haskell">term2</code>.</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="unification-by-example">Unification By Example</h2>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> kim <span class="kw">=</span> kim<span class="kw">.</span>
+<span class="kw">true.</span>
+<span class="co">% atom is identical to itself!</span>
+
+<span class="fu">?-</span> kim <span class="kw">=</span> holly<span class="kw">.</span>
+<span class="kw">false.</span> 
+<span class="co">% different atoms are never identical</span>
+
+<span class="fu">?-</span> foo(kim) <span class="kw">=</span> foo(kim)<span class="kw">.</span>
+<span class="kw">true.</span>
+<span class="co">% compound term: recursively unify subtrees</span>
+
+<span class="fu">?-</span> foo(kim) <span class="kw">=</span> foo(holly)<span class="kw">.</span>
+???
+
+<span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span>
+<span class="co">% X can be made identical to kim if we substitute [X = kim]</span>
+
+<span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> foo(kim)<span class="kw">.</span>
+???
+
+<span class="fu">?-</span> foo(<span class="dt">X</span>) <span class="kw">=</span> foo(kim)<span class="kw">.</span>
+???
+
+<span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span>
+???</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-3">QUIZ</h2>
+<p>How does Prolog respond to the following query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><strong>A.</strong> <code class="sourceCode haskell">false</code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat, <span class="dt">Y</span> <span class="fu">=</span> cat<span class="fu">.</span></code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> dog, <span class="dt">Y</span> <span class="fu">=</span> dog<span class="fu">.</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> dog, <span class="dt">Y</span> <span class="fu">=</span> cat<span class="fu">.</span></code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat, <span class="dt">Y</span> <span class="fu">=</span> dog<span class="fu">.</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-4">QUIZ</h2>
+<p>How does Prolog respond to the following query?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><strong>A.</strong> <code class="sourceCode haskell">false</code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat, <span class="dt">Y</span> <span class="fu">=</span> cat<span class="fu">.</span></code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> dog, <span class="dt">Y</span> <span class="fu">=</span> dog<span class="fu">.</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> dog, <span class="dt">Y</span> <span class="fu">=</span> cat<span class="fu">.</span></code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat, <span class="dt">Y</span> <span class="fu">=</span> dog<span class="fu">.</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="unification-step-by-step">Unification step-by-step</h2>
+<p>Let’s see how Prolog reasons about this query:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>Two compound terms: function symbols match, so recursively unify arguments…</p>
+<p><img src="../static/img/prolog_unify_1.png" width="500" align="middle" /></p>
+<p><br> <br> <br></p>
+<p>To unify <code class="sourceCode haskell"><span class="dt">X</span></code> and <code class="sourceCode haskell">cat</code>, extend the current <em>substitution</em> with <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat</code>…</p>
+<p><img src="../static/img/prolog_unify_2.png" width="500" align="middle" /></p>
+<p><br> <br> <br></p>
+<p>Apply substitution <code class="sourceCode haskell">[<span class="dt">X</span> <span class="fu">=</span> cat]</code> to both terms. Move on to next leaf…</p>
+<p><img src="../static/img/prolog_unify_3.png" width="500" align="middle" /></p>
+<p><br> <br> <br></p>
+<p>To unify <code class="sourceCode haskell">dog</code> and <code class="sourceCode haskell"><span class="dt">Y</span></code>, extend the current <em>substitution</em> with <code class="sourceCode haskell"><span class="dt">Y</span> <span class="fu">=</span> dog</code>…</p>
+<p><img src="../static/img/prolog_unify_4.png" width="500" align="middle" /></p>
+<p><br> <br> <br></p>
+<p>… and apply this substitution throughout <em>both</em> terms.</p>
+<p><img src="../static/img/prolog_unify_6.png" width="500" align="middle" /></p>
+<p><br> <br> <br></p>
+<p>Uh oh! Now we have different atoms in the last leaf! <strong>Unification fails.</strong></p>
+<p><img src="../static/img/prolog_unify_7.png" width="500" align="middle" /></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="unification-in-prolog-vs-nano">Unification in Prolog vs Nano?</h2>
+<p>It’s the same thing, except!</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Unification in Nano</th>
+<th align="left">Unification in Prolog</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">on two <em>types</em></td>
+<td align="left">on two <em>terms</em></td>
+</tr>
+<tr class="even">
+<td align="left">is a pain to implement</td>
+<td align="left">is built-in</td>
+</tr>
+</tbody>
+</table>
+<p><br> <br></p>
+<p>So, if we implemented Nano type inference in Prolog instead of Haskell, we wouldn’t have to implement <code class="sourceCode haskell">unify</code>, we could just use <code class="sourceCode haskell"><span class="fu">=</span></code>!</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> int <span class="kw">=</span> int<span class="kw">.</span>
+<span class="kw">true.</span>
+
+<span class="fu">?-</span> int <span class="kw">=</span> bool<span class="kw">.</span>
+<span class="kw">false.</span> 
+
+<span class="fu">?-</span> funT(int<span class="kw">,</span><span class="dt">A</span>) <span class="kw">=</span> funT(<span class="dt">B</span><span class="kw">,</span>bool)<span class="kw">.</span>
+<span class="dt">A</span> <span class="kw">=</span> bool<span class="kw">,</span> <span class="dt">B</span> <span class="kw">=</span> int<span class="kw">.</span>
+
+<span class="fu">?-</span> <span class="dt">A</span> <span class="kw">=</span> funT(<span class="dt">A</span><span class="kw">,</span><span class="dt">A</span>)<span class="kw">.</span>
+???</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="unification-for-answering-queries">Unification for answering queries</h2>
+<p>What happens when we ask</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>  </code></pre></div>
+<ul>
+<li><p>Prolog goes through the list of <em>facts</em> in its database</p></li>
+<li><p><em>For each fact</em>, checking if it can be <em>unified</em> with the query</p></li>
+<li><p>If unification <em>fails</em> it moves on to the next fact</p></li>
+<li><p>If unification <em>succeeds</em> it returns <em>the unifier</em> (the unifying substitution)</p>
+<ul>
+<li>if the unifier is empty, it just replies <code class="sourceCode haskell">true</code></li>
+</ul></li>
+<li><p>If unification fails for each fact, it relies <code class="sourceCode haskell">false</code></p></li>
+</ul>
+<p><br> <br> <br></p>
+<p><strong>More examples</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span>  </code></pre></div>
+<p>This query has multiple solutions!</p>
+<ul>
+<li>Once the first solution is found, we can ask Prolog to keep going through the facts</li>
+</ul>
+<p><br> <br></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>  </code></pre></div>
+<p><br> <br></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span><span class="kw">.</span>  </code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-4">Plan</h2>
+<p><strong>Language</strong></p>
+<ol style="list-style-type: decimal">
+<li><del>Terms</del></li>
+<li><del>Facts</del></li>
+<li><del>Queries</del>
+<ul>
+<li>implementation: unification</li>
+</ul></li>
+<li><strong>Rules</strong></li>
+<li>Programs
+<ul>
+<li>implementation: backtracking search</li>
+</ul></li>
+</ol>
+<p><strong>Programming</strong></p>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="complex-queries">Complex queries</h2>
+<p>How do we determine if <code class="sourceCode haskell">margaret</code> is the <em>grandparent</em> of <code class="sourceCode haskell">holly</code>?</p>
+<p><br> <br> <br> <br> <br></p>
+<p>We use a <strong>conjunction</strong> (comma-separated sequence of terms):</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span></code></pre></div>
+<p>Is there a person <code class="sourceCode haskell"><span class="dt">X</span></code> who is a child of <code class="sourceCode haskell">margaret</code> <strong>AND</strong> a parent of <code class="sourceCode haskell">holly</code> ?</p>
+<p><strong>Note:</strong> how we link the terms with the same variable to capture relationships.</p>
+<p><br> <br></p>
+<p>How do we determine who is the <em>great-grandparent</em> of <code class="sourceCode haskell">holly</code>?</p>
+<p><br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> parent(<span class="dt">GP</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> holly)<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-5">QUIZ</h2>
+<p>Which of these queries returns all pairs <code class="sourceCode haskell"><span class="dt">X</span></code>, <code class="sourceCode haskell"><span class="dt">Y</span></code> of (half-) <strong>siblings</strong>?</p>
+<p><strong>A.</strong> <code class="sourceCode haskell">parent(<span class="dt">X</span>, <span class="dt">Y</span>), <span class="dt">X</span> \<span class="fu">=</span> <span class="dt">Y</span><span class="fu">.</span></code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell">parent(<span class="dt">X</span>, <span class="dt">Z</span>), parent(<span class="dt">Z</span>, <span class="dt">Y</span>), <span class="dt">X</span> \<span class="fu">=</span> <span class="dt">Y</span><span class="fu">.</span></code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell">parent(<span class="dt">X</span>, <span class="dt">Z</span>), parent(<span class="dt">Y</span>, <span class="dt">Z</span>), <span class="dt">X</span> \<span class="fu">=</span> <span class="dt">Y</span><span class="fu">.</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell">parent(<span class="dt">Z</span>, <span class="dt">X</span>), parent(<span class="dt">Z</span>, <span class="dt">Y</span>), <span class="dt">X</span> \<span class="fu">=</span> <span class="dt">Y</span><span class="fu">.</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="complex-queries-1">Complex queries</h2>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> parent(<span class="dt">GP</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> holly)<span class="kw">.</span></code></pre></div>
+<p>This is getting a tad repetitive!</p>
+<p>What do we do in other languages to avoid repeating ourselves?</p>
+<p><br> <br> <br> <br></p>
+<p>Abstract things into functions!</p>
+<p>In Prolog, they are called <strong>rules</strong></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="rules">Rules</h2>
+<p>Rules let us build <em>complex predicates</em> from <em>queries</em></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">t <span class="kw">:-</span> t1<span class="kw">,</span> t1<span class="kw">,</span> t2<span class="kw">,</span>...</code></pre></div>
+<ul>
+<li><code class="sourceCode haskell">t</code> is called the <strong>head</strong> of the rule</li>
+<li><code class="sourceCode haskell">t1, t2, t2,<span class="fu">...</span></code> is called the <strong>body</strong> of the rule</li>
+<li>all <code class="sourceCode haskell">t,t1, t2, t2,<span class="fu">...</span></code> are predicate applications</li>
+</ul>
+<p><br></p>
+<p><strong>Intuition:</strong></p>
+<p>To prove the head <code class="sourceCode haskell">t</code>, you must prove all sub-goals <code class="sourceCode haskell">t1</code> <strong>AND</strong> <code class="sourceCode haskell">t2</code> <strong>AND</strong> <code class="sourceCode haskell">t3</code> …</p>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>We can build a new (complex) predicate <code class="sourceCode haskell">grandparent</code> from <code class="sourceCode haskell">parent</code> predicates:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<p><code class="sourceCode haskell"><span class="dt">GP</span></code> is a <em>grandparent</em> of <code class="sourceCode haskell"><span class="dt">GC</span></code> if <code class="sourceCode haskell"><span class="dt">GP</span></code> is a <em>parent</em> of <code class="sourceCode haskell"><span class="dt">P</span></code> <strong>and</strong> <code class="sourceCode haskell"><span class="dt">P</span></code> is a <em>parent</em> of <code class="sourceCode haskell"><span class="dt">GC</span></code></p>
+<p><br> <br> <br> <br></p>
+<p>Now we can use the new predicate in a query:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> grandparent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span> <span class="co">% who are the grandparents of kim</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert <span class="kw">;</span>           <span class="co">% hit ; to see next</span>
+<span class="dt">X</span> <span class="kw">=</span> felix   <span class="kw">;</span>           <span class="co">% hit ; to see next</span>
+<span class="kw">false.</span>                  <span class="co">% thats it!</span></code></pre></div>
+<p><br> <br> <br> <br></p>
+<p>Why? Because Prolog can prove the sub-goals:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(herbert<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span>  <span class="co">% Solution 1. X = herbert</span>
+<span class="dt">P</span> <span class="kw">=</span> margaret<span class="kw">.</span>
+
+<span class="fu">?-</span> parent(felix<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span>    <span class="co">% Solution 2. X = felix</span>
+<span class="dt">P</span> <span class="kw">=</span> john <span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-6">QUIZ</h2>
+<p>Which of the following is a valid <code class="sourceCode haskell">greatgrandparent</code> predicate?</p>
+<p><strong>A.</strong> <code class="sourceCode haskell">greatgrandparent(<span class="dt">X</span>, <span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>, <span class="dt">Y</span>), grandparent(<span class="dt">X</span>, <span class="dt">Y</span>)<span class="fu">.</span></code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell">greatgrandparent(<span class="dt">X</span>, <span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>, <span class="dt">Z</span>), grandparent(<span class="dt">Z</span>, <span class="dt">Y</span>)<span class="fu">.</span></code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell">greatgrandparent(<span class="dt">X</span>, <span class="dt">Y</span>) <span class="fu">:-</span> grandparent(<span class="dt">X</span>, <span class="dt">Z</span>), parent(<span class="dt">Z</span>, <span class="dt">Y</span>)<span class="fu">.</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell">greatgrandparent(<span class="dt">X</span>, <span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>, <span class="dt">Z</span>), parent(<span class="dt">Z</span>, <span class="dt">Y</span>)<span class="fu">.</span></code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell">greatgrandparent(<span class="dt">X</span>, <span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>, <span class="dt">Z1</span>), parent(<span class="dt">Z1</span>, <span class="dt">Z2</span>), parent(<span class="dt">Z2</span>, <span class="dt">Y</span>)<span class="fu">.</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="rules-complex-predicates-from-queries">Rules: complex predicates from queries</h2>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<p>That was your first Prolog program!</p>
+<p>Let’s take it out for a spin!</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> greatgrandparent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> felix <span class="kw">;</span>
+<span class="kw">false.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-5">Plan</h2>
+<p><strong>Language</strong></p>
+<ol style="list-style-type: decimal">
+<li><del>Terms</del></li>
+<li><del>Facts</del></li>
+<li><del>Queries</del>
+<ul>
+<li>implementation: unification</li>
+</ul></li>
+<li><del>Rules</del></li>
+<li><strong>Programs</strong>
+<ul>
+<li>implementation: backtracking search</li>
+</ul></li>
+</ol>
+<p><strong>Programming</strong></p>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="prolog-programs">Prolog Programs</h2>
+<p>A <strong>program</strong> is a collection of <em>facts</em> and <em>rules</em></p>
+<p>Facts and Rules are two kinds of <strong>clauses</strong>:</p>
+<ul>
+<li><p><strong>Fact:</strong> clause <strong>without</strong> any conditions</p></li>
+<li><p><strong>Rule:</strong> clause <strong>with</strong> conditions</p>
+<ul>
+<li>used to derive new facts</li>
+</ul></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="program-structure">Program structure</h2>
+<p>How do combine multiple rules into a program?</p>
+<ol style="list-style-type: decimal">
+<li><p>Scope</p></li>
+<li><p>Disjunction</p></li>
+<li><p>Recursion</p></li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="scope">Scope</h2>
+<p>In the <code class="sourceCode haskell">grandparent</code> rule, the variable <code class="sourceCode haskell"><span class="dt">GP</span></code> appears <em>twice</em>:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></code></pre></div>
+<p>Is is the same <code class="sourceCode haskell"><span class="dt">GP</span></code>?</p>
+<p><br> <br> <br> <br></p>
+<p>Below we use <code class="sourceCode haskell"><span class="dt">X</span></code> in <em>both</em> rules:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">isDelicious(<span class="dt">X</span>)  <span class="kw">:-</span> isMexican(<span class="dt">X</span>)<span class="kw">.</span>
+isVegetarian(<span class="dt">X</span>) <span class="kw">:-</span> isVegan(<span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p>Is is the same <code class="sourceCode haskell"><span class="dt">X</span></code>?</p>
+<p><br> <br> <br> <br></p>
+<p>In Prolog, the <strong>scope</strong> of a variable is the <em>single</em> rule where it appears.</p>
+<p>There is <em>no connection</em> between variables <em>across</em> rules.</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="program-structure-1">Program structure</h2>
+<p>How do combine multiple rules into a program?</p>
+<ol style="list-style-type: decimal">
+<li><p>Scope</p></li>
+<li><p><strong>Disjunction</strong></p></li>
+<li><p>Recursion</p></li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="complex-predicates-disjunction">Complex Predicates: Disjunction</h2>
+<p>Lets write a predicate <code class="sourceCode haskell">has_family</code> which is true for persons who</p>
+<ul>
+<li><p><strong>either</strong> have a parent</p></li>
+<li><p><strong>or</strong> have a child</p></li>
+</ul>
+<p><br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span>
+has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></code></pre></div>
+<p><code class="sourceCode haskell">_</code> is a <em>wildcard</em> or <em>dont-care</em> variable (as in ML, Scala)</p>
+<p><br></p>
+<p><strong>Intuition:</strong></p>
+<ul>
+<li><p><em>If</em> we can prove <code class="sourceCode haskell">parent(<span class="dt">X</span>, _)</code> <em>then</em> we can prove <code class="sourceCode haskell">has_family(<span class="dt">X</span>)</code></p></li>
+<li><p><em>And also</em>: <em>if</em> we can prove <code class="sourceCode haskell">parent(_, <span class="dt">X</span>)</code> <em>then</em> we can prove <code class="sourceCode haskell">has_family(<span class="dt">X</span>)</code></p></li>
+</ul>
+<p><br></p>
+<p><strong>Running the program:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> has_family(holly)<span class="kw">.</span>
+<span class="kw">true.</span>  <span class="co">% Second rule fires for holly</span>
+
+<span class="fu">?-</span> has_family(mugatu)<span class="kw">.</span>
+<span class="kw">false.</span> <span class="co">% Neither rule fires for mugatu</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="complex-predicates-disjunction-1">Complex Predicates: Disjunction</h2>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span>
+has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></code></pre></div>
+<p>Can be abbreviated to</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>) <span class="kw">;</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p>Semicolon <code class="sourceCode haskell">;</code> indicates disjunction.</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="program-structure-2">Program structure</h2>
+<p>How do combine multiple rules into a program?</p>
+<ol style="list-style-type: decimal">
+<li><p>Scope</p></li>
+<li><p>Disjunction</p></li>
+<li><p><strong>Recursion</strong></p></li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="recursion">Recursion</h2>
+<p>Lets write a predicate <code class="sourceCode haskell">ancestor(<span class="dt">A</span>, <span class="dt">X</span>)</code> which is true if</p>
+<ul>
+<li><p><code class="sourceCode haskell">parent(<span class="dt">A</span>, <span class="dt">X</span>)</code> … <strong>or</strong></p></li>
+<li><p><code class="sourceCode haskell">parent(<span class="dt">A</span>, <span class="dt">P</span>)</code> and <code class="sourceCode haskell">parent(<span class="dt">P</span>, <span class="dt">X</span>)</code> … <strong>or</strong></p></li>
+<li><p><code class="sourceCode haskell">parent(<span class="dt">A</span>, <span class="dt">GP</span>)</code> and <code class="sourceCode haskell">parent(<span class="dt">GP</span>, <span class="dt">P</span>)</code> and <code class="sourceCode haskell">parent(<span class="dt">P</span>, <span class="dt">X</span>)</code> … <strong>or</strong></p></li>
+<li><p>… if <strong>some</strong> chain of parent-links holds between <code class="sourceCode haskell"><span class="dt">A</span></code> and <code class="sourceCode haskell"><span class="dt">X</span></code>.</p></li>
+</ul>
+<p><br> <br> <br></p>
+<p><code class="sourceCode haskell"><span class="dt">A</span></code> is an ancestor of <code class="sourceCode haskell"><span class="dt">X</span></code> if:</p>
+<ul>
+<li><p><em>Base case:</em> <code class="sourceCode haskell"><span class="dt">A</span></code> is a parent of <code class="sourceCode haskell"><span class="dt">X</span></code></p>
+<p><code class="sourceCode haskell">ancestor(<span class="dt">A</span>, <span class="dt">X</span>) <span class="fu">:-</span> parent(<span class="dt">A</span>, <span class="dt">X</span>)<span class="fu">.</span></code></p></li>
+<li><p><em>Inductive case:</em> <code class="sourceCode haskell"><span class="dt">A</span></code> is an ancestor of <code class="sourceCode haskell"><span class="dt">X</span></code>’s parent</p>
+<p><code class="sourceCode haskell">ancestor(<span class="dt">A</span>, <span class="dt">X</span>) <span class="fu">:-</span> parent(<span class="dt">P</span>, <span class="dt">X</span>), ancestor(<span class="dt">A</span>, <span class="dt">P</span>)<span class="fu">.</span></code></p></li>
+</ul>
+<p><br> <br> <br> <br></p>
+<p>To sum up:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></code></pre></div>
+<p>What can we do with this predicate?</p>
+<p><br> <br> <br> <br></p>
+<p>We can find <em>descendants</em> (forwards)</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> ancestor(kim<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> holly<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br></p>
+<p>We can find <em>ancestors</em> (backwards)</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> ancestor(<span class="dt">X</span><span class="kw">,</span>kim)<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> margaret  <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> john      <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> herbert   <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> felix     <span class="kw">;</span>
+<span class="dt">X</span> <span class="kw">=</span> albert    <span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<p>Pretty neat: search forward or back, in just two lines!</p>
+<ul>
+<li>Try doing that in any other language!</li>
+</ul>
                 <hr>
             </div>
         </div>
