@@ -610,10 +610,11 @@ infer tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span>
 [<span class="dt">T</span><span class="fu">-</span><span class="dt">Abs</span>]<span class="fu">------------------------------</span>
        [] <span class="fu">|-</span> (\x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span>)<span class="ot"> ::</span> <span class="fu">?</span> <span class="ot">-&gt;</span> <span class="fu">??</span></code></pre></div>
 <p>So, if we want to implement</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> infer tEnv' e
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
   <span class="kw">where</span>
-    tEnv' <span class="fu">=</span> extendTEnv x tX tEnv
-    tX <span class="fu">=</span> <span class="fu">???</span> <span class="co">-- what do we put here?</span>
+    tEnv'  <span class="fu">=</span> extendTEnv x tX tEnv
+    tX     <span class="fu">=</span> <span class="fu">???</span> <span class="co">-- what do we put here?</span>
+    tBody  <span class="fu">=</span> infer tEnv' e
 <span class="fu">...</span>    </code></pre></div>
 <p><br></p>
 <p><strong>Problem 2:</strong> Guessing when to generalize</p>
@@ -717,10 +718,11 @@ infer sub _    (<span class="dt">Num</span> _)     <span class="fu">=</span> (su
 infer sub tEnv var         <span class="fu">=</span> (sub, lookup var tEnv)
 
 <span class="co">-- Lambda case: simply generate fresh type variable! </span>
-infer sub tEnv (<span class="dt">Lam</span> x e)   <span class="fu">=</span> infer sub tEnv' e
+infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
   <span class="kw">where</span>
-    tEnv' <span class="fu">=</span> extendTEnv x tX tEnv
-    tX    <span class="fu">=</span> freshTV <span class="co">-- we'll get to this</span>
+    tEnv'  <span class="fu">=</span> extendTEnv x tX tEnv
+    tX     <span class="fu">=</span> freshTV <span class="co">-- we'll get to this</span>
+    tBody  <span class="fu">=</span> infer tEnv' e
 
 <span class="co">-- Add case: recursively infer types of operands </span>
 <span class="co">-- and enforce constraint that they are both Int</span>
@@ -754,10 +756,11 @@ infer sub tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> (su
 <span class="ot">infer ::</span> <span class="dt">Subst</span> <span class="ot">-&gt;</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> (<span class="dt">Subst</span>, <span class="dt">Type</span>)
 
 <span class="co">-- Lambda case: simply generate fresh type variable! </span>
-infer sub tEnv (<span class="dt">Lam</span> x e)   <span class="fu">=</span> infer sub tEnv' e
+infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
   <span class="kw">where</span>
-    tEnv' <span class="fu">=</span> extendTEnv x tX tEnv
-    tX    <span class="fu">=</span> freshTV <span class="co">-- how do we do this?</span></code></pre></div>
+    tEnv'  <span class="fu">=</span> extendTEnv x tX tEnv
+    tX     <span class="fu">=</span> freshTV <span class="co">-- how do we do this?</span>
+    tBody  <span class="fu">=</span> infer tEnv' e    </code></pre></div>
 <p><br> <br></p>
 <p>Intended behavior:</p>
 <ul>
