@@ -320,7 +320,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>(Remember the goal of this class: open your mind)</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan">Plan</h2>
-<p><strong>Language</strong></p>
+<p>Language</p>
 <ol style="list-style-type: decimal">
 <li>Terms</li>
 <li>Facts</li>
@@ -334,7 +334,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li>implementation: backtracking search</li>
 </ul></li>
 </ol>
-<p><strong>Programming</strong></p>
+<p>Programming</p>
 <ul>
 <li>Numeric Computation</li>
 <li>Data Structures</li>
@@ -453,15 +453,15 @@ parent(alice<span class="kw">,</span> <span class="dt">Child</span>) <span class
 <p>Prolog has <strong>no idea</strong> what <code class="sourceCode haskell">factorial</code> is (it’s just a name)</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-1">Plan</h2>
-<p><strong>Language</strong></p>
+<p>Language</p>
 <ol style="list-style-type: decimal">
-<li><del>Terms [done]</del></li>
+<li><del>Terms</del></li>
 <li><strong>Facts</strong></li>
 <li>Queries</li>
 <li>Rules</li>
 <li>Programs</li>
 </ol>
-<p><strong>Programming</strong></p>
+<p>Programming</p>
 <ul>
 <li>Numeric Computation</li>
 <li>Data Structures</li>
@@ -517,15 +517,15 @@ herbert        felix    dana
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-2">Plan</h2>
-<h3 id="language">Language</h3>
+<p>Language</p>
 <ol style="list-style-type: decimal">
-<li>Terms</li>
-<li>Facts</li>
+<li><del>Terms</del></li>
+<li><del>Facts</del></li>
 <li><strong>Queries</strong> (Implementation: Unification)</li>
 <li>Rules</li>
 <li>Programs (Implementation: Backtracking Search)</li>
 </ol>
-<h3 id="programming">Programming</h3>
+<p>Programming</p>
 <ul>
 <li>Numeric Computation</li>
 <li>Data Structures</li>
@@ -618,7 +618,7 @@ herbert        felix    dana
 <p><strong>Magic</strong> = <strong>Unification</strong> + <strong>Backtracking Search</strong></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-3">Plan</h2>
-<p><strong>Language</strong></p>
+<p>Language</p>
 <ol style="list-style-type: decimal">
 <li><del>Terms</del></li>
 <li><del>Facts</del></li>
@@ -632,7 +632,7 @@ herbert        felix    dana
 <li>implementation: backtracking search</li>
 </ul></li>
 </ol>
-<p><strong>Programming</strong></p>
+<p>Programming</p>
 <ul>
 <li>Numeric Computation</li>
 <li>Data Structures</li>
@@ -778,7 +778,7 @@ herbert        felix    dana
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span><span class="kw">.</span>  </code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-4">Plan</h2>
-<p><strong>Language</strong></p>
+<p>Language</p>
 <ol style="list-style-type: decimal">
 <li><del>Terms</del></li>
 <li><del>Facts</del></li>
@@ -792,7 +792,7 @@ herbert        felix    dana
 <li>implementation: backtracking search</li>
 </ul></li>
 </ol>
-<p><strong>Programming</strong></p>
+<p>Programming</p>
 <ul>
 <li>Numeric Computation</li>
 <li>Data Structures</li>
@@ -876,13 +876,13 @@ herbert        felix    dana
 <span class="kw">false.</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-5">Plan</h2>
-<p><strong>Language</strong></p>
+<p>Language</p>
 <ol style="list-style-type: decimal">
 <li><del>Terms</del></li>
 <li><del>Facts</del></li>
 <li><del>Queries</del>
 <ul>
-<li>implementation: unification</li>
+<li><del>implementation: unification</del></li>
 </ul></li>
 <li><del>Rules</del></li>
 <li><strong>Programs</strong>
@@ -890,7 +890,7 @@ herbert        felix    dana
 <li>implementation: backtracking search</li>
 </ul></li>
 </ol>
-<p><strong>Programming</strong></p>
+<p>Programming</p>
 <ul>
 <li>Numeric Computation</li>
 <li>Data Structures</li>
@@ -958,8 +958,8 @@ has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span cl
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> has_family(holly)<span class="kw">.</span>
 <span class="kw">true.</span>  <span class="co">% Second rule fires for holly</span>
 
-<span class="fu">?-</span> has_family(mugatu)<span class="kw">.</span>
-<span class="kw">false.</span> <span class="co">% Neither rule fires for mugatu</span></code></pre></div>
+<span class="fu">?-</span> has_family(sansa)<span class="kw">.</span>
+<span class="kw">false.</span> <span class="co">% Neither rule fires for sansa</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="complex-predicates-disjunction-1">Complex Predicates: Disjunction</h2>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span>
@@ -1014,6 +1014,309 @@ ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</
 <ul>
 <li>Try doing that in any other language!</li>
 </ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-6">Plan</h2>
+<p>Language</p>
+<ol style="list-style-type: decimal">
+<li><del>Terms</del></li>
+<li><del>Facts</del></li>
+<li><del>Queries</del>
+<ul>
+<li><del>implementation: unification</del></li>
+</ul></li>
+<li><del>Rules</del></li>
+<li>Programs
+<ul>
+<li>implementation: <strong>backtracking search</strong></li>
+</ul></li>
+</ol>
+<p>Programming</p>
+<ul>
+<li>Numeric Computation</li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="backtracking-search">Backtracking Search</h2>
+<p>How does Prolog answer recursive queries?</p>
+<ul>
+<li>Brute force <em>backtracking search</em></li>
+</ul>
+<p>View each clause as a <strong>proof rule</strong>:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">goal <span class="kw">:-</span> subgoal_1<span class="kw">,</span> subgoal_2<span class="kw">,</span> ...
+goal <span class="kw">:-</span> subgoal_3<span class="kw">,</span> subgoal_4<span class="kw">,</span> ...
+...</code></pre></div>
+<p>To prove <code class="sourceCode haskell">goal</code>, try to:</p>
+<ol style="list-style-type: decimal">
+<li>Prove <code class="sourceCode haskell">subgoal_1</code> <strong>and then</strong> prove <code class="sourceCode haskell">subgoal_2</code> etc, or, <strong>failing that</strong>,</li>
+<li>Prove <code class="sourceCode haskell">subgoal_3</code> <strong>and then</strong> prove <code class="sourceCode haskell">subgoal_4</code>, etc, or, <strong>failing that</strong>…</li>
+</ol>
+<p><br> <br></p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">.</span></code></pre></div>
+<p>To prove <code class="sourceCode haskell">ancestor(<span class="dt">A</span>,<span class="dt">X</span>)</code>, try to:</p>
+<ol style="list-style-type: decimal">
+<li>Prove <code class="sourceCode haskell">parent(<span class="dt">A</span>,<span class="dt">X</span>)</code>, or, <strong>failing that</strong>,</li>
+<li>Prove <code class="sourceCode haskell">parent(<span class="dt">P</span>,<span class="dt">X</span>)</code>, <strong>and then</strong> prove <code class="sourceCode haskell">ancestor(<span class="dt">A</span>,<span class="dt">P</span>)</code>.</li>
+</ol>
+<p><br> <br></p>
+<p>Suppose we ask it the query:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></code></pre></div>
+<p>To prove this query, it undertakes the following backtracking search:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">    ancestor(felix<span class="kw">,</span>holly)?
+      <span class="fu">/</span>                    \
+parent(felix<span class="kw">,</span>holly)    parent(<span class="dt">P0</span><span class="kw">,</span>holly)
+  <span class="dt">NO</span>                   ancestor(felix<span class="kw">,</span><span class="dt">P0</span>)
+                       |
+      ------------------
+      |
+      | <span class="dt">P0</span><span class="kw">=</span>kim  (by fact)
+      |
+      ancestor(felix<span class="kw">,</span>kim)
+      <span class="fu">/</span>                \
+  parent(felix<span class="kw">,</span>kim)     parent(<span class="dt">P1</span><span class="kw">,</span>kim)
+      <span class="dt">NO</span>                ancestor(felix<span class="kw">,</span><span class="dt">P1</span>)
+                         |              |
+           <span class="dt">P1</span> <span class="kw">=</span> margaret |              | <span class="dt">P1</span> <span class="kw">=</span> john
+                         |              |                         
+        ancestor(felix<span class="kw">,</span>margaret)        ancestor(felix<span class="kw">,</span>john)
+                <span class="fu">/</span>        \                        |
+parent(felix<span class="kw">,</span>margaret)   parent(<span class="dt">P2</span><span class="kw">,</span>margaret)   parent(felix<span class="kw">,</span>john)
+            <span class="dt">NO</span>           ancestor(felix<span class="kw">,</span><span class="dt">P2</span>)         <span class="dt">YES</span>
+                                    |
+                       <span class="dt">P2</span> <span class="kw">=</span> herbert |
+                                    |
+                      ancestor(felix<span class="kw">,</span> herbert)
+                     <span class="fu">/</span>              |
+   parent(felix<span class="kw">,</span>herbert)   parent(<span class="dt">P3</span><span class="kw">,</span>herbert)
+              <span class="dt">NO</span>                   <span class="dt">NO</span></code></pre></div>
+<p><br> <br></p>
+<p><strong>NOTE:</strong> Prolog introduces a fresh <code class="sourceCode haskell"><span class="dt">P</span></code> variable (<code class="sourceCode haskell"><span class="dt">P1</span>, <span class="dt">P2</span>, <span class="dt">P3</span><span class="fu">...</span></code>) every time the second rule for <code class="sourceCode haskell">ancestor</code> is triggered</p>
+<p><br> <br></p>
+<p><strong>HINT:</strong> Trace mode in Prolog shows the search tree!</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> trace<span class="kw">.</span>
+<span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="queries-with-variables-1">Queries with Variables</h2>
+<p><em>Backtracking Search</em> is done for <strong>every</strong> query.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">  <span class="fu">?-</span> ancestor(<span class="dt">X</span><span class="kw">,</span>kim)<span class="kw">.</span></code></pre></div>
+<ul>
+<li>Prolog does the proof search</li>
+<li>Returns <strong>all</strong> unifiers for <code class="sourceCode haskell"><span class="dt">X</span></code> for which the proof succeeds with <code class="sourceCode haskell"><span class="dt">YES</span></code>.</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="order-matters">Order matters</h2>
+<p>Order of clauses &amp; terms influences unification &amp; backtracking.</p>
+<p>For each</p>
+<ul>
+<li><strong>goal</strong> different clauses are selected in order,</li>
+<li><strong>clause</strong> subgoals are unified <em>from left-to-right</em>.</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-7">QUIZ</h2>
+<p>Which alternative definitions of <code class="sourceCode haskell">ancestor</code> are correct?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% A</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">.</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+
+<span class="co">% B</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+
+<span class="co">% C</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+
+<span class="co">% D: All of the above</span>
+
+<span class="co">% E: None of the above</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="bad-orders">Bad orders</h2>
+<p>A bad order of sub-goals of in a recursive rule can cause <strong>non-termination</strong></p>
+<p>If we define:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
+ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p>The following query doesn’t terminate:</p>
+<p>`<code class="sourceCode haskell">prolog <span class="fu">?-</span> ancestor(felix,holly)<span class="fu">.</span></code></p>
+<p><br> <br></p>
+<p>Why? The search tree looks like this now!</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">  ancestor(felix<span class="kw">,</span>holly)?
+    |
+    |
+    |
+  ancestor(felix<span class="kw">,</span><span class="dt">P0</span>)  <span class="co">%prove first subgoal,</span>
+    |                 <span class="co">%then parent(P,holly)</span>
+    |
+    |
+  ancestor(felix<span class="kw">,</span><span class="dt">P1</span>)  <span class="co">%prove first subgoal,</span>
+    |	                <span class="co">%then parent(P1,P0)</span>
+    |
+    |
+  ancestor(felix<span class="kw">,</span><span class="dt">Z</span>'')
+    <span class="kw">.</span>
+    <span class="al">.</span>
+    <span class="al">.</span></code></pre></div>
+<p><strong>To avoid infinite recursion:</strong></p>
+<ul>
+<li><p>Always place the base-case subgoal <em>first</em> in a recursive rule</p></li>
+<li><p>Then unification with the base facts <em>fixes</em> the variable <code class="sourceCode haskell"><span class="dt">P</span></code></p></li>
+<li><p>Thereby guaranteeing termination</p></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-8">QUIZ</h2>
+<p>What is the best definition of <code class="sourceCode haskell">sibling</code>?</p>
+<ul>
+<li>where <code class="sourceCode haskell">sibling(<span class="dt">X</span>, <span class="dt">Y</span>)</code> if <code class="sourceCode haskell"><span class="dt">X</span></code> and <code class="sourceCode haskell"><span class="dt">Y</span></code> share a parent.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% A</span>
+sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% B</span>
+sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% C</span>
+sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="ordering-and-unification">Ordering and Unification</h2>
+<p>Remember: <code class="sourceCode haskell"><span class="fu">=</span></code> means <em>unification</em>!</p>
+<p>So, <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> <span class="dt">Y</span></code> <em>always holds</em>:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span></code></pre></div>
+<p>Hence, <code class="sourceCode haskell">not(<span class="dt">X</span><span class="fu">=</span><span class="dt">Y</span>)</code> (which is the same as <code class="sourceCode haskell"><span class="dt">X</span> \<span class="fu">=</span> <span class="dt">Y</span></code>) <em>always fails</em>!</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span>
+<span class="kw">false.</span></code></pre></div>
+<p>So, if we define:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>Then <code class="sourceCode haskell">sibling(<span class="dt">X</span>,<span class="dt">Y</span>)</code> (with variables for inputs) always fails!</p>
+<p><br> <br></p>
+<p><strong>Solution</strong></p>
+<p>Always ensure the sub-goal <code class="sourceCode haskell">not(<span class="dt">X</span><span class="fu">=</span><span class="dt">Y</span>)</code> fires <em>after</em> <code class="sourceCode haskell"><span class="dt">X</span></code> and <code class="sourceCode haskell"><span class="dt">Y</span></code> have been fully instantiated:</p>
+<p><br> <br></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span></code></pre></div>
+<p>and now we get:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">    <span class="fu">?-</span> sibling(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+    <span class="dt">X</span> <span class="kw">=</span> john
+    <span class="dt">Y</span> <span class="kw">=</span> maya <span class="kw">;</span>
+
+    <span class="dt">X</span> <span class="kw">=</span> felix
+    <span class="dt">Y</span> <span class="kw">=</span> dana <span class="kw">;</span>
+
+    <span class="dt">X</span> <span class="kw">=</span> dana
+    <span class="dt">Y</span> <span class="kw">=</span> felix <span class="kw">;</span>
+
+    <span class="dt">X</span> <span class="kw">=</span> maya
+    <span class="dt">Y</span> <span class="kw">=</span> john <span class="kw">;</span>
+    <span class="dt">No</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-7">Plan</h2>
+<p><del>Language</del></p>
+<p><strong>Programming</strong></p>
+<ul>
+<li><strong>Numeric Computation</strong></li>
+<li>Data Structures</li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="numeric-computation">Numeric Computation</h2>
+<p>Two big problems:</p>
+<ol style="list-style-type: decimal">
+<li><p>How do we even <em>evaluate</em>? e.g. <code class="sourceCode haskell"><span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></code> ?</p></li>
+<li><p>How do we write <em>functions</em>? e.g. <code class="sourceCode haskell">add x y <span class="fu">=</span> x <span class="fu">+</span> y</code></p></li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="problem-1-how-to-evaluate">Problem 1: How to Evaluate?</h3>
+<p>Everything is a <em>term</em> and <code class="sourceCode haskell"><span class="fu">=</span></code> is a <em>unification</em> operator:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></code></pre></div>
+<p>But to “compute” we need to be able to <em>evaluate</em> <code class="sourceCode haskell"><span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></code> to <code class="sourceCode haskell"><span class="dv">5</span></code>!</p>
+<p><br> <br></p>
+<p>Prolog has a magic operator called <code class="sourceCode haskell">is</code> that <em>evaluates</em> its second argument:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">2</span> <span class="dt">+</span> <span class="dv">3</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">5</span><span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>To solve the goal <code class="sourceCode haskell">t1 is t2</code>, Prolog:</p>
+<ol style="list-style-type: decimal">
+<li><strong>evaluates</strong> <code class="sourceCode haskell">t2</code> and <em>then</em></li>
+<li><strong>unifies</strong> result with <code class="sourceCode haskell">t1</code></li>
+</ol>
+<p><br> <br></p>
+<p>All variables in <code class="sourceCode haskell">t2</code> must be instantiated <em>before</em> evaluation!</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% Not good:</span>
+<span class="fu">?-</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">X</span><span class="dv">+2</span><span class="kw">,</span> <span class="dt">X</span><span class="kw">=</span><span class="dv">1</span><span class="kw">.</span>
+<span class="dt">ERROR</span><span class="fu">:</span> <span class="dt">Args</span> are not sufficiently instantiated
+
+<span class="co">% This is okay:</span>
+<span class="fu">?-</span> <span class="dt">X</span><span class="kw">=</span><span class="dv">1</span><span class="kw">,</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">X</span><span class="dv">+2</span><span class="kw">.</span>
+<span class="dt">X</span><span class="kw">=</span><span class="dv">1</span>
+<span class="dt">Y</span><span class="kw">=</span><span class="dv">3</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="problem-2-how-to-write-functions">Problem 2: How to Write Functions?</h3>
+<p>In Prolog we can define <em>predicates</em> using <em>clauses</em> (facts and rules)</p>
+<p>Can we represent a <em>function definition</em> like</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">add x y <span class="fu">=</span> x <span class="fu">+</span> y</code></pre></div>
+<p>using predicates and clauses?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-9">QUIZ</h2>
+<p>Which of the following represents <code class="sourceCode haskell">add x y <span class="fu">=</span> x <span class="fu">+</span> y</code>?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% A</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">Z</span> <span class="dt">is</span> <span class="dt">X</span> <span class="dt">+</span> <span class="dt">Y</span><span class="kw">.</span>
+
+<span class="co">% B</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">Z</span> <span class="dt">is</span> <span class="dt">X</span> <span class="dt">+</span> <span class="dt">Y</span><span class="kw">.</span>
+
+<span class="co">% C</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span>)<span class="kw">.</span>
+
+<span class="co">% D</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span><span class="kw">.</span>
+
+<span class="co">% E</span>
+addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">Z</span><span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="functions-as-predicates">Functions as Predicates</h2>
+<p>Every <strong>function</strong> of the form:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foo x y <span class="fu">=</span> <span class="dt">Res</span></code></pre></div>
+<p>corresponds to a <strong>predicate</strong> of the form:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">fooP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span></code></pre></div>
+<p>i.e. a predicate that is <code class="sourceCode haskell"><span class="dt">True</span></code> for those triples <code class="sourceCode haskell">(<span class="dt">X</span>, <span class="dt">Y</span>, <span class="dt">Res</span>)</code> s.t. the function <code class="sourceCode haskell">foo <span class="dt">X</span> <span class="dt">Y</span></code> evaluated to <code class="sourceCode haskell"><span class="dt">Res</span></code></p>
+<p>The predicate captures the <strong>input-output relation</strong> of the function.</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="example-fibonacci">Example: Fibonacci</h3>
+<p>Recall the definition of Fibonacci numbers in Haskell:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fib ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+fib <span class="dv">0</span> <span class="fu">=</span> <span class="dv">1</span>
+fib <span class="dv">1</span> <span class="fu">=</span> <span class="dv">1</span>
+fib n <span class="fu">=</span> fib (n <span class="fu">-</span> <span class="dv">1</span>) <span class="fu">+</span> fib (n <span class="fu">-</span><span class="dv">2</span>)</code></pre></div>
+<p><br></p>
+<p>Lets write a Prolog predicate capturing the IO relationship of <code class="sourceCode haskell">fib</code>:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">fib(<span class="dt">N</span><span class="kw">,</span> <span class="dt">Res</span>)</code></pre></div>
+<p>holds only when <code class="sourceCode haskell"><span class="dt">Res</span></code> is the <code class="sourceCode haskell"><span class="dt">N</span><span class="fu">-</span>th</code> Fibonacci number.</p>
+<p>When we are done, we can <strong>call</strong> the function with a query:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> fib(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span>
+<span class="dt">Res</span> <span class="kw">=</span> <span class="dv">1</span>
+
+<span class="fu">?-</span> fib(<span class="dv">5</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span>
+<span class="dt">Res</span> <span class="kw">=</span> <span class="dv">8</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-10">QUIZ</h2>
+<p>What is the correct Prolog implementation of factorial?</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="co">% A</span>
+fact(<span class="dv">1</span><span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span> 
+fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span>
+
+<span class="co">% B</span>
+fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span>
+fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span>
+
+<span class="co">% C</span>
+fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span>
+fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dv">1</span> <span class="dt">&lt;</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span>
+
+<span class="co">% D</span>
+fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dv">1</span> <span class="dt">&lt;</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span>
+fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
                 <hr>
             </div>
         </div>

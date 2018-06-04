@@ -47,10 +47,8 @@ that explore various class topics in more depth.
 
 ## Prolog
 
-- [How to run Prolog on a lab machine](/homeworks/info_prolog.html)
 - [Tutorial 1](/static/raw/prolog_tutorial.pdf)
 - [Tutorial 2](http://kti.ms.mff.cuni.cz/~bartak/prolog/learning.html)
-- [Goat, Wolf and Cabbage](/static/raw/goat_etc.html)
 
 ## Fun Articles
 
