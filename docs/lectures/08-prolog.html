@@ -1317,6 +1317,188 @@ fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>
 fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dv">1</span> <span class="dt">&lt;</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span>
 fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-8">Plan</h2>
+<p><del>Language</del></p>
+<p><strong>Programming</strong></p>
+<ul>
+<li><del>Numeric Computation</del></li>
+<li><strong>Data Structures</strong></li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="lists">Lists</h2>
+<p>Prolog has built-in syntax for lists</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> [<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>] <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span>
+<span class="dt">H</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">,</span>
+<span class="dt">T</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></code></pre></div>
+<p><br></p>
+<p>Feels a lot like Haskell pattern matching</p>
+<ul>
+<li>no wonder: pattern matching <strong>is</strong> unification!</li>
+</ul>
+<p><br></p>
+<p>Unlike Haskell, can mix <code class="sourceCode haskell">,</code> and <code class="sourceCode haskell"><span class="fu">|</span></code>:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> [<span class="dt">X</span>,<span class="dt">Y</span><span class="fu">|</span><span class="dt">T</span>] <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">,</span>
+<span class="dt">Y</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">,</span>
+<span class="dt">T</span> <span class="kw">=</span> [<span class="dv">3</span>]<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br></p>
+<h3 id="head-and-tail">Head and tail</h3>
+<p>We have to write them as predicates:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">headOf([<span class="dt">H</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span><span class="dt">H</span>)<span class="kw">.</span>
+
+tailOf([<span class="dt">_</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">T</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-11">QUIZ</h2>
+<p>How do we write a predicate <code class="sourceCode haskell">hasThreeOrMore</code> that satisfies the following test cases:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span>hasThreeOrMore([])<span class="kw">.</span>
+<span class="kw">false.</span>
+<span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two])<span class="kw">.</span>
+<span class="kw">false.</span>
+<span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two,dog])<span class="kw">.</span>
+<span class="kw">true.</span>
+<span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two,dog,taco])<span class="kw">.</span>
+<span class="kw">true.</span></code></pre></div>
+<p><strong>A.</strong> <code class="sourceCode haskell">hasThreeOrMore([_<span class="fu">|</span>_])<span class="fu">.</span></code></p>
+<p><strong>B.</strong> <code class="sourceCode haskell">hasThreeOrMore([_,_<span class="fu">|</span>_])<span class="fu">.</span></code></p>
+<p><strong>C.</strong> <code class="sourceCode haskell">hasThreeOrMore([_,_,_<span class="fu">|</span>_])<span class="fu">.</span></code></p>
+<p><strong>D.</strong> <code class="sourceCode haskell">hasThreeOrMore([_,_,_,_<span class="fu">|</span>_])<span class="fu">.</span></code></p>
+<p><strong>E.</strong> <code class="sourceCode haskell">hasThreeOrMore([_,_,_])<span class="fu">.</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="recursive-functions-on-lists">Recursive functions on lists</h2>
+<p><strong>Example 1:</strong> <code class="sourceCode haskell">isIn</code></p>
+<p>Let’s write the Prolog equivalent of the following Haskell function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">isIn ::</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+isIn _ []     <span class="fu">=</span> <span class="dt">False</span>
+isIn x (y<span class="fu">:</span>ys) <span class="fu">=</span> x <span class="fu">==</span> y <span class="fu">||</span> isIn x ys</code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dt">X</span><span class="fu">|</span><span class="dt">_</span>])<span class="kw">.</span>
+isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dt">_</span><span class="fu">|</span><span class="dt">T</span>]) <span class="kw">:-</span> isIn(<span class="dt">X</span><span class="kw">,</span><span class="dt">T</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<p><strong>Example 2:</strong> <code class="sourceCode haskell">sum</code></p>
+<p>Let’s write the Prolog equivalent of the following Haskell function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+sum []     <span class="fu">=</span> <span class="dv">0</span>
+sum (x<span class="fu">:</span>xs) <span class="fu">=</span> x <span class="fu">+</span> sum xs</code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">sum([]<span class="kw">,</span><span class="dv">0</span>)<span class="kw">.</span>
+sum([<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> sum(<span class="dt">T</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">R1</span> <span class="dt">+</span> <span class="dt">H</span><span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<p><strong>Example 3:</strong> <code class="sourceCode haskell">append</code></p>
+<p>Let’s write the Prolog equivalent of the following Haskell function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">append ::</span> [a] <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]
+append []     ys <span class="fu">=</span> ys
+append (x<span class="fu">:</span>xs) ys <span class="fu">=</span> x<span class="fu">:</span>(append xs ys)</code></pre></div>
+<p><br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">append([]<span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span><span class="dt">Ys</span>)<span class="kw">.</span>
+append([<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span>[<span class="dt">H</span><span class="fu">|</span><span class="dt">R</span>]) <span class="kw">:-</span> append(<span class="dt">T</span><span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>Unlike in Haskell, Prolog’s append is <strong>magical!</strong></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> append(<span class="dt">Xs</span><span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])<span class="kw">.</span>
+<span class="dt">Xs</span> <span class="kw">=</span> []<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>] <span class="kw">;</span>
+<span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]  <span class="kw">;</span>
+<span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">3</span>,<span class="dv">4</span>]  <span class="kw">;</span>
+<span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">4</span>]  <span class="kw">;</span>
+<span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [] <span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>Prolog has a built-in library of list functions, including <code class="sourceCode haskell">append</code>, <code class="sourceCode haskell">reverse</code>, etc</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="plan-9">Plan</h2>
+<p><del>Language</del></p>
+<p><strong>Programming</strong></p>
+<ul>
+<li><del>Numeric Computation</del></li>
+<li><del>Data Structures</del></li>
+<li>Puzzle Solving</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="farmer-wolf-goat-cabbage">Farmer, Wolf, Goat, Cabbage</h2>
+<div class="figure">
+<img src="../static/img/logic_boat.png" alt="The real puzzle" id="fig:puzzle" class="align-center" />
+<p class="caption">The real puzzle</p>
+</div>
+<p>Farmer needs to end up on the east bank of the river.</p>
+<p>He has a little boat that can only carry him and one of the goods.</p>
+<p>Goat can’t be left alone with the cabbage, wolf can’t be left alone with the goat.</p>
+<p>Let’s ask Prolog to solve it for us!</p>
+<p><br> <br></p>
+<p>We will encode the state of the game as a list with four positions:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">[<span class="dt">P_Farmer</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]</code></pre></div>
+<p>Each position can take on one of the two atoms: <code class="sourceCode haskell">east</code> or <code class="sourceCode haskell">west</code>.</p>
+<p><br> <br></p>
+<p>First, we define four legal moves that have the farmer at at most one good in the boat:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">move([<span class="dt">X</span>,<span class="dt">X</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>     move_wolf<span class="kw">,</span>   [<span class="dt">Y</span>,<span class="dt">Y</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>])      
+  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">X</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>     move_goat<span class="kw">,</span>   [<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">Y</span>,<span class="dt">P_Cab</span>])      
+  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">X</span>]<span class="kw">,</span>    move_cabbage<span class="kw">,</span>[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">Y</span>])     
+  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>move_nothing<span class="kw">,</span>[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]) 
+  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span>
+
+change(east<span class="kw">,</span>west)<span class="kw">.</span>
+change(west<span class="kw">,</span>east)<span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>Next, we define the safety condition:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">safe([<span class="dt">P_Farmer</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]) <span class="kw">:-</span>
+  one_equal(<span class="dt">P_Farmer</span><span class="kw">,</span><span class="dt">P_Wolf</span><span class="kw">,</span><span class="dt">P_Goat</span>)<span class="kw">,</span>
+  one_equal(<span class="dt">P_Farmer</span><span class="kw">,</span><span class="dt">P_Goat</span><span class="kw">,</span><span class="dt">P_Cab</span>)<span class="kw">.</span>
+  
+one_equal(<span class="dt">X</span><span class="kw">,</span><span class="dt">X</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">.</span>
+one_equal(<span class="dt">X</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>Finally, we define a solution as a sequence of legal moves that ends in the final state:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">solution([east,east,east,east]<span class="kw">,</span>[])<span class="kw">.</span>
+solution(<span class="dt">State</span><span class="kw">,</span>[<span class="dt">FirstMove</span><span class="fu">|</span><span class="dt">RemainingMoves</span>]) <span class="kw">:-</span>
+  move(<span class="dt">State</span><span class="kw">,</span><span class="dt">FirstMove</span><span class="kw">,</span><span class="dt">NextState</span>)<span class="kw">,</span>
+  safe(<span class="dt">NextState</span>)<span class="kw">,</span>
+  solution(<span class="dt">NextState</span><span class="kw">,</span><span class="dt">RemainingMoves</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>Now we can ask Prolog to solve the puzzle like so:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> length(<span class="dt">Moves</span><span class="kw">,</span><span class="dv">7</span>)<span class="kw">,</span> solution([west,west,west,west]<span class="kw">,</span><span class="dt">Moves</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>Why do we need <code class="sourceCode haskell">length(<span class="dt">Moves</span>,<span class="dv">7</span>)</code>?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="backtracking-control">Backtracking control</h2>
+<p>Sometimes we want more fine-grained control over the backtracking</p>
+<p><br></p>
+<p>For example:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> length(<span class="dt">Moves</span><span class="kw">,</span><span class="dv">7</span>)<span class="kw">,</span> solution([west,west,west,west]<span class="kw">,</span><span class="dt">Moves</span>)<span class="kw">.</span></code></pre></div>
+<p>gives us a gazillion solutions, most that all look the same (-ish?)</p>
+<p><br> <br> <br></p>
+<h3 id="stop-backtracking">Stop backtracking</h3>
+<p>The <strong>cut</strong> operator <code class="sourceCode haskell"><span class="fu">!</span></code> is a goal that</p>
+<ul>
+<li>always succeeds</li>
+<li>cannot be back-tracked out of</li>
+</ul>
+<p><br> <br></p>
+<p>We can use cut to tell Prolog: once you found a solution to the puzzle, look no further!</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">solution([east,east,east,east]<span class="kw">,</span>[]) <span class="kw">:-</span> <span class="kw">!.</span>
+solution(<span class="dt">State</span><span class="kw">,</span>[<span class="dt">FirstMove</span><span class="fu">|</span><span class="dt">RemainingMoves</span>]) <span class="kw">:-</span>
+  move(<span class="dt">State</span><span class="kw">,</span><span class="dt">FirstMove</span><span class="kw">,</span><span class="dt">NextState</span>)<span class="kw">,</span>
+  safe(<span class="dt">NextState</span>)<span class="kw">,</span>
+  solution(<span class="dt">NextState</span><span class="kw">,</span><span class="dt">RemainingMoves</span>)<span class="kw">.</span></code></pre></div>
+<p><br> <br> <br> <br></p>
+<h3 id="collect-all-solutions">Collect all solutions</h3>
+<p>Sometimes you want to <strong>localize</strong> the backtracking and collect all solutions in a list.</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">3</span><span class="kw">.</span>
+<span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>Use <code class="sourceCode haskell">bagof</code> to get the list of all solutions:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> bagof(<span class="dt">X</span><span class="kw">,</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">,</span> <span class="dt">Sols</span>)<span class="kw">.</span>
+<span class="dt">Sols</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>]<span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>Use <code class="sourceCode haskell">setof</code> to get the list of all <em>unique</em> solutions:</p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> setof(<span class="dt">X</span><span class="kw">,</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">,</span> <span class="dt">Sols</span>)<span class="kw">.</span>
+<span class="dt">Sols</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></code></pre></div>
+<p><br> <br></p>
+<p>How do we find all <em>unique</em> solutions to the farmer puzzle?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>That’s all folks!</p>
                 <hr>
             </div>
         </div>
