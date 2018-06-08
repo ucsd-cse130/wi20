@@ -35,7 +35,7 @@ Lecture schedule is subject to change!
 | 6/1        | contd.                          |                           |               |
 | 6/4        | contd.                          |                           |               |
 | 6/6        | contd.                          |                           |               |
-| 6/8        | contd.                          |                           |               |
+| 6/8        | contd.                          | [review][final-prep]      |               |
 | 6/11       | **Final**                       |                           |               |
 
 
@@ -67,3 +67,4 @@ Lecture schedule is subject to change!
 
 [midterm]: /static/raw/130-midterm-sp18.pdf
 [midterm-sol]: /static/raw/130-midterm-sp18-solution.pdf
+[final-prep]: /static/raw/appendix.pdf
