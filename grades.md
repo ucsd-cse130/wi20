@@ -8,18 +8,24 @@ headerImg: beach.jpg
   [Register here, use your PID `A0XXXXXXXXX`][clickers]
 
 - **Homework Assignments (30%)** :
-  There will be 7 programmning assignments,
-  assigned approximately every one or two weeks.
+  There will be 7 programming assignments,
+  assigned every one or two weeks.
   Instructions on turning them in will be posted with
-  each assignment. You have a total of *four late days*
-  that you can use throughout the quarter as you need them,
-  where a late day means anything between 1 second and 23
-  hours 59 minutes and 59 seconds past a deadline.
+  each assignment.
+  
+    - You can work on the assignment *in groups of two*.
+      [Register your group here][groups].    
+      You have to submit your solution individually.
+      
+    - You have a total of *four late days*
+      that you can use throughout the quarter as you need them,
+      where a late day means anything between 1 second and 23
+      hours 59 minutes and 59 seconds past a deadline.
 
 - **Midterm (30%)** :
-  Will be held sometime in the middle of the quarter.
+  Will be held on **Monday February 11** during the lecture.
   The midterm is **closed book**, but you may use a
-  double-sided **"cheat sheet"**.
+  double-sided hand-written **"cheat sheet"**.
 
 - **Final (35%)** :
   Will be held on **Friday March 22nd, from 11:30am -- 2:30pm** in TBD.
@@ -29,9 +35,16 @@ headerImg: beach.jpg
   papers are handed to the instructor; papers not
   accompanied by a valid UCSD ID will not be accepted.
   The final is **closed book**, but you may use a
-  double-sided **"cheat sheet"**.
+  double-sided hand-written **"cheat sheet"**.
+  
+    - Since the final is cumulative your midterm grade will be calculated as 
+      `midterm > 0 ?  max(final, midterm) : 0`.
+      This means that (1) you basically get a second chance if you don’t so well on the midterm and 
+      (2) you must show up to both the midterm and the final.
 
 - **Piazza (5%)** : 
-  Extra credit for top-20 best participants on Piazza.
+  Extra credit for top-20 best participants on Piazza,
+  determined by the instruction team.
 
 [clickers]: https://goo.gl/forms/80SF9nYoZzYzCpT22
+[groups]: https://goo.gl/forms/kB7l1hs10lmydSZ73

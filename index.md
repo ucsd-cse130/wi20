@@ -10,12 +10,10 @@ and steel of the information age. Over the last thirty
 years, a variety of languages with diverse features have
 been developed, expressing radically different perspectives
 of the idea of computation. CSE 130 is an introduction to
-these different perspectives, the fundamental concepts of
-languages, and how modern language techniques and idioms
-can be used to engineer software systems. For this purpose,
-we shall focus on three different paradigms -- functional,
-object-oriented and logic programming as embodied in Haskell,
-Scala and Prolog. Many students will be encountering these
+some of these perspectives, as well as the fundamental concepts of
+languages. We shall focus on two different paradigms -- functional
+and logic programming as embodied in Haskell and Prolog. 
+Many students will be encountering these
 paradigms, languages and idioms for the first time. As with
 spoken languages, these are best absorbed by immersing yourself
 in the different environments and practicing your skills by
@@ -30,18 +28,6 @@ In particular,
 
 > all academic work will be done by the student to whom it is assigned,
 > without unauthorized aid of any kind.
-
-You are expected to do your own work on all assignments; when
-specified, you **may work in pairs** -- but will submit the
-assignments individually. You may (and are encouraged to)
-engage in **general discussions** with your classmates
-regarding the assignments, but specific details of a
-solution, including the solution itself,
-**must always be your own work**.
-
-There will be graded assignments and exam in this course,
-as described below. All exams are closed book; no tools
-other than your brain and a writing instrument are to be used.
 
 Incidents which violate the University's rules on integrity of scholarship
 will be taken seriously.  In addition to **receiving a zero (0)** on the

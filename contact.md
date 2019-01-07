@@ -3,7 +3,7 @@ title: Contact
 headerImg: world-map.jpg
 ---
 
-## Co-ordinates
+## Course Details
 
 - **Course ID:**         961503
 - **Lectures:**          MWF 1:00-1:50pm in WLH 2005
@@ -19,7 +19,7 @@ headerImg: world-map.jpg
 ## Teaching Assistants
 
 * [Sourav Anand](https://www.linkedin.com/in/soanand14/)
-* [David Justo](https://www.linkedin.com/in/david-justo-068a88a9/)
+* [David Justo](http://acsweb.ucsd.edu/~djusto/)
 * [Tristan Knoth](https://tjknoth.github.io/)
 
 
