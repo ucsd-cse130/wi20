@@ -56,6 +56,18 @@ Tutors:
 
 <br>
 <br>
+
+*Bad news:* 
+  
+  - lots of work
+
+*Good news:* 
+
+  - lots of programming!
+  - (and we're here to help)
+
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -198,7 +210,7 @@ Or more simply:
 > shapes
 > Programming Thought.
 
-Language affects how ideas and computation are expresseds
+Language affects how ideas and computation are expressed
 
 
 
@@ -564,6 +576,7 @@ Do you have a clicker?
 - Office hours
     - every day, check calendar
 - Piazza
+    - we answer during work hours
 - **No text**        
     - online lecture notes and links
 
