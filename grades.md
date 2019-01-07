@@ -39,8 +39,8 @@ headerImg: beach.jpg
   
     - Since the final is cumulative your midterm grade will be calculated as 
       `midterm > 0 ?  max(final, midterm) : 0`.
-      This means that (1) you basically get a second chance if you don’t so well on the midterm and 
-      (2) you must show up to both the midterm and the final.
+      This means that you get a second chance if you don’t do well on the midterm but 
+      you must show up to both the midterm and the final.
 
 - **Piazza (5%)** : 
   Extra credit for top-20 best participants on Piazza,
