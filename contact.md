@@ -5,11 +5,11 @@ headerImg: world-map.jpg
 
 ## Co-ordinates
 
-- **Course ID:**         938599
-- **Lectures:**          MWF 1:00-1:50pm in CENTR 119
-- **Section:**           W 9:00-9:50pm in CENTR 115
-- **Final:**             Monday June 11 7-10pm
-- **Announcements:**     [Posted on Piazza. Please check often!](https://www.piazza.com/ucsd/fall2018/cse130/)
+- **Course ID:**         961503
+- **Lectures:**          MWF 1:00-1:50pm in WLH 2005
+- **Section:**           M 8:00-8:50pm in CENTR 109
+- **Final:**             Friday March 22 11:30am-2:30pm
+- **Announcements:**     [Posted on Piazza. Please check often!](https://www.piazza.com/ucsd/winter2019/cse130/)
 
 
 ## Instructor
@@ -19,11 +19,11 @@ headerImg: world-map.jpg
 ## Teaching Assistants
 
 * [Sourav Anand](https://www.linkedin.com/in/soanand14/)
-* Joseph Geumlek
-* [Valentin Robert](http://www.cs.ucsd.edu/~vrobert)
+* [David Justo](https://www.linkedin.com/in/david-justo-068a88a9/)
+* [Tristan Knoth](https://tjknoth.github.io/)
 
 
 ## Tutors
-* [David Justo](https://www.linkedin.com/in/david-justo-068a88a9/)
-* [Purag Moumdjian](https://purag.me/)
+* Alan Kuo
+* Jiaxiao Zhou
 

@@ -8,7 +8,7 @@ headerImg: beach.jpg
   [Register here, use your PID `A0XXXXXXXXX`][clickers]
 
 - **Homework Assignments (30%)** :
-  There will be about 6-7 programmning assignments,
+  There will be 7 programmning assignments,
   assigned approximately every one or two weeks.
   Instructions on turning them in will be posted with
   each assignment. You have a total of *four late days*
@@ -22,7 +22,7 @@ headerImg: beach.jpg
   double-sided **"cheat sheet"**.
 
 - **Final (35%)** :
-  Will be held on **Monday June 11th, from 7:00pm -- 10:00pm** in TBD.
+  Will be held on **Friday March 22nd, from 11:30am -- 2:30pm** in TBD.
   It **must** be taken at the scheduled time and location.
   To turn in your completed final examination, you must
   present a valid UCSD ID at the time the examination
@@ -34,4 +34,4 @@ headerImg: beach.jpg
 - **Piazza (5%)** : 
   Extra credit for top-20 best participants on Piazza.
 
-[clickers]: https://goo.gl/forms/lL9oqtwf4nMwaRR63
+[clickers]: https://goo.gl/forms/80SF9nYoZzYzCpT22

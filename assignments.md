@@ -10,6 +10,7 @@ mins over the deadline is equal to 1 late day.
 
 ## Assignments
 
+<!--
 - [HW #0](https://github.com/cse130-sp18/00-lambda): The Lambda Calculus (due ~~Fri 4/13~~ Mon 4/16 by 23:59pm)
 
 - [HW #1](https://github.com/cse130-sp18/01-haskell): Introduction to Haskell (due Fri 4/20 by 23:59pm)
@@ -23,6 +24,7 @@ mins over the deadline is equal to 1 late day.
 - [HW #5](https://github.com/cse130-sp18/05-types): Type Inference for Nano (due ~~Mon 5/28~~ Fri 6/1 by 23:59pm)
 
 - [HW #6](https://github.com/cse130-sp18/06-prolog): The Logical Conclusion (due Fri 6/8 by 23:59pm)
+-->
 
 
 ## Sample Exam Questions
