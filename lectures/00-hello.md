@@ -32,13 +32,13 @@ date: 2017-03-28
 Teachins assistants:
 
 * [Sourav Anand](https://www.linkedin.com/in/soanand14/)
-* Joseph Geumlek
-* [Valentin Robert](http://www.cs.ucsd.edu/~vrobert)
+* [David Justo](http://acsweb.ucsd.edu/~djusto/)
+* [Tristan Knoth](https://tjknoth.github.io/)
 
 Tutors:
 
-* [David Justo](https://www.linkedin.com/in/david-justo-068a88a9/)
-* [Purag Moumdjian](https://purag.me/)
+* Alan Kuo
+* Jiaxiao (Joe) Zhou
 
 
 <br>
@@ -71,9 +71,9 @@ Tutors:
 
 Learning... 
 
-- JavaScript in April
-- Haskell in May
-- C++ in June
+- JavaScript in January
+- Haskell in February
+- C++ in March
 - etc. 
 
 ### New languages come (and go ...)
@@ -83,7 +83,7 @@ There was no
 - Java        25 years ago
 - C#          20 years ago
 - Rust        10 years ago
-- WebAssembly 1 year ago
+- WebAssembly 2 years ago
 
 
 <br>
@@ -416,10 +416,10 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 ## Course Logistics
 
-- [webpage](https://nadia-polikarpova.github.io/cse130-sp18)
+- [webpage](https://nadia-polikarpova.github.io/cse130-web)
     - calendar, lecture notes, programming assignments, ...
-- [piazza](https://piazza.com/ucsd/spring2018/cse130/home)
-    - to-go place if you have a quesiton or need help
+- [piazza](https://piazza.com/ucsd/winter2019/cse130/home)
+    - to-go place if you have a question or need help
     - email is futile
   
 
@@ -450,14 +450,16 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 ## Assignments
 
-- 6-7 programming assignments
-- Released [online](https://nadia-polikarpova.github.io/cse130-sp18/assignments.html), at least a week before due date
-- Due on **Friday at 23:59:59**
-    - not this Friday
+- 7 programming assignments
+- Released [online](https://nadia-polikarpova.github.io/cse130-web/assignments.html), at least a week before due date
+- Due on **Monday at noon** (i.e. before class)
+    - no assignment next Monday
 - Four late days, used as **whole unit**
     - 5 mins late = 1 late day
-- Submit though **ieng6** (instuctions in the assignment)
-- Solve and submit *by yourself*
+- Submit though **ieng6** (instructions in the assignment)
+- Solve in **groups of at most two**
+    - register your group [here](https://goo.gl/forms/kB7l1hs10lmydSZ73) 
+    - submit **individually**
 
 <br>
 <br>
@@ -468,10 +470,14 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
     
 ## Exams    
 
-- Midterm: in-class on *May 4*
+- Midterm: in-class on *Feb 11*
     - subject to change but unlikely 
-- Final: *June 11*
-- 2-sided printed "cheat sheet"
+- Final: *Mar 22*
+- 2-sided "cheat sheet"
+- The final is cumulative
+- Midterm grade is calculated as `midterm > 0 ?  max(final, midterm) : 0`
+    - you get a second chance if you don’t do well on the midterm
+    - you must show up to both the midterm and the final
 
 
 
@@ -494,7 +500,7 @@ Clickers Are Not Optional
 +  **Cheap** ones are fine
 +  **Respond** to 75% questions
 
-Register your clicker [here](https://goo.gl/forms/lL9oqtwf4nMwaRR63)
+Register your clicker [here](https://goo.gl/forms/80SF9nYoZzYzCpT22)
 
 
 
@@ -554,7 +560,7 @@ Do you have a clicker?
 
 ## Your Resources
 
-- Discussion section: Wed 9am, CENTR 115
+- Discussion section: Mon 8pm, CENTR 109
 - Office hours
     - every day, check calendar
 - Piazza
@@ -577,7 +583,9 @@ Do you have a clicker?
 
 ## Academic Integrity
 
-Programming assignments and exams done **alone**
+Programming assignments: do not copy from classmates or from previous years
+
+Exams done **alone**
 
   - Zero Tolerance
   - Offenders punished ruthlessly

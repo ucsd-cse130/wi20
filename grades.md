@@ -25,7 +25,7 @@ headerImg: beach.jpg
 - **Midterm (30%)** :
   Will be held on **Monday February 11** during the lecture.
   The midterm is **closed book**, but you may use a
-  double-sided hand-written **"cheat sheet"**.
+  double-sided **"cheat sheet"**.
 
 - **Final (35%)** :
   Will be held on **Friday March 22nd, from 11:30am -- 2:30pm** in TBD.
@@ -35,9 +35,9 @@ headerImg: beach.jpg
   papers are handed to the instructor; papers not
   accompanied by a valid UCSD ID will not be accepted.
   The final is **closed book**, but you may use a
-  double-sided hand-written **"cheat sheet"**.
+  double-sided **"cheat sheet"**.
   
-    - Since the final is cumulative your midterm grade will be calculated as 
+    - Since the final is cumulative, your midterm grade will be calculated as 
       `midterm > 0 ?  max(final, midterm) : 0`.
       This means that you get a second chance if you don’t do well on the midterm but 
       you must show up to both the midterm and the final.
