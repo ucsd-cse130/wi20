@@ -6,8 +6,8 @@ import Hakyll
 import Text.Pandoc
 import Text.Pandoc.Walk (walk)
 
--- mode = "lecture"
-mode = "final"
+mode = "lecture"
+-- mode = "final"
 
 crunchWithCtx ctx = do
   route   $ setExtension "html"
