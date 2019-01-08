@@ -25,5 +25,5 @@ headerImg: world-map.jpg
 
 ## Tutors
 * Alan Kuo
-* Jiaxiao Zhou
+* [Jiaxiao Zhou](https://mossaka.github.io/portfolio/)
 
