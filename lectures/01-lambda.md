@@ -59,9 +59,6 @@ Informal notion of an **effectively calculable** function:
 
 What is the **smallest universal language**?
 
-<br>
-<br>
-
 ![Alan Turing](https://upload.wikimedia.org/wikipedia/commons/a/a1/Alan_Turing_Aged_16.jpg){#fig:turing .align-center width=40%}
 
 (I) final
