@@ -304,6 +304,12 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li><del>Reflection</del></li>
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>More precisely, all you can do is:</p>
+<ul>
+<li>define a function</li>
+<li>call a function</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="describing-a-programming-language">Describing a Programming Language</h2>
 <ul>
 <li><em>Syntax:</em> what do programs look like?</li>
@@ -338,7 +344,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li>in your favorite language: <code class="sourceCode haskell">e1(e2)</code></li>
 </ul></li>
 </ul>
-<p>(Here each of <code class="sourceCode haskell">e</code>, <code class="sourceCode haskell">e1</code>, <code class="sourceCode haskell">e2</code> can iteself be a variable, abstraction, or application)</p>
+<p>(Here each of <code class="sourceCode haskell">e</code>, <code class="sourceCode haskell">e1</code>, <code class="sourceCode haskell">e2</code> can itself be a variable, abstraction, or application)</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="examples">Examples</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x             <span class="co">-- The identity function</span>
@@ -348,12 +354,6 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
  
 \f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)   <span class="co">-- A function that applies its argument </span>
                     <span class="co">-- to the identity function</span></code></pre></div>
-<p><br> <br></p>
-<p>How do I write a function with two arguments?</p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> y)     <span class="co">-- A function that returns the identity function</span>
-                    <span class="co">-- OR: a function that takes two arguments</span>
-                    <span class="co">-- and returns the second one!</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz">QUIZ</h2>
 <p>Which of the following terms are syntactically <strong>incorrect</strong>?</p>
@@ -364,6 +364,32 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>E.</strong> all of the above</p>
 <p><br></p>
 
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="examples-1">Examples</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> x             <span class="co">-- The identity function</span>
+                    <span class="co">-- (&quot;for any x compute x&quot;)</span>
+
+\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> y)     <span class="co">-- A function that returns the identity function</span>
+ 
+\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)   <span class="co">-- A function that applies its argument </span>
+                    <span class="co">-- to the identity function</span></code></pre></div>
+<p><br></p>
+<p>How do I define a function with two arguments?</p>
+<ul>
+<li>e.g. a function that takes <code class="sourceCode haskell">x</code> and <code class="sourceCode haskell">y</code> and returns <code class="sourceCode haskell">y</code>?</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> y)     <span class="co">-- A function that returns the identity function</span>
+                    <span class="co">-- OR: a function that takes two arguments</span>
+                    <span class="co">-- and returns the second one!</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>How do I apply a function to two arguments?</p>
+<ul>
+<li>e.g. apply <code class="sourceCode haskell">\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> y)</code> to <code class="sourceCode haskell">apple</code> and <code class="sourceCode haskell">banana</code>?</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(((\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> y)) apple) banana) <span class="co">-- first apply to apple,</span>
+                                   <span class="co">-- then apply the result to banana</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="syntactic-sugar">Syntactic Sugar</h2>
 <p><br> <br></p>
@@ -376,23 +402,24 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code class="sourceCode haskell">(((e1 e2) e3) e4)</code></td>
-<td align="left"><code class="sourceCode haskell">e1 e2 e3 e4</code></td>
-</tr>
-<tr class="even">
 <td align="left"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> (\z <span class="ot">-&gt;</span> e))</code></td>
 <td align="left"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> \y <span class="ot">-&gt;</span> \z <span class="ot">-&gt;</span> e</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code class="sourceCode haskell">\x <span class="ot">-&gt;</span> \y <span class="ot">-&gt;</span> \z <span class="ot">-&gt;</span> e</code></td>
 <td align="left"><code class="sourceCode haskell">\x y z <span class="ot">-&gt;</span> e</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code class="sourceCode haskell">(((e1 e2) e3) e4)</code></td>
+<td align="left"><code class="sourceCode haskell">e1 e2 e3 e4</code></td>
 </tr>
 </tbody>
 </table>
 <p><br> <br></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x y <span class="ot">-&gt;</span> y     <span class="co">-- A function that returns the identity function</span>
-              <span class="co">-- OR: a function that takes two arguments</span>
-              <span class="co">-- and returns the second one!</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\x y <span class="ot">-&gt;</span> y     <span class="co">-- A function that that takes two arguments</span>
+              <span class="co">-- and returns the second one...</span>
+              
+(\x y <span class="ot">-&gt;</span> y) apple banana <span class="co">-- ... applied to two arguments</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="semantics-what-programs-mean">Semantics : What Programs <em>Mean</em></h2>
 <p><br></p>
@@ -429,7 +456,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  \x <span class="ot">-&gt;</span> x
   \x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x)</code></pre></div>
 <p><br> <br></p>
-<p>An occurence of <code class="sourceCode haskell">x</code> in <code class="sourceCode haskell">e</code> is <strong>free</strong> if it’s <em>not bound</em> by an enclosing abstraction</p>
+<p>An occurrence of <code class="sourceCode haskell">x</code> in <code class="sourceCode haskell">e</code> is <strong>free</strong> if it’s <em>not bound</em> by an enclosing abstraction</p>
 <p><br> For example, <code class="sourceCode haskell">x</code> is free in:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  x y                <span class="co">-- no binders at all!  </span>
   \y <span class="ot">-&gt;</span> x y          <span class="co">-- no \x binder</span>
@@ -440,13 +467,15 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>In the expression <code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x) x</code>, is <code class="sourceCode haskell">x</code> <em>bound</em> or <em>free</em>?</p>
 <p><strong>A.</strong> bound</p>
 <p><strong>B.</strong> free</p>
-<p><strong>C.</strong> first occurence is bound, second is free</p>
-<p><strong>D.</strong> first occurence is bound, second and third are free</p>
+<p><strong>C.</strong> first occurrence is bound, second is free</p>
+<p><strong>D.</strong> first occurrence is bound, second and third are free</p>
 <p><strong>E.</strong> first two occurrences are bound, third is free</p>
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="free-variables">Free Variables</h2>
+<p>An variable <code class="sourceCode haskell">x</code> is <strong>free</strong> in <code class="sourceCode haskell">e</code> if <em>there exists</em> a free occurrence of <code class="sourceCode haskell">x</code> in <code class="sourceCode haskell">e</code></p>
+<p><br></p>
 <p>We can formally define the set of <em>all free variables</em> in a term like so:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FV</span>(x)       <span class="fu">=</span> <span class="fu">???</span>
 <span class="dt">FV</span>(\x <span class="ot">-&gt;</span> e) <span class="fu">=</span> <span class="fu">???</span>
@@ -479,7 +508,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li><p>We say that <code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> e1) e2</code> <span class="math inline"><em>β</em></span>-steps to <code class="sourceCode haskell">e1[x <span class="fu">:=</span> e2]</code></p></li>
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<h2 id="examples-1">Examples</h2>
+<h2 id="examples-2">Examples</h2>
 <p><br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x) apple     
 <span class="fu">=</span>b<span class="fu">&gt;</span> apple</code></pre></div>

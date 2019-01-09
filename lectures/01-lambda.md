@@ -154,6 +154,22 @@ No, really:
 <br>
 <br>
 
+More precisely, all you can do is:
+
+* define a function
+* call a function
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Describing a Programming Language
 
 * _Syntax:_ what do programs look like?
@@ -198,7 +214,7 @@ of one of three kinds:
     - `e1` is the _function_, `e2` is the _argument_
     - in your favorite language: `e1(e2)`
 
-(Here each of `e`, `e1`, `e2` can iteself be a variable, abstraction, or application)
+(Here each of `e`, `e1`, `e2` can itself be a variable, abstraction, or application)
 
 <br>
 <br>
@@ -223,11 +239,70 @@ of one of three kinds:
                     -- to the identity function
 ```
 
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 
-How do I write a function with two arguments?
+
+## QUIZ
+
+Which of the following terms are syntactically **incorrect**?
+
+**A.**  `\(\x -> x) -> y`
+
+**B.**  `\x -> x x`
+
+**C.**  `\x -> x (y x)`
+
+**D.**  A and C
+
+**E.**  all of the above
+
+<br>
+
+(I) final
+
+    _Correct answer:_ **A**
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Examples
+
+```haskell
+\x -> x             -- The identity function
+                    -- ("for any x compute x")
+
+\x -> (\y -> y)     -- A function that returns the identity function
+ 
+\f -> f (\x -> x)   -- A function that applies its argument 
+                    -- to the identity function
+```
+
+<br>
+
+How do I define a function with two arguments?
+
+* e.g. a function that takes `x` and `y` and returns `y`?
 
 <br>
 <br>
@@ -261,25 +336,28 @@ How do I write a function with two arguments?
 <br>
 <br>
 
-## QUIZ
+How do I apply a function to two arguments?
 
-Which of the following terms are syntactically **incorrect**?
-
-**A.**  `\(\x -> x) -> y`
-
-**B.**  `\x -> x x`
-
-**C.**  `\x -> x (y x)`
-
-**D.**  A and C
-
-**E.**  all of the above
+* e.g. apply `\x -> (\y -> y)` to `apple` and `banana`?
 
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-(I) final
+```haskell
+(((\x -> (\y -> y)) apple) banana) -- first apply to apple,
+                                   -- then apply the result to banana
+```
 
-    _Correct answer:_ **A**
 
 <br>
 <br>
@@ -303,17 +381,18 @@ Which of the following terms are syntactically **incorrect**?
 
 instead of                |  we write
 :-------------------------|:-------------------------
-`(((e1 e2) e3) e4)`       |  `e1 e2 e3 e4`
 `\x -> (\y -> (\z -> e))` | `\x -> \y -> \z -> e`
 `\x -> \y -> \z -> e`     | `\x y z -> e`
+`(((e1 e2) e3) e4)`       |  `e1 e2 e3 e4`
 
 <br>
 <br>
 
 ```haskell
-\x y -> y     -- A function that returns the identity function
-              -- OR: a function that takes two arguments
-              -- and returns the second one!
+\x y -> y     -- A function that that takes two arguments
+              -- and returns the second one...
+              
+(\x y -> y) apple banana -- ... applied to two arguments
 ```
 
 <br>
@@ -407,7 +486,7 @@ For example, `x` is bound in:
 <br>
 <br>
 
-An occurence of `x` in `e` is **free** if it's _not bound_ by an enclosing abstraction
+An occurrence of `x` in `e` is **free** if it's _not bound_ by an enclosing abstraction
 
 <br>
 For example, `x` is free in:
@@ -442,9 +521,9 @@ is `x` _bound_ or _free_?
 
 **B.**  free
 
-**C.**  first occurence is bound, second is free
+**C.**  first occurrence is bound, second is free
 
-**D.**  first occurence is bound, second and third are free
+**D.**  first occurrence is bound, second and third are free
 
 **E.**  first two occurrences are bound, third is free
 
@@ -468,6 +547,11 @@ is `x` _bound_ or _free_?
 
 
 ## Free Variables
+
+An variable `x` is **free** in `e` if *there exists* a free occurrence of `x` in `e`
+
+<br>
+
 
 We can formally define the set of _all free variables_ in a term like so:
 
