@@ -59,17 +59,23 @@ Informal notion of an **effectively calculable** function:
 
 What is the **smallest universal language**?
 
+<br>
+<br>
+
 ![Alan Turing](https://upload.wikimedia.org/wikipedia/commons/a/a1/Alan_Turing_Aged_16.jpg){#fig:turing .align-center width=40%}
 
 (I) final
 
-  The [**Turing Machine**](https://en.wikipedia.org/wiki/Turing_machine)  
+    The [**Turing Machine**](https://en.wikipedia.org/wiki/Turing_machine)
+    
+<br>
+<br>    
  
 ![Alonzo Church](https://upload.wikimedia.org/wikipedia/en/a/a6/Alonzo_Church.jpg){#fig:church .align-center width=40%}
 
 (I) final
 
-  The **Lambda Calculus**
+    The **Lambda Calculus**
 
 <br>
 <br>
