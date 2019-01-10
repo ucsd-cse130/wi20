@@ -8,7 +8,7 @@ date: 2017-03-28
 
 ![Nadia Polikarpova](https://cseweb.ucsd.edu/~npolikarpova/images/nadia_polikarpova.jpg){#fig:nadia .align-center width=25%}
 
-- Assistnat professor at CSE since Sept 2017
+- Assistant professor at CSE since Sept 2017
 - PhD at ETH Zurich
 - Postdoc at MIT
 
@@ -29,7 +29,7 @@ date: 2017-03-28
 
 ## The Crew
 
-Teachins assistants:
+Teaching assistants:
 
 * [Sourav Anand](https://www.linkedin.com/in/soanand14/)
 * [David Justo](http://acsweb.ucsd.edu/~djusto/)
