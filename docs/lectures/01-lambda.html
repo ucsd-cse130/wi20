@@ -643,9 +643,19 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\f <span class="ot">-&gt;</span> f (\x <span class="ot">-&gt;</span> x)) (\x <span class="ot">-&gt;</span> x)
   <span class="fu">=?&gt;</span> <span class="fu">???</span></code></pre></div>
 <p><br></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x x) (<span class="fu">???</span>)
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(\x <span class="ot">-&gt;</span> x x) (\x <span class="ot">-&gt;</span> x)
   <span class="fu">=?&gt;</span> <span class="fu">???</span></code></pre></div>
-<p><br> <br> Elsa shortcuts:</p>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="elsa-shortcuts">Elsa shortcuts</h2>
+<p>Named <span class="math inline"><em>λ</em></span>-terms:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">ID</span> <span class="fu">=</span> \x <span class="ot">-&gt;</span> x  <span class="co">-- abbreviation for \x -&gt; x</span></code></pre></div>
+<p><br> <br></p>
+<p>To substitute name with its definition, use a <code class="sourceCode haskell"><span class="fu">=</span>d<span class="fu">&gt;</span></code> step:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">ID</span> apple
+  <span class="fu">=</span>d<span class="fu">&gt;</span> (\x <span class="ot">-&gt;</span> x x) apple  <span class="co">-- expand definition</span>
+  <span class="fu">=</span>b<span class="fu">&gt;</span> apple              <span class="co">-- beta-reduce</span></code></pre></div>
+<p><br> <br></p>
+<p>Evaluation:</p>
 <ul>
 <li><code class="sourceCode haskell">e1 <span class="fu">=*&gt;</span> e2</code>: <code class="sourceCode haskell">e1</code> reduces to <code class="sourceCode haskell">e2</code> in 0 or more steps
 <ul>
@@ -696,8 +706,8 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <span class="kw">let</span> <span class="dt">FALSE</span> <span class="fu">=</span> <span class="fu">???</span>
 <span class="kw">let</span> <span class="dt">ITE</span>   <span class="fu">=</span> \b x y <span class="ot">-&gt;</span> <span class="fu">???</span>  <span class="co">-- if b then x else y</span></code></pre></div>
 <p>such that</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">ITE</span> <span class="dt">TRUE</span> e1 e2 <span class="fu">=~&gt;</span> e1
-<span class="dt">ITE</span> <span class="dt">FALSE</span> e1 e2 <span class="fu">=~&gt;</span> e2</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">ITE</span> <span class="dt">TRUE</span> apple banana <span class="fu">=*&gt;</span> apple
+<span class="dt">ITE</span> <span class="dt">FALSE</span> apple banana <span class="fu">=*&gt;</span> banana</code></pre></div>
 <p>(Here, <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">NAME</span> <span class="fu">=</span> e</code> means <code class="sourceCode haskell"><span class="dt">NAME</span></code> is an <em>abbreviation</em> for <code class="sourceCode haskell">e</code>)</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="booleans-implementation">Booleans: Implementation</h2>

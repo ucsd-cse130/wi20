@@ -1133,7 +1133,7 @@ e =?> e_1 =?> ... =?> e_N =?> e'
 (I) lecture
     
     ```haskell
-    (\x -> x x) (???)
+    (\x -> x x) (\x -> x)
       =?> ???
     ```
 
@@ -1147,7 +1147,35 @@ e =?> e_1 =?> ... =?> e_N =?> e'
 
 <br>
 <br>
-Elsa shortcuts:
+<br>
+<br>
+<br>
+<br>
+
+
+## Elsa shortcuts
+
+Named $\lambda$-terms:
+
+```
+let ID = \x -> x  -- abbreviation for \x -> x
+```
+
+<br>
+<br>
+
+To substitute name with its definition, use a `=d>` step:
+
+```haskell
+ID apple
+  =d> (\x -> x x) apple  -- expand definition
+  =b> apple              -- beta-reduce
+```
+
+<br>
+<br>
+
+Evaluation:
 
 - `e1 =*> e2`: `e1` reduces to `e2` in 0 or more steps
     - where each step is `=a>`, `=b>`, or `=d>`
@@ -1281,8 +1309,8 @@ let ITE   = \b x y -> ???  -- if b then x else y
 such that
 
 ```haskell
-ITE TRUE e1 e2 =~> e1
-ITE FALSE e1 e2 =~> e2
+ITE TRUE apple banana =*> apple
+ITE FALSE apple banana =*> banana
 ```
 
 (Here, `let NAME = e` means `NAME` is an _abbreviation_ for `e`)
