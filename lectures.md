@@ -44,7 +44,7 @@ Lecture schedule is subject to change!
 
 | Date       | Topic                    | Slides        | 
 |:----------:|:-------------------------|:-------------:|
-| 1/14       | Lambda Calculus          | [disc1]       |
+| 1/14       | Lambda Calculus          | [pdf][disc1]  |
 
 
 [lec0]: lectures/00-hello.html
