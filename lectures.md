@@ -40,13 +40,11 @@ Lecture schedule is subject to change!
 | 3/22       | **Final**                       |                           |               |
 
 
-<!--
 ## Discussions
 
-| Date       | Topic                    | Notes         |  Code      |
-|:----------:|:-------------------------|:-------------:|:----------:|
-| 4/11       | Lambda Calculus          | TBD           | TBD        |
--->
+| Date       | Topic                    | Slides        | 
+|:----------:|:-------------------------|:-------------:|
+| 1/14       | Lambda Calculus          | [disc1]       |
 
 
 [lec0]: lectures/00-hello.html
@@ -58,6 +56,8 @@ Lecture schedule is subject to change!
 [lec6]: lectures/06-parsing.html
 [lec7]: lectures/07-types.html
 [lec8]: lectures/08-prolog.html
+
+[disc1]: /static/raw/disc1-lambda_calc.pdf
 
 [parsing]: https://github.com/cse130-sp18/arith
 
