@@ -706,8 +706,8 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <span class="kw">let</span> <span class="dt">FALSE</span> <span class="fu">=</span> <span class="fu">???</span>
 <span class="kw">let</span> <span class="dt">ITE</span>   <span class="fu">=</span> \b x y <span class="ot">-&gt;</span> <span class="fu">???</span>  <span class="co">-- if b then x else y</span></code></pre></div>
 <p>such that</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">ITE</span> <span class="dt">TRUE</span> apple banana <span class="fu">=*&gt;</span> apple
-<span class="dt">ITE</span> <span class="dt">FALSE</span> apple banana <span class="fu">=*&gt;</span> banana</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">ITE</span> <span class="dt">TRUE</span> apple banana <span class="fu">=~&gt;</span> apple
+<span class="dt">ITE</span> <span class="dt">FALSE</span> apple banana <span class="fu">=~&gt;</span> banana</code></pre></div>
 <p>(Here, <code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">NAME</span> <span class="fu">=</span> e</code> means <code class="sourceCode haskell"><span class="dt">NAME</span></code> is an <em>abbreviation</em> for <code class="sourceCode haskell">e</code>)</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="booleans-implementation">Booleans: Implementation</h2>
@@ -716,7 +716,7 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <span class="kw">let</span> <span class="dt">ITE</span>   <span class="fu">=</span> \b x y <span class="ot">-&gt;</span> b x y  <span class="co">-- Applies condition to branches</span>
                              <span class="co">-- (redundant, but improves readability)</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<h2 id="example-branches-set-by-step">Example: Branches set-by-step</h2>
+<h2 id="example-branches-step-by-step">Example: Branches step-by-step</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval ite_true<span class="fu">:</span>
   <span class="dt">ITE</span> <span class="dt">TRUE</span> e1 e2
   <span class="fu">=</span>d<span class="fu">&gt;</span> (\b x y <span class="ot">-&gt;</span> b    x  y) <span class="dt">TRUE</span> e1 e2    <span class="co">-- expand def ITE  </span>
@@ -727,7 +727,7 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
   <span class="fu">=</span>b<span class="fu">&gt;</span>       (\y <span class="ot">-&gt;</span> e1)   e2               <span class="co">-- beta-step</span>
   <span class="fu">=</span>b<span class="fu">&gt;</span> e1</code></pre></div>
 <p><br> <br> <br> <br> <br> <br></p>
-<h2 id="example-branches-set-by-step-1">Example: Branches set-by-step</h2>
+<h2 id="example-branches-step-by-step-1">Example: Branches step-by-step</h2>
 <p>Now you try it!</p>
 <p>Can you <a href="http://goto.ucsd.edu:8095/index.html#?demo=ite.lc">fill in the blanks to make it happen?</a></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">eval ite_false<span class="fu">:</span>
@@ -757,7 +757,9 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <span class="kw">let</span> <span class="dt">AND</span> <span class="fu">=</span> \b1 b2 <span class="ot">-&gt;</span> b1 b2 <span class="dt">FALSE</span>
 
 <span class="kw">let</span> <span class="dt">OR</span>  <span class="fu">=</span> \b1 b2 <span class="ot">-&gt;</span> b1 <span class="dt">TRUE</span> b2</code></pre></div>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p><br></p>
+<p><em>Which definition to do you prefer and why?</em></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="programming-in-lambda-calculus-1">Programming in <span class="math inline"><em>λ</em></span>-calculus</h2>
 <ul>
 <li><strong>Booleans</strong> [done]</li>
@@ -785,8 +787,8 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <span class="kw">let</span> <span class="dt">SND</span>  <span class="fu">=</span> \p <span class="ot">-&gt;</span> <span class="fu">???</span>      <span class="co">-- Return second element</span>
                           <span class="co">-- p.snd</span></code></pre></div>
 <p>such that</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FST</span> (<span class="dt">PAIR</span> e1 e2) <span class="fu">=~&gt;</span> e1
-<span class="dt">SND</span> (<span class="dt">PAIR</span> e1 e2) <span class="fu">=~&gt;</span> e2</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FST</span> (<span class="dt">PAIR</span> apple banana) <span class="fu">=~&gt;</span> apple
+<span class="dt">SND</span> (<span class="dt">PAIR</span> apple banana) <span class="fu">=~&gt;</span> banana</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="pairs-implementation">Pairs: Implementation</h2>
 <p>A pair of <code class="sourceCode haskell">x</code> and <code class="sourceCode haskell">y</code> is just something that lets you pick between <code class="sourceCode haskell">x</code> and <code class="sourceCode haskell">y</code>! (I.e. a function that takes a boolean and returns either <code class="sourceCode haskell">x</code> or <code class="sourceCode haskell">y</code>)</p>

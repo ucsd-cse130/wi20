@@ -1309,8 +1309,8 @@ let ITE   = \b x y -> ???  -- if b then x else y
 such that
 
 ```haskell
-ITE TRUE apple banana =*> apple
-ITE FALSE apple banana =*> banana
+ITE TRUE apple banana =~> apple
+ITE FALSE apple banana =~> banana
 ```
 
 (Here, `let NAME = e` means `NAME` is an _abbreviation_ for `e`)
@@ -1353,7 +1353,7 @@ let ITE   = \b x y -> b x y  -- Applies condition to branches
 
 
 
-## Example: Branches set-by-step
+## Example: Branches step-by-step
 
 
 ```haskell
@@ -1376,7 +1376,7 @@ eval ite_true:
 <br>
 <br>
 
-## Example: Branches set-by-step
+## Example: Branches step-by-step
 
 Now you try it!
 
@@ -1481,6 +1481,9 @@ let OR  = \b1 b2 -> b1 TRUE b2
 ```
 
 <br>
+
+*Which definition to do you prefer and why?*
+
 <br>
 <br>
 <br>
@@ -1556,8 +1559,8 @@ let SND  = \p -> ???      -- Return second element
 such that
 
 ```haskell
-FST (PAIR e1 e2) =~> e1
-SND (PAIR e1 e2) =~> e2
+FST (PAIR apple banana) =~> apple
+SND (PAIR apple banana) =~> banana
 ```
 
 
