@@ -919,8 +919,20 @@ y[x <span class="fu">:=</span> e]            <span class="fu">=</span> y        
 <p><br></p>
 <p>I want to write a function that sums up natural numbers up to <code class="sourceCode haskell">n</code>:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\n <span class="ot">-&gt;</span> <span class="fu">...</span>          <span class="co">-- 1 + 2 + ... + n</span></code></pre></div>
-<p><br> <br> <br> <br> <br></p>
-<p>My first try:</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-7">QUIZ</h2>
+<p>Is this a correct implementation of <code class="sourceCode haskell"><span class="dt">SUM</span></code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> <span class="dt">SUM</span> <span class="fu">=</span> \n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) 
+            <span class="dt">ZERO</span> 
+            (<span class="dt">ADD</span> n (<span class="dt">SUM</span> (<span class="dt">DEC</span> n)))</code></pre></div>
+<p><strong>A.</strong> Yes</p>
+<p><strong>B.</strong> No</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<p>No!</p>
+<ul>
+<li>Named terms in Elsa are just syntactic sugar</li>
+<li>To translate an Elsa term to <span class="math inline"><em>λ</em></span>-calculus: replace each name with its definition</li>
+</ul>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">\n <span class="ot">-&gt;</span> <span class="dt">ITE</span> (<span class="dt">ISZ</span> n) 
         <span class="dt">ZERO</span> 
         (<span class="dt">ADD</span> n (<span class="dt">SUM</span> (<span class="dt">DEC</span> n))) <span class="co">-- But SUM is not a thing!</span></code></pre></div>

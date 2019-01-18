@@ -2005,8 +2005,41 @@ I want to write a function that sums up natural numbers up to `n`:
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-My first try:
+## QUIZ
+
+Is this a correct implementation of `SUM`?
+
+```
+let SUM = \n -> ITE (ISZ n) 
+            ZERO 
+            (ADD n (SUM (DEC n)))
+```
+
+**A.**  Yes
+
+**B.**  No
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+No! 
+
+  * Named terms in Elsa are just syntactic sugar
+  * To translate an Elsa term to $\lambda$-calculus: replace each name with its definition
 
 ```
 \n -> ITE (ISZ n) 
