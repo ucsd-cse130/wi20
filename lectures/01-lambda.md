@@ -2019,7 +2019,7 @@ My first try:
 
 **Recursion:** 
 
- - I want to call *the same function* on `DEC n`
+ - Inside this function I want to call *the same function* on `DEC n`
 
 <br>
 <br>
@@ -2052,8 +2052,8 @@ Think again!
 
 **Recursion:** 
 
- - ~~I want to call *the same function* on `DEC n`~~
- - I want to call *a function* on `DEC n`
+ - ~~Inside this function I want to call *the same function* on `DEC n`~~
+ - Inside this function I want to call *a function* on `DEC n`
  - *And BTW,* I want it to be the same function 
  
 <br>
@@ -2071,7 +2071,11 @@ let STEP =
 <br>
 
 **Step 2:** Do something clever to `STEP`, so that the function passed as `rec`
-itself becomes `\n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))`
+itself becomes
+
+```
+\n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))
+```
  
 <br>
 <br>
@@ -2109,22 +2113,29 @@ Once we have it, we can define:
 
 ```
 let SUM = FIX STEP
+```
+
+Then by property of `FIX` we have:
+```
+SUM =*> STEP SUM -- (1)
+```
 
 
+```
 eval sum_one:
   SUM ONE
-  =d> FIX STEP ONE                       -- def of SUM
-  =*> STEP (FIX STEP) ONE                -- property of FIX
-  =d> (\rec n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))) (FIX STEP) ONE
-  =b> (\n -> ITE (ISZ n) ZERO (ADD n (FIX STEP (DEC n)))) ONE
-  =b> ITE (ISZ ONE) ZERO (ADD ONE (FIX STEP (DEC ONE)))
-  =*> ADD ONE (FIX STEP (DEC ONE))       -- def of ISZ, ITE, ...
-  =*> ADD ONE (FIX STEP ZERO)            -- def of DEC, ...
-  =*> ADD ONE (STEP (FIX STEP) ZERO)     -- property of FIX
-  =d> ADD ONE ((\rec n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))) (FIX STEP) ZERO)
-  =b> ADD ONE ((\n -> ITE (ISZ n) ZERO (ADD n ((FIX STEP) (DEC n)))) ZERO)
-  =b> ADD ONE (ITE (ISZ ZERO) ZERO (ADD ZERO ((FIX STEP) (DEC ZERO))))
-  =b> ADD ONE ZERO                       -- def of ISZ, ITE, ...
+  =*> STEP SUM ONE                 -- (1)
+  =d> (\rec n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))) SUM ONE
+  =b> (\n -> ITE (ISZ n) ZERO (ADD n (SUM (DEC n)))) ONE 
+                                   -- ^^^ the magic happened!
+  =b> ITE (ISZ ONE) ZERO (ADD ONE (SUM (DEC ONE)))
+  =*> ADD ONE (SUM ZERO)           -- def of ISZ, ITE, DEC, ...
+  =*> ADD ONE (STEP SUM ZERO)      -- (1)
+  =d> ADD ONE 
+        ((\rec n -> ITE (ISZ n) ZERO (ADD n (rec (DEC n)))) SUM ZERO)
+  =b> ADD ONE ((\n -> ITE (ISZ n) ZERO (ADD n (SUM (DEC n)))) ZERO)
+  =b> ADD ONE (ITE (ISZ ZERO) ZERO (ADD ZERO (SUM (DEC ZERO))))
+  =b> ADD ONE ZERO
   =~> ONE
 ```
 
@@ -2176,6 +2187,7 @@ eval fix_step:
   =d> (\stp -> (\x -> stp (x x)) (\x -> stp (x x))) STEP
   =b> (\x -> STEP (x x)) (\x -> STEP (x x))
   =b> STEP ((\x -> STEP (x x)) (\x -> STEP (x x)))
+  --       ^^^^^^^^^^ this is FIX STEP ^^^^^^^^^^^
 ``` 
 
 <br>
