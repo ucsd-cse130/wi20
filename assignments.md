@@ -12,9 +12,9 @@ mins over the deadline is equal to 1 late day.
 
 - [HW #0](https://github.com/cse130-wi19/00-lambda): The Lambda Calculus (due Mon 1/21 by 1pm)
 
-<!--
-- [HW #1](https://github.com/cse130-sp18/01-haskell): Introduction to Haskell (due Fri 4/20 by 23:59pm)
+- [HW #1](https://github.com/cse130-wi19/01-haskell): Introduction to Haskell (due Mon 1/28 by 1pm)
 
+<!--
 - [HW #2](https://github.com/cse130-sp18/02-random-art): Random Art (due ~~Fri 4/27~~ Mon 4/30 by 23:59pm)
 
 - [HW #3](https://github.com/cse130-sp18/03-fold): All about Fold (due Fri 5/11 by 23:59pm)
