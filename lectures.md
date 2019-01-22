@@ -14,7 +14,7 @@ Lecture schedule is subject to change!
 | 1/16       | contd.                          |                           |               |
 | 1/18       | contd.                          |                           |               |
 | 1/21       | *No lecture: MLK Day*           |                           |               |
-| 1/23       | A crash course in Haskell       |                           |               |
+| 1/23       | A crash course in Haskell       | [html][lec2]              |               |
 | 1/25       | contd.                          |                           |               |
 | 1/28       | Datatypes and Recursion         |                           |               |
 | 1/30       | contd.                          |                           |               |
