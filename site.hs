@@ -6,9 +6,6 @@ import Hakyll
 import Text.Pandoc
 import Text.Pandoc.Walk (walk)
 
-mode = "lecture"
--- mode = "final"
-
 crunchWithCtx ctx = do
   route   $ setExtension "html"
   compile $ pandocCompiler
@@ -16,12 +13,12 @@ crunchWithCtx ctx = do
             >>= loadAndApplyTemplate "templates/default.html" ctx
             >>= relativizeUrls
 
-crunchWithCtxCustom ctx = do
+crunchWithCtxCustom mode ctx = do
   route   $ setExtension "html"
   compile $ pandocCompilerWithTransform
               defaultHakyllReaderOptions
               defaultHakyllWriterOptions
-              (walk (toggleMode . haskellizeBlock) . walk haskellizeInline)
+              (walk (toggleMode mode . haskellizeBlock) . walk haskellizeInline)
             >>= loadAndApplyTemplate "templates/page.html"    ctx
             >>= loadAndApplyTemplate "templates/default.html" ctx
             >>= relativizeUrls
@@ -29,13 +26,13 @@ crunchWithCtxCustom ctx = do
 -- | Treat an ordered list with uppercase roman numerals as a map:
 --   in each item, the first paragraph is the key, and the second is the value;
 --   pick the value with key `mode` and discard all other items
-toggleMode :: Block -> Block
-toggleMode (OrderedList (_, UpperRoman, _) items) = select items
+toggleMode :: String -> Block -> Block
+toggleMode mode (OrderedList (_, UpperRoman, _) items) = select items
   where
     select ([Para [Str key], payload] : rest) =
       if key == mode then payload else select rest
     select _ = Null
-toggleMode b = b
+toggleMode _ b = b
 
 -- | Make inline code Haskell by default
 haskellizeInline :: Inline -> Inline
@@ -50,12 +47,14 @@ haskellizeBlock b = b
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
-  match "static/*/*"    $ do route idRoute
-                             compile copyFileCompiler
-  match (fromList tops) $ crunchWithCtx siteCtx
-  match "lectures/*"    $ crunchWithCtxCustom postCtx
-  match "assignments/*" $ crunchWithCtx postCtx
-  match "templates/*"   $ compile templateCompiler
+  match "static/*/*"       $ do route idRoute
+                                compile copyFileCompiler
+  match (fromList tops)    $ crunchWithCtx siteCtx
+  match "lectures/00-*"    $ crunchWithCtxCustom "final" postCtx
+  match "lectures/01-*"    $ crunchWithCtxCustom "final" postCtx
+  match "lectures/*"       $ crunchWithCtxCustom "lecture" postCtx
+  match "assignments/*"    $ crunchWithCtx postCtx
+  match "templates/*"      $ compile templateCompiler
 
 --------------------------------------------------------------------------------
 postCtx :: Context String
