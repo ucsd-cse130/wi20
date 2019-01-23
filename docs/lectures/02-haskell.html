@@ -309,20 +309,28 @@ snd <span class="fu">=</span> \p <span class="ot">-&gt;</span> p <span class="dt
 <p>Their definitions are called <strong>top-level bindings</strong></p>
 <p><br> <br> <br> <br> <br> <br></p>
 <h2 id="better-syntax-equations-and-patterns">Better Syntax: Equations and Patterns</h2>
-<p>You can define function bidings using <strong>equations</strong>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pair x y b <span class="fu">=</span> <span class="kw">if</span> b <span class="kw">then</span> x <span class="kw">else</span> y
-fst p      <span class="fu">=</span> p <span class="dt">True</span>
-snd p      <span class="fu">=</span> p <span class="dt">False</span></code></pre></div>
-<p><br> <br> <br></p>
-<p>Can define multiple equations with different <strong>patterns</strong>:</p>
+<p>You can define function bindings using <strong>equations</strong>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pair x y b <span class="fu">=</span> <span class="kw">if</span> b <span class="kw">then</span> x <span class="kw">else</span> y <span class="co">-- same as: pair = \x y b -&gt; ...</span>
+fst p      <span class="fu">=</span> p <span class="dt">True</span>             <span class="co">-- same as: fst = \p -&gt; ...</span>
+snd p      <span class="fu">=</span> p <span class="dt">False</span>            <span class="co">-- same as: snd = \p -&gt; ...</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br></p>
+<p>A <em>single</em> function binding can have <em>multiple</em> equations with different <strong>patterns</strong> of parameters:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pair x y <span class="dt">True</span>  <span class="fu">=</span> x  <span class="co">-- If 3rd arg matches True,</span>
                     <span class="co">-- use this equation;</span>
 pair x y <span class="dt">False</span> <span class="fu">=</span> y  <span class="co">-- Otherwise, if 3rd arg matches False,</span>
                     <span class="co">-- use this equation.</span></code></pre></div>
+<p>At run time, the first equation whose pattern matches the actual arguments is chosen</p>
+<p>For now, a <strong>pattern</strong> is:</p>
+<ul>
+<li><p>a <em>variable</em> (matches any value)</p></li>
+<li><p>or a <em>value</em> (matches only that value)</p></li>
+</ul>
+<p><br> <br></p>
 <p>Same as:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pair x y <span class="dt">True</span>  <span class="fu">=</span> x  <span class="co">-- If 3rd arg matches True,</span>
                     <span class="co">-- use this equation;</span>
 pair x y b     <span class="fu">=</span> y  <span class="co">-- Otherwise, use this equation.</span></code></pre></div>
+<p><br> <br></p>
 <p>Same as:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pair x y <span class="dt">True</span>  <span class="fu">=</span> x
 pair x y _     <span class="fu">=</span> y</code></pre></div>
@@ -350,12 +358,16 @@ pair x y <span class="dt">False</span> <span class="fu">=</span> y</code></pre><
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">cmpSquare x y  <span class="fu">|</span>  x <span class="fu">&gt;</span> y<span class="fu">*</span>y   <span class="fu">=</span>  <span class="st">&quot;bigger :)&quot;</span>
                <span class="fu">|</span>  x <span class="fu">==</span> y<span class="fu">*</span>y  <span class="fu">=</span>  <span class="st">&quot;same :|&quot;</span>
                <span class="fu">|</span>  otherwise <span class="fu">=</span>  <span class="st">&quot;smaller :(&quot;</span></code></pre></div>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="recusion">Recusion</h2>
 <p>Recursion is built-in, so you can write:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum n <span class="fu">=</span> <span class="kw">if</span> n <span class="fu">==</span> <span class="dv">0</span> 
+          <span class="kw">then</span> <span class="dv">0</span> 
+          <span class="kw">else</span> n <span class="fu">+</span> sum (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
+<p>or you can write:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum <span class="dv">0</span> <span class="fu">=</span> <span class="dv">0</span>
 sum n <span class="fu">=</span> n <span class="fu">+</span> sum (n <span class="fu">-</span> <span class="dv">1</span>)</code></pre></div>
-<p><br> <br> <br> <br> <br></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-scope-of-variables">The scope of variables</h2>
 <p>Top-level variable have <strong>global</strong> scope, so you can write:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">message <span class="fu">=</span> <span class="kw">if</span> haskellIsAwesome          <span class="co">-- this var defined below</span>
@@ -473,7 +485,7 @@ pair x y b <span class="fu">=</span> <span class="kw">if</span> b <span class="k
 <p><br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-1">QUIZ</h2>
 <p>With <code class="sourceCode haskell"><span class="ot">pair ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">String</span></code>, what would GHCi say to</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;:</span>t pair <span class="st">&quot;apple&quot;</span> <span class="st">&quot;orage&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;:</span>t pair <span class="st">&quot;apple&quot;</span> <span class="st">&quot;orange&quot;</span></code></pre></div>
 <p><strong>A.</strong> Syntax error</p>
 <p><strong>B.</strong> The term is ill-typed</p>
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">String</span></code></p>

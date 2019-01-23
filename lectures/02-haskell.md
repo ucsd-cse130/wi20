@@ -145,18 +145,21 @@ Their definitions are called **top-level bindings**
     
 ## Better Syntax: Equations and Patterns
 
-You can define function bidings using **equations**:
+You can define function bindings using **equations**:
 
 ```haskell
-pair x y b = if b then x else y
-fst p      = p True
-snd p      = p False
+pair x y b = if b then x else y -- same as: pair = \x y b -> ...
+fst p      = p True             -- same as: fst = \p -> ...
+snd p      = p False            -- same as: snd = \p -> ...
 ```
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
 
-Can define multiple equations with different **patterns**:
+A *single* function binding can have *multiple* equations with different **patterns** of parameters:
 
 ```haskell
 pair x y True  = x  -- If 3rd arg matches True,
@@ -165,6 +168,17 @@ pair x y False = y  -- Otherwise, if 3rd arg matches False,
                     -- use this equation.
 ```
 
+At run time, the first equation whose pattern matches the actual arguments is chosen
+
+For now, a **pattern** is:
+ 
+  * a *variable* (matches any value)
+  
+  * or a *value* (matches only that value)
+
+<br>
+<br>
+
 Same as:
 
 ```haskell
@@ -172,6 +186,9 @@ pair x y True  = x  -- If 3rd arg matches True,
                     -- use this equation;
 pair x y b     = y  -- Otherwise, use this equation.
 ```
+
+<br>
+<br>
 
 Same as:
 
@@ -245,16 +262,30 @@ cmpSquare x y  |  x > y*y   =  "bigger :)"
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
 
 ## Recusion
 
 Recursion is built-in, so you can write:
 
 ```haskell
+sum n = if n == 0 
+          then 0 
+          else n + sum (n - 1)
+```
+
+or you can write:
+
+```haskell
 sum 0 = 0
 sum n = n + sum (n - 1)
 ```
 
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -542,7 +573,7 @@ With `pair :: String -> String -> Bool -> String`,
 what would GHCi say to 
 
 ```haskell
->:t pair "apple" "orage"
+>:t pair "apple" "orange"
 ```
 
 **A.** Syntax error
