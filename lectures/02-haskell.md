@@ -455,12 +455,12 @@ void weirdo() {
 <br>
 <br>
 
-In *Haskell* every expression has a **type**
-and ill-typed expressions are rejected **statically**
-(at compile-time, before executing them)
+In *Haskell* every expression either **has a type**
+or is **ill-typed** and rejected statically
+(at compile-time, before execution starts)
 
   * like in Java
-  * unlike $\lambda$-calculus, Python, or JavaScript
+  * unlike $\lambda$-calculus or Python
 
 ```haskell
 weirdo = 1 0     -- rejected by GHC
@@ -730,7 +730,7 @@ myList = [1,2,3,4]
 
 (I) lecture
  
-    ```haksell
+    ```haskell
     -- | List of integers from n upto m
     upto :: Int -> Int -> [Int]
     upto n m = ???
@@ -754,7 +754,7 @@ myList = [1,2,3,4]
 
 There's also syntactic sugar for this!
 
-```haksell
+```haskell
 [1..7]    -- [1,2,3,4,5,6,7]
 [1,3..7]  -- [1,3,5,7]
 ```
@@ -1019,8 +1019,8 @@ A **typed**, **lazy**, **purely functional** programming language
 
 ### Haskell is statically typed
 
-Every expression has a type,
-and ill-typed programs are rejected at compile time
+Every expression either has a type,
+or is *ill-typed* and rejected at compile time
 
 <br>
 

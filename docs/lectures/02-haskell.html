@@ -431,10 +431,10 @@ sum n <span class="fu">=</span> <span class="kw">let</span>
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br></p>
-<p>In <em>Haskell</em> every expression has a <strong>type</strong> and ill-typed expressions are rejected <strong>statically</strong> (at compile-time, before executing them)</p>
+<p>In <em>Haskell</em> every expression either <strong>has a type</strong> or is <strong>ill-typed</strong> and rejected statically (at compile-time, before execution starts)</p>
 <ul>
 <li>like in Java</li>
-<li>unlike <span class="math inline"><em>λ</em></span>-calculus, Python, or JavaScript</li>
+<li>unlike <span class="math inline"><em>λ</em></span>-calculus or Python</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">weirdo <span class="fu">=</span> <span class="dv">1</span> <span class="dv">0</span>     <span class="co">-- rejected by GHC</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
@@ -546,13 +546,13 @@ myList'' <span class="fu">=</span> [<span class="dv">1</span>, <span class="ch">
 myList''' <span class="fu">=</span> []</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-on-lists-range">Functions on lists: range</h2>
-<pre class="haksell"><code>-- | List of integers from n upto m
-upto :: Int -&gt; Int -&gt; [Int]
-upto n m = ???</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | List of integers from n upto m</span>
+<span class="ot">upto ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> [<span class="dt">Int</span>]
+upto n m <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br></p>
 <p>There’s also syntactic sugar for this!</p>
-<pre class="haksell"><code>[1..7]    -- [1,2,3,4,5,6,7]
-[1,3..7]  -- [1,3,5,7]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dv">1</span><span class="fu">..</span><span class="dv">7</span>]    <span class="co">-- [1,2,3,4,5,6,7]</span>
+[<span class="dv">1</span>,<span class="dv">3</span><span class="fu">..</span><span class="dv">7</span>]  <span class="co">-- [1,3,5,7]</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-on-lists-length">Functions on lists: length</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Length of the list</span>
@@ -669,7 +669,7 @@ sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span clas
 <p>A <strong>typed</strong>, <strong>lazy</strong>, <strong>purely functional</strong> programming language</p>
 <p><br> <br> <br></p>
 <h3 id="haskell-is-statically-typed">Haskell is statically typed</h3>
-<p>Every expression has a type, and ill-typed programs are rejected at compile time</p>
+<p>Every expression either has a type, or is <em>ill-typed</em> and rejected at compile time</p>
 <p><br></p>
 <p><strong>Why is this good?</strong></p>
 <ul>
