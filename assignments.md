@@ -29,9 +29,6 @@ mins over the deadline is equal to 1 late day.
 
 ## Sample Exam Questions
 
-Sample exam questions will be posted a week before the midterm
-
-<!--
 Note: 2018 exams are the most representative. 
 Older exams use OCaml instead of Haskell.
 Check out these [lecture notes](https://ucsd-cse130.github.io/web/lectures/02-haskell.html) 
@@ -49,4 +46,3 @@ for a comparison between the two languages.
   [Final Sp 12](/static/raw/final-sp12.pdf),
   [Final Fa 11](/static/raw/final-fa11.pdf),
   [Final Wi 11](/static/raw/final-wi11.pdf).
--->
