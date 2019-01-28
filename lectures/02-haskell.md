@@ -813,7 +813,7 @@ A pattern is
 <br>
 <br>  
 
-**Pattern mathching** attempts to match *values* against *patterns* and, 
+**Pattern matching** attempts to match *values* against *patterns* and, 
 if desired, *bind* variables to successful matches.
   
   
@@ -855,23 +855,27 @@ Which of the following is **not** a pattern?
 
 ```haskell
 -- | Is the list empty?
-null :: [Int] -> Bool
+null :: [t] -> Bool
 
 -- | Head of the list
-head :: [Int] -> Int   -- careful: partial function!
+head :: [t] -> t   -- careful: partial function!
 
 -- | Tail of the list
-tail :: [Int] -> [Int] -- careful: partial function!
+tail :: [t] -> [t] -- careful: partial function!
 
 -- | Length of the list
-length :: [Int] -> Int
+length :: [t] -> Int
 
 -- | Append two lists
-(++) :: [Int] -> [Int] -> [Int]
+(++) :: [t] -> [t] -> [t]
 
 -- | Are two lists equal?
-(==) :: [Int] -> [Int] -> Bool
+(==) :: [t] -> [t] -> Bool
 ```
+
+<br>
+
+You can search for library functions on [Hoogle](https://www.haskell.org/hoogle/)!
 
 <br>
 <br>
@@ -885,17 +889,39 @@ length :: [Int] -> Int
 ```haskell
 myPair :: (String, Int)  -- pair of String and Int
 myPair = ("apple", 3)
-
--- field access:
-
-whichFruit = fst myPair  -- "apple"
-howMany    = snd myPair  -- 3
 ```
+
 <br>
 
 `(,)` is the *pair constructor*
 
 <br>
+<br>
+
+
+Field access:
+
+```haskell
+-- Using library functions:
+whichFruit = fst myPair  -- "apple"
+howMany    = snd myPair  -- 3
+
+-- Using pattern matching:
+isEmpty (x, y)  =  y == 0
+
+-- same as:
+isEmpty         = \(x, y) -> y == 0
+
+-- same as:
+isEmpty p       = let (x, y) = p in y == 0
+```
+
+<br>
+<br>
+
+You can use pattern matching not only in equations,
+but also in $\lambda$-bindings and `let`-bindings!
+
 <br>
 <br>
 <br>
@@ -1045,6 +1071,21 @@ or is *ill-typed* and rejected at compile time
 
   * no side effects!
   
+  * unlike in Python, Java, etc:
+  
+    ```java
+    public int f(int x) {
+      calls++;                         // side effect!
+      System.out.println("calling f"); // side effect!
+      launchMissile();                 // side effect!
+      return x * 2;      
+    }
+    ```
+    
+  * in Haskell, a function of type `Int -> Int`
+    computes a *single integer output* from a *single integer input*
+    and does **nothing else**
+  
 **Referential transparency:** The same expression always evaluates to the same value
 
   * More precisely: In a scope where `x1, ..., xn` are defined,
@@ -1075,10 +1116,11 @@ Example: `take 2 [1 .. (factorial 100)]`
 
 ```haskell
         take 2 (   upto 1 (factorial 100))
-=>      take 2 (1:(upto 2 (factorial 100))) -- def upto
-=> 1:  (take 1 (   upto 2 (factorial 100))) -- def take 3
-=> 1:  (take 1 (2:(upto 3 (factorial 100))) -- def upto
-=> 1:2:(take 0 (   upto 3 (factorial 100))) -- def take 3
+=>      take 2 (   upto 1 933262154439...)
+=>      take 2 (1:(upto 2 933262154439...)) -- def upto
+=> 1:  (take 1 (   upto 2 933262154439...)) -- def take 3
+=> 1:  (take 1 (2:(upto 3 933262154439...)) -- def upto
+=> 1:2:(take 0 (   upto 3 933262154439...)) -- def take 3
 => 1:2:[]                                   -- def take 1
 ```
 

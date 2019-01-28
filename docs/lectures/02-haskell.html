@@ -572,7 +572,7 @@ length (_<span class="fu">:</span>xs) <span class="fu">=</span> <span class="dv"
 <li>or a <em>constructor</em> applied to other <em>patterns</em></li>
 </ul>
 <p><br> <br></p>
-<p><strong>Pattern mathching</strong> attempts to match <em>values</em> against <em>patterns</em> and, if desired, <em>bind</em> variables to successful matches.</p>
+<p><strong>Pattern matching</strong> attempts to match <em>values</em> against <em>patterns</em> and, if desired, <em>bind</em> variables to successful matches.</p>
 <p><br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-2">QUIZ</h2>
 <p>Which of the following is <strong>not</strong> a pattern?</p>
@@ -586,34 +586,47 @@ length (_<span class="fu">:</span>xs) <span class="fu">=</span> <span class="dv"
 <p><br> <br> <br> <br> <br></p>
 <h2 id="some-useful-library-functions">Some useful library functions</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Is the list empty?</span>
-null<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+null<span class="ot"> ::</span> [t] <span class="ot">-&gt;</span> <span class="dt">Bool</span>
 
 <span class="co">-- | Head of the list</span>
-head<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>   <span class="co">-- careful: partial function!</span>
+head<span class="ot"> ::</span> [t] <span class="ot">-&gt;</span> t   <span class="co">-- careful: partial function!</span>
 
 <span class="co">-- | Tail of the list</span>
-tail<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="co">-- careful: partial function!</span>
+tail<span class="ot"> ::</span> [t] <span class="ot">-&gt;</span> [t] <span class="co">-- careful: partial function!</span>
 
 <span class="co">-- | Length of the list</span>
-length<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span>
+length<span class="ot"> ::</span> [t] <span class="ot">-&gt;</span> <span class="dt">Int</span>
 
 <span class="co">-- | Append two lists</span>
-<span class="ot">(++) ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>]
+<span class="ot">(++) ::</span> [t] <span class="ot">-&gt;</span> [t] <span class="ot">-&gt;</span> [t]
 
 <span class="co">-- | Are two lists equal?</span>
-<span class="ot">(==) ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
+<span class="ot">(==) ::</span> [t] <span class="ot">-&gt;</span> [t] <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
+<p><br></p>
+<p>You can search for library functions on <a href="https://www.haskell.org/hoogle/">Hoogle</a>!</p>
 <p><br> <br> <br> <br> <br> <br></p>
 <h2 id="pairs">Pairs</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">myPair ::</span> (<span class="dt">String</span>, <span class="dt">Int</span>)  <span class="co">-- pair of String and Int</span>
-myPair <span class="fu">=</span> (<span class="st">&quot;apple&quot;</span>, <span class="dv">3</span>)
-
-<span class="co">-- field access:</span>
-
-whichFruit <span class="fu">=</span> fst myPair  <span class="co">-- &quot;apple&quot;</span>
-howMany    <span class="fu">=</span> snd myPair  <span class="co">-- 3</span></code></pre></div>
+myPair <span class="fu">=</span> (<span class="st">&quot;apple&quot;</span>, <span class="dv">3</span>)</code></pre></div>
 <p><br></p>
 <p><code class="sourceCode haskell">(,)</code> is the <em>pair constructor</em></p>
-<p><br> <br> <br> <br> <br> <br></p>
+<p><br> <br></p>
+<p>Field access:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Using library functions:</span>
+whichFruit <span class="fu">=</span> fst myPair  <span class="co">-- &quot;apple&quot;</span>
+howMany    <span class="fu">=</span> snd myPair  <span class="co">-- 3</span>
+
+<span class="co">-- Using pattern matching:</span>
+isEmpty (x, y)  <span class="fu">=</span>  y <span class="fu">==</span> <span class="dv">0</span>
+
+<span class="co">-- same as:</span>
+isEmpty         <span class="fu">=</span> \(x, y) <span class="ot">-&gt;</span> y <span class="fu">==</span> <span class="dv">0</span>
+
+<span class="co">-- same as:</span>
+isEmpty p       <span class="fu">=</span> <span class="kw">let</span> (x, y) <span class="fu">=</span> p <span class="kw">in</span> y <span class="fu">==</span> <span class="dv">0</span></code></pre></div>
+<p><br> <br></p>
+<p>You can use pattern matching not only in equations, but also in <span class="math inline"><em>λ</em></span>-bindings and <code class="sourceCode haskell"><span class="kw">let</span></code>-bindings!</p>
+<p><br> <br> <br> <br> <br></p>
 <h3 id="pattern-matching-with-pairs">Pattern matching with pairs</h3>
 <p>Is this pattern matching correct? What does this function do?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">f ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> [(<span class="dt">String</span>, <span class="dt">Int</span>)] <span class="ot">-&gt;</span> <span class="dt">Int</span>
@@ -682,7 +695,15 @@ sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span clas
 <p><strong>Functional</strong> = functions are <em>first-class values</em></p>
 <p><strong>Pure</strong> = a program is an expression that evaluates to a value</p>
 <ul>
-<li>no side effects!</li>
+<li><p>no side effects!</p></li>
+<li><p>unlike in Python, Java, etc:</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">int</span> <span class="fu">f</span>(<span class="dt">int</span> x) {
+  calls++;                         <span class="co">// side effect!</span>
+  System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;calling f&quot;</span>); <span class="co">// side effect!</span>
+  <span class="fu">launchMissile</span>();                 <span class="co">// side effect!</span>
+  <span class="kw">return</span> x * <span class="dv">2</span>;      
+}</code></pre></div></li>
+<li><p>in Haskell, a function of type <code class="sourceCode haskell"><span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></code> computes a <em>single integer output</em> from a <em>single integer input</em> and does <strong>nothing else</strong></p></li>
 </ul>
 <p><strong>Referential transparency:</strong> The same expression always evaluates to the same value</p>
 <ul>
@@ -701,10 +722,11 @@ sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span clas
 <p>Example: <code class="sourceCode haskell">take <span class="dv">2</span> [<span class="dv">1</span> <span class="fu">..</span> (factorial <span class="dv">100</span>)]</code></p>
 <p><br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">        take <span class="dv">2</span> (   upto <span class="dv">1</span> (factorial <span class="dv">100</span>))
-<span class="ot">=&gt;</span>      take <span class="dv">2</span> (<span class="dv">1</span><span class="fu">:</span>(upto <span class="dv">2</span> (factorial <span class="dv">100</span>))) <span class="co">-- def upto</span>
-<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span>  (take <span class="dv">1</span> (   upto <span class="dv">2</span> (factorial <span class="dv">100</span>))) <span class="co">-- def take 3</span>
-<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span>  (take <span class="dv">1</span> (<span class="dv">2</span><span class="fu">:</span>(upto <span class="dv">3</span> (factorial <span class="dv">100</span>))) <span class="co">-- def upto</span>
-<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span>(take <span class="dv">0</span> (   upto <span class="dv">3</span> (factorial <span class="dv">100</span>))) <span class="co">-- def take 3</span>
+<span class="ot">=&gt;</span>      take <span class="dv">2</span> (   upto <span class="dv">1</span> <span class="dv">933262154439</span><span class="fu">...</span>)
+<span class="ot">=&gt;</span>      take <span class="dv">2</span> (<span class="dv">1</span><span class="fu">:</span>(upto <span class="dv">2</span> <span class="dv">933262154439</span><span class="fu">...</span>)) <span class="co">-- def upto</span>
+<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span>  (take <span class="dv">1</span> (   upto <span class="dv">2</span> <span class="dv">933262154439</span><span class="fu">...</span>)) <span class="co">-- def take 3</span>
+<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span>  (take <span class="dv">1</span> (<span class="dv">2</span><span class="fu">:</span>(upto <span class="dv">3</span> <span class="dv">933262154439</span><span class="fu">...</span>)) <span class="co">-- def upto</span>
+<span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span>(take <span class="dv">0</span> (   upto <span class="dv">3</span> <span class="dv">933262154439</span><span class="fu">...</span>)) <span class="co">-- def take 3</span>
 <span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span>[]                                   <span class="co">-- def take 1</span></code></pre></div>
 <p><br></p>
 <p><strong>Why is this good?</strong></p>
