@@ -320,6 +320,23 @@ deadlineDate <span class="fu">=</span> <span class="dt">Date</span> <span class=
 <span class="ot">deadlineTime ::</span> <span class="dt">Time</span>
 deadlineTime <span class="fu">=</span> <span class="dt">Time</span> <span class="dv">11</span> <span class="dv">59</span> <span class="dv">59</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="record-syntax">Record syntax</h3>
+<p>Haskell’s <strong>record syntax</strong> allows you to <em>name</em> the constructor parameters:</p>
+<ul>
+<li><p>Instead of</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Date</span> <span class="fu">=</span> <span class="dt">Date</span> <span class="dt">Int</span> <span class="dt">Int</span> <span class="dt">Int</span></code></pre></div></li>
+<li><p>you can write:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Date</span> <span class="fu">=</span> <span class="dt">Date</span> { 
+<span class="ot">  month ::</span> <span class="dt">Int</span>, 
+<span class="ot">  day   ::</span> <span class="dt">Int</span>,
+<span class="ot">  year  ::</span> <span class="dt">Int</span>  
+}</code></pre></div></li>
+<li><p>then you can do:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">deadlineDate <span class="fu">=</span> <span class="dt">Date</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">2019</span>
+
+dealineMonth <span class="fu">=</span> month deadlineDate <span class="co">-- use field name as a function</span></code></pre></div></li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="building-data-types-1">Building data types</h2>
 <p><br></p>
 <p>Three key ways to build complex types/values:</p>
