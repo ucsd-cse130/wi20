@@ -280,10 +280,10 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <h2 id="product-types">Product types</h2>
 <p>Tuples can do the job but there are two problems…</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">deadlineDate ::</span> (<span class="dt">Int</span>, <span class="dt">Int</span>, <span class="dt">Int</span>)
-deadlineDate <span class="fu">=</span> (<span class="dv">4</span>, <span class="dv">27</span>, <span class="dv">2018</span>)
+deadlineDate <span class="fu">=</span> (<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2019</span>)
 
 <span class="ot">deadlineTime ::</span> (<span class="dt">Int</span>, <span class="dt">Int</span>, <span class="dt">Int</span>)
-deadlineTime <span class="fu">=</span> (<span class="dv">23</span>, <span class="dv">59</span>, <span class="dv">59</span>)
+deadlineTime <span class="fu">=</span> (<span class="dv">11</span>, <span class="dv">59</span>, <span class="dv">59</span>)
 
 <span class="co">-- | Deadline date extended by one day</span>
 <span class="ot">extension ::</span> (<span class="dt">Int</span>, <span class="dt">Int</span>, <span class="dt">Int</span>) <span class="ot">-&gt;</span> (<span class="dt">Int</span>, <span class="dt">Int</span>, <span class="dt">Int</span>)
@@ -296,10 +296,10 @@ extension <span class="fu">=</span> <span class="fu">...</span></code></pre></di
 <span class="kw">type</span> <span class="dt">Time</span> <span class="fu">=</span> (<span class="dt">Int</span>, <span class="dt">Int</span>, <span class="dt">Int</span>)
 
 <span class="ot">deadlineDate ::</span> <span class="dt">Date</span>
-deadlineDate <span class="fu">=</span> (<span class="dv">4</span>, <span class="dv">27</span>, <span class="dv">2018</span>)
+deadlineDate <span class="fu">=</span> (<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2019</span>)
 
 <span class="ot">deadlineTime ::</span> <span class="dt">Time</span>
-deadlineTime <span class="fu">=</span> (<span class="dv">23</span>, <span class="dv">59</span>, <span class="dv">59</span>)
+deadlineTime <span class="fu">=</span> (<span class="dv">11</span>, <span class="dv">59</span>, <span class="dv">59</span>)
 
 <span class="co">-- | Deadline date extended by one day</span>
 <span class="ot">extension ::</span> <span class="dt">Date</span> <span class="ot">-&gt;</span> <span class="dt">Date</span>
@@ -315,10 +315,10 @@ extension <span class="fu">=</span> <span class="fu">...</span></code></pre></di
 <span class="co">-- constructor^   ^parameter types</span>
 
 <span class="ot">deadlineDate ::</span> <span class="dt">Date</span>
-deadlineDate <span class="fu">=</span> <span class="dt">Date</span> <span class="dv">4</span> <span class="dv">27</span> <span class="dv">2018</span>
+deadlineDate <span class="fu">=</span> <span class="dt">Date</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">2019</span>
 
 <span class="ot">deadlineTime ::</span> <span class="dt">Time</span>
-deadlineTime <span class="fu">=</span> <span class="dt">Time</span> <span class="dv">23</span> <span class="dv">59</span> <span class="dv">59</span></code></pre></div>
+deadlineTime <span class="fu">=</span> <span class="dt">Time</span> <span class="dv">11</span> <span class="dv">59</span> <span class="dv">59</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="building-data-types-1">Building data types</h2>
 <p><br></p>

@@ -34,13 +34,13 @@ Older exams use OCaml instead of Haskell.
 Check out these [lecture notes](https://ucsd-cse130.github.io/web/lectures/02-haskell.html) 
 for a comparison between the two languages.
 
-- [Midterm Sp 18](/static/raw/130-midterm-sp18.pdf),
+- [Midterm Sp 18](/static/raw/130-midterm-sp18.pdf) ([solution](/static/raw/130-midterm-sp18-solution.pdf)),
   [Midterm Sp 15](/static/raw/midterm-sp15.pdf),
   [Midterm Sp 14](/static/raw/midterm-sp14.pdf),
   [Midterm Sp 12](/static/raw/midterm-sp12.pdf),
   [Midterm Wi 12](/static/raw/midterm-wi12.pdf).
 
-- [Final Sp 18](/static/raw/130-final-sp18.pdf),
+- [Final Sp 18](/static/raw/130-final-sp18.pdf) ([solution](/static/raw/130-final-sp18-solution.pdf)),
   [Final Sp 14](/static/raw/final-sp14.pdf),
   [Final Fa 12](/static/raw/final-fa12.pdf),
   [Final Sp 12](/static/raw/final-sp12.pdf),

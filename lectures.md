@@ -16,11 +16,11 @@ Lecture schedule is subject to change!
 | 1/21       | *No lecture: MLK Day*           |                           |               |
 | 1/23       | A crash course in Haskell       | [html][lec2]              |               |
 | 1/25       | contd.                          |                           |               |
-| 1/28       | Datatypes and Recursion         |                           |               |
-| 1/30       | contd.                          |                           |               |
+| 1/28       | contd.                          |                           |               |
+| 1/30       | Datatypes and Recursion         | [html][lec3]              |               |
 | 1/1        | contd.                          |                           |               |
-| 2/4        | Higher Order Functions          |                           |               |
-| 2/6        | contd.                          |                           |               |
+| 2/4        | contd.                          |                           |               |
+| 2/6        | Higher Order Functions          |                           |               |
 | 2/8        | contd.                          |                           |               |
 | 2/11       | **Midterm**                     |                           |               |
 | 2/13       | Environments and Closures       |                           |               |
