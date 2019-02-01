@@ -544,9 +544,14 @@ html p <span class="fu">=</span>
   patternN <span class="ot">-&gt;</span> eN</code></pre></div>
 <p>has type <code class="sourceCode haskell"><span class="dt">T</span></code> if</p>
 <ul>
-<li>all of <code class="sourceCode haskell">e1</code>…<code class="sourceCode haskell">eN</code> have type <code class="sourceCode haskell"><span class="dt">T</span></code></li>
-<li><code class="sourceCode haskell">e</code> has some type <code class="sourceCode haskell"><span class="dt">D</span></code>, and all of <code class="sourceCode haskell">pattern1</code>…<code class="sourceCode haskell">patternN</code> are valid patterns for <code class="sourceCode haskell"><span class="dt">D</span></code></li>
+<li>each <code class="sourceCode haskell">e1</code>…<code class="sourceCode haskell">eN</code> has type <code class="sourceCode haskell"><span class="dt">T</span></code></li>
+<li><code class="sourceCode haskell">e</code> has some type <code class="sourceCode haskell"><span class="dt">D</span></code></li>
+<li>each <code class="sourceCode haskell">pattern1</code>…<code class="sourceCode haskell">patternN</code> is a <em>valid pattern</em> for <code class="sourceCode haskell"><span class="dt">D</span></code>
+<ul>
+<li>i.e. a variable or a constructor of <code class="sourceCode haskell"><span class="dt">D</span></code> applied to other patterns</li>
+</ul></li>
 </ul>
+<p>The expression <code class="sourceCode haskell">e</code> is called the <em>match scrutinee</em></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-3">QUIZ</h2>
 <p>What is the type of</p>
@@ -589,10 +594,10 @@ html p <span class="fu">=</span>
 <li>or a box labeled <code class="sourceCode haskell"><span class="dt">Succ</span></code> with another <code class="sourceCode haskell"><span class="dt">Nat</span></code> in it!</li>
 </ul>
 <p>Some <code class="sourceCode haskell"><span class="dt">Nat</span></code> values:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Zero</span>
-<span class="dt">Succ</span> <span class="dt">Zero</span>
-<span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>)
-<span class="dt">Succ</span> (<span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>))
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Zero</span>                     <span class="co">-- 0</span>
+<span class="dt">Succ</span> <span class="dt">Zero</span>                <span class="co">-- 1</span>
+<span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>)         <span class="co">-- 2</span>
+<span class="dt">Succ</span> (<span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>))  <span class="co">-- 3</span>
 <span class="fu">...</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-on-recursive-types">Functions on recursive types</h2>
@@ -711,6 +716,7 @@ append xs ys <span class="fu">=</span> <span class="fu">??</span></code></pre></
 <p><strong>(E)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><br></p>
 
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()
   <span class="fu">|</span>   <span class="fu">|</span>   \ ()
   <span class="fu">|</span>   \ ()
@@ -753,7 +759,7 @@ t12345 <span class="fu">=</span> <span class="dt">Node</span>
 <ul>
 <li><code class="sourceCode haskell"><span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span></code></li>
 <li><code class="sourceCode haskell"><span class="fl">3.78</span> – <span class="fl">5.92</span></code></li>
-<li><code class="sourceCode haskell">(<span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span>) <span class="fu">*</span> (<span class="fl">3.78</span> <span class="fu">-</span><span class="fl">5.92</span>)</code></li>
+<li><code class="sourceCode haskell">(<span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span>) <span class="fu">*</span> (<span class="fl">3.78</span> <span class="fu">-</span> <span class="fl">5.92</span>)</code></li>
 </ul>
 <p>What is a Haskell datatype to <em>represent</em> these expressions?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
