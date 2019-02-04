@@ -53,6 +53,7 @@ main = hakyll $ do
   match "lectures/00-*"    $ crunchWithCtxCustom "final" postCtx
   match "lectures/01-*"    $ crunchWithCtxCustom "final" postCtx
   match "lectures/02-*"    $ crunchWithCtxCustom "final" postCtx
+  match "lectures/03-*"    $ crunchWithCtxCustom "final" postCtx
   match "lectures/*"       $ crunchWithCtxCustom "lecture" postCtx
   match "assignments/*"    $ crunchWithCtx postCtx
   match "templates/*"      $ compile templateCompiler
