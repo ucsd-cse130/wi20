@@ -20,7 +20,7 @@ Lecture schedule is subject to change!
 | 1/30       | Datatypes and Recursion         | [html][lec3]              |               |
 | 1/1        | contd.                          |                           |               |
 | 2/4        | contd.                          |                           |               |
-| 2/6        | Higher Order Functions          |                           |               |
+| 2/6        | Higher Order Functions          | [html][lec4]              |               |
 | 2/8        | contd.                          |                           |               |
 | 2/11       | **Midterm**                     |                           |               |
 | 2/13       | Environments and Closures       |                           |               |
