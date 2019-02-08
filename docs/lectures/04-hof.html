@@ -553,15 +553,16 @@ quiz <span class="fu">=</span> foldr (<span class="fu">:</span>) [] [<span class
 <p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<h2 id="quiz-3">QUIZ</h2>
-<p>What is the most general type of <code class="sourceCode haskell">foldr</code>?</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr f b []     <span class="fu">=</span> b
-foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)</code></pre></div>
-<p><strong>(A)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> a</code></p>
-<p><strong>(B)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
-<p><strong>(C)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
-<p><strong>(D)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
-<p><strong>(E)</strong> <code class="sourceCode haskell">(b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)
+
+foldr (<span class="fu">:</span>) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> (foldr (<span class="fu">:</span>) [] [<span class="dv">2</span>, <span class="dv">3</span>])
+  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> (foldr (<span class="fu">:</span>) [] [<span class="dv">3</span>]))
+  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> ((<span class="fu">:</span>) <span class="dv">3</span> (foldr (<span class="fu">:</span>) [] [])))
+  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> ((<span class="fu">:</span>) <span class="dv">3</span> []))
+  <span class="fu">==</span>  <span class="dv">1</span> <span class="fu">:</span> (<span class="dv">2</span> <span class="fu">:</span> (<span class="dv">3</span> <span class="fu">:</span> []))
+  <span class="fu">==</span>  [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-fold-right-pattern-1">The “fold-right” pattern</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr f b [x1, x2, x3, x4]
@@ -578,6 +579,17 @@ foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f 
   <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">4</span>])))
   <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> []))))
   <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">0</span>)))</code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-3">QUIZ</h2>
+<p>What is the most general type of <code class="sourceCode haskell">foldr</code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr f b []     <span class="fu">=</span> b
+foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)</code></pre></div>
+<p><strong>(A)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> a</code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">(b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <p>Is <code class="sourceCode haskell">foldr</code> <strong>tail recursive</strong>?</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="what-about-tail-recursive-versions">What about tail-recursive versions?</h2>
@@ -679,24 +691,6 @@ quiz <span class="fu">=</span> foldl (\xs x <span class="ot">-&gt;</span> x <spa
 <p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<h3 id="useful-hof-flip">Useful HOF: flip</h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- you can write</span>
-foldl (\xs x <span class="ot">-&gt;</span> x <span class="fu">:</span> xs) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
-
-<span class="co">-- more concisely like so:</span>
-foldl (flip (<span class="fu">:</span>))        [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
-<p>What is the type of <code class="sourceCode haskell">flip</code>?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">flip<span class="ot"> ::</span> <span class="fu">???</span></code></pre></div>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
-<h3 id="useful-hof-compose">Useful HOF: compose</h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- you can write</span>
-map (\x <span class="ot">-&gt;</span> f (g x)) ys
-
-<span class="co">-- more concisely like so:</span>
-map (f <span class="fu">.</span> g) ys</code></pre></div>
-<p>What is the type of <code class="sourceCode haskell">(<span class="fu">.</span>)</code>?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.) ::</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-fold-left-pattern-1">The “fold-left” pattern</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl f b                     [x1, x2, x3, x4]
@@ -728,7 +722,25 @@ foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1<
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldl<span class="ot"> ::</span> (b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b  <span class="co">-- Left</span>
 
 foldr<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b  <span class="co">-- Right</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="useful-hof-flip">Useful HOF: flip</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- you can write</span>
+foldl (\xs x <span class="ot">-&gt;</span> x <span class="fu">:</span> xs) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+
+<span class="co">-- more concisely like so:</span>
+foldl (flip (<span class="fu">:</span>))        [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<p>What is the type of <code class="sourceCode haskell">flip</code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">flip<span class="ot"> ::</span> <span class="fu">???</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h3 id="useful-hof-compose">Useful HOF: compose</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- you can write</span>
+map (\x <span class="ot">-&gt;</span> f (g x)) ys
+
+<span class="co">-- more concisely like so:</span>
+map (f <span class="fu">.</span> g) ys</code></pre></div>
+<p>What is the type of <code class="sourceCode haskell">(<span class="fu">.</span>)</code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.) ::</span> <span class="fu">???</span></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="higher-order-functions">Higher Order Functions</h2>
 <p>Iteration patterns over collections:</p>
 <ul>
