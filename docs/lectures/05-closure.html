@@ -232,7 +232,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<h2 id="plan-for-this-week">Plan for this week</h2>
+			<h2 id="roadmap">Roadmap</h2>
 <p><strong>Past three weeks:</strong></p>
 <ul>
 <li>How do we <em>use</em> a functional language?</li>
@@ -245,7 +245,17 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>This week: Interpreter</strong></p>
 <ul>
 <li>How do we <em>evaluate</em> a program given its abstract syntax tree (AST)?</li>
+<li>How do we <em>prove properties</em> about our interpreter (e.g. that certain programs never crash)?</li>
 </ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-nano-language">The Nano Language</h2>
+<p>Features of Nano:</p>
+<ol style="list-style-type: decimal">
+<li>Arithmetic expressions</li>
+<li>Variables and let-bindings</li>
+<li>Functions</li>
+<li>Recursion</li>
+</ol>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="reminder-calculator">Reminder: Calculator</h2>
 <p>Arithmetic expressions:</p>
@@ -284,6 +294,15 @@ eval (<span class="dt">Bin</span> <span class="dt">Add</span> e1 e2) <span class
 eval (<span class="dt">Bin</span> <span class="dt">Sub</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">-</span> eval e2
 eval (<span class="dt">Bin</span> <span class="dt">Mul</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">*</span> eval e2</code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-nano-language-1">The Nano Language</h2>
+<p>Features of Nano:</p>
+<ol style="list-style-type: decimal">
+<li>Arithmetic expressions <strong>[done]</strong></li>
+<li>Variables and let-bindings</li>
+<li>Functions</li>
+<li>Recursion</li>
+</ol>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="extension-variables">Extension: variables</h2>
 <p>Let’s add variables and <code class="sourceCode haskell"><span class="kw">let</span></code> bindings!</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">e <span class="ot">::</span><span class="fu">=</span> n <span class="fu">|</span> x
@@ -313,7 +332,8 @@ x <span class="fu">*</span> y
 <p>Haskell function to <em>evaluate</em> an expression:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
 eval (<span class="dt">Num</span> n)         <span class="fu">=</span> n
-eval (<span class="dt">Var</span> x)         <span class="fu">=</span> <span class="fu">???</span></code></pre></div>
+eval (<span class="dt">Var</span> x)         <span class="fu">=</span> <span class="fu">???</span>
+<span class="fu">...</span></code></pre></div>
 <p><br></p>
 <p>How do we evaluate a variable?</p>
 <p><br> <br></p>
@@ -359,9 +379,9 @@ y</code></pre></div>
 x <span class="fu">+</span> y</code></pre></div>
 <p><strong>(A)</strong> <code class="sourceCode haskell"><span class="dv">8</span></code></p>
 <p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">9</span></code></p>
-<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dv">10</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dv">12</span></code></p>
 <p><strong>(D)</strong> Error: unbound variable <code class="sourceCode haskell">x</code></p>
-<p><strong>(E)</strong> Error: unbound variable <code class="sourceCode haskell">y</code></p>
+<p><strong>(E)</strong> Error: multiple definitions of <code class="sourceCode haskell">x</code></p>
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br></p>
@@ -492,6 +512,15 @@ x <span class="fu">+</span> y</code></pre></div>
 <p><strong>(D)</strong> <code class="sourceCode haskell">x y</code></p>
 <p><br></p>
 
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-nano-language-2">The Nano Language</h2>
+<p>Features of Nano:</p>
+<ol style="list-style-type: decimal">
+<li>Arithmetic expressions <strong>[done]</strong></li>
+<li>Variables and let-bindings <strong>[done]</strong></li>
+<li>Functions</li>
+<li>Recursion</li>
+</ol>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="extension-functions">Extension: functions</h2>
 <p>Let’s add lambda abstraction and function application!</p>
@@ -810,9 +839,15 @@ f <span class="dv">5</span></code></pre></div>
 <span class="ot">=&gt;</span> eval [(<span class="st">&quot;n&quot;</span>,<span class="dt">VNum</span> <span class="dv">5</span>)] <span class="co">-- env got replaced by closure env + formal!</span>
     (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>)) <span class="co">-- f is unbound!</span></code></pre></div>
 <p><strong>Lesson learned:</strong> to support recursion, we need a different way of constructing the closure environment!</p>
-<ul>
-<li>This is part of HW4</li>
-</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-nano-language-3">The Nano Language</h2>
+<p>Features of Nano:</p>
+<ol style="list-style-type: decimal">
+<li>Arithmetic expressions <strong>[done]</strong></li>
+<li>Variables and let-bindings <strong>[done]</strong></li>
+<li>Functions <strong>[done]</strong></li>
+<li>Recursion <strong>[this is part of HW4]</strong></li>
+</ol>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="formalizing-nano">Formalizing Nano</h2>
 <p><strong>Goal:</strong> we want to guarantee properties about programs, such as:</p>
@@ -916,7 +951,7 @@ v <span class="ot">::</span><span class="fu">=</span> n                 <span cl
                         <span class="dt">S</span>, e1 <span class="ot">=&gt;</span> <span class="dt">S'</span>, e1'
 [<span class="dt">Let</span><span class="fu">-</span><span class="dt">Def</span>] <span class="fu">--------------------------------------------</span>
           <span class="dt">S</span>, <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2 <span class="ot">=&gt;</span> <span class="dt">S'</span>, <span class="kw">let</span> x <span class="fu">=</span> e1' <span class="kw">in</span> e2</code></pre></div>
-<p>If these are the only rules for <code class="sourceCode haskell"><span class="kw">let</span></code> bindings are, which reductions are valid?</p>
+<p>If these are the only rules for <code class="sourceCode haskell"><span class="kw">let</span></code> bindings, which reductions are valid?</p>
 <p><strong>(A)</strong> <code class="sourceCode haskell">[], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  [], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)</code></p>
 <p><strong>(B)</strong> <code class="sourceCode haskell">[], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  [], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">9</span> <span class="fu">+</span> x)</code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell">[], (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="kw">in</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> x)  <span class="ot">=&gt;</span>  [], (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">5</span> <span class="fu">+</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span>)</code></p>
