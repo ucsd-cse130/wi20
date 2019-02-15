@@ -594,7 +594,6 @@ cTimes <span class="dv">2</span></code></pre></div>
     (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;cTimes&quot;</span>) (<span class="dt">Num</span> <span class="dv">2</span>)))</code></pre></div>
 <p><br> <br></p>
 <p>How should we evaluate this expression?</p>
-<p>(Here <code class="sourceCode haskell">{cTimes <span class="dv">2</span>}</code> stands for the Haskell term <code class="sourceCode haskell"><span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;cTimes&quot;</span>) (<span class="dt">Num</span> <span class="dv">2</span>)</code>, etc for simplicity of presentation)</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         
     {<span class="kw">let</span> c <span class="fu">=</span> <span class="dv">42</span> <span class="kw">in</span> <span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> cTimes <span class="dv">2</span>}
 <span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">42</span>] 
