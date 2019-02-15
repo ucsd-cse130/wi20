@@ -472,6 +472,36 @@ x <span class="fu">+</span> y</code></pre></div>
  <span class="fu">+</span> eval [(<span class="st">&quot;x&quot;</span>,<span class="dv">3</span>), (<span class="st">&quot;y&quot;</span>,<span class="dv">3</span>), (<span class="st">&quot;x&quot;</span>,<span class="dv">1</span>)] (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>)
 <span class="ot">=&gt;</span> <span class="dv">3</span> <span class="fu">+</span> <span class="dv">3</span>
 <span class="ot">=&gt;</span> <span class="dv">6</span></code></pre></div>
+<p><br></p>
+<p>Same evaluation in a simplified format (Haskell <code class="sourceCode haskell"><span class="dt">Expr</span></code> terms replaced by their “pretty-printed version”):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []
+   {<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">1</span> <span class="kw">in</span> <span class="kw">let</span> y <span class="fu">=</span> (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">2</span> <span class="kw">in</span> x) <span class="fu">+</span> x <span class="kw">in</span> <span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+<span class="ot">=&gt;</span> eval [x<span class="fu">:</span>(eval [] <span class="dv">1</span>)]
+                {<span class="kw">let</span> y <span class="fu">=</span> (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">2</span> <span class="kw">in</span> x) <span class="fu">+</span> x <span class="kw">in</span> <span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+<span class="ot">=&gt;</span> eval [x<span class="fu">:</span><span class="dv">1</span>]
+                {<span class="kw">let</span> y <span class="fu">=</span> (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">2</span> <span class="kw">in</span> x) <span class="fu">+</span> x <span class="kw">in</span> <span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+<span class="ot">=&gt;</span> eval [y<span class="fu">:</span>(eval [x<span class="fu">:</span><span class="dv">1</span>] {(<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">2</span> <span class="kw">in</span> x) <span class="fu">+</span> x}), x<span class="fu">:</span><span class="dv">1</span>] 
+                                                {<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+<span class="ot">=&gt;</span> eval [y<span class="fu">:</span>(eval [x<span class="fu">:</span><span class="dv">1</span>]  {<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">2</span> <span class="kw">in</span> x} <span class="fu">+</span> eval [x<span class="fu">:</span><span class="dv">1</span>] {x}), x<span class="fu">:</span><span class="dv">1</span>] 
+                                                {<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+         <span class="co">-- new binding for x:</span>
+<span class="ot">=&gt;</span> eval [y<span class="fu">:</span>(eval [x<span class="fu">:</span><span class="dv">2</span>,x<span class="fu">:</span><span class="dv">1</span>] {x}           <span class="fu">+</span> eval [x<span class="fu">:</span><span class="dv">1</span>] {x}), x<span class="fu">:</span><span class="dv">1</span>] 
+                                                {<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+    <span class="co">-- use latest binding for x:</span>
+<span class="ot">=&gt;</span> eval [y<span class="fu">:</span>(                <span class="dv">2</span>            <span class="fu">+</span> eval [x<span class="fu">:</span><span class="dv">1</span>] {x}), x<span class="fu">:</span><span class="dv">1</span>] 
+                                                {<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+                                                
+<span class="ot">=&gt;</span> eval [y<span class="fu">:</span>(                <span class="dv">2</span>            <span class="fu">+</span> <span class="dv">1</span>)             , x<span class="fu">:</span><span class="dv">1</span>] 
+                                                {<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+<span class="ot">=&gt;</span> eval [y<span class="fu">:</span><span class="dv">3</span>, x<span class="fu">:</span><span class="dv">1</span>] 
+                                                {<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span> x <span class="fu">+</span> y}
+   <span class="co">-- new binding for x:</span>
+<span class="ot">=&gt;</span> eval [x<span class="fu">:</span><span class="dv">3</span>, y<span class="fu">:</span><span class="dv">3</span>, x<span class="fu">:</span><span class="dv">1</span>] 
+                                                             {x <span class="fu">+</span> y}
+<span class="ot">=&gt;</span> eval [x<span class="fu">:</span><span class="dv">3</span>, y<span class="fu">:</span><span class="dv">3</span>, x<span class="fu">:</span><span class="dv">1</span>] x <span class="fu">+</span> eval [x<span class="fu">:</span><span class="dv">3</span>, y<span class="fu">:</span><span class="dv">3</span>, x<span class="fu">:</span><span class="dv">1</span>] y
+   <span class="co">-- use latest binding for x: </span>
+<span class="ot">=&gt;</span> <span class="dv">3</span> <span class="fu">+</span> <span class="dv">3</span>
+<span class="ot">=&gt;</span> <span class="dv">6</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="runtime-errors">Runtime errors</h2>
 <p>Haskell function to <em>evaluate</em> an expression:</p>
@@ -564,11 +594,13 @@ cTimes <span class="dv">2</span></code></pre></div>
     (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;cTimes&quot;</span>) (<span class="dt">Num</span> <span class="dv">2</span>)))</code></pre></div>
 <p><br> <br></p>
 <p>How should we evaluate this expression?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;c&quot;</span> (<span class="dt">Num</span> <span class="dv">42</span>) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Let</span> <span class="st">&quot;cTimes&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;c&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>))) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;cTimes&quot;</span>,<span class="fu">???</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;cTimes&quot;</span>) (<span class="dt">Num</span> <span class="dv">2</span>))</code></pre></div>
+<p>(Here <code class="sourceCode haskell">{cTimes <span class="dv">2</span>}</code> stands for the Haskell term <code class="sourceCode haskell"><span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;cTimes&quot;</span>) (<span class="dt">Num</span> <span class="dv">2</span>)</code>, etc for simplicity of presentation)</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         
+    {<span class="kw">let</span> c <span class="fu">=</span> <span class="dv">42</span> <span class="kw">in</span> <span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">42</span>] 
+                  {<span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [cTimes<span class="fu">:???</span>, c<span class="fu">:</span><span class="dv">42</span>] 
+                                              {cTimes <span class="dv">2</span>}</code></pre></div>
 <p><br></p>
 <p>What is the <strong>value</strong> of <code class="sourceCode haskell">cTimes</code>???</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
@@ -617,18 +649,20 @@ cTimes <span class="dv">2</span></code></pre></div>
            <span class="fu">|</span> <span class="dt">VLam</span> <span class="dt">Id</span> <span class="dt">Expr</span> <span class="co">-- formal + body</span></code></pre></div>
 <p><br> <br></p>
 <p>Let’s try this!</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;c&quot;</span> (<span class="dt">Num</span> <span class="dv">42</span>) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Let</span> <span class="st">&quot;cTimes&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;cTimes&quot;</span>) (<span class="dt">Num</span> <span class="dv">2</span>))
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">App</span> (<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;c&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>))) (<span class="dt">Num</span> <span class="dv">2</span>))
-    <span class="co">-- eval the argument, bind to x, eval body:</span>
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;x&quot;</span>,<span class="dv">2</span>), (<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;c&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>))
-<span class="ot">=&gt;</span> <span class="dv">42</span><span class="fu">*</span><span class="dv">2</span>
-<span class="ot">=&gt;</span> <span class="dv">84</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         
+    {<span class="kw">let</span> c <span class="fu">=</span> <span class="dv">42</span> <span class="kw">in</span> <span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">42</span>] 
+                  {<span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [cTimes<span class="fu">:</span>(\x <span class="ot">-&gt;</span> c<span class="fu">*</span>x), c<span class="fu">:</span><span class="dv">42</span>] 
+                                              {cTimes <span class="dv">2</span>}
+    <span class="co">-- evaluate the function:</span>
+<span class="ot">=&gt;</span> eval [cTimes<span class="fu">:</span>(\x <span class="ot">-&gt;</span> c<span class="fu">*</span>x), c<span class="fu">:</span><span class="dv">42</span>]
+                                       {(\x <span class="ot">-&gt;</span> c <span class="fu">*</span> x) <span class="dv">2</span>} 
+    <span class="co">-- evaluate the argument, bind to x, evaluate body:</span>
+<span class="ot">=&gt;</span> eval [x<span class="fu">:</span><span class="dv">2</span>, cTimes<span class="fu">:</span>(\x <span class="ot">-&gt;</span> c<span class="fu">*</span>x), c<span class="fu">:</span><span class="dv">42</span>] 
+                                              {c <span class="fu">*</span> x}
+<span class="ot">=&gt;</span>                                            <span class="dv">42</span> <span class="fu">*</span> <span class="dv">2</span>
+<span class="ot">=&gt;</span>                                            <span class="dv">84</span></code></pre></div>
 <p><br></p>
 <p>Looks good… can you spot a problem?</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
@@ -688,19 +722,21 @@ res2 <span class="fu">-</span> res1</code></pre></div>
 <span class="kw">let</span> c <span class="fu">=</span> <span class="dv">5</span> <span class="kw">in</span>
 cTimes <span class="dv">2</span></code></pre></div>
 <p>evaluates as:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;c&quot;</span> (<span class="dt">Num</span> <span class="dv">42</span>) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Let</span> <span class="st">&quot;cTimes&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Let</span> <span class="st">&quot;c&quot;</span> (<span class="dt">Num</span> <span class="dv">5</span>) (<span class="dt">App</span> <span class="fu">...</span> <span class="fu">...</span>))
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Let</span> <span class="st">&quot;c&quot;</span> (<span class="dt">Num</span> <span class="dv">5</span>) (<span class="dt">App</span> <span class="fu">...</span> <span class="fu">...</span>))
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;c&quot;</span>,<span class="dv">5</span>) (<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">App</span> (<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;c&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>))) (<span class="dt">Num</span> <span class="dv">2</span>))    
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;x&quot;</span>,<span class="dv">2</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">5</span>) (<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VLam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;c&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>)) <span class="co">-- latest binding for c is 5! </span>
-<span class="ot">=&gt;</span> <span class="dv">5</span><span class="fu">*</span><span class="dv">2</span>
-<span class="ot">=&gt;</span> <span class="dv">10</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         
+   {<span class="kw">let</span> c <span class="fu">=</span> <span class="dv">42</span> <span class="kw">in</span> <span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> <span class="kw">let</span> c <span class="fu">=</span> <span class="dv">5</span> <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">42</span>] 
+                 {<span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> <span class="kw">let</span> c <span class="fu">=</span> <span class="dv">5</span> <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [cTimes<span class="fu">:</span>(\x <span class="ot">-&gt;</span> c<span class="fu">*</span>x), c<span class="fu">:</span><span class="dv">42</span>] 
+                                             {<span class="kw">let</span> c <span class="fu">=</span> <span class="dv">5</span> <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">5</span>, cTimes<span class="fu">:</span>(\x <span class="ot">-&gt;</span> c<span class="fu">*</span>x), c<span class="fu">:</span><span class="dv">42</span>] 
+                                                          {cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">5</span>, cTimes<span class="fu">:</span>(\x <span class="ot">-&gt;</span> c<span class="fu">*</span>x), c<span class="fu">:</span><span class="dv">42</span>]
+                                                   {(\x <span class="ot">-&gt;</span> c <span class="fu">*</span> x) <span class="dv">2</span>} 
+<span class="ot">=&gt;</span> eval [x<span class="fu">:</span><span class="dv">2</span>, c<span class="fu">:</span><span class="dv">5</span>, cTimes<span class="fu">:</span>(\x <span class="ot">-&gt;</span> c<span class="fu">*</span>x), c<span class="fu">:</span><span class="dv">42</span>] 
+                                                          {c <span class="fu">*</span> x}
+  <span class="co">-- latest binding for c is 5!</span>
+<span class="ot">=&gt;</span>                                                         <span class="dv">5</span> <span class="fu">*</span> <span class="dv">2</span>
+<span class="ot">=&gt;</span>                                                         <span class="dv">10</span></code></pre></div>
 <p><strong>Lesson learned:</strong> need to remember what <code class="sourceCode haskell">c</code> was bound to when <code class="sourceCode haskell">cTimes</code> was defined!</p>
 <ul>
 <li>i.e. “freeze” the environment at function definition</li>
@@ -715,22 +751,22 @@ cTimes <span class="dv">2</span></code></pre></div>
            <span class="fu">|</span> <span class="dt">VClos</span> <span class="dt">Env</span> <span class="dt">Id</span> <span class="dt">Expr</span> <span class="co">-- env + formal + body</span></code></pre></div>
 <p><br></p>
 <p>Our example:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;c&quot;</span> (<span class="dt">Num</span> <span class="dv">42</span>) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Let</span> <span class="st">&quot;cTimes&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;x&quot;</span> <span class="fu">...</span>) <span class="fu">...</span>)
-  <span class="co">-- remember current env:</span>
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VClos</span> [(<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)]
-    (<span class="dt">Let</span> <span class="st">&quot;c&quot;</span> (<span class="dt">Num</span> <span class="dv">5</span>) (<span class="dt">App</span> <span class="fu">...</span> <span class="fu">...</span>))
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;c&quot;</span>,<span class="dv">5</span>),(<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VClos</span> [(<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;cTimes&quot;</span>) (<span class="dt">Num</span> <span class="dv">2</span>))
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;c&quot;</span>,<span class="dv">5</span>) (<span class="st">&quot;cTimes&quot;</span>,<span class="dt">VClos</span> [(<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] <span class="st">&quot;x&quot;</span> <span class="fu">...</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">App</span> (<span class="dt">VClos</span> [(<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] <span class="st">&quot;x&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;c&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>))) (<span class="dt">Num</span> <span class="dv">2</span>))
-  <span class="co">-- now restore the env to the one inside the closure,</span>
-  <span class="co">-- then bind 2 to x:  </span>
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;x&quot;</span>,<span class="dv">2</span>), (<span class="st">&quot;c&quot;</span>,<span class="dv">42</span>)] 
-    (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;c&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>))
-<span class="ot">=&gt;</span> <span class="dv">42</span><span class="fu">*</span><span class="dv">2</span>
-<span class="ot">=&gt;</span> <span class="dv">84</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         
+   {<span class="kw">let</span> c <span class="fu">=</span> <span class="dv">42</span> <span class="kw">in</span> <span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> <span class="kw">let</span> c <span class="fu">=</span> <span class="dv">5</span> <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">42</span>] 
+                 {<span class="kw">let</span> cTimes <span class="fu">=</span> \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x <span class="kw">in</span> <span class="kw">let</span> c <span class="fu">=</span> <span class="dv">5</span> <span class="kw">in</span> cTimes <span class="dv">2</span>}
+   <span class="co">-- remember current env:</span>
+<span class="ot">=&gt;</span> eval [cTimes<span class="fu">:&lt;</span>[c<span class="fu">:</span><span class="dv">42</span>], \x <span class="ot">-&gt;</span> c<span class="fu">*</span>x<span class="fu">&gt;</span>, c<span class="fu">:</span><span class="dv">42</span>] 
+                                             {<span class="kw">let</span> c <span class="fu">=</span> <span class="dv">5</span> <span class="kw">in</span> cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">5</span>, cTimes<span class="fu">:&lt;</span>[c<span class="fu">:</span><span class="dv">42</span>], \x <span class="ot">-&gt;</span> c<span class="fu">*</span>x<span class="fu">&gt;</span>, c<span class="fu">:</span><span class="dv">42</span>] 
+                                                          {cTimes <span class="dv">2</span>}
+<span class="ot">=&gt;</span> eval [c<span class="fu">:</span><span class="dv">5</span>, cTimes<span class="fu">:&lt;</span>[c<span class="fu">:</span><span class="dv">42</span>], \x <span class="ot">-&gt;</span> c<span class="fu">*</span>x<span class="fu">&gt;</span>, c<span class="fu">:</span><span class="dv">42</span>]
+                                           {<span class="fu">&lt;</span>[c<span class="fu">:</span><span class="dv">42</span>], \x <span class="ot">-&gt;</span> c <span class="fu">*</span> x<span class="fu">&gt;</span> <span class="dv">2</span>}
+  <span class="co">-- restore env to the one inside the closure, then bind 2 to x:                                                 </span>
+<span class="ot">=&gt;</span> eval [x<span class="fu">:</span><span class="dv">2</span>, c<span class="fu">:</span><span class="dv">42</span>] 
+                                                          {c <span class="fu">*</span> x}
+<span class="ot">=&gt;</span>                                                        <span class="dv">42</span> <span class="fu">*</span> <span class="dv">2</span>
+<span class="ot">=&gt;</span>                                                        <span class="dv">84</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-4">QUIZ</h2>
 <p>Which variables should be saved in the closure environment of <code class="sourceCode haskell">f</code>?</p>
@@ -811,15 +847,16 @@ f <span class="dv">5</span></code></pre></div>
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;f&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>))) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>)))]
-    (<span class="dt">Let</span> <span class="st">&quot;y&quot;</span> (<span class="dt">Num</span> <span class="dv">10</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) (<span class="dt">Num</span> <span class="dv">5</span>)))
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;y&quot;</span>,<span class="dt">VNum</span> <span class="dv">10</span>), (<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> <span class="fu">...</span>)]
-    (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) (<span class="dt">Num</span> <span class="dv">5</span>))
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;y&quot;</span>,<span class="dt">VNum</span> <span class="dv">10</span>), (<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> <span class="fu">...</span>)]
-    (<span class="dt">App</span> (<span class="dt">VClos</span> [] <span class="st">&quot;x&quot;</span> (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>))) (<span class="dt">Num</span> <span class="dv">5</span>))    
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;x&quot;</span>,<span class="dt">VNum</span> <span class="dv">5</span>)] <span class="co">-- env got replaced by closure env + formal!</span>
-     (<span class="dt">Add</span> (<span class="dt">Var</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">Var</span> <span class="st">&quot;y&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         
+     {<span class="kw">let</span> f <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> y <span class="kw">in</span> <span class="kw">let</span> y <span class="fu">=</span> <span class="dv">10</span> <span class="kw">in</span> f <span class="dv">5</span>}
+<span class="ot">=&gt;</span> eval [f<span class="fu">:&lt;</span>[], \x <span class="ot">-&gt;</span> x <span class="fu">+</span> y<span class="fu">&gt;</span>]
+                            {<span class="kw">let</span> y <span class="fu">=</span> <span class="dv">10</span> <span class="kw">in</span> f <span class="dv">5</span>}
+<span class="ot">=&gt;</span> eval [y<span class="fu">:</span><span class="dv">10</span>, f<span class="fu">:&lt;</span>[], \x <span class="ot">-&gt;</span> x <span class="fu">+</span> y<span class="fu">&gt;</span>]
+                                          {f <span class="dv">5</span>}
+<span class="ot">=&gt;</span> eval [y<span class="fu">:</span><span class="dv">10</span>, f<span class="fu">:&lt;</span>[], \x <span class="ot">-&gt;</span> x <span class="fu">+</span> y<span class="fu">&gt;</span>]
+                          {<span class="fu">&lt;</span>[], \x <span class="ot">-&gt;</span> x <span class="fu">+</span> y<span class="fu">&gt;</span> <span class="dv">5</span>}  
+<span class="ot">=&gt;</span> eval [x<span class="fu">:</span><span class="dv">5</span>] <span class="co">-- env got replaced by closure env + formal!</span>
+                                     {x <span class="fu">+</span> y}  <span class="co">-- y is unbound!</span></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-6">QUIZ</h2>
 <p>With <code class="sourceCode haskell">eval</code> as defined above, what does this evaluate to?</p>
@@ -831,13 +868,14 @@ f <span class="dv">5</span></code></pre></div>
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         (<span class="dt">Let</span> <span class="st">&quot;f&quot;</span> (<span class="dt">Lam</span> <span class="st">&quot;n&quot;</span> <span class="fu">...</span>) <span class="fu">...</span>)
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;n&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>)))]
-    (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) (<span class="dt">Num</span> <span class="dv">5</span>))
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;f&quot;</span>,<span class="dt">VClos</span> [] <span class="st">&quot;n&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>)))]
-    (<span class="dt">App</span> (<span class="dt">VClos</span> [] <span class="st">&quot;n&quot;</span> (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>))) (<span class="dt">Num</span> <span class="dv">5</span>))   
-<span class="ot">=&gt;</span> eval [(<span class="st">&quot;n&quot;</span>,<span class="dt">VNum</span> <span class="dv">5</span>)] <span class="co">-- env got replaced by closure env + formal!</span>
-    (<span class="dt">Mul</span> (<span class="dt">Var</span> <span class="st">&quot;n&quot;</span>) (<span class="dt">App</span> (<span class="dt">Var</span> <span class="st">&quot;f&quot;</span>) <span class="fu">...</span>)) <span class="co">-- f is unbound!</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">   eval []         
+       {<span class="kw">let</span> f <span class="fu">=</span> \n <span class="ot">-&gt;</span> n <span class="fu">*</span> f (n <span class="fu">-</span> <span class="dv">1</span>) <span class="kw">in</span> f <span class="dv">5</span>}
+<span class="ot">=&gt;</span> eval [f<span class="fu">:&lt;</span>[], \n <span class="ot">-&gt;</span> n <span class="fu">*</span> f (n <span class="fu">-</span> <span class="dv">1</span>)<span class="fu">&gt;</span>]
+                                      {f <span class="dv">5</span>}
+<span class="ot">=&gt;</span> eval [f<span class="fu">:&lt;</span>[], \n <span class="ot">-&gt;</span> n <span class="fu">*</span> f (n <span class="fu">-</span> <span class="dv">1</span>)<span class="fu">&gt;</span>]
+              {<span class="fu">&lt;</span>[], \n <span class="ot">-&gt;</span> n <span class="fu">*</span> f (n <span class="fu">-</span> <span class="dv">1</span>)<span class="fu">&gt;</span> <span class="dv">5</span>}   
+<span class="ot">=&gt;</span> eval [n<span class="fu">:</span><span class="dv">5</span>] <span class="co">-- env got replaced by closure env + formal!</span>
+                         {n <span class="fu">*</span> f (n <span class="fu">-</span> <span class="dv">1</span>)} <span class="co">-- f is unbound!</span></code></pre></div>
 <p><strong>Lesson learned:</strong> to support recursion, we need a different way of constructing the closure environment!</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-nano-language-3">The Nano Language</h2>
