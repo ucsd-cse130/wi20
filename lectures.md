@@ -22,14 +22,14 @@ Lecture schedule is subject to change!
 | 2/4        | contd.                          |                           |               |
 | 2/6        | Higher Order Functions          | [html][lec4]              |               |
 | 2/8        | contd.                          |                           |               |
-| 2/11       | **Midterm**                     |                           |               |
+| 2/11       | **Midterm**                     | [exam][midterm] [solution][midterm-sol] | |
 | 2/13       | Environments and Closures       | [html][lec5]              |               |
 | 2/15       | contd.                          |                           |               |
 | 2/18       | *No lecture: Presidents' Day*   |                           |               |
-| 2/20       | Lexing and Parsing              |                           |               |
-| 2/22       | contd.                          |                           |               |
-| 2/25       | Polymorphism and Type Inference |                           |               |
-| 2/27       | contd.                          |                           |               |
+| 2/20       | contd.                          |                           |               |
+| 2/22       | Lexing and Parsing              |                           |               |
+| 2/25       | contd.                          |                           |               |
+| 2/27       | Polymorphism and Type Inference |                           |               |
 | 3/1        | contd.                          |                           |               |
 | 3/4        | Logic Programming               |                           |               |
 | 3/6        | contd.                          |                           |               |
@@ -66,8 +66,8 @@ Lecture schedule is subject to change!
 [datatypes]: /static/raw/Datatypes.hs
 [tail]: /static/raw/Tail.hs
 
-[midterm]: /static/raw/130-midterm-sp18.pdf
-[midterm-sol]: /static/raw/130-midterm-sp18-solution.pdf
+[midterm]: /static/raw/130-midterm-wi19.pdf
+[midterm-sol]: /static/raw/130-midterm-wi19-solution.pdf
 [final-prep]: /static/raw/appendix.pdf
-[final]: /static/raw/130-final-sp18.pdf
-[final-sol]: /static/raw/130-final-sp18-solution.pdf
+[final]: /static/raw/130-final-wi19.pdf
+[final-sol]: /static/raw/130-final-wi19-solution.pdf
