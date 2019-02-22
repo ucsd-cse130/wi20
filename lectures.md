@@ -27,7 +27,7 @@ Lecture schedule is subject to change!
 | 2/15       | contd.                          |                           |               |
 | 2/18       | *No lecture: Presidents' Day*   |                           |               |
 | 2/20       | contd.                          |                           |               |
-| 2/22       | Lexing and Parsing              |                           |               |
+| 2/22       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]     |    |
 | 2/25       | contd.                          |                           |               |
 | 2/27       | Polymorphism and Type Inference |                           |               |
 | 3/1        | contd.                          |                           |               |
