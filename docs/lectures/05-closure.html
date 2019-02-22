@@ -1189,16 +1189,25 @@ fv (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">
 <p>Proof idea:</p>
 <ul>
 <li>Proof by induction on the number of reduction steps</li>
-<li>We can’t get stuck in 0 steps</li>
-<li>With <span class="math inline"><em>k</em> + 1</span> steps: after the first step, the expression is still closed, so the other <span class="math inline"><em>k</em></span> steps follow by IH?</li>
+<li>At the beginning we are not stuck</li>
+<li>With <span class="math inline"><em>k</em> + 1</span> steps: after the first step, the expression is still closed, so the other <span class="math inline"><em>k</em></span> steps follow by IH</li>
 </ul>
 <p><strong>Proof:</strong> by induction on the number <span class="math inline"><em>k</em></span> of reduction steps:</p>
 <ul>
-<li>Base case (<span class="math inline"><em>k</em> = 0</span>): then <code class="sourceCode haskell">e' <span class="fu">=</span> e</code>, and since <code class="sourceCode haskell">fv e <span class="fu">=</span> {}</code>, then <code class="sourceCode haskell">e</code> cannot be a variable</li>
-<li>Inductive case (<span class="math inline"><em>k</em> &gt; 0</span>): then <code class="sourceCode haskell">e <span class="ot">=&gt;</span> e1 <span class="fu">=~&gt;</span> e'</code>. To apply IH, we need to show: <code class="sourceCode haskell">fv e1 <span class="fu">=</span> {}</code>. We need an auxiliary lemma!</li>
+<li>Base case (<span class="math inline"><em>k</em> = 0</span>): <code class="sourceCode haskell">e</code> is not stuck. We need an auxiliary lemma that a closed expression cannot be stuck (Lemma 3)</li>
+<li>Inductive case (<span class="math inline"><em>k</em> &gt; 0</span>): then <code class="sourceCode haskell">e <span class="ot">=&gt;</span> e1 <span class="fu">=~&gt;</span> e'</code>. To apply IH, we need to show: <code class="sourceCode haskell">fv e1 <span class="fu">=</span> {}</code> (Lemma 4).</li>
 </ul>
 <p><br> <br> <br></p>
-<p><strong>Lemma 3</strong>: For any <code class="sourceCode haskell">e</code> such that <code class="sourceCode haskell">fv e <span class="fu">=</span> {}</code>, if <code class="sourceCode haskell">e <span class="ot">=&gt;</span> e'</code> then <code class="sourceCode haskell">fv e' <span class="fu">=</span> {}</code></p>
+<p><strong>Lemma 3</strong>: For any <code class="sourceCode haskell">e</code> such that <code class="sourceCode haskell">fv e <span class="fu">=</span> {}</code>, either <code class="sourceCode haskell">e</code> is a value or there exists <code class="sourceCode haskell">e'</code> such that <code class="sourceCode haskell">e <span class="ot">=&gt;</span> e'</code></p>
+<p><strong>Proof:</strong> By induction on the <em>term</em> <code class="sourceCode haskell">e</code>.</p>
+<ul>
+<li><em>Base case</em> <code class="sourceCode haskell">n</code>: It’s a value.</li>
+<li><em>Base case</em> <code class="sourceCode haskell">x</code>: <code class="sourceCode haskell">fv x <span class="fu">=</span> {x} <span class="fu">/=</span> {}</code>: contradiction!</li>
+<li><p><em>Inductive case</em> <code class="sourceCode haskell">e1 <span class="fu">+</span> e2</code>: Since <code class="sourceCode haskell">fv (e1 <span class="fu">+</span> e2) <span class="fu">=</span> {}</code>, we know that <code class="sourceCode haskell">fv e1 <span class="fu">=</span> {}</code> and <code class="sourceCode haskell">fv e2 <span class="fu">=</span> {}</code>. So we can apply IH to conclude that <code class="sourceCode haskell">e1</code> (resp. <code class="sourceCode haskell">e2</code>) is a value or steps to some <code class="sourceCode haskell">e1'</code> (resp. <code class="sourceCode haskell">e2'</code>). If <code class="sourceCode haskell">e1 <span class="ot">=&gt;</span> e1'</code>, then [Add-L] applies. Otherwise <code class="sourceCode haskell">e1</code> is a value; then if <code class="sourceCode haskell">e2 <span class="ot">=&gt;</span> e2'</code>, then [Add-R] applies. Otherwise <code class="sourceCode haskell">e2</code> is also a value, so [Add] applies.</p></li>
+<li><p><em>Inductive case</em> <code class="sourceCode haskell"><span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2</code>: Since <code class="sourceCode haskell">fv (<span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2) <span class="fu">=</span> {}</code>, we know that <code class="sourceCode haskell">fv e1 <span class="fu">=</span> {}</code>. So we can apply IH to conclude that <code class="sourceCode haskell">e1</code> is a value or steps to some <code class="sourceCode haskell">e1'</code>. If <code class="sourceCode haskell">e1 <span class="ot">=&gt;</span> e1'</code>, then [Let-Def] applies. Otherwise <code class="sourceCode haskell">e1</code> is a value; then [Let] applies.</p></li>
+</ul>
+<p><br> <br> <br></p>
+<p><strong>Lemma 4</strong>: For any <code class="sourceCode haskell">e</code> such that <code class="sourceCode haskell">fv e <span class="fu">=</span> {}</code>, if <code class="sourceCode haskell">e <span class="ot">=&gt;</span> e'</code> then <code class="sourceCode haskell">fv e' <span class="fu">=</span> {}</code></p>
 <p><strong>Proof:</strong> By induction on the <em>derivation</em> of <code class="sourceCode haskell">e <span class="ot">=&gt;</span> e'</code>.</p>
 <p><em>Base case</em> <code class="sourceCode haskell">[<span class="dt">Add</span>]</code>. Try at home.</p>
 <ul>
