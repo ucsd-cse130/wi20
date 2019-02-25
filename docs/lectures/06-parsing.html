@@ -484,7 +484,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li>i.e. what children each nonterminal can have:</li>
 </ul></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">BinExpr</span> <span class="fu">:</span>   <span class="co">-- NT BinExpr can have as children:</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Aexpr</span> <span class="fu">:</span>   <span class="co">-- NT Aexpr can have as children:</span>
   <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr</span>  { <span class="fu">...</span> } <span class="co">-- NT Aexpr, T '+', and NT Aexpr, or </span>
   <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">AExpr</span>  { <span class="fu">...</span> } <span class="co">-- NT Aexpr, T '-', and NT Aexpr, or </span>
   <span class="fu">|</span> <span class="fu">...</span></code></pre></div>
@@ -512,14 +512,12 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="production-rules">Production rules</h2>
 <p>Next we define productions for our language:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Aexpr</span> <span class="fu">:</span> <span class="dt">BinExp</span>                   { <span class="fu">$</span><span class="dv">1</span>           }
-      <span class="fu">|</span> <span class="dt">TNUM</span>                     { <span class="dt">AConst</span> <span class="fu">$</span><span class="dv">1</span>    }
-      <span class="fu">|</span> <span class="dt">ID</span>                       { <span class="dt">AVar</span>   <span class="fu">$</span><span class="dv">1</span>    }
-      <span class="fu">|</span> <span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span>            { <span class="fu">$</span><span class="dv">2</span>           }
-
-<span class="dt">BinExp</span> <span class="fu">:</span> <span class="dt">Aexpr</span> <span class="ch">'*'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMul</span>   <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }
-       <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr</span>         { <span class="dt">APlus</span>  <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> } 
-       <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMinus</span> <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Aexpr</span> <span class="fu">:</span> <span class="dt">TNUM</span>                    { <span class="dt">AConst</span> <span class="fu">$</span><span class="dv">1</span>    }
+      <span class="fu">|</span> <span class="dt">ID</span>                      { <span class="dt">AVar</span>   <span class="fu">$</span><span class="dv">1</span>    }
+      <span class="fu">|</span> <span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span>           { <span class="fu">$</span><span class="dv">2</span>           }
+      <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'*'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMul</span>   <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }
+      <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr</span>         { <span class="dt">APlus</span>  <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> } 
+      <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMinus</span> <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }</code></pre></div>
 <p>The expression on the right computes the <em>value</em> of this node</p>
 <ul>
 <li><code class="sourceCode haskell"><span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">2</span> <span class="fu">$</span><span class="dv">3</span></code> refer to the <em>values</em> of the respective child nodes</li>
@@ -528,8 +526,8 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>Example:</strong> parsing <code class="sourceCode haskell">(<span class="dv">2</span>)</code> as <code class="sourceCode haskell"><span class="dt">AExpr</span></code>:</p>
 <ol style="list-style-type: decimal">
 <li><p>Lexer returns a sequence of <code class="sourceCode haskell"><span class="dt">Token</span></code>s: <code class="sourceCode haskell">[<span class="dt">LPAREN</span>, <span class="dt">NUM</span> <span class="dv">2</span>, <span class="dt">RPAREN</span>]</code></p></li>
-<li><p><code class="sourceCode haskell"><span class="dt">LPAREN</span></code> is the token for terminal <code class="sourceCode haskell">(</code>, so let’s pick production <code class="sourceCode haskell"><span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span></code></p></li>
-<li><p>Now we have to parse <code class="sourceCode haskell"><span class="dt">NUM</span> <span class="dv">2</span></code> as <code class="sourceCode haskell"><span class="dt">Aexpr</span></code> and <code class="sourceCode haskell"><span class="dt">RPAREN</span></code> as ‘)’</p></li>
+<li><p><code class="sourceCode haskell"><span class="dt">LPAREN</span></code> is the token for terminal <code class="sourceCode haskell"><span class="ch">'('</span></code>, so let’s pick production <code class="sourceCode haskell"><span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span></code></p></li>
+<li><p>Now we have to parse <code class="sourceCode haskell"><span class="dt">NUM</span> <span class="dv">2</span></code> as <code class="sourceCode haskell"><span class="dt">Aexpr</span></code> and <code class="sourceCode haskell"><span class="dt">RPAREN</span></code> as <code class="sourceCode haskell"><span class="ch">')'</span></code></p></li>
 <li><p><code class="sourceCode haskell"><span class="dt">NUM</span> <span class="dv">2</span></code> is a token for nonterminal <code class="sourceCode haskell"><span class="dt">TNUM</span></code>, so let’s pick production <code class="sourceCode haskell"><span class="dt">TNUM</span></code></p></li>
 <li><p>The value of this <code class="sourceCode haskell"><span class="dt">Aexpr</span></code> node is <code class="sourceCode haskell"><span class="dt">AConst</span> <span class="dv">2</span></code>, since the value of <code class="sourceCode haskell"><span class="dt">TNUM</span></code> is <code class="sourceCode haskell"><span class="dv">2</span></code></p></li>
 <li><p>The value of the top-level <code class="sourceCode haskell"><span class="dt">Aexpr</span></code> node is also <code class="sourceCode haskell"><span class="dt">AConst</span> <span class="dv">2</span></code> (see the <code class="sourceCode haskell"><span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span></code> production)</p></li>
@@ -537,13 +535,12 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-2">QUIZ</h2>
 <p>What is the value of the root <code class="sourceCode haskell"><span class="dt">AExpr</span></code> node when parsing <code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></code>?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Aexpr</span> <span class="fu">:</span> <span class="dt">BinExp</span>                   { <span class="fu">$</span><span class="dv">1</span>           }
-      <span class="fu">|</span> <span class="dt">TNUM</span>                     { <span class="dt">AConst</span> <span class="fu">$</span><span class="dv">1</span>    }
-      <span class="fu">|</span> <span class="dt">ID</span>                       { <span class="dt">AVar</span>   <span class="fu">$</span><span class="dv">1</span>    }
-      <span class="fu">|</span> <span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span>            { <span class="fu">$</span><span class="dv">2</span>           }
-<span class="dt">BinExp</span> <span class="fu">:</span> <span class="dt">Aexpr</span> <span class="ch">'*'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMul</span>   <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }
-       <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr</span>         { <span class="dt">APlus</span>  <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> } 
-       <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMinus</span> <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Aexpr</span> <span class="fu">:</span> <span class="dt">TNUM</span>                    { <span class="dt">AConst</span> <span class="fu">$</span><span class="dv">1</span>    }
+      <span class="fu">|</span> <span class="dt">ID</span>                      { <span class="dt">AVar</span>   <span class="fu">$</span><span class="dv">1</span>    }
+      <span class="fu">|</span> <span class="ch">'('</span> <span class="dt">Aexpr</span> <span class="ch">')'</span>           { <span class="fu">$</span><span class="dv">2</span>           }
+      <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'*'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMul</span>   <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }
+      <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'+'</span> <span class="dt">Aexpr</span>         { <span class="dt">APlus</span>  <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> } 
+      <span class="fu">|</span> <span class="dt">Aexpr</span> <span class="ch">'-'</span> <span class="dt">Aexpr</span>         { <span class="dt">AMinus</span> <span class="fu">$</span><span class="dv">1</span> <span class="fu">$</span><span class="dv">3</span> }</code></pre></div>
 <p><strong>(A)</strong> Cannot be parsed as <code class="sourceCode haskell"><span class="dt">AExpr</span></code></p>
 <p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">6</span></code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dt">APlus</span> (<span class="dt">APlus</span> (<span class="dt">AConst</span> <span class="dv">1</span>) (<span class="dt">AConst</span> <span class="dv">2</span>)) (<span class="dt">AConst</span> <span class="dv">3</span>)</code></p>
