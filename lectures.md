@@ -45,6 +45,7 @@ Lecture schedule is subject to change!
 | Date       | Topic                    | Slides        | 
 |:----------:|:-------------------------|:-------------:|
 | 1/14       | Lambda Calculus          | [pdf][disc1]  |
+| 2/25       | Nano: Parsing and Eval   | [pdf][disc5]  |
 
 
 [lec0]: lectures/00-hello.html
@@ -58,6 +59,7 @@ Lecture schedule is subject to change!
 [lec8]: lectures/08-prolog.html
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
+[disc5]: /static/raw/disc5-parsing.pdf
 
 [parsing]: https://github.com/cse130-sp18/arith
 
