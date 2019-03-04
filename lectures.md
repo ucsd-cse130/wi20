@@ -31,8 +31,8 @@ Lecture schedule is subject to change!
 | 2/25       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]     |    |
 | 2/27       | Polymorphism and Type Inference | [html][lec7]              |               |
 | 3/1        | contd.                          |                           |               |
-| 3/4        | Logic Programming               |                           |               |
-| 3/6        | contd.                          |                           |               |
+| 3/4        | contd.                          |                           |               |
+| 3/6        | Logic Programming               |                           |               |
 | 3/8        | contd.                          |                           |               |
 | 3/11       | contd.                          |                           |               |
 | 3/13       | contd.                          |                           |               |
