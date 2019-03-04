@@ -593,9 +593,9 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br></p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | This is not the final version!!!</span>
 <span class="ot">infer ::</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Type</span>
-infer _    (<span class="dt">Num</span> _)     <span class="fu">=</span> <span class="dt">TInt</span>
-infer tEnv var         <span class="fu">=</span> lookup var tEnv
-infer tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> 
+infer _    (<span class="dt">ENum</span> _)     <span class="fu">=</span> <span class="dt">TInt</span>
+infer tEnv (<span class="dt">EVar</span> var)   <span class="fu">=</span> lookup var tEnv
+infer tEnv (<span class="dt">EAdd</span> e1 e2) <span class="fu">=</span> 
   <span class="kw">if</span> t1 <span class="fu">==</span> <span class="dt">TInt</span> <span class="fu">&amp;&amp;</span> t2 <span class="fu">==</span> <span class="dt">TInt</span> 
     <span class="kw">then</span> return <span class="dt">TInt</span> 
     <span class="kw">else</span> throw <span class="st">&quot;type error: + expects Int operands&quot;</span>
@@ -620,7 +620,7 @@ infer tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span>
 [<span class="dt">T</span><span class="fu">-</span><span class="dt">Abs</span>]<span class="fu">------------------------------</span>
        [] <span class="fu">|-</span> (\x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span>)<span class="ot"> ::</span> <span class="fu">?</span> <span class="ot">-&gt;</span> <span class="fu">??</span></code></pre></div>
 <p>So, if we want to implement</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">infer tEnv (<span class="dt">ELam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
   <span class="kw">where</span>
     tEnv'  <span class="fu">=</span> extendTEnv x tX tEnv
     tX     <span class="fu">=</span> <span class="fu">???</span> <span class="co">-- what do we put here?</span>
@@ -708,13 +708,13 @@ a         and a <span class="ot">-&gt;</span> a       is <span class="fu">???</s
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span><span class="fu">.</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
 <span class="dv">2</span><span class="fu">.</span> b <span class="ot">-&gt;</span> c</code></pre></div>
 <p><strong>(A)</strong> Cannot unify</p>
-<p><strong>(B)</strong> <code class="sourceCode haskell">[b <span class="fu">/</span> a, c <span class="fu">/</span> <span class="dt">Int</span>]</code></p>
-<p><strong>(C)</strong> <code class="sourceCode haskell">[b <span class="fu">/</span> a, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
-<p><strong>(D)</strong> <code class="sourceCode haskell">[a <span class="fu">/</span> b, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
-<p><strong>(E)</strong> <code class="sourceCode haskell">[a <span class="fu">/</span> <span class="dt">Int</span>, b <span class="fu">/</span> <span class="dt">Int</span>, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">[a <span class="fu">/</span> <span class="dt">Int</span>, b <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>, c <span class="fu">/</span> <span class="dt">Int</span>]</code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">[a <span class="fu">/</span> <span class="dt">Int</span>, b <span class="fu">/</span> <span class="dt">Int</span>, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">[b <span class="fu">/</span> a, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell">[a <span class="fu">/</span> b, c <span class="fu">/</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>]</code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <p>(C), (D) and (E) are all unifiers!</p>
-<p>But somehow (C) and (D) are <em>better</em> than (E)</p>
+<p>But somehow (D) and (E) are <em>better</em> than (C)</p>
 <ul>
 <li><p>they make the <em>least commitment</em> required to make these types equal</p></li>
 <li><p>this is called <strong>the most general unifier</strong></p></li>
@@ -724,11 +724,11 @@ a         and a <span class="ot">-&gt;</span> a       is <span class="fu">???</s
 <p>Let’s add constraint-based typing to <code class="sourceCode haskell">infer</code>!</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Now has to keep track of current substitution!</span>
 <span class="ot">infer ::</span> <span class="dt">Subst</span> <span class="ot">-&gt;</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> (<span class="dt">Subst</span>, <span class="dt">Type</span>)
-infer sub _    (<span class="dt">Num</span> _)     <span class="fu">=</span> (sub, <span class="dt">TInt</span>)
-infer sub tEnv var         <span class="fu">=</span> (sub, lookup var tEnv)
+infer sub _    (<span class="dt">ENum</span> _)     <span class="fu">=</span> (sub, <span class="dt">TInt</span>)
+infer sub tEnv (<span class="dt">EVar</span> var)   <span class="fu">=</span> (sub, lookup var tEnv)
 
 <span class="co">-- Lambda case: simply generate fresh type variable! </span>
-infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
+infer tEnv (<span class="dt">ELam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
   <span class="kw">where</span>
     tEnv'  <span class="fu">=</span> extendTEnv x tX tEnv
     tX     <span class="fu">=</span> freshTV <span class="co">-- we'll get to this</span>
@@ -736,7 +736,7 @@ infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> tX <span 
 
 <span class="co">-- Add case: recursively infer types of operands </span>
 <span class="co">-- and enforce constraint that they are both Int</span>
-infer sub tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> (sub4, <span class="dt">TInt</span>)
+infer sub tEnv (<span class="dt">EAdd</span> e1 e2) <span class="fu">=</span> (sub4, <span class="dt">TInt</span>)
   <span class="kw">where</span>
     (sub1, t1) <span class="fu">=</span> infer sub tEnv e1   <span class="co">-- 1. infer type of e1</span>
     sub2       <span class="fu">=</span> unify sub1 t1 <span class="dt">Int</span>   <span class="co">-- 2. enforce constraint: t1 is Int</span>
@@ -748,7 +748,7 @@ infer sub tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> (su
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-4">QUIZ</h2>
 <p>Which of these programs will type-check if we skip step 3?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">infer sub tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> (sub4, <span class="dt">TInt</span>)
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">infer sub tEnv (<span class="dt">EAdd</span> e1 e2) <span class="fu">=</span> (sub4, <span class="dt">TInt</span>)
   <span class="kw">where</span>
     (sub1, t1) <span class="fu">=</span> infer sub tEnv e1   <span class="co">-- 1. infer type of e1</span>
     sub2       <span class="fu">=</span> unify sub1 t1 <span class="dt">Int</span>   <span class="co">-- 2. enforce constraint: t1 is Int</span>
@@ -768,7 +768,7 @@ infer sub tEnv (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> (su
 <span class="ot">infer ::</span> <span class="dt">Subst</span> <span class="ot">-&gt;</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> (<span class="dt">Subst</span>, <span class="dt">Type</span>)
 
 <span class="co">-- Lambda case: simply generate fresh type variable! </span>
-infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
+infer tEnv (<span class="dt">ELam</span> x e) <span class="fu">=</span> tX <span class="fu">:=&gt;</span> tBody
   <span class="kw">where</span>
     tEnv'  <span class="fu">=</span> extendTEnv x tX tEnv
     tX     <span class="fu">=</span> freshTV <span class="co">-- how do we do this?</span>
@@ -834,12 +834,12 @@ infer tEnv (<span class="dt">Lam</span> x e) <span class="fu">=</span> tX <span 
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">infer ::</span> <span class="dt">Subst</span> <span class="ot">-&gt;</span> <span class="dt">TypeEnv</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> (<span class="dt">Subst</span>, <span class="dt">Type</span>)
 
 <span class="co">-- Variable case: add instantiation!</span>
-infer sub tEnv var         <span class="fu">=</span> (sub, t)
+infer sub tEnv (<span class="dt">EVar</span> var)      <span class="fu">=</span> (sub, t)
   <span class="kw">where</span>
     t <span class="fu">=</span> instantiate (lookup var tEnv)
 
 <span class="co">-- Let case: add generalization!</span>
-infer sub tEnv (<span class="dt">Let</span> x e1 e2)   <span class="fu">=</span> infer sub1 tEnv2 e2
+infer sub tEnv (<span class="dt">ELet</span> x e1 e2)  <span class="fu">=</span> infer sub1 tEnv2 e2
   <span class="kw">where</span>
     (sub1, t1) <span class="fu">=</span> infer sub tEnv e1     <span class="co">-- 1. infer type of e1</span>
     tEnv1      <span class="fu">=</span> apply sub1 tEnv       <span class="co">-- 2. apply substitution to context</span>
