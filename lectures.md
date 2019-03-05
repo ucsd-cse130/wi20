@@ -61,7 +61,7 @@ Lecture schedule is subject to change!
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
-[disc5]: /static/raw/disc-pa5tips.pdf
+[disc6]: /static/raw/disc-pa5tips.pdf
 
 [parsing]: https://github.com/cse130-sp18/arith
 
