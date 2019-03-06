@@ -355,7 +355,11 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
     <span class="fu">|</span> a                <span class="co">-- atom</span>
     <span class="fu">|</span> <span class="dt">X</span>                <span class="co">-- variable</span>
     <span class="fu">|</span> a (t1, t2, <span class="fu">..</span>)   <span class="co">-- compound term</span></code></pre></div>
-<p>where * <code class="sourceCode haskell">a</code> is an identifier that starts with a lower-case letter * <code class="sourceCode haskell"><span class="dt">X</span></code> is an identifier that starts with an upper-case letter</p>
+<p>where</p>
+<ul>
+<li><code class="sourceCode haskell">a</code> is an identifier that starts with a lower-case letter</li>
+<li><code class="sourceCode haskell"><span class="dt">X</span></code> is an identifier that starts with an upper-case letter</li>
+</ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h3 id="prolog-terms-atoms">Prolog Terms: Atoms</h3>
 <p><strong>Atom:</strong> any identifier starting with <em>lower</em>-case</p>
@@ -448,7 +452,7 @@ parent(alice<span class="kw">,</span> <span class="dt">Child</span>) <span class
 <p><strong>B.</strong> <code class="sourceCode haskell">factorial(<span class="dt">Atom</span> <span class="dv">5</span>)</code></p>
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dv">120</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Num</span> <span class="dv">120</span></code></p>
-<p><strong>E.</strong> `Compound “factorial” [Num 5]</p>
+<p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Compound</span> <span class="st">&quot;factorial&quot;</span> [<span class="dt">Num</span> <span class="dv">5</span>]</code></p>
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br></p>
