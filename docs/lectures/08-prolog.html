@@ -793,8 +793,6 @@ herbert        felix    dana
 </ul>
 <p><br> <br></p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>  </code></pre></div>
-<p><br> <br></p>
-<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> <span class="dt">X</span><span class="kw">.</span>  </code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-4">Plan</h2>
 <p>Language</p>
@@ -854,8 +852,8 @@ herbert        felix    dana
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">t <span class="kw">:-</span> t1<span class="kw">,</span> t1<span class="kw">,</span> t2<span class="kw">,</span>...</code></pre></div>
 <ul>
 <li><code class="sourceCode haskell">t</code> is called the <strong>head</strong> of the rule</li>
-<li><code class="sourceCode haskell">t1, t2, t2,<span class="fu">...</span></code> is called the <strong>body</strong> of the rule</li>
-<li>all <code class="sourceCode haskell">t,t1, t2, t2,<span class="fu">...</span></code> are predicate applications</li>
+<li><code class="sourceCode haskell">t1, t2, t3,<span class="fu">...</span></code> is called the <strong>body</strong> of the rule</li>
+<li>all <code class="sourceCode haskell">t, t1, t2, t3,<span class="fu">...</span></code> are predicate applications</li>
 </ul>
 <p><br></p>
 <p><strong>Intuition:</strong></p>
@@ -971,7 +969,7 @@ isVegetarian(<span class="dt">X</span>) <span class="kw">:-</span> isVegan(<span
 <p><br> <br> <br> <br> <br></p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span>
 has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></code></pre></div>
-<p><code class="sourceCode haskell">_</code> is a <em>wildcard</em> or <em>dont-care</em> variable (as in ML, Scala)</p>
+<p><code class="sourceCode haskell">_</code> is a <em>wildcard</em> or <em>dont-care</em> variable (as in Haskell)</p>
 <p><br></p>
 <p><strong>Intuition:</strong></p>
 <ul>
