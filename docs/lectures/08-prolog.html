@@ -1133,8 +1133,8 @@ parent(felix<span class="kw">,</span>margaret)   parent(<span class="dt">P2</spa
 <p>Order of clauses &amp; terms influences unification &amp; backtracking.</p>
 <p>For each</p>
 <ul>
-<li><strong>goal</strong> different clauses are selected in order,</li>
-<li><strong>clause</strong> subgoals are unified <em>from left-to-right</em>.</li>
+<li><strong>goal</strong> different clauses are selected in order</li>
+<li><strong>clause</strong> subgoals are solved (and unified!) <em>from left-to-right</em></li>
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-7">QUIZ</h2>
@@ -1163,7 +1163,7 @@ ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</s
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span>
 ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></code></pre></div>
 <p>The following query doesn’t terminate:</p>
-<p>`<code class="sourceCode haskell">prolog <span class="fu">?-</span> ancestor(felix,holly)<span class="fu">.</span></code></p>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></code></pre></div>
 <p><br> <br></p>
 <p>Why? The search tree looks like this now!</p>
 <div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">  ancestor(felix<span class="kw">,</span>holly)?
@@ -1178,7 +1178,7 @@ ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</s
     |	                <span class="co">%then parent(P1,P0)</span>
     |
     |
-  ancestor(felix<span class="kw">,</span><span class="dt">Z</span>'')
+  ancestor(felix<span class="kw">,</span><span class="dt">P2</span>)
     <span class="kw">.</span>
     <span class="al">.</span>
     <span class="al">.</span></code></pre></div>
