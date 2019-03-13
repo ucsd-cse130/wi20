@@ -47,6 +47,7 @@ Lecture schedule is subject to change!
 | 1/14       | Lambda Calculus          | [pdf][disc1]  |
 | 2/25       | Nano: Parsing and Eval   | [pdf][disc5]  |
 | 3/4        | Type checking tips       | [pdf][disc6]  |
+| 3/11       | Final Review             | [pdf][discFinal] |
 
 
 [lec0]: lectures/00-hello.html
@@ -62,6 +63,7 @@ Lecture schedule is subject to change!
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
 [disc6]: /static/raw/disc-pa5tips.pdf
+[discFinal]: /static/raw/final-disc.pdf
 
 [parsing]: https://github.com/cse130-sp18/arith
 
