@@ -1507,11 +1507,11 @@ solution(<span class="dt">State</span><span class="kw">,</span>[<span class="dt"
 </ul>
 <p><br> <br></p>
 <p>We can use cut to tell Prolog: once you found a solution to the puzzle, look no further!</p>
-<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">solution([east,east,east,east]<span class="kw">,</span>[]) <span class="kw">:-</span> <span class="kw">!.</span>
+<div class="sourceCode"><pre class="sourceCode prolog"><code class="sourceCode prolog">solution([east,east,east,east]<span class="kw">,</span>[])<span class="kw">.</span>
 solution(<span class="dt">State</span><span class="kw">,</span>[<span class="dt">FirstMove</span><span class="fu">|</span><span class="dt">RemainingMoves</span>]) <span class="kw">:-</span>
   move(<span class="dt">State</span><span class="kw">,</span><span class="dt">FirstMove</span><span class="kw">,</span><span class="dt">NextState</span>)<span class="kw">,</span>
   safe(<span class="dt">NextState</span>)<span class="kw">,</span>
-  solution(<span class="dt">NextState</span><span class="kw">,</span><span class="dt">RemainingMoves</span>)<span class="kw">.</span></code></pre></div>
+  solution(<span class="dt">NextState</span><span class="kw">,</span><span class="dt">RemainingMoves</span>)<span class="kw">,</span> <span class="kw">!.</span></code></pre></div>
 <p><br> <br> <br> <br></p>
 <h3 id="collect-all-solutions">Collect all solutions</h3>
 <p>Sometimes you want to <strong>localize</strong> the backtracking and collect all solutions in a list.</p>
