@@ -132,7 +132,7 @@ Has one feature:
 <br>
 <br>
 
-No, really:
+No, *really*
 
 * ~~Assignment (`x = x + 1`)~~
 * ~~Booleans, integers, characters, strings, ...~~
@@ -157,10 +157,10 @@ No, really:
 <br>
 <br>
 
-More precisely, all you can do is:
+More precisely, *only thing* you can do is:
 
-* define a function
-* call a function
+* **Define** a function
+* **Call** a function
 
 <br>
 <br>
@@ -177,7 +177,7 @@ More precisely, all you can do is:
 
 * _Syntax:_ what do programs look like?
 * _Semantics:_ what do programs mean?
-    * _operational semantics_: how do programs execute step-by-step?
+    * _Operational semantics_: how do programs execute step-by-step?
 
 <br>
 <br>
@@ -196,9 +196,8 @@ More precisely, all you can do is:
 
 ```haskell
 e ::= x
-    | \x -> e 
+    | \x -> e
     | e1 e2
-
 ```
 
 <br>

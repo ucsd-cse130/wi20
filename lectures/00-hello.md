@@ -104,9 +104,8 @@ Language affects how ideas and computation are expressed
 
 ## Course Goals
 
-![Morpheus, The Matrix](/static/img/galaxy-brain-130.jpg){#fig:galaxy .align-center width=25%}
+![130 Brain](/static/img/galaxy-brain-130.jpg){#fig:galaxy .align-center width=65%}
 
-> Free Your Mind.
 
 <br>
 <br>
@@ -126,7 +125,6 @@ There was no
 - Rust        10 years ago
 - WebAssembly 2 years ago
 
-
 <br>
 <br>
 <br>
@@ -139,7 +137,6 @@ There was no
 - Concepts in programming languages
 - Programming paradigms
 - Language design and implementation
-
 
 <br>
 <br>
@@ -248,21 +245,21 @@ Yes.
 
 ## What is CSE 130 **not** about?
 
-Learning... 
+Learning...
 
-- JavaScript in January
-- Haskell in February
-- C++ in March
-- etc. 
+- JavaScript in April
+- Haskell in May
+- C++ in June 
+
+etc.
+
 ## Who am I?
 
 [Ranjit Jhala](https://ranjitjhala.github.io/)
 
-Professor at CSE since 2005
+- Professor at CSE since 2005
 
-### My Research
-
-- Software Verification: how to prove software is doing the right thing?
+- Research: Tools and Techniques to make programs better
 
 <br>
 <br>
@@ -272,7 +269,6 @@ Professor at CSE since 2005
 <br>
 <br>
 <br>
-
 
 ## The Crew
 
@@ -431,18 +427,21 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 ## Assignments
 
 **7 programming assignments**
-    - Released [online](assignments.html)
-    - At least a week before due date
-    - On github
+
+- Released [online](assignments.html)
+- At least a week before due date
+- On github
 
 **Four late days** 
-    - used as **whole unit**
-    - 5 mins late = 1 late day
+
+- used as **whole unit**
+- 5 mins late = 1 late day
 
 **Groups of two** can do hw together 
-    - on ieng6 or your own machine
-    - register your group [here][groups]
-    - submit **individually** (via github)
+
+- On `ieng6` or your own machine
+- Register your group [here][groups]
+- **Submit individually** (via github)
 
 <br>
 <br>
@@ -493,9 +492,7 @@ Clickers Are Not Optional
 
 - **Cheap** ones are fine
 - **Respond** to 75% questions
-
-[Register your clicker here][clickers]
-
+- [Register your clicker here][clickers]
 
 
 <br>
@@ -553,19 +550,21 @@ Do you have a clicker?
 
 ## Your Resources
 
-- Discussion section: 
-    - Wed 10-11am 
+### Discussion section
 
-- Office hours
-    - every day, check **calendar**
+- Wed 10-11am
 
-- **Piazza**
-    - we answer during work hours and office hours
+### Office hours
 
-- **No text**
-    - online lecture notes and links
+- Every day, check **calendar**
 
+### Piazza 
 
+- We answer during work hours and office hours
+
+### No text
+
+- Online lecture notes and links
 
 <br>
 <br>
@@ -600,11 +599,16 @@ Exams done **alone**
 
 ## Students with Disabilites
 
-Students requesting accommodations for this course due to a disability or current functional limitation must provide 
-a current **Authorization for Accommodation (AFA)** letter issued by the Office for Students with Disabilities (OSD) 
+Students requesting accommodations for this course due to 
+a disability or current functional limitation must provide 
+a current **Authorization for Accommodation (AFA)** letter 
+issued by the Office for Students with Disabilities (OSD) 
 which is located in University Center 202 behind Center Hall.
   
-Students are required to present their AFA letters to Faculty (please make arrangements to contact me privately) and to the CSE OSD Liaison [Christina Rontell](https://cse.ucsd.edu/people/administrative-staff/christina-rontell) in advance so that accommodations may be arranged.
+Students are required to present their AFA letters to Faculty 
+(please make arrangements to contact me privately) and to the 
+CSE OSD Liaison [Christina Rontell](https://cse.ucsd.edu/people/administrative-staff/christina-rontell) 
+in advance so that accommodations may be arranged.
 
 <br>
 <br>
@@ -616,17 +620,24 @@ Students are required to present their AFA letters to Faculty (please make arran
 
 ## Diversity and Inclusion
 
-Our goal is to create a diverse and inclusive learning environment where all students feel comfortable and can thrive. 
-If there is a way we can make you feel more included please let one of the course staff know, 
-either in person, via email/discussion board, or even in a note under the door.
-Our learning about diverse perspectives and identities is an ongoing process, and we welcome your perspectives and input.  
+Our goal is to create a diverse and inclusive learning environment
+where all students feel comfortable and can thrive.
+If there is a way we can make you feel more included please let one
+of the course staff know, either in person, via email/discussion board,
+or even in a note under the door.
 
-We also expect that you, as a student in this course, will honor and respect your classmates, 
-abiding by the UCSD [Principles of Community](https://ucsd.edu/about/principles.html).
-Please understand that others’ backgrounds, perspectives and experiences may be different than your own,
-and help us to build an environment where everyone is respected and feels comfortable.
+Our learning about diverse perspectives and identities is an ongoing
+process, and we welcome your perspectives and input.  
 
-If you experience any sort of **harassment or discrimination**, please contact the [Office of Prevention of Harassment and Discrimination](https://ophd.ucsd.edu/).
+We also expect that you, as a student in this course, will honor
+and respect your classmates, abiding by the UCSD [Principles of Community](https://ucsd.edu/about/principles.html).
+Please understand that others’ backgrounds, perspectives and
+experiences may be different than your own, and help us to
+build an environment where everyone is respected and feels
+comfortable.
+
+If you experience any sort of **harassment or discrimination**, 
+please contact the [Office of Prevention of Harassment and Discrimination](https://ophd.ucsd.edu/).
 Students may receive confidential assistance at the [Sexual Assault Resource Center](http://care.ucsd.edu) at (858) 534-5793
 or [Counseling and Psychological Services](http://caps.ucsd.edu.) (CAPS) at (858) 534-3755.
 
@@ -644,7 +655,8 @@ or [Counseling and Psychological Services](http://caps.ucsd.edu.) (CAPS) at (85
 - Do you have stable housing?
 - Are you homeless or couch surfing?
 
-If you or someone you know has food and/or housing insecurity, be aware of [Basic Needs](http://basicneeds.ucsd.edu)
+If you or someone you know has food and/or housing insecurity, 
+be aware of [Basic Needs](http://basicneeds.ucsd.edu)
 
 - The [Triton Food Pantry](https://www.facebook.com/tritonfoodpantry/) (in the old Student Center), is free and anonymous, and includes produce. 
 - Financial aid resources, the possibility of emergency grant funding, and off-campus housing referral resources are available.
@@ -657,10 +669,6 @@ If you or someone you know has food and/or housing insecurity, be aware of [Basi
 <br>
 <br>
 <br>
-
-
-
-
 
 [groups]: https://forms.gle/G8eD7G9ADWcvjwKb8
 [clickers]: https://forms.gle/YHQCpmTnnRYXtnp18
