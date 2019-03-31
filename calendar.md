@@ -6,7 +6,7 @@ headerImg: road.jpg
 ## Clicker Groups
 
 - [Groups](/static/raw/seating.txt)
-- [Seating Chart](/static/img/seating-PCNYH-106.pdf)
+- [Seating Chart](static/raw/Pepper_Canyon_106_groups.pdf)
 
 ## Calendar (Deadlines, Office Hours)
 
