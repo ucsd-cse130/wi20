@@ -3,12 +3,12 @@ title: Lecture Notes
 headerImg: books.jpg
 ---
 
-Lecture schedule is subject to change!
-
-| Date       | Topic                           | Notes                     |  Code         |
+| **Date**   | **Topic**                       | **Notes**                 | **Code**      |
 |:----------:|:--------------------------------|:-------------------------:|:-------------:|
-| 1/7        | Hello, World!                   | [html][lec0]              |               |            
-| 1/9        | The Lambda Calculus             | [html][lec1]              |               |
+| 4/1        | Hello, World!                   | [html][lec0]              |               |
+| 4/3        | The Lambda Calculus             | [html][lec1]              |               |
+
+<!-- 
 | 1/11       | contd.                          |                           |               |
 | 1/14       | contd.                          |                           |               |
 | 1/16       | contd.                          |                           |               |
@@ -39,16 +39,20 @@ Lecture schedule is subject to change!
 | 3/15       | contd.                          |                           |               |
 | 3/22       | **Final**                       |                           |               |
 
+-->
 
 ## Discussions
 
 | Date       | Topic                    | Slides        | 
 |:----------:|:-------------------------|:-------------:|
 | 1/14       | Lambda Calculus          | [pdf][disc1]  |
+
+<!-- 
 | 2/25       | Nano: Parsing and Eval   | [pdf][disc5]  |
 | 3/4        | Type checking tips       | [pdf][disc6]  |
 | 3/11       | Final Review             | [pdf][discFinal] |
 
+-->
 
 [lec0]: lectures/00-hello.html
 [lec1]: lectures/01-lambda.html

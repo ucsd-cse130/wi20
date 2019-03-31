@@ -63,10 +63,10 @@ originally published by Lucas Gatsas.
 - [x] contact.md
 - [x] grades.md
 - [x] links.md
-- [ ] calendar.md
+- [x] calendar.md
+- [x] clicker groups
+- [x] clicker chart
 - [ ] lectures.md
-- [ ] clicker groups
-- [ ] clicker chart
 
 ## SP 19
 

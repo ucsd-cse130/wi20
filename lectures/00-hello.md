@@ -4,127 +4,6 @@ headerImg: sea.jpg
 date: 2017-03-28
 ---
 
-## Who am I?
-
-![Nadia Polikarpova](https://cseweb.ucsd.edu/~npolikarpova/images/nadia_polikarpova.jpg){#fig:nadia .align-center width=25%}
-
-- Assistant professor at CSE since Sept 2017
-- PhD at ETH Zurich
-- Postdoc at MIT
-
-### My Research
-
-- Software Verification: how to prove software is doing the right thing?
-- Software Synthesis: how to generate software that does the right thing?
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-## The Crew
-
-Teaching assistants:
-
-* [Sourav Anand](https://www.linkedin.com/in/soanand14/)
-* [David Justo](http://acsweb.ucsd.edu/~djusto/)
-* [Tristan Knoth](https://tjknoth.github.io/)
-
-Tutors:
-
-* Alan Kuo
-* Jiaxiao (Joe) Zhou
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## What is CSE 130 about?
-
-<br>
-<br>
-
-*Bad news:* 
-  
-  - lots of work
-
-*Good news:* 
-
-  - lots of programming!
-  - (and we're here to help)
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## What is CSE 130 **not** about?
-
-Learning... 
-
-- JavaScript in January
-- Haskell in February
-- C++ in March
-- etc. 
-
-### New languages come (and go ...)
-
-There was no
-
-- Java        25 years ago
-- C#          20 years ago
-- Rust        10 years ago
-- WebAssembly 2 years ago
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## What is CSE 130 about?
-
-- Concepts in programming languages
-- Programming paradigms
-- Language design and implementation
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
 
 
 ## A Programming Language
@@ -225,12 +104,49 @@ Language affects how ideas and computation are expressed
 
 ## Course Goals
 
-![Morpheus, The Matrix](/static/img/morpheus.png){#fig:morpheus .align-center width=25%}
+![Morpheus, The Matrix](/static/img/galaxy-brain-130.jpg){#fig:galaxy .align-center width=25%}
 
 > Free Your Mind.
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
+
+### New languages come (and go ...)
+
+There was no
+
+- Java        25 years ago
+- C#          20 years ago
+- Rust        10 years ago
+- WebAssembly 2 years ago
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## What is CSE 130 about?
+
+- Concepts in programming languages
+- Programming paradigms
+- Language design and implementation
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -242,12 +158,8 @@ Language affects how ideas and computation are expressed
 
 ![Anatomy](/static/img/anatomy.png){#fig:anatomy .align-center width=20%}
 
-
 - What makes a programming language?
 - Which features are **fundamental** and which are **syntactic sugar**? 
-
-
-
 
 
 <br>
@@ -288,11 +200,11 @@ to create programs that are:
 
 New hot lanuages being designed in industry as we speak:
 
-- Flow, React @ Facebook     
-- Rust @ Mozilla, 
+- Flow, React @ Facebook
+- Rust @ Mozilla
 - TypeScript @ Microsoft
 - Swift @ Apple
-- WebAsssembly @ Google + Mozilla + Microsoft
+- WebAssembly @ Google + Mozilla + Microsoft
 
 Buried in every large system is a (domain-specific) language
 
@@ -327,6 +239,60 @@ Yes.
 
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## What is CSE 130 **not** about?
+
+Learning... 
+
+- JavaScript in January
+- Haskell in February
+- C++ in March
+- etc. 
+## Who am I?
+
+[Ranjit Jhala](https://ranjitjhala.github.io/)
+
+Professor at CSE since 2005
+
+### My Research
+
+- Software Verification: how to prove software is doing the right thing?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## The Crew
+
+
+### Teaching Assistants
+
+- [Benjamin Cosman](https://cseweb.ucsd.edu/~blcosman/)
+- [Alex Sanchez-Stern](https://cseweb.ucsd.edu/~alexss/)
+- [Anish Tondwalkar](http://ani.sh/)
+
+### Tutors
+
+- Jiaxiao Zhou  `jiz417@ucsd.edu`
+- Nishil Macwan `macwan@ucsd.edu`
+- Daniel Wang   `daw086@ucsd.edu`
+
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -428,14 +394,16 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 ## Course Logistics
 
-- [webpage](https://nadia-polikarpova.github.io/cse130-web)
-    - calendar, lecture notes, programming assignments, ...
-- [piazza](https://piazza.com/ucsd/winter2019/cse130/home)
-    - to-go place if you have a question or need help
-    - email is futile
-  
+[webpage](https://ucsd-cse130.github.io/sp19)
 
+- Calendar
+- Lecture notes
+- Programming assignments
 
+[piazza](https://piazza.com/ucsd/winter2019/cse130/home)
+
+- Go-to place if you have a question or need help
+- **Email is futile**
 
 <br>
 <br>
@@ -462,29 +430,38 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 ## Assignments
 
-- 7 programming assignments
-- Released [online](https://nadia-polikarpova.github.io/cse130-web/assignments.html), at least a week before due date
-- Due on **Monday at noon** (i.e. before class)
-    - no assignment next Monday
-- Four late days, used as **whole unit**
+**7 programming assignments**
+    - Released [online](assignments.html)
+    - At least a week before due date
+    - On github
+
+**Four late days** 
+    - used as **whole unit**
     - 5 mins late = 1 late day
-- Submit though **ieng6** (instructions in the assignment)
-- Solve in **groups of at most two**
-    - register your group [here](https://goo.gl/forms/kB7l1hs10lmydSZ73) 
-    - submit **individually**
+
+**Groups of two** can do hw together 
+    - on ieng6 or your own machine
+    - register your group [here][groups]
+    - submit **individually** (via github)
 
 <br>
 <br>
 <br>
 <br>
 <br>
-<br>     
-    
-## Exams    
+<br>
 
-- Midterm: in-class on *Feb 11*
-    - subject to change but unlikely 
-- Final: *Mar 22*
+
+## Exams
+
+### Midterm
+
+- in-class on *Friday, May 10*
+- 2-sided "cheat sheet"
+
+### Final 
+
+- Jun 14, 3-5p 
 - 2-sided "cheat sheet"
 - The final is cumulative
 - Midterm grade is calculated as `midterm > 0 ?  max(final, midterm) : 0`
@@ -503,16 +480,21 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 ## Clickers
 
+Assigned Seating
+
+- From next lecture
+- See your [group](/static/raw/seating.txt) and [seat](/static/raw/Pepper_Canyon_106_groups.pdf) 
+
 Make class interactive
 
-+ Help **you** and **me** understand what's tricky
+- Help **you** and **me** understand what's tricky
 
 Clickers Are Not Optional
 
-+  **Cheap** ones are fine
-+  **Respond** to 75% questions
+- **Cheap** ones are fine
+- **Respond** to 75% questions
 
-Register your clicker [here](https://goo.gl/forms/80SF9nYoZzYzCpT22)
+[Register your clicker here][clickers]
 
 
 
@@ -522,7 +504,6 @@ Register your clicker [here](https://goo.gl/forms/80SF9nYoZzYzCpT22)
 <br>
 <br>
 <br>
-
 
 ## TEST QUIZ
 
@@ -542,7 +523,7 @@ Do you have a clicker?
 <br>
 <br>
 
-## Quiz Protocol
+## Clicker Protocol
 
 1. **Solo Vote**
     - Think for yourself, select answer
@@ -572,12 +553,16 @@ Do you have a clicker?
 
 ## Your Resources
 
-- Discussion section: Mon 8pm, CENTR 109
+- Discussion section: 
+    - Wed 10-11am 
+
 - Office hours
-    - every day, check calendar
-- Piazza
-    - we answer during work hours
-- **No text**        
+    - every day, check **calendar**
+
+- **Piazza**
+    - we answer during work hours and office hours
+
+- **No text**
     - online lecture notes and links
 
 
@@ -676,3 +661,6 @@ If you or someone you know has food and/or housing insecurity, be aware of [Basi
 
 
 
+
+[groups]: https://forms.gle/G8eD7G9ADWcvjwKb8
+[clickers]: https://forms.gle/YHQCpmTnnRYXtnp18
