@@ -7,8 +7,8 @@ Public course materials for [UCSD CSE 130](https://ucsd-progsys.github.io/130-sp
 You too, can build this webpage locally, like so:
 
 ```bash
-$ git clone git@github.com:ucsd-progsys/130-sp19.git
-$ cd 130-sp19
+$ git clone git@github.com:ucsd-cse130/sp19.git
+$ cd sp19
 $ make
 ```
 
@@ -53,3 +53,21 @@ git push origin master
 
 This theme is a fork of [CleanMagicMedium-Jekyll](https://github.com/SpaceG/CleanMagicMedium-Jekyll)
 originally published by Lucas Gatsas.
+
+
+## New Class Checklist
+
+- [x] Site.hs
+- [x] index.md
+- [x] assignments.md
+- [x] contact.md
+- [x] grades.md
+- [x] links.md
+- [ ] calendar.md
+- [ ] lectures.md
+- [ ] clicker groups
+- [ ] clicker chart
+
+## SP 19
+
+- [Roster](https://docs.google.com/spreadsheets/d/1DqB98XNyDpqsL1FWyReTOecj8GFD6KXVnkjM6iI2Lrs/edit?usp=sharing)
