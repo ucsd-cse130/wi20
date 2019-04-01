@@ -1,5 +1,6 @@
 # 130-web
 
+
 Public course materials for [UCSD CSE 130](https://ucsd-progsys.github.io/130-sp19/)
 
 ## Install
