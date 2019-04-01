@@ -236,7 +236,7 @@ of one of three kinds:
                     -- ("for any x compute x")
 
 \x -> (\y -> y)     -- A function that returns the identity function
- 
+
 \f -> f (\x -> x)   -- A function that applies its argument 
                     -- to the identity function
 ```

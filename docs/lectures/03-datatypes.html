@@ -387,7 +387,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">String</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> E</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="constructing-datatypes">Constructing datatypes</h2>
 <div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">data</span> <span class="dt">T</span> <span class="fu">=</span> </a>
@@ -438,7 +438,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell">[<span class="dt">Paragraph</span>]</code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell">[<span class="dt">String</span>]</code></p>
 <p><br></p>
-<p><em>Answer:</em> D</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="example-nanomd-1">Example: NanoMD</h2>
 <div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Paragraph</span> <span class="fu">=</span> </a>
@@ -491,7 +491,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>What would GHCi say to:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb21-1" data-line-number="1">html (<span class="dt">Heading</span> <span class="dv">1</span> <span class="st">&quot;Introduction&quot;</span>)</a></code></pre></div>
 <p><br></p>
-<p><em>Answer:</em> Runtime error (no matching pattern) <br> <br> <br> <br> <br></p>
+
 <h3 id="dangers-of-pattern-matching-2">Dangers of pattern matching (2)</h3>
 <div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="ot">html ::</span> <span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span></a>
 <a class="sourceLine" id="cb22-2" data-line-number="2">html (<span class="dt">Text</span> str)        <span class="fu">=</span> unlines [open <span class="st">&quot;p&quot;</span>, str, close <span class="st">&quot;p&quot;</span>]</a>
@@ -501,7 +501,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>What would GHCi say to:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb23-1" data-line-number="1">html (<span class="dt">Heading</span> <span class="dv">0</span> <span class="st">&quot;Introduction&quot;</span>)</a></code></pre></div>
 <p><br></p>
-<p><em>Answer:</em> <code class="sourceCode haskell"><span class="dt">Heading</span> <span class="dv">0</span> <span class="st">&quot;Introduction&quot;</span></code> will be matched by <code class="sourceCode haskell"><span class="dt">Heading</span> lvl str</code></p>
+
 <p><br> <br> <br> <br> <br></p>
 <h3 id="dangers-of-pattern-matching">Dangers of pattern matching</h3>
 <p>Beware of <strong>missing</strong> and <strong>overlapped</strong> patterns</p>
@@ -533,7 +533,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">String</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> B (cases have different types)</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="pattern-matching-expression-typing">Pattern matching expression: typing</h2>
 <p>The <code class="sourceCode haskell"><span class="kw">case</span></code> expression</p>
@@ -566,7 +566,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Int</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Paragraph</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> D</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="building-data-types-2">Building data types</h2>
 <p><br></p>
@@ -630,7 +630,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Succ</span> <span class="dt">Zero</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Succ</span> (<span class="dt">Succ</span> <span class="dt">Zero</span>)</code></p>
 <p><br></p>
-<p><em>Answer:</em> E</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h3 id="recursive-type-as-a-result">2. Recursive type as a result</h3>
 <div class="sourceCode" id="cb36"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">Zero</span>     <span class="co">-- base constructor</span></a>
@@ -689,8 +689,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br></p>
 <p>What is the right <em>inductive strategy</em> for appending two lists?</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="ot">append ::</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">append <span class="dt">Nil</span> ys <span class="fu">=</span> ys</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">append (<span class="dt">Cons</span> x xs) ys <span class="fu">=</span> <span class="dt">Cons</span> x (append xs ys)    </a></code></pre></div>
+<a class="sourceLine" id="cb41-2" data-line-number="2">append xs ys <span class="fu">=</span> <span class="fu">??</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="trees">Trees</h2>
 <p>Lists are <em>unary trees</em> with elements stored in the nodes:</p>
@@ -716,7 +715,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(D)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> C</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()</a>
 <a class="sourceLine" id="cb46-2" data-line-number="2">  <span class="fu">|</span>   <span class="fu">|</span>   \ ()</a>
@@ -731,8 +730,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-on-trees">Functions on trees</h2>
 <div class="sourceCode" id="cb48"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="ot">depth ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb48-2" data-line-number="2">depth <span class="dt">Leaf</span> <span class="fu">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">depth (<span class="dt">Node</span> _ l r) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> max (depth l) (depth r)</a></code></pre></div>
+<a class="sourceLine" id="cb48-2" data-line-number="2">depth t <span class="fu">=</span> <span class="fu">??</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-binary-trees-ii">QUIZ: Binary trees II</h2>
 <p>What is a Haskell datatype for <em>binary trees</em> with elements stored in the leaves?</p>
@@ -747,7 +745,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(D)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> D</p>
+
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb50-1" data-line-number="1">() <span class="fu">-</span> () <span class="fu">-</span> () <span class="fu">-</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb50-2" data-line-number="2">   <span class="fu">|</span>    <span class="fu">|</span>    \ <span class="dv">2</span></a>
@@ -777,10 +775,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br></p>
 <p>How do we write a function to <em>evaluate</em> an expression?</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Float</span></a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">eval (<span class="dt">Num</span> f)     <span class="fu">=</span> f</a>
-<a class="sourceLine" id="cb54-3" data-line-number="3">eval (<span class="dt">Add</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">+</span> eval e2</a>
-<a class="sourceLine" id="cb54-4" data-line-number="4">eval (<span class="dt">Sub</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">-</span> eval e2</a>
-<a class="sourceLine" id="cb54-5" data-line-number="5">eval (<span class="dt">Mul</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">*</span> eval e2</a></code></pre></div>
+<a class="sourceLine" id="cb54-2" data-line-number="2">eval e <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="recursion-is">Recursion is…</h2>
 <p>Building solutions for <em>big problems</em> from solutions for <em>sub-problems</em></p>
@@ -844,17 +839,12 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>A.</strong> Yes</p>
 <p><strong>B.</strong> No</p>
 <p><br></p>
-<p><em>Answer:</em> B</p>
+
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="tail-recursive-factorial">Tail recursive factorial</h2>
 <p>Let’s write a tail-recursive factorial!</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="ot">facTR ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2">facTR n <span class="fu">=</span> loop <span class="dv">1</span> n</a>
-<a class="sourceLine" id="cb58-3" data-line-number="3">  <span class="kw">where</span></a>
-<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="ot">    loop ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb58-5" data-line-number="5">    loop acc n</a>
-<a class="sourceLine" id="cb58-6" data-line-number="6">      <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> acc</a>
-<a class="sourceLine" id="cb58-7" data-line-number="7">      <span class="fu">|</span> otherwise <span class="fu">=</span> loop (acc <span class="fu">*</span> n) (n <span class="fu">-</span> <span class="dv">1</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb58-2" data-line-number="2">facTR n <span class="fu">=</span> <span class="fu">...</span> </a></code></pre></div>
 <p><br> <br> <br> <br></p>
 <p>Lets see how <code class="sourceCode haskell">facTR</code> is evaluated:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="fu">&lt;</span>facTR <span class="dv">4</span><span class="fu">&gt;</span></a>

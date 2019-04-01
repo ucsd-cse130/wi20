@@ -49,10 +49,36 @@ git commit -a -m "update webpage"
 git push origin master
 ```
 
+## To build Lecture Versions 
+
+To build the "lecture" version of all the htmls i.e. *without* 
+the answers to quizzes and other questions, you can replace 
+
+    crunchWithCtxCustom "final" postCtx 
+    
+with 
+
+    crunchWithCtxCustom "lecture" postCtx 
+    
+in `Site.hs` (edited) 
+
+Then, as you go through the lectures, replace `match "lectures/*"` with
+
+```
+match "lectures/00-*"    $ crunchWithCtxCustom "final" postCtx
+match "lectures/*"       $ crunchWithCtxCustom "lecture" postCtx
+```
+
+(and gradually add more and more lectures to `final` as I go through them)
+
+
+
 ## Credits
 
 This theme is a fork of [CleanMagicMedium-Jekyll](https://github.com/SpaceG/CleanMagicMedium-Jekyll)
 originally published by Lucas Gatsas.
+
+
 
 
 ## New Class Checklist
@@ -71,3 +97,6 @@ originally published by Lucas Gatsas.
 ## SP 19
 
 - [Roster](https://docs.google.com/spreadsheets/d/1DqB98XNyDpqsL1FWyReTOecj8GFD6KXVnkjM6iI2Lrs/edit?usp=sharing)
+
+
+

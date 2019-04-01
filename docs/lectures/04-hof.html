@@ -457,7 +457,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(D)</strong> Type Error</p>
 <p><strong>(E)</strong> None of the above</p>
 <p><br></p>
-<p><em>Answer:</em> D (list elements are integers, but operation expects a pair)</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="dont-repeat-yourself">Don’t Repeat Yourself</h2>
 <p>Benefits of <strong>factoring</strong> code with HOFs:</p>
@@ -586,10 +586,10 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(D)</strong> <code class="sourceCode haskell">(a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">(b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</code></p>
 <p><br></p>
-<p><em>Answer:</em> D</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <p>Is <code class="sourceCode haskell">foldr</code> <strong>tail recursive</strong>?</p>
-<p><em>Answer:</em> No! It calls the binary operations on the results of the recursive call</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="what-about-tail-recursive-versions">What about tail-recursive versions?</h2>
 <p>Let’s write tail-recursive <code class="sourceCode haskell">sum</code>!</p>
@@ -675,7 +675,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
 <p><br></p>
-<p><em>Answer:</em> A</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-5">QUIZ</h2>
 <p>What does this evaluate to?</p>
@@ -692,7 +692,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
 <p><br></p>
-<p><em>Answer:</em> C</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-fold-left-pattern-1">The “fold-left” pattern</h2>
 <div class="sourceCode" id="cb46"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb46-1" data-line-number="1">foldl f b                     [x1, x2, x3, x4]</a>
@@ -733,7 +733,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb51-5" data-line-number="5">foldl (flip (<span class="fu">:</span>))        [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
 <p>What is the type of <code class="sourceCode haskell">flip</code>?</p>
 <p><br></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb52-1" data-line-number="1">flip<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> c</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb52-1" data-line-number="1">flip<span class="ot"> ::</span> <span class="fu">???</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h3 id="useful-hof-compose">Useful HOF: compose</h3>
 <div class="sourceCode" id="cb53"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co">-- you can write</span></a>
@@ -743,7 +743,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb53-5" data-line-number="5">map (f <span class="fu">.</span> g) ys</a></code></pre></div>
 <p>What is the type of <code class="sourceCode haskell">(<span class="fu">.</span>)</code>?</p>
 <p><br></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="ot">(.) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> c</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="ot">(.) ::</span> <span class="fu">???</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="higher-order-functions">Higher Order Functions</h2>
 <p>Iteration patterns over collections:</p>

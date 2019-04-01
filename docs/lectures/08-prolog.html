@@ -397,7 +397,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li>but <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> taco</code> holds is we replace <code class="sourceCode haskell">[<span class="dt">X</span> <span class="fu">=</span> taco]</code></li>
 <li>what about <code class="sourceCode haskell"><span class="dt">Alice</span> <span class="fu">=</span> taco</code>?</li>
 </ul>
-<p><code class="sourceCode haskell"><span class="dt">Alice</span> <span class="fu">=</span> taco</code> holds with <code class="sourceCode haskell">[<span class="dt">Alice</span> <span class="fu">=</span> taco]</code></p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="prolog-terms-compound-terms">Prolog Terms: Compound Terms</h2>
 <p><strong>Compound</strong> terms are of the form</p>
@@ -439,7 +439,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Compound</span> <span class="st">&quot;parent&quot;</span> [<span class="dt">Atom</span> <span class="st">&quot;alice&quot;</span>, <span class="dt">Var</span> <span class="st">&quot;Bob&quot;</span>]</code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Compound</span> (<span class="dt">Atom</span> <span class="st">&quot;parent&quot;</span>) [<span class="dt">Atom</span> <span class="st">&quot;alice&quot;</span>, <span class="dt">Var</span> <span class="st">&quot;Bob&quot;</span>]</code></p>
 <p><br></p>
-<p><em>Answer:</em> D</p>
+
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-1">QUIZ</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Term</span></a>
@@ -454,7 +454,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">Num</span> <span class="dv">120</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">Compound</span> <span class="st">&quot;factorial&quot;</span> [<span class="dt">Num</span> <span class="dv">5</span>]</code></p>
 <p><br></p>
-<p><em>Answer:</em> E</p>
+
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="prolog-terms">Prolog Terms</h2>
 <p>Prolog term <code class="sourceCode haskell">factorial(<span class="dv">5</span>)</code> is simply the tree</p>
@@ -577,15 +577,15 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <h2 id="more-examples">More examples</h2>
 <p><strong>Example 3:</strong></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span></a></code></pre></div>
-<p>Meaning: Who is the parent of <code class="sourceCode haskell">kim</code>?</p>
+<p>Meaning: ???</p>
 <p><br></p>
-<p>Prolog replies: <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> margaret; <span class="dt">X</span> <span class="fu">=</span> john<span class="fu">.</span></code></p>
+<p>Prolog replies: ???</p>
 <p><br> <br></p>
 <p><strong>Example 4:</strong></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
-<p>Meaning: What are all parent-child pairs in our database?</p>
+<p>Meaning: ???</p>
 <p><br></p>
-<p>Prolog replies: <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> holly, <span class="dt">Y</span> <span class="fu">=</span> kim; <span class="dt">X</span> <span class="fu">=</span> kim, <span class="dt">Y</span> <span class="fu">=</span> margaret; <span class="fu">...</span></code></p>
+<p>Prolog replies: ???</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-2">QUIZ</h2>
 <p>How do we ask Prolog the following query:</p>
@@ -598,7 +598,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell">parent(<span class="dt">X</span>, <span class="dt">Y</span>)</code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell">parent(<span class="dt">Y</span>, <span class="dt">X</span>)</code></p>
 <p><br></p>
-<p><em>Answer:</em> C</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="more-examples-1">More examples</h2>
 <p><strong>Example 4:</strong></p>
@@ -606,7 +606,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <blockquote>
 <p>Does there exist <strong>any</strong> person who has more than one child?</p>
 </blockquote>
-<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb17-1" data-line-number="1">parent(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">Y</span><span class="kw">,</span><span class="dt">Z</span>)<span class="kw">,</span> <span class="dt">Y</span> <span class="kw">\=</span> <span class="dt">Z</span></a></code></pre></div>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="queries-work-like-magic">Queries work like magic</h2>
 <p>In Java/C#/Haskell you would need</p>
@@ -661,64 +661,63 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>Unification is the computational heart of Prolog</p>
 <p><br></p>
 <p>When you write</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="fu">?-</span> term1 <span class="kw">=</span> term2<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="fu">?-</span> term1 <span class="kw">=</span> term2<span class="kw">.</span></a></code></pre></div>
 <p>you are asking whether <code class="sourceCode haskell">term1</code> <em>can be unified with</em> <code class="sourceCode haskell">term2</code>.</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="unification-by-example">Unification By Example</h2>
-<div class="sourceCode" id="cb19"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="fu">?-</span> kim <span class="kw">=</span> kim<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">true.</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">% atom is identical to itself!</span></a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="fu">?-</span> kim <span class="kw">=</span> holly<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="kw">false.</span> </a>
-<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">% different atoms are never identical</span></a>
-<a class="sourceLine" id="cb19-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="fu">?-</span> foo(kim) <span class="kw">=</span> foo(kim)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="kw">true.</span></a>
-<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">% compound term: recursively unify subtrees</span></a>
-<a class="sourceLine" id="cb19-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="fu">?-</span> foo(kim) <span class="kw">=</span> foo(holly)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-14" data-line-number="14"><span class="kw">false.</span></a>
-<a class="sourceLine" id="cb19-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb19-16" data-line-number="16"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-17" data-line-number="17"><span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-18" data-line-number="18"><span class="co">% X can be made identical to kim if we substitute [X = kim]</span></a>
-<a class="sourceLine" id="cb19-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb19-20" data-line-number="20"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> foo(kim)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-21" data-line-number="21"><span class="dt">X</span> <span class="kw">=</span> foo(kim)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb19-23" data-line-number="23"><span class="fu">?-</span> foo(<span class="dt">X</span>) <span class="kw">=</span> foo(kim)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-24" data-line-number="24"><span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-25" data-line-number="25"><span class="co">% compound term: recursively unify subtrees</span></a>
-<a class="sourceLine" id="cb19-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb19-27" data-line-number="27"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb19-28" data-line-number="28"><span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="fu">?-</span> kim <span class="kw">=</span> kim<span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">true.</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="co">% atom is identical to itself!</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="fu">?-</span> kim <span class="kw">=</span> holly<span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="kw">false.</span> </a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">% different atoms are never identical</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="fu">?-</span> foo(kim) <span class="kw">=</span> foo(kim)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="kw">true.</span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">% compound term: recursively unify subtrees</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="fu">?-</span> foo(kim) <span class="kw">=</span> foo(holly)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14">???</a>
+<a class="sourceLine" id="cb18-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="dt">X</span> <span class="kw">=</span> kim<span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">% X can be made identical to kim if we substitute [X = kim]</span></a>
+<a class="sourceLine" id="cb18-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb18-20" data-line-number="20"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> foo(kim)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-21" data-line-number="21">???</a>
+<a class="sourceLine" id="cb18-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb18-23" data-line-number="23"><span class="fu">?-</span> foo(<span class="dt">X</span>) <span class="kw">=</span> foo(kim)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-24" data-line-number="24">???</a>
+<a class="sourceLine" id="cb18-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb18-26" data-line-number="26"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb18-27" data-line-number="27">???</a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-3">QUIZ</h2>
 <p>How does Prolog respond to the following query?</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
 <p><strong>A.</strong> <code class="sourceCode haskell">false</code></p>
 <p><strong>B.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat, <span class="dt">Y</span> <span class="fu">=</span> cat<span class="fu">.</span></code></p>
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> dog, <span class="dt">Y</span> <span class="fu">=</span> dog<span class="fu">.</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> dog, <span class="dt">Y</span> <span class="fu">=</span> cat<span class="fu">.</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat, <span class="dt">Y</span> <span class="fu">=</span> dog<span class="fu">.</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> E</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-4">QUIZ</h2>
 <p>How does Prolog respond to the following query?</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
 <p><strong>A.</strong> <code class="sourceCode haskell">false</code></p>
 <p><strong>B.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat, <span class="dt">Y</span> <span class="fu">=</span> cat<span class="fu">.</span></code></p>
 <p><strong>C.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> dog, <span class="dt">Y</span> <span class="fu">=</span> dog<span class="fu">.</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> dog, <span class="dt">Y</span> <span class="fu">=</span> cat<span class="fu">.</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> cat, <span class="dt">Y</span> <span class="fu">=</span> dog<span class="fu">.</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> A</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="unification-step-by-step">Unification step-by-step</h2>
 <p>Let’s see how Prolog reasons about this query:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="fu">?-</span> p(<span class="dt">X</span><span class="kw">,</span> dog<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">=</span> p(cat<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
 <p>Two compound terms: function symbols match, so recursively unify arguments…</p>
 <p><img src="../static/img/prolog_unify_1.png" width="500" align="middle" /></p>
 <p><br> <br> <br></p>
@@ -759,22 +758,22 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </table>
 <p><br> <br></p>
 <p>So, if we implemented Nano type inference in Prolog instead of Haskell, we wouldn’t have to implement <code class="sourceCode haskell">unify</code>, we could just use <code class="sourceCode haskell"><span class="fu">=</span></code>!</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="fu">?-</span> int <span class="kw">=</span> int<span class="kw">.</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">true.</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="fu">?-</span> int <span class="kw">=</span> bool<span class="kw">.</span></a>
-<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="kw">false.</span> </a>
-<a class="sourceLine" id="cb23-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="fu">?-</span> funT(int<span class="kw">,</span><span class="dt">A</span>) <span class="kw">=</span> funT(<span class="dt">B</span><span class="kw">,</span>bool)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb23-8" data-line-number="8"><span class="dt">A</span> <span class="kw">=</span> bool<span class="kw">,</span> <span class="dt">B</span> <span class="kw">=</span> int<span class="kw">.</span></a>
-<a class="sourceLine" id="cb23-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="fu">?-</span> <span class="dt">A</span> <span class="kw">=</span> funT(<span class="dt">A</span><span class="kw">,</span><span class="dt">A</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb23-11" data-line-number="11">???</a></code></pre></div>
-<p>By default, Prolog doesn’t perform the occurs check for efficiency reason, so it answers <code class="sourceCode haskell"><span class="dt">A</span> <span class="fu">=</span> funT(<span class="dt">A</span>,<span class="dt">A</span>)</code>. You can enable it with <code class="sourceCode haskell">set_prolog_flag(occurs_check, true)<span class="fu">.</span></code></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="fu">?-</span> int <span class="kw">=</span> int<span class="kw">.</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">true.</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="fu">?-</span> int <span class="kw">=</span> bool<span class="kw">.</span></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="kw">false.</span> </a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="fu">?-</span> funT(int<span class="kw">,</span><span class="dt">A</span>) <span class="kw">=</span> funT(<span class="dt">B</span><span class="kw">,</span>bool)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb22-8" data-line-number="8"><span class="dt">A</span> <span class="kw">=</span> bool<span class="kw">,</span> <span class="dt">B</span> <span class="kw">=</span> int<span class="kw">.</span></a>
+<a class="sourceLine" id="cb22-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb22-10" data-line-number="10"><span class="fu">?-</span> <span class="dt">A</span> <span class="kw">=</span> funT(<span class="dt">A</span><span class="kw">,</span><span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb22-11" data-line-number="11">???</a></code></pre></div>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="unification-for-answering-queries">Unification for answering queries</h2>
 <p>What happens when we ask</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>  </a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span>  </a></code></pre></div>
 <ul>
 <li><p>Prolog goes through the list of <em>facts</em> in its database</p></li>
 <li><p><em>For each fact</em>, checking if it can be <em>unified</em> with the query</p>
@@ -789,13 +788,13 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ul>
 <p><br> <br> <br></p>
 <p><strong>More examples</strong></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span>  </a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span>  </a></code></pre></div>
 <p>This query has multiple solutions!</p>
 <ul>
 <li>Once the first solution is found, we can ask Prolog to keep going through the facts</li>
 </ul>
 <p><br> <br></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>  </a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span>  </a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-4">Plan</h2>
 <p>Language</p>
@@ -823,13 +822,13 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>How do we determine if <code class="sourceCode haskell">margaret</code> is the <em>grandparent</em> of <code class="sourceCode haskell">holly</code>?</p>
 <p><br> <br> <br> <br> <br></p>
 <p>We use a <strong>conjunction</strong> (comma-separated sequence of terms):</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="fu">?-</span> parent(margaret<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span></a></code></pre></div>
 <p>Is there a person <code class="sourceCode haskell"><span class="dt">X</span></code> who is a child of <code class="sourceCode haskell">margaret</code> <strong>AND</strong> a parent of <code class="sourceCode haskell">holly</code> ?</p>
 <p><strong>Note:</strong> how we link the terms with the same variable to capture relationships.</p>
 <p><br> <br></p>
 <p>How do we determine who is the <em>great-grandparent</em> of <code class="sourceCode haskell">holly</code>?</p>
 <p><br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> parent(<span class="dt">GP</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> holly)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> parent(<span class="dt">GP</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> holly)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-5">QUIZ</h2>
 <p>Which of these queries returns all pairs <code class="sourceCode haskell"><span class="dt">X</span></code>, <code class="sourceCode haskell"><span class="dt">Y</span></code> of (half-) <strong>siblings</strong>?</p>
@@ -838,10 +837,10 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>C.</strong> <code class="sourceCode haskell">parent(<span class="dt">X</span>, <span class="dt">Z</span>), parent(<span class="dt">Y</span>, <span class="dt">Z</span>), <span class="dt">X</span> \<span class="fu">=</span> <span class="dt">Y</span><span class="fu">.</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell">parent(<span class="dt">Z</span>, <span class="dt">X</span>), parent(<span class="dt">Z</span>, <span class="dt">Y</span>), <span class="dt">X</span> \<span class="fu">=</span> <span class="dt">Y</span><span class="fu">.</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> D</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="complex-queries-1">Complex queries</h2>
-<div class="sourceCode" id="cb29"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> parent(<span class="dt">GP</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> holly)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="fu">?-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> parent(<span class="dt">GP</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> holly)<span class="kw">.</span></a></code></pre></div>
 <p>This is getting a tad repetitive!</p>
 <p>What do we do in other languages to avoid repeating ourselves?</p>
 <p><br> <br> <br> <br></p>
@@ -852,7 +851,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>Rules let us build <em>complex predicates</em> from <em>queries</em></p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb30-1" data-line-number="1">t <span class="kw">:-</span> t1<span class="kw">,</span> t1<span class="kw">,</span> t2<span class="kw">,</span>...</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb29-1" data-line-number="1">t <span class="kw">:-</span> t1<span class="kw">,</span> t1<span class="kw">,</span> t2<span class="kw">,</span>...</a></code></pre></div>
 <ul>
 <li><code class="sourceCode haskell">t</code> is called the <strong>head</strong> of the rule</li>
 <li><code class="sourceCode haskell">t1, t2, t3,<span class="fu">...</span></code> is called the <strong>body</strong> of the rule</li>
@@ -864,21 +863,21 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p>We can build a new (complex) predicate <code class="sourceCode haskell">grandparent</code> from <code class="sourceCode haskell">parent</code> predicates:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb31-1" data-line-number="1">grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb30-1" data-line-number="1">grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></a></code></pre></div>
 <p><code class="sourceCode haskell"><span class="dt">GP</span></code> is a <em>grandparent</em> of <code class="sourceCode haskell"><span class="dt">GC</span></code> if <code class="sourceCode haskell"><span class="dt">GP</span></code> is a <em>parent</em> of <code class="sourceCode haskell"><span class="dt">P</span></code> <strong>and</strong> <code class="sourceCode haskell"><span class="dt">P</span></code> is a <em>parent</em> of <code class="sourceCode haskell"><span class="dt">GC</span></code></p>
 <p><br> <br> <br> <br></p>
 <p>Now we can use the new predicate in a query:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="fu">?-</span> grandparent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span> <span class="co">% who are the grandparents of kim</span></a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> herbert <span class="kw">;</span>           <span class="co">% hit ; to see next</span></a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="dt">X</span> <span class="kw">=</span> felix   <span class="kw">;</span>           <span class="co">% hit ; to see next</span></a>
-<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="kw">false.</span>                  <span class="co">% thats it!</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="fu">?-</span> grandparent(<span class="dt">X</span><span class="kw">,</span> kim)<span class="kw">.</span> <span class="co">% who are the grandparents of kim</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> herbert <span class="kw">;</span>           <span class="co">% hit ; to see next</span></a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="dt">X</span> <span class="kw">=</span> felix   <span class="kw">;</span>           <span class="co">% hit ; to see next</span></a>
+<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="kw">false.</span>                  <span class="co">% thats it!</span></a></code></pre></div>
 <p><br> <br> <br> <br></p>
 <p>Why? Because Prolog can prove the sub-goals:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="fu">?-</span> parent(herbert<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span>  <span class="co">% Solution 1. X = herbert</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="dt">P</span> <span class="kw">=</span> margaret<span class="kw">.</span></a>
-<a class="sourceLine" id="cb33-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="fu">?-</span> parent(felix<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span>    <span class="co">% Solution 2. X = felix</span></a>
-<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="dt">P</span> <span class="kw">=</span> john <span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="fu">?-</span> parent(herbert<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span>  <span class="co">% Solution 1. X = herbert</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="dt">P</span> <span class="kw">=</span> margaret<span class="kw">.</span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="fu">?-</span> parent(felix<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> kim)<span class="kw">.</span>    <span class="co">% Solution 2. X = felix</span></a>
+<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="dt">P</span> <span class="kw">=</span> john <span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-6">QUIZ</h2>
 <p>Which of the following is a valid <code class="sourceCode haskell">greatgrandparent</code> predicate?</p>
@@ -888,16 +887,16 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>D.</strong> <code class="sourceCode haskell">greatgrandparent(<span class="dt">X</span>, <span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>, <span class="dt">Z</span>), parent(<span class="dt">Z</span>, <span class="dt">Y</span>)<span class="fu">.</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell">greatgrandparent(<span class="dt">X</span>, <span class="dt">Y</span>) <span class="fu">:-</span> parent(<span class="dt">X</span>, <span class="dt">Z1</span>), parent(<span class="dt">Z1</span>, <span class="dt">Z2</span>), parent(<span class="dt">Z2</span>, <span class="dt">Y</span>)<span class="fu">.</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> B, C, or D</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="rules-complex-predicates-from-queries">Rules: complex predicates from queries</h2>
-<div class="sourceCode" id="cb34"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb34-1" data-line-number="1">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb33-1" data-line-number="1">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></a></code></pre></div>
 <p>That was your first Prolog program!</p>
 <p>Let’s take it out for a spin!</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="fu">?-</span> greatgrandparent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> herbert <span class="kw">;</span></a>
-<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="dt">X</span> <span class="kw">=</span> felix <span class="kw">;</span></a>
-<a class="sourceLine" id="cb35-4" data-line-number="4"><span class="kw">false.</span></a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="fu">?-</span> greatgrandparent(<span class="dt">X</span><span class="kw">,</span> holly)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> herbert <span class="kw">;</span></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="dt">X</span> <span class="kw">=</span> felix <span class="kw">;</span></a>
+<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="kw">false.</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-5">Plan</h2>
 <p>Language</p>
@@ -942,15 +941,15 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="scope">Scope</h2>
 <p>In the <code class="sourceCode haskell">grandparent</code> rule, the variable <code class="sourceCode haskell"><span class="dt">GP</span></code> appears <em>twice</em>:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb36-1" data-line-number="1">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb35-1" data-line-number="1">greatgrandparent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GC</span>) <span class="kw">:-</span> parent(<span class="dt">GGP</span><span class="kw">,</span> <span class="dt">GP</span>)<span class="kw">,</span> grandparent(<span class="dt">GP</span><span class="kw">,</span> <span class="dt">GC</span>)<span class="kw">.</span></a></code></pre></div>
 <p>Is it the same <code class="sourceCode haskell"><span class="dt">GP</span></code>?</p>
-<p><em>Yes</em></p>
+
 <p><br> <br> <br> <br></p>
 <p>Below we use <code class="sourceCode haskell"><span class="dt">X</span></code> in <em>both</em> rules:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb37-1" data-line-number="1">isDelicious(<span class="dt">X</span>)  <span class="kw">:-</span> isMexican(<span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2">isVegetarian(<span class="dt">X</span>) <span class="kw">:-</span> isVegan(<span class="dt">X</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb36-1" data-line-number="1">isDelicious(<span class="dt">X</span>)  <span class="kw">:-</span> isMexican(<span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">isVegetarian(<span class="dt">X</span>) <span class="kw">:-</span> isVegan(<span class="dt">X</span>)<span class="kw">.</span></a></code></pre></div>
 <p>Is is the same <code class="sourceCode haskell"><span class="dt">X</span></code>?</p>
-<p><em>No</em></p>
+
 <p><br> <br> <br> <br></p>
 <p>In Prolog, the <strong>scope</strong> of a variable is the <em>single</em> rule where it appears.</p>
 <p>There is <em>no connection</em> between variables <em>across</em> rules.</p>
@@ -970,8 +969,8 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li><p><strong>or</strong> have a child</p></li>
 </ul>
 <p><br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb38-1" data-line-number="1">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb37-1" data-line-number="1">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></a></code></pre></div>
 <p><code class="sourceCode haskell">_</code> is a <em>wildcard</em> or <em>dont-care</em> variable (as in Haskell)</p>
 <p><br></p>
 <p><strong>Intuition:</strong></p>
@@ -981,17 +980,17 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ul>
 <p><br></p>
 <p><strong>Running the program:</strong></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="fu">?-</span> has_family(holly)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw">true.</span>  <span class="co">% Second rule fires for holly</span></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="fu">?-</span> has_family(sansa)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="kw">false.</span> <span class="co">% Neither rule fires for sansa</span></a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="fu">?-</span> has_family(holly)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">true.</span>  <span class="co">% Second rule fires for holly</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="fu">?-</span> has_family(sansa)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="kw">false.</span> <span class="co">% Neither rule fires for sansa</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="complex-predicates-disjunction-1">Complex Predicates: Disjunction</h2>
-<div class="sourceCode" id="cb40"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb40-1" data-line-number="1">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span></a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb39-1" data-line-number="1">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span> <span class="co">% if X is the parent of some _</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span> <span class="co">% if X is the child of some _</span></a></code></pre></div>
 <p>Can be abbreviated to</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb41-1" data-line-number="1">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>) <span class="kw">;</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb40-1" data-line-number="1">has_family(<span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>) <span class="kw">;</span> parent(<span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></a></code></pre></div>
 <p>Semicolon <code class="sourceCode haskell">;</code> indicates disjunction.</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="program-structure-2">Program structure</h2>
@@ -1020,21 +1019,21 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ul>
 <p><br> <br> <br> <br></p>
 <p>To sum up:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb42-1" data-line-number="1">ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb41-1" data-line-number="1">ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></a></code></pre></div>
 <p>What can we do with this predicate?</p>
 <p><br> <br> <br> <br></p>
 <p>We can find <em>descendants</em> (forwards)</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="fu">?-</span> ancestor(kim<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> holly<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="fu">?-</span> ancestor(kim<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> holly<span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br></p>
 <p>We can find <em>ancestors</em> (backwards)</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="fu">?-</span> ancestor(<span class="dt">X</span><span class="kw">,</span>kim)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> margaret  <span class="kw">;</span></a>
-<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="dt">X</span> <span class="kw">=</span> john      <span class="kw">;</span></a>
-<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="dt">X</span> <span class="kw">=</span> herbert   <span class="kw">;</span></a>
-<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="dt">X</span> <span class="kw">=</span> felix     <span class="kw">;</span></a>
-<a class="sourceLine" id="cb44-6" data-line-number="6"><span class="dt">X</span> <span class="kw">=</span> albert    <span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="fu">?-</span> ancestor(<span class="dt">X</span><span class="kw">,</span>kim)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> margaret  <span class="kw">;</span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="dt">X</span> <span class="kw">=</span> john      <span class="kw">;</span></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="dt">X</span> <span class="kw">=</span> herbert   <span class="kw">;</span></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="dt">X</span> <span class="kw">=</span> felix     <span class="kw">;</span></a>
+<a class="sourceLine" id="cb43-6" data-line-number="6"><span class="dt">X</span> <span class="kw">=</span> albert    <span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br></p>
 <p>Pretty neat: search forward or back, in just two lines!</p>
 <ul>
@@ -1069,9 +1068,9 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li>Brute force <em>backtracking search</em></li>
 </ul>
 <p>View each clause as a <strong>proof rule</strong>:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb45-1" data-line-number="1">goal <span class="kw">:-</span> subgoal_1<span class="kw">,</span> subgoal_2<span class="kw">,</span> ...</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">goal <span class="kw">:-</span> subgoal_3<span class="kw">,</span> subgoal_4<span class="kw">,</span> ...</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">...</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb44-1" data-line-number="1">goal <span class="kw">:-</span> subgoal_1<span class="kw">,</span> subgoal_2<span class="kw">,</span> ...</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">goal <span class="kw">:-</span> subgoal_3<span class="kw">,</span> subgoal_4<span class="kw">,</span> ...</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">...</a></code></pre></div>
 <p>To prove <code class="sourceCode haskell">goal</code>, try to:</p>
 <ol type="1">
 <li>Prove <code class="sourceCode haskell">subgoal_1</code> <strong>and then</strong> prove <code class="sourceCode haskell">subgoal_2</code> etc, or, <strong>failing that</strong>,</li>
@@ -1079,8 +1078,8 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ol>
 <p><br> <br></p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb46-1" data-line-number="1">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb45-1" data-line-number="1">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">.</span></a></code></pre></div>
 <p>To prove <code class="sourceCode haskell">ancestor(<span class="dt">A</span>,<span class="dt">X</span>)</code>, try to:</p>
 <ol type="1">
 <li>Prove <code class="sourceCode haskell">parent(<span class="dt">A</span>,<span class="dt">X</span>)</code>, or, <strong>failing that</strong>,</li>
@@ -1088,45 +1087,45 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ol>
 <p><br> <br></p>
 <p>Suppose we ask it the query:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></a></code></pre></div>
 <p>To prove this query, it undertakes the following backtracking search:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb48-1" data-line-number="1">    ancestor(felix<span class="kw">,</span>holly)?</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2">      <span class="fu">/</span>                    <span class="al">\</span></a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">parent(felix<span class="kw">,</span>holly)    parent(<span class="dt">P0</span><span class="kw">,</span>holly)</a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">  <span class="dt">NO</span>                   ancestor(felix<span class="kw">,</span><span class="dt">P0</span>)</a>
-<a class="sourceLine" id="cb48-5" data-line-number="5">                       |</a>
-<a class="sourceLine" id="cb48-6" data-line-number="6">      ------------------</a>
-<a class="sourceLine" id="cb48-7" data-line-number="7">      |</a>
-<a class="sourceLine" id="cb48-8" data-line-number="8">      | <span class="dt">P0</span><span class="kw">=</span>kim  (by fact)</a>
-<a class="sourceLine" id="cb48-9" data-line-number="9">      |</a>
-<a class="sourceLine" id="cb48-10" data-line-number="10">      ancestor(felix<span class="kw">,</span>kim)</a>
-<a class="sourceLine" id="cb48-11" data-line-number="11">      <span class="fu">/</span>                <span class="al">\</span></a>
-<a class="sourceLine" id="cb48-12" data-line-number="12">  parent(felix<span class="kw">,</span>kim)     parent(<span class="dt">P1</span><span class="kw">,</span>kim)</a>
-<a class="sourceLine" id="cb48-13" data-line-number="13">      <span class="dt">NO</span>                ancestor(felix<span class="kw">,</span><span class="dt">P1</span>)</a>
-<a class="sourceLine" id="cb48-14" data-line-number="14">                         |              |</a>
-<a class="sourceLine" id="cb48-15" data-line-number="15">           <span class="dt">P1</span> <span class="kw">=</span> margaret |              | <span class="dt">P1</span> <span class="kw">=</span> john</a>
-<a class="sourceLine" id="cb48-16" data-line-number="16">                         |              |                         </a>
-<a class="sourceLine" id="cb48-17" data-line-number="17">        ancestor(felix<span class="kw">,</span>margaret)        ancestor(felix<span class="kw">,</span>john)</a>
-<a class="sourceLine" id="cb48-18" data-line-number="18">                <span class="fu">/</span>        <span class="al">\</span>                        |</a>
-<a class="sourceLine" id="cb48-19" data-line-number="19">parent(felix<span class="kw">,</span>margaret)   parent(<span class="dt">P2</span><span class="kw">,</span>margaret)   parent(felix<span class="kw">,</span>john)</a>
-<a class="sourceLine" id="cb48-20" data-line-number="20">            <span class="dt">NO</span>           ancestor(felix<span class="kw">,</span><span class="dt">P2</span>)         <span class="dt">YES</span></a>
-<a class="sourceLine" id="cb48-21" data-line-number="21">                                    |</a>
-<a class="sourceLine" id="cb48-22" data-line-number="22">                       <span class="dt">P2</span> <span class="kw">=</span> herbert |</a>
-<a class="sourceLine" id="cb48-23" data-line-number="23">                                    |</a>
-<a class="sourceLine" id="cb48-24" data-line-number="24">                      ancestor(felix<span class="kw">,</span> herbert)</a>
-<a class="sourceLine" id="cb48-25" data-line-number="25">                     <span class="fu">/</span>              |</a>
-<a class="sourceLine" id="cb48-26" data-line-number="26">   parent(felix<span class="kw">,</span>herbert)   parent(<span class="dt">P3</span><span class="kw">,</span>herbert)</a>
-<a class="sourceLine" id="cb48-27" data-line-number="27">              <span class="dt">NO</span>                   <span class="dt">NO</span></a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb47-1" data-line-number="1">    ancestor(felix<span class="kw">,</span>holly)?</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">      <span class="fu">/</span>                    <span class="al">\</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">parent(felix<span class="kw">,</span>holly)    parent(<span class="dt">P0</span><span class="kw">,</span>holly)</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">  <span class="dt">NO</span>                   ancestor(felix<span class="kw">,</span><span class="dt">P0</span>)</a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">                       |</a>
+<a class="sourceLine" id="cb47-6" data-line-number="6">      ------------------</a>
+<a class="sourceLine" id="cb47-7" data-line-number="7">      |</a>
+<a class="sourceLine" id="cb47-8" data-line-number="8">      | <span class="dt">P0</span><span class="kw">=</span>kim  (by fact)</a>
+<a class="sourceLine" id="cb47-9" data-line-number="9">      |</a>
+<a class="sourceLine" id="cb47-10" data-line-number="10">      ancestor(felix<span class="kw">,</span>kim)</a>
+<a class="sourceLine" id="cb47-11" data-line-number="11">      <span class="fu">/</span>                <span class="al">\</span></a>
+<a class="sourceLine" id="cb47-12" data-line-number="12">  parent(felix<span class="kw">,</span>kim)     parent(<span class="dt">P1</span><span class="kw">,</span>kim)</a>
+<a class="sourceLine" id="cb47-13" data-line-number="13">      <span class="dt">NO</span>                ancestor(felix<span class="kw">,</span><span class="dt">P1</span>)</a>
+<a class="sourceLine" id="cb47-14" data-line-number="14">                         |              |</a>
+<a class="sourceLine" id="cb47-15" data-line-number="15">           <span class="dt">P1</span> <span class="kw">=</span> margaret |              | <span class="dt">P1</span> <span class="kw">=</span> john</a>
+<a class="sourceLine" id="cb47-16" data-line-number="16">                         |              |                         </a>
+<a class="sourceLine" id="cb47-17" data-line-number="17">        ancestor(felix<span class="kw">,</span>margaret)        ancestor(felix<span class="kw">,</span>john)</a>
+<a class="sourceLine" id="cb47-18" data-line-number="18">                <span class="fu">/</span>        <span class="al">\</span>                        |</a>
+<a class="sourceLine" id="cb47-19" data-line-number="19">parent(felix<span class="kw">,</span>margaret)   parent(<span class="dt">P2</span><span class="kw">,</span>margaret)   parent(felix<span class="kw">,</span>john)</a>
+<a class="sourceLine" id="cb47-20" data-line-number="20">            <span class="dt">NO</span>           ancestor(felix<span class="kw">,</span><span class="dt">P2</span>)         <span class="dt">YES</span></a>
+<a class="sourceLine" id="cb47-21" data-line-number="21">                                    |</a>
+<a class="sourceLine" id="cb47-22" data-line-number="22">                       <span class="dt">P2</span> <span class="kw">=</span> herbert |</a>
+<a class="sourceLine" id="cb47-23" data-line-number="23">                                    |</a>
+<a class="sourceLine" id="cb47-24" data-line-number="24">                      ancestor(felix<span class="kw">,</span> herbert)</a>
+<a class="sourceLine" id="cb47-25" data-line-number="25">                     <span class="fu">/</span>              |</a>
+<a class="sourceLine" id="cb47-26" data-line-number="26">   parent(felix<span class="kw">,</span>herbert)   parent(<span class="dt">P3</span><span class="kw">,</span>herbert)</a>
+<a class="sourceLine" id="cb47-27" data-line-number="27">              <span class="dt">NO</span>                   <span class="dt">NO</span></a></code></pre></div>
 <p><br> <br></p>
 <p><strong>NOTE:</strong> Prolog introduces a fresh <code class="sourceCode haskell"><span class="dt">P</span></code> variable (<code class="sourceCode haskell"><span class="dt">P1</span>, <span class="dt">P2</span>, <span class="dt">P3</span><span class="fu">...</span></code>) every time the second rule for <code class="sourceCode haskell">ancestor</code> is triggered</p>
 <p><br> <br></p>
 <p><strong>HINT:</strong> Trace mode in Prolog shows the search tree!</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="fu">?-</span> trace<span class="kw">.</span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="fu">?-</span> trace<span class="kw">.</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="queries-with-variables-1">Queries with Variables</h2>
 <p><em>Backtracking Search</em> is done for <strong>every</strong> query.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb50-1" data-line-number="1">  <span class="fu">?-</span> ancestor(<span class="dt">X</span><span class="kw">,</span>kim)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb49-1" data-line-number="1">  <span class="fu">?-</span> ancestor(<span class="dt">X</span><span class="kw">,</span>kim)<span class="kw">.</span></a></code></pre></div>
 <ul>
 <li>Prolog does the proof search</li>
 <li>Returns <strong>all</strong> unifiers for <code class="sourceCode haskell"><span class="dt">X</span></code> for which the proof succeeds with <code class="sourceCode haskell"><span class="dt">YES</span></code>.</li>
@@ -1142,49 +1141,49 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-7">QUIZ</h2>
 <p>Which alternative definitions of <code class="sourceCode haskell">ancestor</code> are correct?</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co">% A</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb51-3" data-line-number="3">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="co">% B</span></a>
-<a class="sourceLine" id="cb51-6" data-line-number="6">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb51-7" data-line-number="7">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb51-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb51-9" data-line-number="9"><span class="co">% C</span></a>
-<a class="sourceLine" id="cb51-10" data-line-number="10">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb51-11" data-line-number="11">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb51-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb51-13" data-line-number="13"><span class="co">% D: All of the above</span></a>
-<a class="sourceLine" id="cb51-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb51-15" data-line-number="15"><span class="co">% E: None of the above</span></a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co">% A</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">,</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb50-5" data-line-number="5"><span class="co">% B</span></a>
+<a class="sourceLine" id="cb50-6" data-line-number="6">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb50-7" data-line-number="7">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb50-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb50-9" data-line-number="9"><span class="co">% C</span></a>
+<a class="sourceLine" id="cb50-10" data-line-number="10">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb50-11" data-line-number="11">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb50-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb50-13" data-line-number="13"><span class="co">% D: All of the above</span></a>
+<a class="sourceLine" id="cb50-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb50-15" data-line-number="15"><span class="co">% E: None of the above</span></a></code></pre></div>
 <p><br></p>
-<p><em>Answer:</em> A is correct, but less efficient. B and C loop forever</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="bad-orders">Bad orders</h2>
 <p>A bad order of sub-goals of in a recursive rule can cause <strong>non-termination</strong></p>
 <p>If we define:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb52-1" data-line-number="1">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb51-1" data-line-number="1">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">P</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">ancestor(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>) <span class="kw">:-</span> parent(<span class="dt">A</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a></code></pre></div>
 <p>The following query doesn’t terminate:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="fu">?-</span> ancestor(felix<span class="kw">,</span>holly)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Why? The search tree looks like this now!</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb54-1" data-line-number="1">  ancestor(felix<span class="kw">,</span>holly)?</a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">    |</a>
-<a class="sourceLine" id="cb54-3" data-line-number="3">    |</a>
-<a class="sourceLine" id="cb54-4" data-line-number="4">    |</a>
-<a class="sourceLine" id="cb54-5" data-line-number="5">  ancestor(felix<span class="kw">,</span><span class="dt">P0</span>)  <span class="co">%prove first subgoal,</span></a>
-<a class="sourceLine" id="cb54-6" data-line-number="6">    |                 <span class="co">%then parent(P,holly)</span></a>
-<a class="sourceLine" id="cb54-7" data-line-number="7">    |</a>
-<a class="sourceLine" id="cb54-8" data-line-number="8">    |</a>
-<a class="sourceLine" id="cb54-9" data-line-number="9">  ancestor(felix<span class="kw">,</span><span class="dt">P1</span>)  <span class="co">%prove first subgoal,</span></a>
-<a class="sourceLine" id="cb54-10" data-line-number="10">    |	                <span class="co">%then parent(P1,P0)</span></a>
-<a class="sourceLine" id="cb54-11" data-line-number="11">    |</a>
-<a class="sourceLine" id="cb54-12" data-line-number="12">    |</a>
-<a class="sourceLine" id="cb54-13" data-line-number="13">  ancestor(felix<span class="kw">,</span><span class="dt">P2</span>)</a>
-<a class="sourceLine" id="cb54-14" data-line-number="14">    <span class="kw">.</span></a>
-<a class="sourceLine" id="cb54-15" data-line-number="15">    <span class="al">.</span></a>
-<a class="sourceLine" id="cb54-16" data-line-number="16">    <span class="al">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb53-1" data-line-number="1">  ancestor(felix<span class="kw">,</span>holly)?</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">    |</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">    |</a>
+<a class="sourceLine" id="cb53-4" data-line-number="4">    |</a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">  ancestor(felix<span class="kw">,</span><span class="dt">P0</span>)  <span class="co">%prove first subgoal,</span></a>
+<a class="sourceLine" id="cb53-6" data-line-number="6">    |                 <span class="co">%then parent(P,holly)</span></a>
+<a class="sourceLine" id="cb53-7" data-line-number="7">    |</a>
+<a class="sourceLine" id="cb53-8" data-line-number="8">    |</a>
+<a class="sourceLine" id="cb53-9" data-line-number="9">  ancestor(felix<span class="kw">,</span><span class="dt">P1</span>)  <span class="co">%prove first subgoal,</span></a>
+<a class="sourceLine" id="cb53-10" data-line-number="10">    |	                <span class="co">%then parent(P1,P0)</span></a>
+<a class="sourceLine" id="cb53-11" data-line-number="11">    |</a>
+<a class="sourceLine" id="cb53-12" data-line-number="12">    |</a>
+<a class="sourceLine" id="cb53-13" data-line-number="13">  ancestor(felix<span class="kw">,</span><span class="dt">P2</span>)</a>
+<a class="sourceLine" id="cb53-14" data-line-number="14">    <span class="kw">.</span></a>
+<a class="sourceLine" id="cb53-15" data-line-number="15">    <span class="al">.</span></a>
+<a class="sourceLine" id="cb53-16" data-line-number="16">    <span class="al">.</span></a></code></pre></div>
 <p><strong>To avoid infinite recursion:</strong></p>
 <ul>
 <li><p>Always place the base-case subgoal <em>first</em> in a recursive rule</p></li>
@@ -1197,47 +1196,47 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <ul>
 <li>where <code class="sourceCode haskell">sibling(<span class="dt">X</span>, <span class="dt">Y</span>)</code> if <code class="sourceCode haskell"><span class="dt">X</span></code> and <code class="sourceCode haskell"><span class="dt">Y</span></code> share a parent.</li>
 </ul>
-<div class="sourceCode" id="cb55"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co">% A</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="co">% B</span></a>
-<a class="sourceLine" id="cb55-5" data-line-number="5">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb55-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb55-7" data-line-number="7"><span class="co">% C</span></a>
-<a class="sourceLine" id="cb55-8" data-line-number="8">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co">% A</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="co">% B</span></a>
+<a class="sourceLine" id="cb54-5" data-line-number="5">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb54-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb54-7" data-line-number="7"><span class="co">% C</span></a>
+<a class="sourceLine" id="cb54-8" data-line-number="8">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
 <p><br></p>
-<p><em>Answer:</em> B</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="ordering-and-unification">Ordering and Unification</h2>
 <p>Remember: <code class="sourceCode haskell"><span class="fu">=</span></code> means <em>unification</em>!</p>
 <p>So, <code class="sourceCode haskell"><span class="dt">X</span> <span class="fu">=</span> <span class="dt">Y</span></code> <em>always holds</em>:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span></a></code></pre></div>
 <p>Hence, <code class="sourceCode haskell">not(<span class="dt">X</span><span class="fu">=</span><span class="dt">Y</span>)</code> (which is the same as <code class="sourceCode haskell"><span class="dt">X</span> \<span class="fu">=</span> <span class="dt">Y</span></code>) <em>always fails</em>!</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="fu">?-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">false.</span></a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="fu">?-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw">false.</span></a></code></pre></div>
 <p>So, if we define:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb58-1" data-line-number="1">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb57-1" data-line-number="1">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
 <p>Then <code class="sourceCode haskell">sibling(<span class="dt">X</span>,<span class="dt">Y</span>)</code> (with variables for inputs) always fails!</p>
 <p><br> <br></p>
 <p><strong>Solution</strong></p>
 <p>Always ensure the sub-goal <code class="sourceCode haskell">not(<span class="dt">X</span><span class="fu">=</span><span class="dt">Y</span>)</code> fires <em>after</em> <code class="sourceCode haskell"><span class="dt">X</span></code> and <code class="sourceCode haskell"><span class="dt">Y</span></code> have been fully instantiated:</p>
 <p><br> <br></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb59-1" data-line-number="1">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb58-1" data-line-number="1">sibling(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> parent(<span class="dt">P</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> not(<span class="dt">X</span> <span class="kw">=</span> <span class="dt">Y</span>)<span class="kw">.</span></a></code></pre></div>
 <p>and now we get:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb60-1" data-line-number="1">    <span class="fu">?-</span> sibling(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2">    <span class="dt">X</span> <span class="kw">=</span> john</a>
-<a class="sourceLine" id="cb60-3" data-line-number="3">    <span class="dt">Y</span> <span class="kw">=</span> maya <span class="kw">;</span></a>
-<a class="sourceLine" id="cb60-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb60-5" data-line-number="5">    <span class="dt">X</span> <span class="kw">=</span> felix</a>
-<a class="sourceLine" id="cb60-6" data-line-number="6">    <span class="dt">Y</span> <span class="kw">=</span> dana <span class="kw">;</span></a>
-<a class="sourceLine" id="cb60-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb60-8" data-line-number="8">    <span class="dt">X</span> <span class="kw">=</span> dana</a>
-<a class="sourceLine" id="cb60-9" data-line-number="9">    <span class="dt">Y</span> <span class="kw">=</span> felix <span class="kw">;</span></a>
-<a class="sourceLine" id="cb60-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb60-11" data-line-number="11">    <span class="dt">X</span> <span class="kw">=</span> maya</a>
-<a class="sourceLine" id="cb60-12" data-line-number="12">    <span class="dt">Y</span> <span class="kw">=</span> john <span class="kw">;</span></a>
-<a class="sourceLine" id="cb60-13" data-line-number="13">    <span class="dt">N</span>o</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb59-1" data-line-number="1">    <span class="fu">?-</span> sibling(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">    <span class="dt">X</span> <span class="kw">=</span> john</a>
+<a class="sourceLine" id="cb59-3" data-line-number="3">    <span class="dt">Y</span> <span class="kw">=</span> maya <span class="kw">;</span></a>
+<a class="sourceLine" id="cb59-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb59-5" data-line-number="5">    <span class="dt">X</span> <span class="kw">=</span> felix</a>
+<a class="sourceLine" id="cb59-6" data-line-number="6">    <span class="dt">Y</span> <span class="kw">=</span> dana <span class="kw">;</span></a>
+<a class="sourceLine" id="cb59-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb59-8" data-line-number="8">    <span class="dt">X</span> <span class="kw">=</span> dana</a>
+<a class="sourceLine" id="cb59-9" data-line-number="9">    <span class="dt">Y</span> <span class="kw">=</span> felix <span class="kw">;</span></a>
+<a class="sourceLine" id="cb59-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb59-11" data-line-number="11">    <span class="dt">X</span> <span class="kw">=</span> maya</a>
+<a class="sourceLine" id="cb59-12" data-line-number="12">    <span class="dt">Y</span> <span class="kw">=</span> john <span class="kw">;</span></a>
+<a class="sourceLine" id="cb59-13" data-line-number="13">    <span class="dt">N</span>o</a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-7">Plan</h2>
 <p><del>Language</del></p>
@@ -1257,13 +1256,13 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h3 id="problem-1-how-to-evaluate">Problem 1: How to Evaluate?</h3>
 <p>Everything is a <em>term</em> and <code class="sourceCode haskell"><span class="fu">=</span></code> is a <em>unification</em> operator:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></a></code></pre></div>
 <p>But to “compute” we need to be able to <em>evaluate</em> <code class="sourceCode haskell"><span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span></code> to <code class="sourceCode haskell"><span class="dv">5</span></code>!</p>
 <p><br> <br></p>
 <p>Prolog has a magic operator called <code class="sourceCode haskell">is</code> that <em>evaluates</em> its second argument:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">2</span> <span class="dt">+</span> <span class="dv">3</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">5</span><span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">2</span> <span class="dt">+</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">5</span><span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>To solve the goal <code class="sourceCode haskell">t1 is t2</code>, Prolog:</p>
 <ol type="1">
@@ -1272,84 +1271,84 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ol>
 <p><br> <br></p>
 <p>All variables in <code class="sourceCode haskell">t2</code> must be instantiated <em>before</em> evaluation!</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co">% Not good:</span></a>
-<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="fu">?-</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">X+</span><span class="dv">2</span><span class="kw">,</span> <span class="dt">X</span><span class="kw">=</span><span class="dv">1</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="dt">ERROR</span><span class="fu">:</span> <span class="dt">Args</span> are not sufficiently instantiated</a>
-<a class="sourceLine" id="cb63-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="co">% This is okay:</span></a>
-<a class="sourceLine" id="cb63-6" data-line-number="6"><span class="fu">?-</span> <span class="dt">X</span><span class="kw">=</span><span class="dv">1</span><span class="kw">,</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">X+</span><span class="dv">2</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb63-7" data-line-number="7"><span class="dt">X</span><span class="kw">=</span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb63-8" data-line-number="8"><span class="dt">Y</span><span class="kw">=</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co">% Not good:</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="fu">?-</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">X+</span><span class="dv">2</span><span class="kw">,</span> <span class="dt">X</span><span class="kw">=</span><span class="dv">1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="dt">ERROR</span><span class="fu">:</span> <span class="dt">Args</span> are not sufficiently instantiated</a>
+<a class="sourceLine" id="cb62-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="co">% This is okay:</span></a>
+<a class="sourceLine" id="cb62-6" data-line-number="6"><span class="fu">?-</span> <span class="dt">X</span><span class="kw">=</span><span class="dv">1</span><span class="kw">,</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">X+</span><span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb62-7" data-line-number="7"><span class="dt">X</span><span class="kw">=</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb62-8" data-line-number="8"><span class="dt">Y</span><span class="kw">=</span><span class="dv">3</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h3 id="problem-2-how-to-write-functions">Problem 2: How to Write Functions?</h3>
 <p>In Prolog we can define <em>predicates</em> using <em>clauses</em> (facts and rules)</p>
 <p>Can we represent a <em>function definition</em> like</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb64-1" data-line-number="1">add x y <span class="fu">=</span> x <span class="fu">+</span> y</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb63-1" data-line-number="1">add x y <span class="fu">=</span> x <span class="fu">+</span> y</a></code></pre></div>
 <p>using predicates and clauses?</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-9">QUIZ</h2>
 <p>Which of the following represents <code class="sourceCode haskell">add x y <span class="fu">=</span> x <span class="fu">+</span> y</code>?</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="co">% A</span></a>
-<a class="sourceLine" id="cb65-2" data-line-number="2">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">Z</span> <span class="dt">is</span> <span class="dt">X</span> <span class="dt">+</span> <span class="dt">Y</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb65-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb65-4" data-line-number="4"><span class="co">% B</span></a>
-<a class="sourceLine" id="cb65-5" data-line-number="5">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">Z</span> <span class="dt">is</span> <span class="dt">X</span> <span class="dt">+</span> <span class="dt">Y</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb65-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb65-7" data-line-number="7"><span class="co">% C</span></a>
-<a class="sourceLine" id="cb65-8" data-line-number="8">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb65-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb65-10" data-line-number="10"><span class="co">% D</span></a>
-<a class="sourceLine" id="cb65-11" data-line-number="11">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb65-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb65-13" data-line-number="13"><span class="co">% E</span></a>
-<a class="sourceLine" id="cb65-14" data-line-number="14">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">Z</span><span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co">% A</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">Z</span> <span class="dt">is</span> <span class="dt">X</span> <span class="dt">+</span> <span class="dt">Y</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="co">% B</span></a>
+<a class="sourceLine" id="cb64-5" data-line-number="5">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">Z</span> <span class="dt">is</span> <span class="dt">X</span> <span class="dt">+</span> <span class="dt">Y</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb64-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="co">% C</span></a>
+<a class="sourceLine" id="cb64-8" data-line-number="8">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb64-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb64-10" data-line-number="10"><span class="co">% D</span></a>
+<a class="sourceLine" id="cb64-11" data-line-number="11">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb64-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb64-13" data-line-number="13"><span class="co">% E</span></a>
+<a class="sourceLine" id="cb64-14" data-line-number="14">addP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="fu">+</span> <span class="dt">Y</span> <span class="dt">is</span> <span class="dt">Z</span><span class="kw">.</span></a></code></pre></div>
 <p><br></p>
-<p><em>Answer:</em> B</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-as-predicates">Functions as Predicates</h2>
 <p>Every <strong>function</strong> of the form:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb66-1" data-line-number="1">foo x y <span class="fu">=</span> <span class="dt">Res</span></a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb65-1" data-line-number="1">foo x y <span class="fu">=</span> <span class="dt">Res</span></a></code></pre></div>
 <p>corresponds to a <strong>predicate</strong> of the form:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb67-1" data-line-number="1">fooP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb66-1" data-line-number="1">fooP(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span></a></code></pre></div>
 <p>i.e. a predicate that is <code class="sourceCode haskell"><span class="dt">True</span></code> for those triples <code class="sourceCode haskell">(<span class="dt">X</span>, <span class="dt">Y</span>, <span class="dt">Res</span>)</code> s.t. the function <code class="sourceCode haskell">foo <span class="dt">X</span> <span class="dt">Y</span></code> evaluated to <code class="sourceCode haskell"><span class="dt">Res</span></code></p>
 <p>The predicate captures the <strong>input-output relation</strong> of the function.</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h3 id="example-fibonacci">Example: Fibonacci</h3>
 <p>Recall the definition of Fibonacci numbers in Haskell:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="ot">fib ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb68-2" data-line-number="2">fib <span class="dv">0</span> <span class="fu">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb68-3" data-line-number="3">fib <span class="dv">1</span> <span class="fu">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb68-4" data-line-number="4">fib n <span class="fu">=</span> fib (n <span class="fu">-</span> <span class="dv">1</span>) <span class="fu">+</span> fib (n <span class="fu">-</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="ot">fib ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb67-2" data-line-number="2">fib <span class="dv">0</span> <span class="fu">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb67-3" data-line-number="3">fib <span class="dv">1</span> <span class="fu">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb67-4" data-line-number="4">fib n <span class="fu">=</span> fib (n <span class="fu">-</span> <span class="dv">1</span>) <span class="fu">+</span> fib (n <span class="fu">-</span><span class="dv">2</span>)</a></code></pre></div>
 <p><br></p>
 <p>Lets write a Prolog predicate capturing the IO relationship of <code class="sourceCode haskell">fib</code>:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb69-1" data-line-number="1">fib(<span class="dt">N</span><span class="kw">,</span> <span class="dt">Res</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb68-1" data-line-number="1">fib(<span class="dt">N</span><span class="kw">,</span> <span class="dt">Res</span>)</a></code></pre></div>
 <p>holds only when <code class="sourceCode haskell"><span class="dt">Res</span></code> is the <code class="sourceCode haskell"><span class="dt">N</span><span class="fu">-</span>th</code> Fibonacci number.</p>
 <p>When we are done, we can <strong>call</strong> the function with a query:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="fu">?-</span> fib(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="dt">Res</span> <span class="kw">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb70-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb70-4" data-line-number="4"><span class="fu">?-</span> fib(<span class="dv">5</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb70-5" data-line-number="5"><span class="dt">Res</span> <span class="kw">=</span> <span class="dv">8</span></a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="fu">?-</span> fib(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="dt">Res</span> <span class="kw">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb69-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb69-4" data-line-number="4"><span class="fu">?-</span> fib(<span class="dv">5</span><span class="kw">,</span> <span class="dt">Res</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb69-5" data-line-number="5"><span class="dt">Res</span> <span class="kw">=</span> <span class="dv">8</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-10">QUIZ</h2>
 <p>What is the correct Prolog implementation of factorial?</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="co">% A</span></a>
-<a class="sourceLine" id="cb71-2" data-line-number="2">fact(<span class="dv">1</span><span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span> </a>
-<a class="sourceLine" id="cb71-3" data-line-number="3">fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb71-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb71-5" data-line-number="5"><span class="co">% B</span></a>
-<a class="sourceLine" id="cb71-6" data-line-number="6">fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb71-7" data-line-number="7">fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb71-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb71-9" data-line-number="9"><span class="co">% C</span></a>
-<a class="sourceLine" id="cb71-10" data-line-number="10">fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb71-11" data-line-number="11">fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dv">1</span> <span class="dt">&lt;</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb71-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb71-13" data-line-number="13"><span class="co">% D</span></a>
-<a class="sourceLine" id="cb71-14" data-line-number="14">fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dv">1</span> <span class="dt">&lt;</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb71-15" data-line-number="15">fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="co">% A</span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2">fact(<span class="dv">1</span><span class="kw">,</span><span class="dv">1</span>)<span class="kw">.</span> </a>
+<a class="sourceLine" id="cb70-3" data-line-number="3">fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb70-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb70-5" data-line-number="5"><span class="co">% B</span></a>
+<a class="sourceLine" id="cb70-6" data-line-number="6">fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb70-7" data-line-number="7">fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb70-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb70-9" data-line-number="9"><span class="co">% C</span></a>
+<a class="sourceLine" id="cb70-10" data-line-number="10">fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb70-11" data-line-number="11">fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dv">1</span> <span class="dt">&lt;</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb70-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb70-13" data-line-number="13"><span class="co">% D</span></a>
+<a class="sourceLine" id="cb70-14" data-line-number="14">fact(<span class="dt">N</span><span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> <span class="dv">1</span> <span class="dt">&lt;</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span><span class="dv">-1</span><span class="kw">,</span> fact(<span class="dt">N1</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">N*R1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb70-15" data-line-number="15">fact(<span class="dt">N</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></a></code></pre></div>
 <p><br></p>
-<p><em>Answer:</em> C and D both fine (order of clauses doesn’t matter with mutually exclusive guards!)</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="plan-8">Plan</h2>
 <p><del>Language</del></p>
@@ -1362,9 +1361,9 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="lists">Lists</h2>
 <p>Prolog has built-in syntax for lists</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="fu">?-</span> [<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>] <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></a>
-<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="dt">H</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">,</span></a>
-<a class="sourceLine" id="cb72-3" data-line-number="3"><span class="dt">T</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="fu">?-</span> [<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>] <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></a>
+<a class="sourceLine" id="cb71-2" data-line-number="2"><span class="dt">H</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">,</span></a>
+<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="dt">T</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></a></code></pre></div>
 <p><br></p>
 <p>Feels a lot like Haskell pattern matching</p>
 <ul>
@@ -1372,70 +1371,70 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ul>
 <p><br></p>
 <p>Unlike Haskell, can mix <code class="sourceCode haskell">,</code> and <code class="sourceCode haskell"><span class="fu">|</span></code>:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="fu">?-</span> [<span class="dt">X</span>,<span class="dt">Y</span><span class="fu">|</span><span class="dt">T</span>] <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></a>
-<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">,</span></a>
-<a class="sourceLine" id="cb73-3" data-line-number="3"><span class="dt">Y</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">,</span></a>
-<a class="sourceLine" id="cb73-4" data-line-number="4"><span class="dt">T</span> <span class="kw">=</span> [<span class="dv">3</span>]<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="fu">?-</span> [<span class="dt">X</span>,<span class="dt">Y</span><span class="fu">|</span><span class="dt">T</span>] <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></a>
+<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">,</span></a>
+<a class="sourceLine" id="cb72-3" data-line-number="3"><span class="dt">Y</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">,</span></a>
+<a class="sourceLine" id="cb72-4" data-line-number="4"><span class="dt">T</span> <span class="kw">=</span> [<span class="dv">3</span>]<span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br></p>
 <h3 id="head-and-tail">Head and tail</h3>
 <p>We have to write them as predicates:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb74-1" data-line-number="1">headOf([<span class="dt">H</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span><span class="dt">H</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb74-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb74-3" data-line-number="3">tailOf([<span class="dt">_</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">T</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb73-1" data-line-number="1">headOf([<span class="dt">H</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span><span class="dt">H</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb73-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb73-3" data-line-number="3">tailOf([<span class="dt">_</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">T</span>)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-11">QUIZ</h2>
 <p>How do we write a predicate <code class="sourceCode haskell">hasThreeOrMore</code> that satisfies the following test cases:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="fu">?-</span>hasThreeOrMore([])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="kw">false.</span></a>
-<a class="sourceLine" id="cb75-3" data-line-number="3"><span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb75-4" data-line-number="4"><span class="kw">false.</span></a>
-<a class="sourceLine" id="cb75-5" data-line-number="5"><span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two,dog])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb75-6" data-line-number="6"><span class="kw">true.</span></a>
-<a class="sourceLine" id="cb75-7" data-line-number="7"><span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two,dog,taco])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb75-8" data-line-number="8"><span class="kw">true.</span></a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="fu">?-</span>hasThreeOrMore([])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="kw">false.</span></a>
+<a class="sourceLine" id="cb74-3" data-line-number="3"><span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb74-4" data-line-number="4"><span class="kw">false.</span></a>
+<a class="sourceLine" id="cb74-5" data-line-number="5"><span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two,dog])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb74-6" data-line-number="6"><span class="kw">true.</span></a>
+<a class="sourceLine" id="cb74-7" data-line-number="7"><span class="fu">?-</span>hasThreeOrMore([<span class="dv">1</span>,two,dog,taco])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb74-8" data-line-number="8"><span class="kw">true.</span></a></code></pre></div>
 <p><strong>A.</strong> <code class="sourceCode haskell">hasThreeOrMore([_|_]).</code></p>
 <p><strong>B.</strong> <code class="sourceCode haskell">hasThreeOrMore([_,_<span class="fu">|</span>_])<span class="fu">.</span></code></p>
 <p><strong>C.</strong> <code class="sourceCode haskell">hasThreeOrMore([_,_,_<span class="fu">|</span>_])<span class="fu">.</span></code></p>
 <p><strong>D.</strong> <code class="sourceCode haskell">hasThreeOrMore([_,_,_,_<span class="fu">|</span>_])<span class="fu">.</span></code></p>
 <p><strong>E.</strong> <code class="sourceCode haskell">hasThreeOrMore([_,_,_])<span class="fu">.</span></code></p>
 <p><br></p>
-<p><em>Answer:</em> C</p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="recursive-functions-on-lists">Recursive functions on lists</h2>
 <p><strong>Example 1:</strong> <code class="sourceCode haskell">isIn</code></p>
 <p>Let’s write the Prolog equivalent of the following Haskell function:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="ot">isIn ::</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> <span class="dt">Bool</span></a>
-<a class="sourceLine" id="cb76-2" data-line-number="2">isIn _ []     <span class="fu">=</span> <span class="dt">False</span></a>
-<a class="sourceLine" id="cb76-3" data-line-number="3">isIn x (y<span class="fu">:</span>ys) <span class="fu">=</span> x <span class="fu">==</span> y <span class="fu">||</span> isIn x ys</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="ot">isIn ::</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> <span class="dt">Bool</span></a>
+<a class="sourceLine" id="cb75-2" data-line-number="2">isIn _ []     <span class="fu">=</span> <span class="dt">False</span></a>
+<a class="sourceLine" id="cb75-3" data-line-number="3">isIn x (y<span class="fu">:</span>ys) <span class="fu">=</span> x <span class="fu">==</span> y <span class="fu">||</span> isIn x ys</a></code></pre></div>
 <p><br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb77-1" data-line-number="1">isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dt">X</span><span class="fu">|</span><span class="dt">_</span>])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb77-2" data-line-number="2">isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dt">_</span><span class="fu">|</span><span class="dt">T</span>]) <span class="kw">:-</span> isIn(<span class="dt">X</span><span class="kw">,</span><span class="dt">T</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb76-1" data-line-number="1">isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dt">X</span><span class="fu">|</span><span class="dt">_</span>])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb76-2" data-line-number="2">isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dt">_</span><span class="fu">|</span><span class="dt">T</span>]) <span class="kw">:-</span> isIn(<span class="dt">X</span><span class="kw">,</span><span class="dt">T</span>)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br></p>
 <p><strong>Example 2:</strong> <code class="sourceCode haskell">sum</code></p>
 <p>Let’s write the Prolog equivalent of the following Haskell function:</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb78-1" data-line-number="1">sum<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb78-2" data-line-number="2">sum []     <span class="fu">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb78-3" data-line-number="3">sum (x<span class="fu">:</span>xs) <span class="fu">=</span> x <span class="fu">+</span> sum xs</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb77-1" data-line-number="1">sum<span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb77-2" data-line-number="2">sum []     <span class="fu">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb77-3" data-line-number="3">sum (x<span class="fu">:</span>xs) <span class="fu">=</span> x <span class="fu">+</span> sum xs</a></code></pre></div>
 <p><br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb79-1" data-line-number="1">sum([]<span class="kw">,</span><span class="dv">0</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb79-2" data-line-number="2">sum([<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> sum(<span class="dt">T</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">R1</span> <span class="dt">+</span> <span class="dt">H</span><span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb78-1" data-line-number="1">sum([]<span class="kw">,</span><span class="dv">0</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb78-2" data-line-number="2">sum([<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">R</span>) <span class="kw">:-</span> sum(<span class="dt">T</span><span class="kw">,</span><span class="dt">R1</span>)<span class="kw">,</span> <span class="dt">R</span> <span class="dt">is</span> <span class="dt">R1</span> <span class="dt">+</span> <span class="dt">H</span><span class="kw">.</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br></p>
 <p><strong>Example 3:</strong> <code class="sourceCode haskell">append</code></p>
 <p>Let’s write the Prolog equivalent of the following Haskell function:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="ot">append ::</span> [a] <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]</a>
-<a class="sourceLine" id="cb80-2" data-line-number="2">append []     ys <span class="fu">=</span> ys</a>
-<a class="sourceLine" id="cb80-3" data-line-number="3">append (x<span class="fu">:</span>xs) ys <span class="fu">=</span> x<span class="fu">:</span>(append xs ys)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="ot">append ::</span> [a] <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]</a>
+<a class="sourceLine" id="cb79-2" data-line-number="2">append []     ys <span class="fu">=</span> ys</a>
+<a class="sourceLine" id="cb79-3" data-line-number="3">append (x<span class="fu">:</span>xs) ys <span class="fu">=</span> x<span class="fu">:</span>(append xs ys)</a></code></pre></div>
 <p><br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb81-1" data-line-number="1">append([]<span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span><span class="dt">Ys</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb81-2" data-line-number="2">append([<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span>[<span class="dt">H</span><span class="fu">|</span><span class="dt">R</span>]) <span class="kw">:-</span> append(<span class="dt">T</span><span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb80-1" data-line-number="1">append([]<span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span><span class="dt">Ys</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb80-2" data-line-number="2">append([<span class="dt">H</span><span class="fu">|</span><span class="dt">T</span>]<span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span>[<span class="dt">H</span><span class="fu">|</span><span class="dt">R</span>]) <span class="kw">:-</span> append(<span class="dt">T</span><span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Unlike in Haskell, Prolog’s append is <strong>magical!</strong></p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="fu">?-</span> append(<span class="dt">Xs</span><span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb82-2" data-line-number="2"><span class="dt">Xs</span> <span class="kw">=</span> []<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>] <span class="kw">;</span></a>
-<a class="sourceLine" id="cb82-3" data-line-number="3"><span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]  <span class="kw">;</span></a>
-<a class="sourceLine" id="cb82-4" data-line-number="4"><span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">3</span>,<span class="dv">4</span>]  <span class="kw">;</span></a>
-<a class="sourceLine" id="cb82-5" data-line-number="5"><span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">4</span>]  <span class="kw">;</span></a>
-<a class="sourceLine" id="cb82-6" data-line-number="6"><span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [] <span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="fu">?-</span> append(<span class="dt">Xs</span><span class="kw">,</span><span class="dt">Ys</span><span class="kw">,</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb81-2" data-line-number="2"><span class="dt">Xs</span> <span class="kw">=</span> []<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>] <span class="kw">;</span></a>
+<a class="sourceLine" id="cb81-3" data-line-number="3"><span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]  <span class="kw">;</span></a>
+<a class="sourceLine" id="cb81-4" data-line-number="4"><span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">3</span>,<span class="dv">4</span>]  <span class="kw">;</span></a>
+<a class="sourceLine" id="cb81-5" data-line-number="5"><span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [<span class="dv">4</span>]  <span class="kw">;</span></a>
+<a class="sourceLine" id="cb81-6" data-line-number="6"><span class="dt">Xs</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]<span class="kw">,</span> <span class="dt">Ys</span> <span class="kw">=</span> [] <span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Prolog has a built-in library of list functions, including <code class="sourceCode haskell">append</code>, <code class="sourceCode haskell">reverse</code>, etc</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
@@ -1458,39 +1457,39 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>Let’s ask Prolog to solve it for us!</p>
 <p><br> <br></p>
 <p>We will encode the state of the game as a list with four positions:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb83-1" data-line-number="1">[<span class="dt">P_Farmer</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb82-1" data-line-number="1">[<span class="dt">P_Farmer</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]</a></code></pre></div>
 <p>Each position can take on one of the two atoms: <code class="sourceCode haskell">east</code> or <code class="sourceCode haskell">west</code>.</p>
 <p><br> <br></p>
 <p>First, we define four legal moves that have the farmer at at most one good in the boat:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb84-1" data-line-number="1">move([<span class="dt">X</span>,<span class="dt">X</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>     move_wolf<span class="kw">,</span>   [<span class="dt">Y</span>,<span class="dt">Y</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>])      </a>
-<a class="sourceLine" id="cb84-2" data-line-number="2">  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb84-3" data-line-number="3">move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">X</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>     move_goat<span class="kw">,</span>   [<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">Y</span>,<span class="dt">P_Cab</span>])      </a>
-<a class="sourceLine" id="cb84-4" data-line-number="4">  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb84-5" data-line-number="5">move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">X</span>]<span class="kw">,</span>    move_cabbage<span class="kw">,</span>[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">Y</span>])     </a>
-<a class="sourceLine" id="cb84-6" data-line-number="6">  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb84-7" data-line-number="7">move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>move_nothing<span class="kw">,</span>[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]) </a>
-<a class="sourceLine" id="cb84-8" data-line-number="8">  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb84-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb84-10" data-line-number="10">change(east<span class="kw">,</span>west)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb84-11" data-line-number="11">change(west<span class="kw">,</span>east)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb83-1" data-line-number="1">move([<span class="dt">X</span>,<span class="dt">X</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>     move_wolf<span class="kw">,</span>   [<span class="dt">Y</span>,<span class="dt">Y</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>])      </a>
+<a class="sourceLine" id="cb83-2" data-line-number="2">  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb83-3" data-line-number="3">move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">X</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>     move_goat<span class="kw">,</span>   [<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">Y</span>,<span class="dt">P_Cab</span>])      </a>
+<a class="sourceLine" id="cb83-4" data-line-number="4">  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb83-5" data-line-number="5">move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">X</span>]<span class="kw">,</span>    move_cabbage<span class="kw">,</span>[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">Y</span>])     </a>
+<a class="sourceLine" id="cb83-6" data-line-number="6">  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb83-7" data-line-number="7">move([<span class="dt">X</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]<span class="kw">,</span>move_nothing<span class="kw">,</span>[<span class="dt">Y</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]) </a>
+<a class="sourceLine" id="cb83-8" data-line-number="8">  <span class="kw">:-</span> change(<span class="dt">X</span><span class="kw">,</span><span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb83-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb83-10" data-line-number="10">change(east<span class="kw">,</span>west)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb83-11" data-line-number="11">change(west<span class="kw">,</span>east)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Next, we define the safety condition:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb85-1" data-line-number="1">safe([<span class="dt">P_Farmer</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]) <span class="kw">:-</span></a>
-<a class="sourceLine" id="cb85-2" data-line-number="2">  one_equal(<span class="dt">P_Farmer</span><span class="kw">,</span><span class="dt">P_Wolf</span><span class="kw">,</span><span class="dt">P_Goat</span>)<span class="kw">,</span></a>
-<a class="sourceLine" id="cb85-3" data-line-number="3">  one_equal(<span class="dt">P_Farmer</span><span class="kw">,</span><span class="dt">P_Goat</span><span class="kw">,</span><span class="dt">P_Cab</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb85-4" data-line-number="4">  </a>
-<a class="sourceLine" id="cb85-5" data-line-number="5">one_equal(<span class="dt">X</span><span class="kw">,</span><span class="dt">X</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb85-6" data-line-number="6">one_equal(<span class="dt">X</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb84-1" data-line-number="1">safe([<span class="dt">P_Farmer</span>,<span class="dt">P_Wolf</span>,<span class="dt">P_Goat</span>,<span class="dt">P_Cab</span>]) <span class="kw">:-</span></a>
+<a class="sourceLine" id="cb84-2" data-line-number="2">  one_equal(<span class="dt">P_Farmer</span><span class="kw">,</span><span class="dt">P_Wolf</span><span class="kw">,</span><span class="dt">P_Goat</span>)<span class="kw">,</span></a>
+<a class="sourceLine" id="cb84-3" data-line-number="3">  one_equal(<span class="dt">P_Farmer</span><span class="kw">,</span><span class="dt">P_Goat</span><span class="kw">,</span><span class="dt">P_Cab</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb84-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb84-5" data-line-number="5">one_equal(<span class="dt">X</span><span class="kw">,</span><span class="dt">X</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb84-6" data-line-number="6">one_equal(<span class="dt">X</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">X</span>)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Finally, we define a solution as a sequence of legal moves that ends in the final state:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb86-1" data-line-number="1">solution([east,east,east,east]<span class="kw">,</span>[])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb86-2" data-line-number="2">solution(<span class="dt">State</span><span class="kw">,</span>[<span class="dt">FirstMove</span><span class="fu">|</span><span class="dt">RemainingMoves</span>]) <span class="kw">:-</span></a>
-<a class="sourceLine" id="cb86-3" data-line-number="3">  move(<span class="dt">State</span><span class="kw">,</span><span class="dt">FirstMove</span><span class="kw">,</span><span class="dt">NextState</span>)<span class="kw">,</span></a>
-<a class="sourceLine" id="cb86-4" data-line-number="4">  safe(<span class="dt">NextState</span>)<span class="kw">,</span></a>
-<a class="sourceLine" id="cb86-5" data-line-number="5">  solution(<span class="dt">NextState</span><span class="kw">,</span><span class="dt">RemainingMoves</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb85-1" data-line-number="1">solution([east,east,east,east]<span class="kw">,</span>[])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb85-2" data-line-number="2">solution(<span class="dt">State</span><span class="kw">,</span>[<span class="dt">FirstMove</span><span class="fu">|</span><span class="dt">RemainingMoves</span>]) <span class="kw">:-</span></a>
+<a class="sourceLine" id="cb85-3" data-line-number="3">  move(<span class="dt">State</span><span class="kw">,</span><span class="dt">FirstMove</span><span class="kw">,</span><span class="dt">NextState</span>)<span class="kw">,</span></a>
+<a class="sourceLine" id="cb85-4" data-line-number="4">  safe(<span class="dt">NextState</span>)<span class="kw">,</span></a>
+<a class="sourceLine" id="cb85-5" data-line-number="5">  solution(<span class="dt">NextState</span><span class="kw">,</span><span class="dt">RemainingMoves</span>)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Now we can ask Prolog to solve the puzzle like so:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="fu">?-</span> length(<span class="dt">Moves</span><span class="kw">,</span><span class="dv">7</span>)<span class="kw">,</span> solution([west,west,west,west]<span class="kw">,</span><span class="dt">Moves</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="fu">?-</span> length(<span class="dt">Moves</span><span class="kw">,</span><span class="dv">7</span>)<span class="kw">,</span> solution([west,west,west,west]<span class="kw">,</span><span class="dt">Moves</span>)<span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Why do we need <code class="sourceCode haskell">length(<span class="dt">Moves</span>,<span class="dv">7</span>)</code>?</p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
@@ -1498,7 +1497,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>Sometimes we want more fine-grained control over the backtracking</p>
 <p><br></p>
 <p>For example:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="fu">?-</span> length(<span class="dt">Moves</span><span class="kw">,</span><span class="dv">7</span>)<span class="kw">,</span> solution([west,west,west,west]<span class="kw">,</span><span class="dt">Moves</span>)<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="fu">?-</span> length(<span class="dt">Moves</span><span class="kw">,</span><span class="dv">7</span>)<span class="kw">,</span> solution([west,west,west,west]<span class="kw">,</span><span class="dt">Moves</span>)<span class="kw">.</span></a></code></pre></div>
 <p>gives us a gazillion solutions, most that all look the same (-ish?)</p>
 <p><br> <br> <br></p>
 <h3 id="stop-backtracking">Stop backtracking</h3>
@@ -1509,30 +1508,30 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ul>
 <p><br> <br></p>
 <p>We can use cut to tell Prolog: once you found a solution to the puzzle, look no further!</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb89-1" data-line-number="1">solution([east,east,east,east]<span class="kw">,</span>[])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb89-2" data-line-number="2">solution(<span class="dt">State</span><span class="kw">,</span>[<span class="dt">FirstMove</span><span class="fu">|</span><span class="dt">RemainingMoves</span>]) <span class="kw">:-</span></a>
-<a class="sourceLine" id="cb89-3" data-line-number="3">  move(<span class="dt">State</span><span class="kw">,</span><span class="dt">FirstMove</span><span class="kw">,</span><span class="dt">NextState</span>)<span class="kw">,</span></a>
-<a class="sourceLine" id="cb89-4" data-line-number="4">  safe(<span class="dt">NextState</span>)<span class="kw">,</span></a>
-<a class="sourceLine" id="cb89-5" data-line-number="5">  solution(<span class="dt">NextState</span><span class="kw">,</span><span class="dt">RemainingMoves</span>)<span class="kw">,</span> <span class="kw">!.</span></a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb88-1" data-line-number="1">solution([east,east,east,east]<span class="kw">,</span>[])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2">solution(<span class="dt">State</span><span class="kw">,</span>[<span class="dt">FirstMove</span><span class="fu">|</span><span class="dt">RemainingMoves</span>]) <span class="kw">:-</span></a>
+<a class="sourceLine" id="cb88-3" data-line-number="3">  move(<span class="dt">State</span><span class="kw">,</span><span class="dt">FirstMove</span><span class="kw">,</span><span class="dt">NextState</span>)<span class="kw">,</span></a>
+<a class="sourceLine" id="cb88-4" data-line-number="4">  safe(<span class="dt">NextState</span>)<span class="kw">,</span></a>
+<a class="sourceLine" id="cb88-5" data-line-number="5">  solution(<span class="dt">NextState</span><span class="kw">,</span><span class="dt">RemainingMoves</span>)<span class="kw">,</span> <span class="kw">!.</span></a></code></pre></div>
 <p><br> <br> <br> <br></p>
 <h3 id="collect-all-solutions">Collect all solutions</h3>
 <p>Sometimes you want to <strong>localize</strong> the backtracking and collect all solutions in a list.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="fu">?-</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">.</span></a>
-<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb90-3" data-line-number="3"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb90-4" data-line-number="4"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">3</span><span class="kw">.</span></a>
-<a class="sourceLine" id="cb90-5" data-line-number="5"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="fu">?-</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">.</span></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb89-4" data-line-number="4"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb89-5" data-line-number="5"><span class="dt">X</span> <span class="kw">=</span> <span class="dv">2</span><span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Use <code class="sourceCode haskell">bagof</code> to get the list of all solutions:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="fu">?-</span> bagof(<span class="dt">X</span><span class="kw">,</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">,</span> <span class="dt">Sols</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="dt">Sols</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>]<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="fu">?-</span> bagof(<span class="dt">X</span><span class="kw">,</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">,</span> <span class="dt">Sols</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="dt">Sols</span> <span class="kw">=</span> [<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>]<span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Use <code class="sourceCode haskell">setof</code> to get the list of all <em>unique</em> solutions:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="fu">?-</span> setof(<span class="dt">X</span><span class="kw">,</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">,</span> <span class="dt">Sols</span>)<span class="kw">.</span></a>
-<a class="sourceLine" id="cb92-2" data-line-number="2"><span class="dt">Sols</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="fu">?-</span> setof(<span class="dt">X</span><span class="kw">,</span> isIn(<span class="dt">X</span><span class="kw">,</span>[<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>])<span class="kw">,</span> <span class="dt">Sols</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="dt">Sols</span> <span class="kw">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="kw">.</span></a></code></pre></div>
 <p><br> <br></p>
 <p>How do we find all <em>unique</em> solutions to the farmer puzzle?</p>
-<p><code class="sourceCode haskell"><span class="fu">?-</span> setof(_, (length(<span class="dt">Moves</span>,<span class="dv">7</span>), solution([west,west,west,west],<span class="dt">Moves</span>)), _)<span class="fu">.</span></code></p>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <p>That’s all folks!</p>
                 <hr>
