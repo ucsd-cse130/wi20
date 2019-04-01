@@ -10,7 +10,7 @@ mins over the deadline is equal to 1 late day.
 
 ## Assignments
 
-- [HW #0](https://github.com/ucsd-cse130/00-lambda): The Lambda Calculus (due Wed 4/10 by 23:59:59 pm)
+- [HW #0](https://github.com/ucsd-cse130/00-lambda): Lambda Calculus (due Wed 4/10 by 23:59:59 pm)
 
 <!--
 - [HW #1](https://github.com/cse130-wi19/01-haskell): Introduction to Haskell (due Mon 1/28 by 1pm)
