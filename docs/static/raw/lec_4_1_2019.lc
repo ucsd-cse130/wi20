@@ -1,4 +1,5 @@
 
 eval ex0 : 
   (\x -> x) apple     
-  =b> apple 
+  =b> apple
+  

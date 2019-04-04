@@ -5,8 +5,8 @@ headerImg: books.jpg
 
 | **Date**   | **Topic**                       | **Notes**                 | **Code**      |
 |:----------:|:--------------------------------|:-------------------------:|:-------------:|
-| 4/1        | Hello, World!                   | [html][lec0]              |               |
-| 4/3        | The Lambda Calculus             | [html][lec1]              |               |
+| 4/1        | Hello, World!                   | [html][lec0] [pdf][pdf0]  |               |
+| 4/3        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
 
 <!-- 
 | 1/11       | contd.                          |                           |               |
@@ -63,6 +63,9 @@ headerImg: books.jpg
 [lec6]: lectures/06-parsing.html
 [lec7]: lectures/07-types.html
 [lec8]: lectures/08-prolog.html
+
+[pdf0]: /static/raw/00-intro-annot.pdf 
+[pdf1]: /static/raw/00-lambda-annot.pdf 
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
