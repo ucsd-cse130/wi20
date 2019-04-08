@@ -7,9 +7,9 @@ headerImg: books.jpg
 |:----------:|:--------------------------------|:-------------------------:|:-------------:|
 | 4/1        | Hello, World!                   | [html][lec0] [pdf][pdf0]  |               |
 | 4/3        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
+| 4/5        | contd.                          |              [pdf][pdf2]  |               |
 
 <!-- 
-| 1/11       | contd.                          |                           |               |
 | 1/14       | contd.                          |                           |               |
 | 1/16       | contd.                          |                           |               |
 | 1/18       | contd.                          |                           |               |
@@ -65,7 +65,8 @@ headerImg: books.jpg
 [lec8]: lectures/08-prolog.html
 
 [pdf0]: /static/raw/00-intro-annot.pdf 
-[pdf1]: /static/raw/00-lambda-annot.pdf 
+[pdf1]: /static/raw/01-lambda-annot.pdf 
+[pdf2]: /static/raw/01-lambda-B-annot.pdf 
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf

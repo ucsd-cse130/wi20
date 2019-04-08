@@ -5,7 +5,7 @@ headerImg: beach.jpg
 
 - **Class Participation (5%)** :
   Involves answering questions with the clicker.
-  [Register here, use your PID `A0XXXXXXXXX`][clickers]
+  [Register here, use your PID `AXXXXXXXXXX`][clickers]
 
 - **Homework Assignments (30%)** :
   There will be 7 programming assignments,

@@ -569,7 +569,7 @@ We can formally define the set of _all free variables_ in a term like so:
 
     ```haskell
     FV(x)       = {x}
-    FV(\x -> e) = FV(e) \ {x}
+    FV(\x -> e) = FV(e)  - {x}
     FV(e1 e2)   = FV(e1) + FV(e2)
     ```
 
