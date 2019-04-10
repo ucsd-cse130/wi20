@@ -71,7 +71,8 @@ headerImg: books.jpg
 [pdf3]: /static/raw/01-lambda-C-annot.pdf
 [lc2]:  /static/raw/lec_4_2_2019.lc
 [lc3]:  /static/raw/lec_4_8_2019.lc
-
+[pdf4]: /static/raw/01-lambda-D-annot.pdf
+[lc4]:  /static/raw/lec_4_10_2019.lc
 
 [pdf2]: /static/raw/01-lambda-B-annot.pdf 
 
