@@ -11,9 +11,10 @@ mins over the deadline is equal to 1 late day.
 ## Assignments
 
 - [HW #0](https://classroom.github.com/a/8hzqrBLt): Lambda Calculus (due Wed 4/10 by 23:59:59 pm)
+- [HW #1](https://classroom.github.com/a/1aFt3eGO): Introduction to Haskell (due Wed 4/24 by 23:59:59 pm)
+
 
 <!--
-- [HW #1](https://github.com/cse130-wi19/01-haskell): Introduction to Haskell (due Mon 1/28 by 1pm)
 - [HW #2](https://github.com/cse130-wi19/02-random-art): Random Art (due ~~Mon 2/4~~ Wed 2/6 by 1pm)
 - [HW #3](https://github.com/cse130-wi19/03-fold): All about Fold (due Wed 2/13 by 1pm)
 - [HW #4](https://github.com/cse130-wi19/04-nano): Nano (due ~~Mon 2/25~~ Fri 3/1 by 1pm)
