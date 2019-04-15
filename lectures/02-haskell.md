@@ -4,6 +4,10 @@ date: 2019-04-15
 headerImg: books.jpg
 ---
 
+## Functions and Programming
+
+![Carmack on Functions](/static/img/carmack-tweet-function.png)
+
 ## What is Haskell?
 
 <br>
@@ -1037,7 +1041,7 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 <br>
 
-A **typed**, **lazy**, **purely functional** programming language
+A ~~**lazy**~~, **typed**, **purely functional** programming language
 
 <br>
 <br>
@@ -1052,9 +1056,10 @@ or is *ill-typed* and rejected at compile time
 
 **Why is this good?**
 
-  * catches errors early
-  * types are contracts (you don't have to handle ill-typed inputs!)
-  * enables compiler optimizations
+  * helps with program *design*
+  * catches errors *early*
+  * types are *contracts* (ignore ill-typed inputs!)
+  * enables compiler *optimizations*
   
 <br>
 <br>
