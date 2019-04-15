@@ -234,7 +234,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 			<h2 id="functions-and-programming">Functions and Programming</h2>
 <figure>
-<img src="../static/img/carmack-tweet-function.png" alt="Carmack on Functions" /><figcaption>Carmack on Functions</figcaption>
+<img src="../static/img/carmack-tweet-function.png" alt="Carmack on Functions" id="fig:landin" class="align-center" style="width:60.0%" /><figcaption>Carmack on Functions</figcaption>
 </figure>
 <h2 id="what-is-haskell">What is Haskell?</h2>
 <p><br></p>
@@ -257,11 +257,12 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <h2 id="why-haskell">Why Haskell?</h2>
 <p>Haskell programs tend to be <em>simple</em> and <em>correct</em></p>
 <h3 id="quicksort-in-haskell">QuickSort in Haskell</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" data-line-number="1">sort []     <span class="fu">=</span> []</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span class="fu">++</span> [x] <span class="fu">++</span> sort rs</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw">where</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    ls      <span class="fu">=</span> [ l <span class="fu">|</span> l <span class="ot">&lt;-</span> xs, l <span class="fu">&lt;=</span> x ]</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    rs      <span class="fu">=</span> [ r <span class="fu">|</span> r <span class="ot">&lt;-</span> xs, x <span class="fu">&lt;</span>  r ]</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" data-line-number="1">sort<span class="ot">        ::</span> (<span class="dt">Ord</span> a) <span class="ot">=&gt;</span> [a] <span class="ot">-&gt;</span> [a]</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">sort []     <span class="fu">=</span> []</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">sort (x<span class="fu">:</span>xs) <span class="fu">=</span> sort ls <span class="fu">++</span> [x] <span class="fu">++</span> sort rs</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw">where</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    ls      <span class="fu">=</span> [ l <span class="fu">|</span> l <span class="ot">&lt;-</span> xs, l <span class="fu">&lt;=</span> x ]</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    rs      <span class="fu">=</span> [ r <span class="fu">|</span> r <span class="ot">&lt;-</span> xs, x <span class="fu">&lt;</span>  r ]</a></code></pre></div>
 <h3 id="goals-for-this-week">Goals for this week</h3>
 <ol type="1">
 <li>Understand the code above</li>

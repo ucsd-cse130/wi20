@@ -6,7 +6,7 @@ headerImg: books.jpg
 
 ## Functions and Programming
 
-![Carmack on Functions](/static/img/carmack-tweet-function.png)
+![Carmack on Functions](/static/img/carmack-tweet-function.png){#fig:landin .align-center width=60%}
 
 ## What is Haskell?
 
@@ -41,6 +41,7 @@ Haskell programs tend to be *simple* and *correct*
 ### QuickSort in Haskell
 
 ```haskell
+sort        :: (Ord a) => [a] -> [a]
 sort []     = []
 sort (x:xs) = sort ls ++ [x] ++ sort rs
   where
