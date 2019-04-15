@@ -49,6 +49,7 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
     rs      = [ r | r <- xs, x <  r ]
 ```
 
+
 ### Goals for this week
 
 1. Understand the code above
