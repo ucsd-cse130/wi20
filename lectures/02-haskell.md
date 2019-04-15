@@ -1,6 +1,6 @@
 ---
 title: A crash course in Haskell
-date: 2016-09-26
+date: 2019-04-15
 headerImg: books.jpg
 ---
 
@@ -12,7 +12,7 @@ A **typed**, **lazy**, **purely functional** programming language
 
 <br>
 
-Haskell = $\lambda$-calculus + 
+Haskell = $\lambda$-calculus ++
 
   + better syntax
   + types

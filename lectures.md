@@ -10,13 +10,9 @@ headerImg: books.jpg
 | 4/5        | contd.                          |              [pdf][pdf2]  | [lc2]         |
 | 4/8        | contd.                          |              [pdf][pdf3]  | [lc3]         |
 | 4/12       | contd.                          |              [pdf][pdf4]  | [lc3]         |
+| 4/15       | A crash course in Haskell       | [html][lec2]              |               |
 
 <!-- 
-| 1/14       | contd.                          |                           |               |
-| 1/16       | contd.                          |                           |               |
-| 1/18       | contd.                          |                           |               |
-| 1/21       | *No lecture: MLK Day*           |                           |               |
-| 1/23       | A crash course in Haskell       | [html][lec2]              |               |
 | 1/25       | contd.                          |                           |               |
 | 1/28       | contd.                          |                           |               |
 | 1/30       | Datatypes and Recursion         | [html][lec3]              |               |
@@ -75,10 +71,7 @@ headerImg: books.jpg
 [lc3]:  /static/raw/lec_4_8_2019.lc
 [pdf4]: /static/raw/01-lambda-D-annot.pdf
 [lc4]:  /static/raw/lec_4_10_2019.lc
-
-[pdf2]: /static/raw/01-lambda-B-annot.pdf 
-
-
+[pdf2]: /static/raw/01-lambda-B-annot.pdf
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
