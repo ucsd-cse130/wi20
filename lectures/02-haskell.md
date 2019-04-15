@@ -6,7 +6,16 @@ headerImg: books.jpg
 
 ## Functions and Programming
 
-![Carmack on Functions](/static/img/carmack-tweet-function.png){#fig:landin .align-center width=60%}
+<br>    
+<br>    
+
+![](/static/img/carmack-tweet-function.png){#fig:landin .align-center width=60%}
+
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## What is Haskell?
 
@@ -37,6 +46,10 @@ Haskell = $\lambda$-calculus ++
 ## Why Haskell?
 
 Haskell programs tend to be *simple* and *correct*   
+
+[Elizabeth Murnane](https://apol-recruit.ucsd.edu/analyst/application/100562/review)
+[Motahareh Eslamimehdiabadi](https://apol-recruit.ucsd.edu/analyst/application/100823/review)
+[Cesar Torres](https://apol-recruit.ucsd.edu/analyst/application/99113/review)
 
 ### QuickSort in Haskell
 
@@ -461,12 +474,16 @@ void weirdo() {
 <br>
 <br>
 
-In *Haskell* every expression either **has a type**
-or is **ill-typed** and rejected statically
-(at compile-time, before execution starts)
+In *Haskell* every expression either 
 
-  * like in Java
-  * unlike $\lambda$-calculus or Python
+- **has a type** or is
+- **ill-typed** 
+
+
+Ill-typed* expressions are rejected statically at *compile-time*, before execution starts
+
+* like in Java
+* unlike $\lambda$-calculus or Python
 
 ```haskell
 weirdo = 1 0     -- rejected by GHC
@@ -544,7 +561,11 @@ For example:
 <br>
 <br>
 
-You should annotate your function bindings:
+## Always annotate your function bindings
+
+First understand *what the function does*
+
+- Before you think about *how to do it*
 
 ```haskell
 sum :: Int -> Int
@@ -552,14 +573,21 @@ sum 0 = 0
 sum n = n + sum (n - 1)
 ```
 
-With multiple arguments:
+<br>
+<br>
+<br>
+<br>
+
+## When you have *multiple arguments
+
+For example
 
 ```haskell
 pair :: String -> (String -> (Bool -> String))
 pair x y b = if b then x else y
 ```
 
-Same as:
+is the same as:
 
 ```haskell
 pair :: String -> String -> Bool -> String
@@ -575,11 +603,10 @@ pair x y b = if b then x else y
 
 ## QUIZ
 
-With `pair :: String -> String -> Bool -> String`,
-what would GHCi say to 
+Suppose `pair :: String -> String -> Bool -> String`, what is the type of:
 
 ```haskell
->:t pair "apple" "orange"
+(pair "apple" "orange")
 ```
 
 **A.** Syntax error
@@ -626,10 +653,9 @@ Examples:
 ```haskell
 []                -- A list with zero elements
 
-1:[]              -- A list with one element: 1
+1 : []            -- A list with one element: 1
 
-(:) 1 []          -- Same thing: for any infix op, 
-                  -- (op) is a regular function!
+(:) 1 []          -- As above: for any infix op, `x op y` is same as `(op) x y`
 
 1:(2:(3:(4:[])))  -- A list with four elements: 1, 2, 3, 4
 
@@ -640,20 +666,22 @@ Examples:
 
 <br>
 <br>
+<br>
+<br>
 
 ### Terminology: constructors and values
 
-`[]` and `(:)` are called the list **constructors**
+`[]` and `(:)` are called the *list* **constructors**
 
 We've seen constructors before:
 
-  * `True` and `False` are `Bool` constructors
-  * `0`, `1`, `2` are... well, it's complicated, but you can think of them as `Int` constructors
-  * these constructions didn't take any parameters, so we just called them *values*
+* `True` and `False` are `Bool` constructors
+* `0`, `1`, `2` are ... well, you can think of them as `Int` constructors
+  - The `Int` constructors don't take any parameters, we just called them *values*
 
-In general, a **value** is a constructor applied to *other values*
+In general, a **value** is a constructor applied to **other values**
 
-  * examples above are list values
+* examples above are *list* values
 
 <br>
 <br>
@@ -666,13 +694,19 @@ In general, a **value** is a constructor applied to *other values*
 
 ## The Type of a List
 
-A list has type `[A]` if each one of its elements has type `A`
+A list has type `[Thing]` if each of its elements has type `Thing`
 
 Examples:
 
 ```haskell
-myList :: [Int]
-myList = [1,2,3,4]
+intList :: [Int]
+intList = [1,2,3,4]
+
+boolList :: [Bool]
+boolList = [True, False, True]
+
+strList :: [String]
+strList = ["nom", "nom", "burp"]
 ```
 
 <br>
@@ -684,7 +718,7 @@ myList = [1,2,3,4]
     myList' = ['h', 'e', 'l', 'l', 'o']
     ```
     
-(I) final    
+(I) final
 
     ```haskell
     myList' :: [Char]                   -- or :: String
@@ -697,7 +731,7 @@ myList = [1,2,3,4]
  
     ```haskell
     -- myList'' :: ???
-    myList'' = [1, 'h']    
+    myList'' = [1, 'h']
     ```
     
 (I) final    
