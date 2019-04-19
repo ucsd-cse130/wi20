@@ -474,16 +474,23 @@ void weirdo() {
 <br>
 <br>
 
-In *Haskell* every expression either 
 
-- **has a type** or is
-- **ill-typed** 
 
+
+## Types 
+
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
+
+In *Haskell* every expression either
+
+- **ill-typed** and _rejected at compile time_ or
+- **has a type** and can be _evaluated_ to obtain
+_ **a value** of the same type.
 
 Ill-typed* expressions are rejected statically at *compile-time*, before execution starts
 
-* like in Java
-* unlike $\lambda$-calculus or Python
+* **like**   in Java
+* **unlike** $\lambda$-calculus or Python ... 
 
 ```haskell
 weirdo = 1 0     -- rejected by GHC
@@ -497,6 +504,25 @@ weirdo = 1 0     -- rejected by GHC
 <br>
 <br>
 <br>
+
+
+
+### Why are types good?
+
+* Helps with program *design*
+* Types are *contracts* (ignore ill-typed inputs!)
+* Catches errors *early*
+* Allows compiler *to generate code*
+* Enables compiler *optimizations*
+  
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 
 ## Type annotations
 
@@ -583,17 +609,24 @@ sum n = n + sum (n - 1)
 For example
 
 ```haskell
-pair :: String -> (String -> (Bool -> String))
-pair x y b = if b then x else y
+add3 :: Int -> (Int -> (Int -> Int))
+add3 x y z = x + y + z
 ```
 
-is the same as:
+why? because the above is the same as:
 
 ```haskell
-pair :: String -> String -> Bool -> String
-pair x y b = if b then x else y
+add3 :: Int -> (Int -> (Int -> Int))
+add3 = \x -> (\y -> (\z -> x + y + z))
 ```
 
+however, as with the lambdas, the `->` **associates to the right** so we will just write:
+
+```haskell
+add3 :: Int -> Int -> Int -> Int
+add3 x y z = x + y + z
+``` 
+
 <br>
 <br>
 <br>
@@ -601,6 +634,7 @@ pair x y b = if b then x else y
 <br>
 <br>
 
+<!-- 
 ## QUIZ
 
 Suppose `pair :: String -> String -> Bool -> String`, what is the type of:
@@ -632,6 +666,8 @@ Suppose `pair :: String -> String -> Bool -> String`, what is the type of:
 <br>
 <br>
 <br>
+
+-->
 
 ## Lists
 
@@ -710,6 +746,15 @@ strList = ["nom", "nom", "burp"]
 ```
 
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<!-- 
 
 (I) lecture
  
@@ -765,11 +810,44 @@ strList = ["nom", "nom", "burp"]
 <br>
 <br>
 <br>
-  
+
+--> 
+
+## Lets write some Functions
+
+
+[A Recipe](https://www.htdp.org/)
+
+**Step 1: Write some tests**
+
+**Step 2: Write the type**
+
+**Step 3: Write the code**
+
+
+
 ## Functions on lists: range
 
+**1. Tests** 
+
+```haskell
+-- >>> ???
+```
+
+**2. Type** 
+
+```haskell
+range :: ???
+```
+
+**3. Code**
+
+```haskell
+range = ???
+```
+
+<!-- 
 (I) lecture
- 
     ```haskell
     -- | List of integers from n upto m
     upto :: Int -> Int -> [Int]
@@ -785,12 +863,15 @@ strList = ["nom", "nom", "burp"]
       | n > m     = []
       | otherwise = n : (upto (n + 1) m)
     ```
+-->
 
 <br>
 <br>
 <br>
 <br>
 <br>
+
+## Syntactic Sugar for Ranges
 
 There's also syntactic sugar for this!
 
@@ -798,7 +879,6 @@ There's also syntactic sugar for this!
 [1..7]    -- [1,2,3,4,5,6,7]
 [1,3..7]  -- [1,3,5,7]
 ```
-
 
 <br>
 <br>
@@ -811,15 +891,24 @@ There's also syntactic sugar for this!
 
 ## Functions on lists: length
 
+**1. Tests** 
+
 ```haskell
--- | Length of the list
-length :: ???
-length xs = ???
+-- >>> ???
 ```
 
-<br>
-<br>
-<br>
+**2. Type** 
+
+```haskell
+len :: ???
+```
+
+**3. Code**
+
+```haskell
+len = ???
+```
+
 <br>
 <br>
 <br>
@@ -835,9 +924,9 @@ length xs = ???
 
 ```haskell
 -- | Length of the list
-length :: [Int] -> Int
-length []     = 0
-length (_:xs) = 1 + length xs
+len :: [Int] -> Int
+len []     = 0
+len (_:xs) = 1 + len xs
 ```
 
 <br>
@@ -863,6 +952,29 @@ if desired, *bind* variables to successful matches.
 <br>
 <br>
 <br>
+
+
+## Functions on lists: `take` 
+
+Let's write a function to `take` first `n` elements of a list `xs`.
+
+**1. Tests** 
+
+```haskell
+-- >>> ???
+```
+
+**2. Type** 
+
+```haskell
+take :: ???
+```
+
+**3. Code**
+
+```haskell
+take = ???
+```
 
 ## QUIZ
 
@@ -890,19 +1002,45 @@ Which of the following is **not** a pattern?
 <br>
 <br>  
 
+## Strings are Lists-of-Chars
+
+For example
+
+```haskell
+λ> let x = ['h', 'e', 'l', 'l', 'o']
+λ> x
+"hello"
+
+λ> let y = "hello"
+
+λ> x == y
+True
+
+λ> :t x
+x :: [Char]
+
+λ> :t y
+y :: [Char]
+```
+
+## shout Shout SHOUT
+
+How can we convert a string to upper-case, e.g.
+
+```haskell
+ghci> shout "like this"
+"LIKE THIS"
+```
+
+```haskell
+shout :: String -> String
+shout s = ???
+```
+<br>
 
 ## Some useful library functions
 
 ```haskell
--- | Is the list empty?
-null :: [t] -> Bool
-
--- | Head of the list
-head :: [t] -> t   -- careful: partial function!
-
--- | Tail of the list
-tail :: [t] -> [t] -- careful: partial function!
-
 -- | Length of the list
 length :: [t] -> Int
 
@@ -924,7 +1062,7 @@ You can search for library functions on [Hoogle](https://www.haskell.org/hoogle/
 <br>
 <br>
 
-## Pairs
+## Tuples
 
 ```haskell
 myPair :: (String, Int)  -- pair of String and Int
@@ -938,22 +1076,57 @@ myPair = ("apple", 3)
 <br>
 <br>
 
+## Field access
 
-Field access:
+Using `fst` and `snd` 
+
+```haskell 
+ghci> fst ("apple", 22)
+"apple"
+
+ghci> snd ("apple", 22)
+22
+``` 
+
+## Tuples to pass parameters
 
 ```haskell
--- Using library functions:
-whichFruit = fst myPair  -- "apple"
-howMany    = snd myPair  -- 3
+add2 :: (Int, Int) -> Int
+add2 p = fst p + snd p
+```
 
--- Using pattern matching:
-isEmpty (x, y)  =  y == 0
+but watch out, `add2` expects a tuple.
 
--- same as:
-isEmpty         = \(x, y) -> y == 0
+```haskell
+exAdd2_BAD = add2 10 20      -- type error
 
--- same as:
-isEmpty p       = let (x, y) = p in y == 0
+exAdd2_OK  = add2 (10, 20)   -- OK!
+```
+
+## Tuples and Pattern Matching 
+
+It is often clearer to use *patterns* for tuples, e.g.
+
+```haskell
+add2 :: (Int, Int) -> Int
+add2 p = let (x, y) = p in
+           x + y
+```
+
+or equivalently,
+
+```haskell
+add2 :: (Int, Int) -> Int
+add2 p    = x + y
+  where
+   (x, y) = p
+```
+
+or, best, use the pattern in the parameter,
+
+```haskell
+add2 :: (Int, Int) -> Int
+add2 (x, y) = x + y
 ```
 
 <br>
@@ -968,35 +1141,45 @@ but also in $\lambda$-bindings and `let`-bindings!
 <br>
 <br>
 
-### Pattern matching with pairs
+### QUIZ: Pattern matching with pairs
 
 Is this pattern matching correct? What does this function do?
 
 ```haskell
-f :: String -> [(String, Int)] -> Int
-f _ []   = 0
-f x ((k,v) : ps)
+quiz :: String -> [(String, Int)] -> Int
+quiz _ []     = 0
+quiz x ((k,v) : ps)
   | x == k    = v
-  | otherwise = f x ps
+  | otherwise = quiz x ps
 ```
 
-<br>
+What is `quiz "dog" [ ("cat", 10), ("dog", 20), ("cat", 30)]` ?
 
+**A.** Type error!
+
+**B.** `0`
+
+**C.** `10`
+
+**D.** `20`
+
+**D.** `30`
+
+<br>
 <br>
 
 (I) final
 
-    _Answer:_ a lsit of pairs represents key-value pairs in a dictionary; 
-    `f` performs lookup by key
+    _Answer:_ a list of pairs represents key-value pairs in a dictionary; 
+    `quiz` performs lookup by key, result is `10`.
 
-
 <br>
 <br>
 <br>
 <br>
 <br>
 
-## Tuples
+## Generalized Tuples
 
 Can we implement triples like in $\lambda$-calculus?
 
@@ -1005,7 +1188,7 @@ Can we implement triples like in $\lambda$-calculus?
 <br>
 <br>
 
-Sure! But Haskell has native support for $n$-tuples:
+Sure! but Haskell has native support for $n$-tuples:
 
 ```haskell
 myPair   :: (String, Int)
@@ -1016,13 +1199,18 @@ myTriple = (True, 1, [1,2,3])
 
 my4tuple :: (Float, Float, Float, Float)
 my4tuple = (pi, sin pi, cos pi, sqrt 2)
-
-...
-
--- And also:
-myUnit   :: ()
-myUnit   = ()
 ```
+
+## The "Empty" Tuple
+
+It also makes sense to have an 0-ary tuple:
+
+```haskell
+myUnit :: ()
+myUnit = ()
+```
+
+often used like `void` in other languages.
 
 <br>
 <br>
@@ -1033,22 +1221,103 @@ myUnit   = ()
 
 ## List comprehensions
 
-A convenient way to construct lists from other lists:
+A convenient way to construct lists!
 
+## QUIZ
+
+What is the result of evaluating:
 
 ```haskell
-[toUpper c | c <- s]  -- Convert string s to upper case
-
-
-[(i,j) | i <- [1..3],
-         j <- [1..i] ] -- Multiple generators
-         
-[(i,j) | i <- [0..5],
-         j <- [0..5],
-         i + j == 5] -- Guards         
+quiz = [ 10 * i | i <- [0,1,2,3,4,5]]
 ```
 
+**A.** Infinite loop
+**B.** `[]`
+**C.** `[0, 10, 20, 30, 40, 50]`
+**D.** `150`
+**E.** Type error
+
 <br>
+<br>
+<br>
+<br>
+<br>  
+
+## Comprehensions and Ranges
+
+Recall you can *enumerate* ranges as
+
+```haskell
+ghci> [0..5]
+[0,1,2,3,4,5]
+```
+
+So, we can write the above more simply
+
+```haskell
+quiz = [ 10 * i | i <- [0..5] ]
+```
+
+## QUIZ: Composing Comprehensions
+
+What is the result of evaluating
+
+```haskell
+quiz = [(i,j) | i <- [0, 1]     -- a first selection
+              , j <- [0, 1] ]   -- a second selection
+```
+
+**A.** Type error
+**B.** `[]`
+**C.** `[0,1]`
+**D.** `[(0,0), (1,1)]`
+**E.** `[(0,0), (0,1, (1,0), (1,1)]`
+
+<br>
+<br>
+<br>
+<br>
+<br>  
+
+## QUIZ: Composing Comprehensions
+
+What is the result of evaluating
+
+```haskell
+quiz = [(i,j) | i <- [0, 1]
+              , j <- [0, 1]
+              , i == j      ]   -- condition!
+```
+
+**A.** Type error
+**B.** `[]`
+**C.** `[0,1]`
+**D.** `[(0,0), (1,1)]`
+**E.** `[(0,0), (0,1, (1,0), (1,1)]`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## shout revisited
+
+How can we convert a string to upper-case, e.g.
+
+```haskell
+ghci> shout "like this"
+"LIKE THIS"
+```
+
+Use comprehensions to write a *non-recursive" `shout`?
+
+```haskell
+shout :: String -> String
+shout s = ???
+```
+
 <br>
 <br>
 <br>
@@ -1056,6 +1325,38 @@ A convenient way to construct lists from other lists:
 <br>  
 
 ## QuickSort in Haskell
+
+
+**Step 1: Write some tests**
+
+```haskell
+-- >>> sort []
+-- ???
+
+-- >>> sort [10]
+-- ???
+
+-- >>> sort [12, 1, 10]
+-- ???
+```
+
+**Step 2: Write the type**
+
+
+```haskell
+sort :: ???
+```
+
+**Step 3: Write the code**
+
+
+```haskell
+sort []     = ???
+sort (x:xs) = ???
+```
+
+
+(I) final
 
 ```haskell
 sort :: [Int] -> [Int]
@@ -1066,37 +1367,6 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
     rs      = [ r | r <- xs, x <  r ]
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## What is Haskell?
-
-<br>
-
-A ~~**lazy**~~, **typed**, **purely functional** programming language
-
-<br>
-<br>
-<br>
-
-### Haskell is statically typed
-
-Every expression either has a type,
-or is *ill-typed* and rejected at compile time
-
-<br>
-
-**Why is this good?**
-
-  * helps with program *design*
-  * catches errors *early*
-  * types are *contracts* (ignore ill-typed inputs!)
-  * enables compiler *optimizations*
-  
 <br>
 <br>
 <br>
@@ -1116,21 +1386,23 @@ or is *ill-typed* and rejected at compile time
   
     ```java
     public int f(int x) {
-      calls++;                         // side effect!
-      System.out.println("calling f"); // side effect!
-      launchMissile();                 // side effect!
-      return x * 2;      
+      calls++;                         // side effect: global variable update!
+      System.out.println("calling f"); // side effect: writing to screen!
+      launchMissile();                 // side effect: can't bring back home!
+      return x * 2;
     }
     ```
-    
+
   * in Haskell, a function of type `Int -> Int`
-    computes a *single integer output* from a *single integer input*
-    and does **nothing else**
+    Computes a *single integer output* from a *single integer input*
+    Does **nothing else**
   
 **Referential transparency:** The same expression always evaluates to the same value
 
+<!-- 
   * More precisely: In a scope where `x1, ..., xn` are defined,
     all occurrences of `e` with `FV(e) = {x1, ..., xn}` have the same value
+  -->
 
 <br>
   
@@ -1147,22 +1419,46 @@ or is *ill-typed* and rejected at compile time
 <br>
 <br>
 
-### Haskell is lazy
+## QUIZ 
 
-An expression is evaluated only when its result is needed
-  
-Example: `take 2 [1 .. (factorial 100)]`
+The function `head` returns the first element of a list.
 
+What is the result of:
+
+```haskell
+goBabyGo :: Int -> [Int]
+goBabyGo n = n : goBabyGo (n + 1)
+
+quiz :: Int
+quiz = head (goBabyGo 0)
+```
+
+**A.** Loops forever
+**B.** Type error
+**C.** `0`
+**D.** `1`
+
+## Haskell is Lazy
+
+An expression is evaluated only when its result is needed!
+
+```haskell
+ghci> take 2 (goBabyGo 1)
+[1,2]
+```
+
+Why?
+
+<br>
 <br>
 
 ```haskell
-        take 2 (   upto 1 (factorial 100))
-=>      take 2 (   upto 1 933262154439...)
-=>      take 2 (1:(upto 2 933262154439...)) -- def upto
-=> 1:  (take 1 (   upto 2 933262154439...)) -- def take 3
-=> 1:  (take 1 (2:(upto 3 933262154439...)) -- def upto
-=> 1:2:(take 0 (   upto 3 933262154439...)) -- def take 3
-=> 1:2:[]                                   -- def take 1
+        take 2 (goBabyGo 1)
+=>      take 2 (1 : goBabyGo 2)
+=>      take 2 (1 : 2 : goBabyGo 3)
+=> 1:   take 1 (    2 : goBabyGo 3)
+=> 1:2: take 0 (        goBabyGo 3)
+=> 1:2: []
 ```
 
 <br>
@@ -1189,9 +1485,3 @@ Example: `take 2 [1 .. (factorial 100)]`
 <br>
 
 That's all folks!  
-  
-  
-
-   
-
-
