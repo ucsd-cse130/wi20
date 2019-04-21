@@ -10,7 +10,9 @@ headerImg: books.jpg
 | 4/5        | contd.                          |              [pdf][pdf2]  | [lc2]         |
 | 4/8        | contd.                          |              [pdf][pdf3]  | [lc3]         |
 | 4/12       | contd.                          |              [pdf][pdf4]  | [lc3]         |
-| 4/15       | A crash course in Haskell       | [html][lec2]              |               |
+| 4/15       | A crash course in Haskell       | [html][lec2] [pdf][pdf5]  | [hs-4-15]     |
+| 4/17       | A crash course in Haskell       |              [pdf][pdf6]  | [hs-4-17]     | 
+| 4/19       | A crash course in Haskell       |              [pdf][pdf7]  | [hs-4-19]     |
 
 <!-- 
 | 1/25       | contd.                          |                           |               |
@@ -72,6 +74,10 @@ headerImg: books.jpg
 [pdf4]: /static/raw/01-lambda-D-annot.pdf
 [lc4]:  /static/raw/lec_4_10_2019.lc
 [pdf2]: /static/raw/01-lambda-B-annot.pdf
+
+[hs-4-15]:  /static/raw/lec_4_15_2019.hs
+[hs-4-17]:  /static/raw/lec_4_17_2019.hs
+[hs-4-19]:  /static/raw/lec_4_19_2019.hs
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
