@@ -679,7 +679,7 @@ A list is
     
   * or a *head element* attached to a *tail list* 
   
-    `x:xs     -- pronounced "x cons xs"`
+    `h : t     -- pronounced "h cons t"`
     
 <br>
 <br>    

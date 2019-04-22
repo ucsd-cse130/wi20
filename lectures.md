@@ -11,13 +11,12 @@ headerImg: books.jpg
 | 4/8        | contd.                          |              [pdf][pdf3]  | [lc3]         |
 | 4/12       | contd.                          |              [pdf][pdf4]  | [lc3]         |
 | 4/15       | A crash course in Haskell       | [html][lec2] [pdf][pdf5]  | [hs-4-15]     |
-| 4/17       | A crash course in Haskell       |              [pdf][pdf6]  | [hs-4-17]     | 
-| 4/19       | A crash course in Haskell       |              [pdf][pdf7]  | [hs-4-19]     |
+| 4/17       | contd.                          |              [pdf][pdf6]  | [hs-4-17]     |
+| 4/19       | contd.                          |                           | [hs-4-19]     |
+| 4/22       | contd.                          |                           | [hs-4-22]     |
 
 <!-- 
-| 1/25       | contd.                          |                           |               |
-| 1/28       | contd.                          |                           |               |
-| 1/30       | Datatypes and Recursion         | [html][lec3]              |               |
+ 1/30       | Datatypes and Recursion         | [html][lec3]              |               |
 | 1/1        | contd.                          |                           |               |
 | 2/4        | contd.                          |                           |               |
 | 2/6        | Higher Order Functions          | [html][lec4]              |               |
@@ -71,9 +70,8 @@ headerImg: books.jpg
 [pdf4]: /static/raw/01-lambda-D-annot.pdf
 [lc2]:  /static/raw/lec_4_2_2019.lc
 [lc3]:  /static/raw/lec_4_8_2019.lc
-[pdf5]: /static/raw/02-haskell.pdf 
-[pdf6]: /static/raw/02-haskell-B.pdf 
-[pdf7]: /static/raw/lec-4-19-2019.pdf 
+[pdf5]: /static/raw/02-haskell-A.pdf
+[pdf6]: /static/raw/02-haskell-B.pdf
 
 [lc4]:  /static/raw/lec_4_10_2019.lc
 [pdf2]: /static/raw/01-lambda-B-annot.pdf
@@ -81,6 +79,7 @@ headerImg: books.jpg
 [hs-4-15]:  /static/raw/lec_4_15_2019.hs
 [hs-4-17]:  /static/raw/lec_4_17_2019.hs
 [hs-4-19]:  /static/raw/lec_4_19_2019.hs
+[hs-4-22]:  /static/raw/lec_4_22_2019.hs
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
