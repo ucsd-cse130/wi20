@@ -10,13 +10,15 @@ headerImg: books.jpg
 
   * built-in *data types*
     - base types, tuples, lists (and strings)
-  * writing functions using *pattern matching* and *recursion*    
+  * writing functions using *pattern matching* and *recursion*
   
 **This week:**
 
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
+
   * user-defined *data types*
-    - and how to manipulate them using *pattern matching* and *recursion* 
-  * more details about *recursion*    
+    - and how to manipulate them using *pattern matching* and *recursion*
+  * more details about *recursion*
     
     
 <br>
@@ -44,8 +46,8 @@ headerImg: books.jpg
 **Algebraic Data Types:** a single, powerful technique 
 for building up types to represent complex data
 
-  * lets you define your own data types
-  * subsumes tuples and lists!
+  * Lets you define *your own* data types
+  * Tuples and lists are *special* cases
     
     
 <br>
@@ -132,6 +134,7 @@ extension = ...
 <br>
 <br>
 
+
 ### 2. Unsafe
 
 We want this to fail at compile time!!!
@@ -178,20 +181,20 @@ Haskell's **record syntax** allows you to *name* the constructor parameters:
 
   * you can write:
 
-    ```
-    data Date = Date { 
-      month :: Int, 
-      day   :: Int,
-      year  :: Int  
-    }
+    ```haskell
+    data Date = Date
+      { month :: Int
+      , day   :: Int
+      , year  :: Int  
+      }
     ```
     
   * then you can do:
   
-    ```
+    ```haskell
     deadlineDate = Date 2 4 2019
-    
-    dealineMonth = month deadlineDate -- use field name as a function
+
+    dealineMonth = month deadlineDate -- yikes, use field name as a function
     ```
     
 <br>
@@ -226,7 +229,7 @@ Three key ways to build complex types/values:
 <br>
 <br>
 
-## Example: NanoMD
+## Example: NanoMarkdown
 
 Suppose I want to represent a *text document* with simple markup
 
@@ -239,17 +242,13 @@ Each paragraph is either:
 I want to store all paragraphs in a *list*
 
 ```haskell
-doc = [
-    (1, "Notes from 130")                        -- Lvl 1 heading
-  , "There are two types of languages:"          -- Plain text
-  , (True, ["purely functional", "purely evil"]) -- Ordered list
-  ]
-  
--- But this doesn't type check!!!
+doc = [ (1, "Notes from 130")                                        -- Lvl 1 heading
+      , "There are two types of languages:"                          -- Plain text
+      , (True, ["those people complain about", "those no one uses"]) -- Ordered list
+      ]
 ```  
 
-
-
+But this *does not type check*!!!
 
 <br>
 <br>
@@ -273,12 +272,12 @@ Each paragraph is either:
   * list: ordered? and items (`Bool` and `[String]`)
   
 ```haskell
-data Paragraph = 
-    Text String          -- 3 constructors,
-  | Heading Int String   -- each with different  
-  | List Bool [String]   -- parameters
+data Paragraph            -- ^ 3 constructors, w/ different parameters
+  = PText String          -- ^ text   : plain string
+  | PHeading Int String   -- ^ heading: level and text (`Int` and `String`)
+  | PList Bool [String]   -- ^ list   : ordered? and items (`Bool` and `[String]`)
 ```
-
+  
 <br>
 <br>
 <br>
@@ -292,21 +291,23 @@ data Paragraph =
 ## QUIZ
 
 ```haskell
-data Paragraph = 
-    Text String | Heading Int String | List Bool [String]
+data Paragraph
+  = PText String
+  | PHeading Int String
+  | PList Bool [String]
 ```
 
-What would GHCi say to
+What is the type of `Text "Hey there!"`? i.e. How would GHCi reply to:
 
 ```haskell
->:t Text "Hey there!"
+>:t (PText "Hey there!")
 ```
 
 **A.**  Syntax error
 
 **B.**  Type error
 
-**C.**  `Text`
+**C.**  `PText`
 
 **D.**  `String`
 
@@ -330,16 +331,16 @@ What would GHCi say to
 ## Constructing datatypes
   
 ```haskell
-data T = 
-    C1 T11 .. T1k 
-  | C2 T21 .. T2l
-  | .. 
-  | Cn Tn1 .. Tnm
+data T
+  = C1 T11 ... T1k
+  | C2 T21 ... T2l
+  | ... 
+  | Cn Tn1 ... Tnm
 ```
 
-`T` is the new **datatype**
+- `T` is the **new datatype**
 
-`C1 .. Cn` are the **constructors** of `T`
+- `C1 .. Cn` are the **constructors** of `T`
 
 <br>
 
@@ -359,15 +360,20 @@ You can think of a `T` value as a **box**:
   * *or* ...
   * *or* a box labeled `Cn` with values of types `Tn1 .. Tnm` inside
 
+
+![One-of Types](/static/img/data-box.png){#fig:types .align-center width=60%}
+
 <br>  
   
 Apply a constructor = pack some values into a box (and label it)
 
-  * `Text "Hey there!"`
-      * put `"Hey there!"` in a box labeled `Text`
-  * `Heading 1 "Introduction"`
-      * put `1` and `"Introduction"` in a box labeled `Heading`
+  * `PText "Hey there!"`
+      * put `"Hey there!"` in a box labeled `PText`
+  * `PHeading 1 "Introduction"`
+      * put `1` and `"Introduction"` in a box labeled `PHeading`
   * Boxes have different labels but same type (`Paragraph`)
+
+![The `Paragraph` Type](/static/img/data-paragraph.png){#fig:types .align-center width=60%}
 
 <br>
 <br>
@@ -382,14 +388,16 @@ Apply a constructor = pack some values into a box (and label it)
 ## QUIZ
 
 ```haskell
-data Paragraph = 
-    Text String | Heading Int String | List Bool [String]
+data Paragraph
+  = PText String
+  | PHeading Int String
+  | PList Bool [String]
 ```
 
 What would GHCi say to
 
 ```haskell
->:t [Heading 1 "Introduction", Text "Hey there!"]
+>:t [PHeading 1 "Introduction", Pext "Hey there!"]
 ```
 
 **A.**  Syntax error
@@ -420,19 +428,20 @@ What would GHCi say to
 ## Example: NanoMD
 
 ```haskell
-data Paragraph = 
-    Text String | Heading Int String | List Bool [String]
+data Paragraph
+  = PText String
+  | PHeading Int String
+  | PList Bool [String]
 ```
 
 Now I can create a document like so:
 
 ```haskell
 doc :: [Paragraph]
-doc = [
-    Heading 1 "Notes from 130"
-  , Text "There are two types of languages:"
-  , List True ["purely functional", "purely evil"]
-  ]
+doc = [ PHeading 1 "Notes from 130"
+      , PText "There are two types of languages:"
+      , PList True ["those people complain about", "those no one uses"])
+      ]
 ```
 
 <br>
@@ -473,9 +482,9 @@ How to tell what's in the box?
   
 ```haskell
 html :: Paragraph -> String
-html (Text str)        = ... -- It's a plain text! Get string
-html (Heading lvl str) = ... -- It's a heading! Get level and string
-html (List ord items)  = ... -- It's a list! Get ordered and items
+html (PText str)        = ... -- It's a plain text! Get string
+html (PHeading lvl str) = ... -- It's a heading! Get level and string
+html (PList ord items)  = ... -- It's a list! Get ordered and items
 ```
 
 <br>
@@ -487,16 +496,17 @@ html (List ord items)  = ... -- It's a list! Get ordered and items
   
 ```haskell
 html :: Paragraph -> String
-html (Text str) =           -- It's a plain text! Get string
-  unlines [open "p", str, close "p"]
-html (Heading lvl str) =    -- It's a heading! Get level and string
-  let htag = "h" ++ show lvl
-  in unwords [open htag, str, close htag]
-html (List ord items) =    -- It's a list! Get ordered and items
-  let 
-   ltag = if ord then "ol" else "ul"
-   litems = [unwords [open "li", i, close "li"] | i <- items]
-  in unlines ([open ltag] ++ litems ++ [close ltag])
+html (PText str)            -- It's a plain text! Get string
+  = unlines [open "p", str, close "p"]
+
+html (PHeading lvl str)     -- It's a heading! Get level and string
+  = let htag = "h" ++ show lvl
+    in unwords [open htag, str, close htag]
+
+html (PList ord items)      -- It's a list! Get ordered and items
+  = let ltag   = if ord then "ol" else "ul"
+        litems = [unwords [open "li", i, close "li"] | i <- items]
+    in unlines ([open ltag] ++ litems ++ [close ltag])
 ```
 
 <br>
@@ -510,14 +520,14 @@ html (List ord items) =    -- It's a list! Get ordered and items
 
 ```haskell
 html :: Paragraph -> String
-html (Text str) = ...
-html (List ord items) = ...
+html (PText str) = ...
+html (PList ord items) = ...
 ```
 
 What would GHCi say to:
 
 ```haskell
-html (Heading 1 "Introduction")
+html (PHeading 1 "Introduction")
 ```
 
 <br>
@@ -535,23 +545,23 @@ html (Heading 1 "Introduction")
 
 ```haskell
 html :: Paragraph -> String
-html (Text str)        = unlines [open "p", str, close "p"]
-html (Heading lvl str) = ...
-html (Heading 0 str)   = html (Heading 1 str)
-html (List ord items)  = ...
+html (PText str)        = unlines [open "p", str, close "p"]
+html (PHeading lvl str) = ...
+html (PHeading 0 str)   = html (PHeading 1 str)
+html (PList ord items)  = ...
 ```
 
 What would GHCi say to:
 
 ```haskell
-html (Heading 0 "Introduction")
+html (PHeading 0 "Introduction")
 ```
 
 <br>
 
 (I) final    
 
-    *Answer:* `Heading 0 "Introduction"` will be matched by `Heading lvl str`
+    *Answer:* `PHeading 0 "Introduction"` will be matched by `PHeading lvl str`
 
 <br>
 <br>
@@ -576,19 +586,39 @@ Beware of **missing** and **overlapped** patterns
 <br>
 <br>  
   
-## Pattern matching expression
+## Pattern-Match Expression
+
+*Everything is an expression?*
+
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
 
 We've seen: pattern matching in *equations*
 
-You can also pattern-match *inside your program* using the `case` expression:
+Actually, pattern-match is *also an expression*
 
 ```haskell
 html :: Paragraph -> String
-html p = 
-  case p of
-    Text str -> unlines [open "p", str, close "p"]
-    Heading lvl str -> ...
-    List ord items -> ...
+html p = case p of
+           PText    str       -> unlines [open "p", str, close "p"]
+           PHeading lvl str   -> ...
+           PList    ord items -> ...
+```
+
+The code we saw earlier was *syntactic sugar*
+
+```haskell
+html (C1 x1 ...) = e1
+html (C2 x2 ...) = e2
+html (C3 x3 ...) = e3
+```
+
+is just for *humans*, internally represented as a `case-of` expression
+
+```haskell
+html p = case p of
+           (C1 x1 ...) -> e1
+           (C2 x2 ...) -> e2
+           (C3 x3 ...) -> e3
 ```
 
 <br>
@@ -603,14 +633,14 @@ html p =
 
 ## QUIZ
 
-What is the type of
+What is the **type of**
 
 ```haskell
 let p = Text "Hey there!"
 in case p of
-    Text str -> str
-    Heading lvl _ -> lvl
-    List ord _ -> ord     
+    PText    str   -> str
+    PHeading lvl _ -> lvl
+    PList    ord _ -> ord
 ```
 
 **A.**  Syntax error
@@ -657,7 +687,7 @@ has type `T` if
   * each `pattern1`...`patternN` is a *valid pattern* for `D`    
       * i.e. a variable or a constructor of `D` applied to other patterns
       
-The expression `e` is called the *match scrutinee*      
+The expression `e` is called the **match scrutinee**
 
 <br>
 <br>
@@ -676,9 +706,9 @@ What is the type of
 ```haskell
 let p = Text "Hey there!"
 in case p of
-    Text _ -> 1
-    Heading _ _ -> 2
-    List _ _ -> 3     
+    PText _      -> 1
+    PHeading _ _ -> 2
+    PList _ _    -> 3
 ```
 
 **A.**  Syntax error
@@ -707,6 +737,11 @@ in case p of
 <br>
 
 ## Building data types
+
+
+<br>
+
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
 
 <br>
 
