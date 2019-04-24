@@ -373,7 +373,11 @@ Apply a constructor = pack some values into a box (and label it)
       * put `1` and `"Introduction"` in a box labeled `PHeading`
   * Boxes have different labels but same type (`Paragraph`)
 
-![The `Paragraph` Type](/static/img/data-paragraph.png){#fig:types .align-center width=60%}
+![The `Paragraph` Type](/static/img/data-para-type.png){#fig:types .align-center width=60%}
+
+with example values:
+
+![The `Paragraph` Type](/static/img/data-para-val.png){#fig:types .align-center width=60%}
 
 <br>
 <br>
