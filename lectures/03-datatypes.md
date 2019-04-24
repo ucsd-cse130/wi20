@@ -242,9 +242,10 @@ Each paragraph is either:
 I want to store all paragraphs in a *list*
 
 ```haskell
-doc = [ (1, "Notes from 130")                                        -- Lvl 1 heading
-      , "There are two types of languages:"                          -- Plain text
-      , (True, ["those people complain about", "those no one uses"]) -- Ordered list
+doc = [ (1, "Notes from 130")                   -- Level 1 heading
+      , "There are two types of languages:"     -- Plain text
+      , (True, [ "those people complain about"  -- Ordered list
+               , "those no one uses"])
       ]
 ```  
 
@@ -266,16 +267,16 @@ Solution: construct a new type for paragraphs
 that is a *sum* (*one-of*) the three options!
 
 Each paragraph is either:
- 
-  * plain text (`String`)
-  * heading: level and text (`Int` and `String`)
-  * list: ordered? and items (`Bool` and `[String]`)
+
+* plain text (`String`)
+* heading: level and text  (`Int` & `String`)
+* list: ordered? and items (`Bool` & `[String]`)
   
 ```haskell
 data Paragraph            -- ^ 3 constructors, w/ different parameters
-  = PText String          -- ^ text   : plain string
-  | PHeading Int String   -- ^ heading: level and text (`Int` and `String`)
-  | PList Bool [String]   -- ^ list   : ordered? and items (`Bool` and `[String]`)
+  = PText String          -- ^ text: plain string
+  | PHeading Int String   -- ^ head: level and text (Int & String)
+  | PList Bool [String]   -- ^ list: ordered? & items (Bool & [String])
 ```
   
 <br>
@@ -360,8 +361,16 @@ You can think of a `T` value as a **box**:
   * *or* ...
   * *or* a box labeled `Cn` with values of types `Tn1 .. Tnm` inside
 
+![One-of Types](/static/img/data-box.png){#fig:types .align-center width=90%}
 
-![One-of Types](/static/img/data-box.png){#fig:types .align-center width=60%}
+## Constructing datatypes: `Paragraph`
+
+```haskell
+data Paragraph
+  = PText String
+  | PHeading Int String
+  | PList Bool [String]
+```
 
 <br>  
   
@@ -373,11 +382,11 @@ Apply a constructor = pack some values into a box (and label it)
       * put `1` and `"Introduction"` in a box labeled `PHeading`
   * Boxes have different labels but same type (`Paragraph`)
 
-![The `Paragraph` Type](/static/img/data-para-type.png){#fig:types .align-center width=60%}
+![The `Paragraph` Type](/static/img/data-para-type.png){#fig:types .align-center width=90%}
 
 with example values:
 
-![The `Paragraph` Type](/static/img/data-para-val.png){#fig:types .align-center width=60%}
+![The `Paragraph` Type](/static/img/data-para-val.png){#fig:types .align-center width=90%}
 
 <br>
 <br>
@@ -444,7 +453,9 @@ Now I can create a document like so:
 doc :: [Paragraph]
 doc = [ PHeading 1 "Notes from 130"
       , PText "There are two types of languages:"
-      , PList True ["those people complain about", "those no one uses"])
+      , PList True [ "those people complain about"
+                   , "those no one uses"
+                   ])
       ]
 ```
 
