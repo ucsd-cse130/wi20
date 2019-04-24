@@ -14,6 +14,8 @@ headerImg: books.jpg
 | 4/17       | contd.                          |              [pdf][pdf6]  | [hs-4-17]     |
 | 4/19       | contd.                          |                           | [hs-4-19]     |
 | 4/22       | contd.                          |                           | [hs-4-22]     |
+| 4/24       | Datatypes and Recursion         | [html][lec3] [pdf][pdf-data] | [hs-4-24]  |
+
 
 <!-- 
  1/30       | Datatypes and Recursion         | [html][lec3]              |               |
@@ -72,6 +74,7 @@ headerImg: books.jpg
 [lc3]:  /static/raw/lec_4_8_2019.lc
 [pdf5]: /static/raw/02-haskell-A.pdf
 [pdf6]: /static/raw/02-haskell-B.pdf
+[pdf-data]: /static/raw/03-datatypes.pdf
 
 [lc4]:  /static/raw/lec_4_10_2019.lc
 [pdf2]: /static/raw/01-lambda-B-annot.pdf
@@ -80,6 +83,7 @@ headerImg: books.jpg
 [hs-4-17]:  /static/raw/lec_4_17_2019.hs
 [hs-4-19]:  /static/raw/lec_4_19_2019.hs
 [hs-4-22]:  /static/raw/lec_4_22_2019.hs
+[hs-4-24]:  /static/raw/lec_4_24_2019.hs
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
