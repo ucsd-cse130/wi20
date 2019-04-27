@@ -3,93 +3,109 @@ import Prelude hiding (sum, length, lookup, take)
 import Data.Char
 import Debug.Trace
 
-add3Tuple :: (Int, Int, Int) -> Int
-add3Tuple triple = let (x, y, z) = triple
-                   in x + y + z
-
--- add3Tuple (x, y, z) = x + y + z
-
-add3 :: Int -> (Int -> (Int -> Int))
-add3 =  \x  -> (\y  -> (\z  -> x + y + z))
--- add3 x y z = x + y + z
-
--- LISTS
--- >>> range 0 0
--- []
--- >>> range 1 0
--- []
--- >>> range 0 5
--- [0,1,2,3,4]
---
-
--- >>> range 0 3
--- [0, 1, 2]
-
-range :: Int -> Int -> [Int] 
-range 3 3 =       []
-range 2 3 =     2:[]
-range 1 3 =   1:2:[]
-range 0 3 = 0:1:2:[]
-
-range i j 
-  | i >= j    = [] 
-  | otherwise = i : range (i+1) j
-
-
--- >>> len []
--- 0
-
--- >>> len [62]
--- 1
-
--- >>> len [5, 62]
--- 2
-
-len :: [a] -> Int
-len []    = 0 
-len (h:t) = 1 + len t
-
--- >>> take 0 [1,2,3,4]
--- []
-
--- >>> take 1 [1,2,3,4]
--- [1]
-
--- >>> take 2 [1,2,3,4]
--- [1, 2]
-
--- >>> take 200 [1,2,3,4]
--- [1,2,3,4]
-
-
--- take :: Int -> [thing] -> [thing]
-take n []     = []
-take 0 xs     = []
-take n (x:xs) = x : (take (n-1) xs)
-  where
-    msg       = "trace (n, xs) = " ++ show (n, xs)
-
-goBabyGo :: Int -> [Int]
-goBabyGo n = n : goBabyGo (n+1)
-
--------------------------------------------------------------------------------
--- | How to debug Haskell code
--------------------------------------------------------------------------------
-
-fact :: Int -> Int 
-fact n = let res  = if n == 0 then 1 else n * fact (n - 1) 
-         in trace ("fact: n = " ++ show n ++ " result = " ++ show res) res
-
-
 -- >>> shout "like this" 
 -- "LIKE THIS" 
 
 shout :: [Char] -> [Char] 
--- shout []        = []
--- shout (c:chars) = toUpper c : shout chars
-
--- def shout(chars): return [ toUpper(c) for c in chars ]
 shout chars = [ toUpper c | c <- chars ] 
 
-fac 0 = 1 
-fac n = ({- trace ("n = " ++ show n) -} n) * fac (n-1)
+
+-- >>> addEm [] 
+-- 0
+
+-- >>> addEm [3] 
+-- 3
+
+-- >>> addEm [2, 3] 
+-- 5
+
+-- >>> addEm [10, 20, 30] 
+-- 60
+
+
+addEm :: [Int] -> Int
+addEm []    = 0
+addEm (h:t) = h + addEm t 
+
+{- 
+addEm xs = case xs of  
+             []    -> 0
+             (h:t) -> h + addEm t
+
+addEm xs = if null xs 
+             then 0 
+             else head xs + addEm (tail xs)
+
+-}
+
+type Month = String
+
+-- DEFINE the datatype 
+
+-- constructor
+-- MkDate :: Int -> Month -> Int -> Date
+
+-- destructor "fields" 
+-- day    :: Date -> Int
+-- month  :: Date -> Month
+-- year   :: Date -> Int 
+
+data Date = MkDate 
+  { day   :: Int
+  , month :: Month 
+  , year  :: Int
+  }
+  deriving (Show)
+
+data Time = MkTime 
+  { hour   :: Int
+  , minute :: Int
+  , second :: Int
+  }
+  deriving (Show)
+
+-- CONSTRUCT VALUES
+
+deadlineDate :: Date
+deadlineDate = MkDate 3 "May" 2019
+
+deadlineTime :: Time
+deadlineTime = MkTime 23 59 59
+
+-- extendDate :: Date -> Int -> Date
+
+-- >>> extendDate (12, 31, 2019) 2
+-- (1, 2, 2020)
+
+-- >>> extendDate deadTime
+
+-- ACCESSING RECORDS
+
+getMonth :: Date -> Month
+getMonth (MkDate d m y) = m 
+
+
+data Para 
+  = PHead Int String
+  | PText String
+  | PList Bool [String]
+
+
+doc :: [Para]
+doc = [ PHead 1 "Notes from 130"                      -- (Int, String)
+      , PText "There are two types of languages:"         -- String
+      , PList True [ "Those that people complain about" -- (Bool, [String])
+                   , "Those that no one uses"
+                   ]
+      ]
+
+{- 
+
+# Notes from 130 
+
+There are two types of languages:
+
+1. Those that people complain about
+2. Those that no one uses
+
+-}
