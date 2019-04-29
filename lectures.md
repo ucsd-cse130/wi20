@@ -15,6 +15,8 @@ headerImg: books.jpg
 | 4/19       | contd.                          |                           | [hs-4-19]     |
 | 4/22       | contd.                          |                           | [hs-4-22]     |
 | 4/24       | Datatypes and Recursion         | [html][lec3] [pdf][pdf-data] | [hs-4-24]  |
+| 4/26       | contd.                          |                              | [hs-4-26]  |
+| 4/29       | contd.                          |                              | [hs-4-29]  |
 
 
 <!-- 
@@ -84,6 +86,8 @@ headerImg: books.jpg
 [hs-4-19]:  /static/raw/lec_4_19_2019.hs
 [hs-4-22]:  /static/raw/lec_4_22_2019.hs
 [hs-4-24]:  /static/raw/lec_4_24_2019.hs
+[hs-4-26]:  /static/raw/lec_4_26_2019.hs
+[hs-4-29]:  /static/raw/lec_4_29_2019.hs
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
