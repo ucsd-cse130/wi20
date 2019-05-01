@@ -1052,9 +1052,9 @@ What is the right *inductive strategy* for appending two lists?
 
 Lists are *unary trees* with elements stored in the nodes:
 
-```
-1 - 2 - 3 - ()
-```
+
+![Lists are unary trees](/static/img/list-tree.png){#fig:types .align-center width=90%}
+
 
 ```haskell
 data List = Nil | Cons Int List
@@ -1062,13 +1062,7 @@ data List = Nil | Cons Int List
 
 How do we represent *binary trees* with elements stored in the nodes?
 
-```
-1 - 2 - 3 - ()
-  |   |   \ ()
-  |   \ ()
-  \ 4 - ()
-      \ ()  
-```
+![Binary trees with data at nodes](/static/img/tree-data-node.png){#fig:types .align-center width=90%}
 
 <br>
 <br>
@@ -1084,13 +1078,7 @@ How do we represent *binary trees* with elements stored in the nodes?
 
 What is a Haskell datatype for *binary trees* with elements stored in the nodes?
 
-```
-1 - 2 - 3 - ()
-  |   |   \ ()
-  |   \ ()
-  \ 4 - ()
-      \ ()  
-```
+![Binary trees with data at nodes](/static/img/tree-data-node.png){#fig:types .align-center width=90%}
 
 **(A)** `data Tree = Leaf | Node Int Tree`
 
@@ -1119,13 +1107,7 @@ What is a Haskell datatype for *binary trees* with elements stored in the nodes?
 <br>
 <br>  
 
-```
-1 - 2 - 3 - ()
-  |   |   \ ()
-  |   \ ()
-  \ 4 - ()
-      \ ()  
-```
+![Binary trees with data at nodes](/static/img/tree-data-node.png){#fig:types .align-center width=90%}
 
 ```haskell
 data Tree = Leaf | Node Int Tree Tree
@@ -1145,12 +1127,10 @@ t1234 = Node 1
 
 ## Functions on trees
 
-(I) lecture
-    
-    ```haskell
-    depth :: Tree -> Int
-    depth t = ??
-    ```
+```haskell
+depth :: Tree -> Int
+depth t = ??
+```
     
 (I) final
     
@@ -1171,14 +1151,9 @@ t1234 = Node 1
 ## QUIZ: Binary trees II
 
 What is a Haskell datatype for *binary trees* with elements stored in the leaves?
+    
+![Binary trees with data at leaves](/static/img/tree-data-leaf.png){#fig:types .align-center width=90%}
 
-```
-() - () - () - 1
-   |    |    \ 2
-   |    \ 3
-   \ () - 4
-        \ 5  
-```
 
 **(A)** `data Tree = Leaf | Node Int Tree`
 
@@ -1203,14 +1178,6 @@ I) final
 <br>
 <br>
 <br>
-
-```
-() - () - () - 1
-   |    |    \ 2
-   |    \ 3
-   \ () - 4
-        \ 5  
-```
 
 ```haskell
 data Tree = Leaf Int | Node Tree Tree
@@ -1267,12 +1234,11 @@ data Expr = Num Float
 
 How do we write a function to *evaluate* an expression?
 
-(I) lecture
 
-    ```haskell
-    eval :: Expr -> Float
-    eval e = ???
-    ```
+```haskell
+eval :: Expr -> Float
+eval e = ???
+```
     
 (I) final
 
@@ -1328,8 +1294,9 @@ from solutions for *sub-problems*
 <br>
 <br>
 <br>
-<br>    
-    
+<br>
+
+
 ## Why **not** use Recursion?
 
 1. Slow

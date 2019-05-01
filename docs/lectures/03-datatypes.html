@@ -730,22 +730,20 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="trees">Trees</h2>
 <p>Lists are <em>unary trees</em> with elements stored in the nodes:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()</a></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span> <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span></a></code></pre></div>
+<figure>
+<img src="../static/img/list-tree.png" alt="Lists are unary trees" id="fig:types" class="align-center" style="width:90.0%" /><figcaption>Lists are unary trees</figcaption>
+</figure>
+<div class="sourceCode" id="cb45"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span> <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span></a></code></pre></div>
 <p>How do we represent <em>binary trees</em> with elements stored in the nodes?</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">  <span class="fu">|</span>   <span class="fu">|</span>   \ ()</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">  <span class="fu">|</span>   \ ()</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">  \ <span class="dv">4</span> <span class="fu">-</span> ()</a>
-<a class="sourceLine" id="cb47-5" data-line-number="5">      \ ()  </a></code></pre></div>
+<figure>
+<img src="../static/img/tree-data-node.png" alt="Binary trees with data at nodes" id="fig:types" class="align-center" style="width:90.0%" /><figcaption>Binary trees with data at nodes</figcaption>
+</figure>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-binary-trees-i">QUIZ: Binary trees I</h2>
 <p>What is a Haskell datatype for <em>binary trees</em> with elements stored in the nodes?</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2">  <span class="fu">|</span>   <span class="fu">|</span>   \ ()</a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">  <span class="fu">|</span>   \ ()</a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">  \ <span class="dv">4</span> <span class="fu">-</span> ()</a>
-<a class="sourceLine" id="cb48-5" data-line-number="5">      \ ()  </a></code></pre></div>
+<figure>
+<img src="../static/img/tree-data-node.png" alt="Binary trees with data at nodes" id="fig:types" class="align-center" style="width:90.0%" /><figcaption>Binary trees with data at nodes</figcaption>
+</figure>
 <p><strong>(A)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span></code></p>
 <p><strong>(B)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
@@ -754,28 +752,25 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="dv">1</span> <span class="fu">-</span> <span class="dv">2</span> <span class="fu">-</span> <span class="dv">3</span> <span class="fu">-</span> ()</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2">  <span class="fu">|</span>   <span class="fu">|</span>   \ ()</a>
-<a class="sourceLine" id="cb49-3" data-line-number="3">  <span class="fu">|</span>   \ ()</a>
-<a class="sourceLine" id="cb49-4" data-line-number="4">  \ <span class="dv">4</span> <span class="fu">-</span> ()</a>
-<a class="sourceLine" id="cb49-5" data-line-number="5">      \ ()  </a></code></pre></div>
-<div class="sourceCode" id="cb50"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb50-3" data-line-number="3">t1234 <span class="fu">=</span> <span class="dt">Node</span> <span class="dv">1</span> </a>
-<a class="sourceLine" id="cb50-4" data-line-number="4">          (<span class="dt">Node</span> <span class="dv">2</span> (<span class="dt">Node</span> <span class="dv">3</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>) <span class="dt">Leaf</span>) </a>
-<a class="sourceLine" id="cb50-5" data-line-number="5">          (<span class="dt">Node</span> <span class="dv">4</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>)</a></code></pre></div>
+<figure>
+<img src="../static/img/tree-data-node.png" alt="Binary trees with data at nodes" id="fig:types" class="align-center" style="width:90.0%" /><figcaption>Binary trees with data at nodes</figcaption>
+</figure>
+<div class="sourceCode" id="cb46"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">t1234 <span class="fu">=</span> <span class="dt">Node</span> <span class="dv">1</span> </a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">          (<span class="dt">Node</span> <span class="dv">2</span> (<span class="dt">Node</span> <span class="dv">3</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>) <span class="dt">Leaf</span>) </a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">          (<span class="dt">Node</span> <span class="dv">4</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>)</a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-on-trees">Functions on trees</h2>
-<div class="sourceCode" id="cb51"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="ot">depth ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">depth t <span class="fu">=</span> <span class="fu">??</span></a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="ot">depth ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">depth t <span class="fu">=</span> <span class="fu">??</span></a></code></pre></div>
+
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-binary-trees-ii">QUIZ: Binary trees II</h2>
 <p>What is a Haskell datatype for <em>binary trees</em> with elements stored in the leaves?</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb52-1" data-line-number="1">() <span class="fu">-</span> () <span class="fu">-</span> () <span class="fu">-</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2">   <span class="fu">|</span>    <span class="fu">|</span>    \ <span class="dv">2</span></a>
-<a class="sourceLine" id="cb52-3" data-line-number="3">   <span class="fu">|</span>    \ <span class="dv">3</span></a>
-<a class="sourceLine" id="cb52-4" data-line-number="4">   \ () <span class="fu">-</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb52-5" data-line-number="5">        \ <span class="dv">5</span>  </a></code></pre></div>
+<figure>
+<img src="../static/img/tree-data-leaf.png" alt="Binary trees with data at leaves" id="fig:types" class="align-center" style="width:90.0%" /><figcaption>Binary trees with data at leaves</figcaption>
+</figure>
 <p><strong>(A)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span></code></p>
 <p><strong>(B)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></code></p>
@@ -784,16 +779,11 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb53-1" data-line-number="1">() <span class="fu">-</span> () <span class="fu">-</span> () <span class="fu">-</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2">   <span class="fu">|</span>    <span class="fu">|</span>    \ <span class="dv">2</span></a>
-<a class="sourceLine" id="cb53-3" data-line-number="3">   <span class="fu">|</span>    \ <span class="dv">3</span></a>
-<a class="sourceLine" id="cb53-4" data-line-number="4">   \ () <span class="fu">-</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb53-5" data-line-number="5">        \ <span class="dv">5</span>  </a></code></pre></div>
-<div class="sourceCode" id="cb54"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></a>
-<a class="sourceLine" id="cb54-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb54-3" data-line-number="3">t12345 <span class="fu">=</span> <span class="dt">Node</span></a>
-<a class="sourceLine" id="cb54-4" data-line-number="4">          (<span class="dt">Node</span> (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">1</span>) (<span class="dt">Leaf</span> <span class="dv">2</span>)) (<span class="dt">Leaf</span> <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb54-5" data-line-number="5">          (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">4</span>) (<span class="dt">Leaf</span> <span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">t12345 <span class="fu">=</span> <span class="dt">Node</span></a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">          (<span class="dt">Node</span> (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">1</span>) (<span class="dt">Leaf</span> <span class="dv">2</span>)) (<span class="dt">Leaf</span> <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb48-5" data-line-number="5">          (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">4</span>) (<span class="dt">Leaf</span> <span class="dv">5</span>))</a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="example-calculator">Example: Calculator</h2>
 <p>I want to implement an arithmetic calculator to evaluate expressions like:</p>
@@ -803,16 +793,17 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li><code class="sourceCode haskell">(<span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span>) <span class="fu">*</span> (<span class="fl">3.78</span> <span class="fu">-</span> <span class="fl">5.92</span>)</code></li>
 </ul>
 <p>What is a Haskell datatype to <em>represent</em> these expressions?</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Float</span></a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">          <span class="fu">|</span> <span class="dt">Add</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
-<a class="sourceLine" id="cb56-3" data-line-number="3">          <span class="fu">|</span> <span class="dt">Sub</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
-<a class="sourceLine" id="cb56-4" data-line-number="4">          <span class="fu">|</span> <span class="dt">Mul</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Float</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2">          <span class="fu">|</span> <span class="dt">Add</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3">          <span class="fu">|</span> <span class="dt">Sub</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4">          <span class="fu">|</span> <span class="dt">Mul</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a></code></pre></div>
 <p><br> <br></p>
 <p>How do we write a function to <em>evaluate</em> an expression?</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Float</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">eval e <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Float</span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">eval e <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
+
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="recursion-is">Recursion is…</h2>
 <p>Building solutions for <em>big problems</em> from solutions for <em>sub-problems</em></p>
@@ -839,20 +830,20 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ol>
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="example-factorial">Example: factorial</h2>
-<div class="sourceCode" id="cb58"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="ot">fac ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2">fac n</a>
-<a class="sourceLine" id="cb58-3" data-line-number="3">  <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb58-4" data-line-number="4">  <span class="fu">|</span> otherwise <span class="fu">=</span> n <span class="fu">*</span> fac (n <span class="fu">-</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="ot">fac ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2">fac n</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">  <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">  <span class="fu">|</span> otherwise <span class="fu">=</span> n <span class="fu">*</span> fac (n <span class="fu">-</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><br> <br></p>
 <p>Lets see how <code class="sourceCode haskell">fac <span class="dv">4</span></code> is evaluated:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="fu">&lt;</span>fac <span class="dv">4</span><span class="fu">&gt;</span></a>
-<a class="sourceLine" id="cb59-2" data-line-number="2">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">3</span><span class="fu">&gt;&gt;</span>              <span class="co">-- recursively call `fact 3`</span></a>
-<a class="sourceLine" id="cb59-3" data-line-number="3">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">2</span><span class="fu">&gt;&gt;&gt;</span>        <span class="co">--   recursively call `fact 2`</span></a>
-<a class="sourceLine" id="cb59-4" data-line-number="4">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">2</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">1</span><span class="fu">&gt;&gt;&gt;&gt;</span>  <span class="co">--     recursively call `fact 1`</span></a>
-<a class="sourceLine" id="cb59-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">2</span> <span class="fu">*</span> <span class="dv">1</span><span class="fu">&gt;&gt;&gt;</span>        <span class="co">--     multiply 2 to result </span></a>
-<a class="sourceLine" id="cb59-6" data-line-number="6">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="dv">2</span><span class="fu">&gt;&gt;</span>              <span class="co">--   multiply 3 to result</span></a>
-<a class="sourceLine" id="cb59-7" data-line-number="7">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="dv">6</span><span class="fu">&gt;</span>                    <span class="co">-- multiply 4 to result</span></a>
-<a class="sourceLine" id="cb59-8" data-line-number="8">  <span class="fu">==&gt;</span> <span class="dv">24</span></a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="fu">&lt;</span>fac <span class="dv">4</span><span class="fu">&gt;</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">3</span><span class="fu">&gt;&gt;</span>              <span class="co">-- recursively call `fact 3`</span></a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">2</span><span class="fu">&gt;&gt;&gt;</span>        <span class="co">--   recursively call `fact 2`</span></a>
+<a class="sourceLine" id="cb53-4" data-line-number="4">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">2</span> <span class="fu">*</span> <span class="fu">&lt;</span>fac <span class="dv">1</span><span class="fu">&gt;&gt;&gt;&gt;</span>  <span class="co">--     recursively call `fact 1`</span></a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">2</span> <span class="fu">*</span> <span class="dv">1</span><span class="fu">&gt;&gt;&gt;</span>        <span class="co">--     multiply 2 to result </span></a>
+<a class="sourceLine" id="cb53-6" data-line-number="6">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="fu">&lt;</span><span class="dv">3</span> <span class="fu">*</span> <span class="dv">2</span><span class="fu">&gt;&gt;</span>              <span class="co">--   multiply 3 to result</span></a>
+<a class="sourceLine" id="cb53-7" data-line-number="7">  <span class="fu">==&gt;</span> <span class="fu">&lt;</span><span class="dv">4</span> <span class="fu">*</span> <span class="dv">6</span><span class="fu">&gt;</span>                    <span class="co">-- multiply 4 to result</span></a>
+<a class="sourceLine" id="cb53-8" data-line-number="8">  <span class="fu">==&gt;</span> <span class="dv">24</span></a></code></pre></div>
 <p><br> <br></p>
 <p>Each <em>function call</em> <code class="sourceCode haskell"><span class="fu">&lt;&gt;</span></code> allocates a frame on the <em>call stack</em></p>
 <ul>
@@ -869,10 +860,10 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 </ul>
 <p><br> <br></p>
 <h3 id="quiz-is-this-function-tail-recursive">QUIZ: Is this function tail recursive?</h3>
-<div class="sourceCode" id="cb60"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="ot">fac ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2">fac n</a>
-<a class="sourceLine" id="cb60-3" data-line-number="3">  <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb60-4" data-line-number="4">  <span class="fu">|</span> otherwise <span class="fu">=</span> n <span class="fu">*</span> fac (n <span class="fu">-</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="ot">fac ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">fac n</a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">  <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb54-4" data-line-number="4">  <span class="fu">|</span> otherwise <span class="fu">=</span> n <span class="fu">*</span> fac (n <span class="fu">-</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><strong>A.</strong> Yes</p>
 <p><strong>B.</strong> No</p>
 <p><br></p>
@@ -880,16 +871,16 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="tail-recursive-factorial">Tail recursive factorial</h2>
 <p>Let’s write a tail-recursive factorial!</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="ot">facTR ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb61-2" data-line-number="2">facTR n <span class="fu">=</span> <span class="fu">...</span> </a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="ot">facTR ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">facTR n <span class="fu">=</span> <span class="fu">...</span> </a></code></pre></div>
 <p><br> <br> <br> <br></p>
 <p>Lets see how <code class="sourceCode haskell">facTR</code> is evaluated:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="fu">&lt;</span>facTR <span class="dv">4</span><span class="fu">&gt;</span></a>
-<a class="sourceLine" id="cb62-2" data-line-number="2">  <span class="fu">==&gt;</span>    <span class="fu">&lt;&lt;</span>loop <span class="dv">1</span>  <span class="dv">4</span><span class="fu">&gt;&gt;</span> <span class="co">-- call loop 1 4</span></a>
-<a class="sourceLine" id="cb62-3" data-line-number="3">  <span class="fu">==&gt;</span>   <span class="fu">&lt;&lt;&lt;</span>loop <span class="dv">4</span>  <span class="dv">3</span><span class="fu">&gt;&gt;&gt;</span> <span class="co">-- rec call loop 4 3 </span></a>
-<a class="sourceLine" id="cb62-4" data-line-number="4">  <span class="fu">==&gt;</span>  <span class="fu">&lt;&lt;&lt;&lt;</span>loop <span class="dv">12</span> <span class="dv">2</span><span class="fu">&gt;&gt;&gt;&gt;</span> <span class="co">-- rec call loop 12 2</span></a>
-<a class="sourceLine" id="cb62-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="fu">&lt;&lt;&lt;&lt;&lt;</span>loop <span class="dv">24</span> <span class="dv">1</span><span class="fu">&gt;&gt;&gt;&gt;&gt;</span> <span class="co">-- rec call loop 24 1</span></a>
-<a class="sourceLine" id="cb62-6" data-line-number="6">  <span class="fu">==&gt;</span> <span class="dv">24</span>                  <span class="co">-- return result 24! </span></a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="fu">&lt;</span>facTR <span class="dv">4</span><span class="fu">&gt;</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">  <span class="fu">==&gt;</span>    <span class="fu">&lt;&lt;</span>loop <span class="dv">1</span>  <span class="dv">4</span><span class="fu">&gt;&gt;</span> <span class="co">-- call loop 1 4</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">  <span class="fu">==&gt;</span>   <span class="fu">&lt;&lt;&lt;</span>loop <span class="dv">4</span>  <span class="dv">3</span><span class="fu">&gt;&gt;&gt;</span> <span class="co">-- rec call loop 4 3 </span></a>
+<a class="sourceLine" id="cb56-4" data-line-number="4">  <span class="fu">==&gt;</span>  <span class="fu">&lt;&lt;&lt;&lt;</span>loop <span class="dv">12</span> <span class="dv">2</span><span class="fu">&gt;&gt;&gt;&gt;</span> <span class="co">-- rec call loop 12 2</span></a>
+<a class="sourceLine" id="cb56-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="fu">&lt;&lt;&lt;&lt;&lt;</span>loop <span class="dv">24</span> <span class="dv">1</span><span class="fu">&gt;&gt;&gt;&gt;&gt;</span> <span class="co">-- rec call loop 24 1</span></a>
+<a class="sourceLine" id="cb56-6" data-line-number="6">  <span class="fu">==&gt;</span> <span class="dv">24</span>                  <span class="co">-- return result 24! </span></a></code></pre></div>
 <p>Each recursive call <strong>directly</strong> returns the result</p>
 <ul>
 <li><p>without further computation</p></li>
@@ -899,19 +890,19 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="why-care-about-tail-recursion">Why care about Tail Recursion?</h2>
 <p>Because the <em>compiler</em> can transform it into a <em>fast loop</em></p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb63-1" data-line-number="1">facTR n <span class="fu">=</span> loop <span class="dv">1</span> n</a>
-<a class="sourceLine" id="cb63-2" data-line-number="2">  <span class="kw">where</span></a>
-<a class="sourceLine" id="cb63-3" data-line-number="3">    loop acc n</a>
-<a class="sourceLine" id="cb63-4" data-line-number="4">      <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> acc</a>
-<a class="sourceLine" id="cb63-5" data-line-number="5">      <span class="fu">|</span> otherwise <span class="fu">=</span> loop (acc <span class="fu">*</span> n) (n <span class="fu">-</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb57-1" data-line-number="1">facTR n <span class="fu">=</span> loop <span class="dv">1</span> n</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">  <span class="kw">where</span></a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">    loop acc n</a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">      <span class="fu">|</span> n <span class="fu">&lt;=</span> <span class="dv">1</span>    <span class="fu">=</span> acc</a>
+<a class="sourceLine" id="cb57-5" data-line-number="5">      <span class="fu">|</span> otherwise <span class="fu">=</span> loop (acc <span class="fu">*</span> n) (n <span class="fu">-</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">function</span> <span class="at">facTR</span>(n)<span class="op">{</span> </a>
-<a class="sourceLine" id="cb64-2" data-line-number="2">  <span class="kw">var</span> acc <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
-<a class="sourceLine" id="cb64-3" data-line-number="3">  <span class="cf">while</span> (<span class="kw">true</span>) <span class="op">{</span></a>
-<a class="sourceLine" id="cb64-4" data-line-number="4">    <span class="cf">if</span> (n <span class="op">&lt;=</span> <span class="dv">1</span>) <span class="op">{</span> <span class="cf">return</span> acc <span class="op">;</span> <span class="op">}</span></a>
-<a class="sourceLine" id="cb64-5" data-line-number="5">    <span class="cf">else</span>        <span class="op">{</span> acc <span class="op">=</span> acc <span class="op">*</span> n<span class="op">;</span> n <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> <span class="op">}</span></a>
-<a class="sourceLine" id="cb64-6" data-line-number="6">  <span class="op">}</span></a>
-<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="op">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">function</span> <span class="at">facTR</span>(n)<span class="op">{</span> </a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">  <span class="kw">var</span> acc <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb58-3" data-line-number="3">  <span class="cf">while</span> (<span class="kw">true</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">    <span class="cf">if</span> (n <span class="op">&lt;=</span> <span class="dv">1</span>) <span class="op">{</span> <span class="cf">return</span> acc <span class="op">;</span> <span class="op">}</span></a>
+<a class="sourceLine" id="cb58-5" data-line-number="5">    <span class="cf">else</span>        <span class="op">{</span> acc <span class="op">=</span> acc <span class="op">*</span> n<span class="op">;</span> n <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> <span class="op">}</span></a>
+<a class="sourceLine" id="cb58-6" data-line-number="6">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb58-7" data-line-number="7"><span class="op">}</span></a></code></pre></div>
 <ul>
 <li><p>Tail recursive calls can be optimized as a <strong>loop</strong></p>
 <ul>
