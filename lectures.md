@@ -15,15 +15,15 @@ headerImg: books.jpg
 | 4/19       | contd.                          |                           | [hs-4-19]     |
 | 4/22       | contd.                          |                           | [hs-4-22]     |
 | 4/24       | Datatypes and Recursion         | [html][lec3] [pdf][pdf-data] | [hs-4-24]  |
-| 4/26       | contd.                          |                              | [hs-4-26]  |
+| 4/26       | contd.                          | [pdf][pdf-data-b]            | [hs-4-26]  |
 | 4/29       | contd.                          |                              | [hs-4-29]  |
-
+| 5/1        | contd.                          |                              | [hs-5-1]  |
+| 5/4        | Higher Order Functions          | [html][lec4]              | [hs-5-3]     |
 
 <!-- 
  1/30       | Datatypes and Recursion         | [html][lec3]              |               |
 | 1/1        | contd.                          |                           |               |
 | 2/4        | contd.                          |                           |               |
-| 2/6        | Higher Order Functions          | [html][lec4]              |               |
 | 2/8        | contd.                          |                           |               |
 | 2/11       | **Midterm**                     | [exam][midterm] [solution][midterm-sol] | |
 | 2/13       | Environments and Closures       | [html][lec5]              |               |
@@ -77,6 +77,7 @@ headerImg: books.jpg
 [pdf5]: /static/raw/02-haskell-A.pdf
 [pdf6]: /static/raw/02-haskell-B.pdf
 [pdf-data]: /static/raw/03-datatypes.pdf
+[pdf-data-b]: /static/raw/03-datatypes-B.pdf
 
 [lc4]:  /static/raw/lec_4_10_2019.lc
 [pdf2]: /static/raw/01-lambda-B-annot.pdf
