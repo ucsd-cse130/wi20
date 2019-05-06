@@ -89,6 +89,8 @@ headerImg: books.jpg
 [hs-4-24]:  /static/raw/lec_4_24_2019.hs
 [hs-4-26]:  /static/raw/lec_4_26_2019.hs
 [hs-4-29]:  /static/raw/lec_4_29_2019.hs
+[hs-5-1]:  /static/raw/lec_5_1_2019.hs
+[hs-5-3]:  /static/raw/lec_5_3_2019.hs
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
