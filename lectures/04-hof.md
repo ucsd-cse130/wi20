@@ -306,7 +306,7 @@ Lets write a function `squares`:
 ```haskell
 squares :: [Int] -> [Int]
 squares []     = ...
-squares (x:xs) = ... 
+squares (x:xs) = ...
 ```
 
 <br>
@@ -355,7 +355,7 @@ pattern = ...
 
 General Pattern
 
-- HOF `map` 
+- HOF `map`
 - Apply a transformation `f` to each element of a list
 
 Specific Operations

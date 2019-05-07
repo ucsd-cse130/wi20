@@ -17,8 +17,9 @@ headerImg: books.jpg
 | 4/24       | Datatypes and Recursion         | [html][lec3] [pdf][pdf-data] | [hs-4-24]  |
 | 4/26       | contd.                          | [pdf][pdf-data-b]            | [hs-4-26]  |
 | 4/29       | contd.                          |                              | [hs-4-29]  |
-| 5/1        | contd.                          |                              | [hs-5-1]  |
-| 5/4        | Higher Order Functions          | [html][lec4]              | [hs-5-3]     |
+| 5/1        | contd.                          |                              | [hs-5-1]   |
+| 5/3        | contd.                          |                              | [hs-5-3]   |
+| 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]     |
 
 <!-- 
  1/30       | Datatypes and Recursion         | [html][lec3]              |               |
@@ -91,6 +92,7 @@ headerImg: books.jpg
 [hs-4-29]:  /static/raw/lec_4_29_2019.hs
 [hs-5-1]:  /static/raw/lec_5_1_2019.hs
 [hs-5-3]:  /static/raw/lec_5_3_2019.hs
+[hs-5-6]:  /static/raw/lec_5_6_2019.hs
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
