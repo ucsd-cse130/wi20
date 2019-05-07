@@ -14,12 +14,15 @@ headerImg: books.jpg
 | 4/17       | contd.                          |              [pdf][pdf6]  | [hs-4-17]     |
 | 4/19       | contd.                          |                           | [hs-4-19]     |
 | 4/22       | contd.                          |                           | [hs-4-22]     |
-| 4/24       | Datatypes and Recursion         | [html][lec3] [pdf][pdf-data] | [hs-4-24]  |
+| 4/24       | Datatypes & Recursion           | [html][lec3] [pdf][pdf-data] | [hs-4-24]  |
 | 4/26       | contd.                          | [pdf][pdf-data-b]            | [hs-4-26]  |
 | 4/29       | contd.                          |                              | [hs-4-29]  |
 | 5/1        | contd.                          |                              | [hs-5-1]   |
 | 5/3        | contd.                          |                              | [hs-5-3]   |
-| 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]     |
+| 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
+|            | Environments & Closures         | [html][lec5]                 |            |
+|            | Lexing and Parsing              | [html][lec6]                 | [hs][parsing] |
+|            | Overloading & TypeClasses       | [html][lec7-cl]              |            |
 
 <!-- 
  1/30       | Datatypes and Recursion         | [html][lec3]              |               |
@@ -65,7 +68,8 @@ headerImg: books.jpg
 [lec4]: lectures/04-hof.html
 [lec5]: lectures/05-closure.html
 [lec6]: lectures/06-parsing.html
-[lec7]: lectures/07-types.html
+[lec7-ty]: lectures/07-types.html
+[lec7-cl]: lectures/07-classes.html
 [lec8]: lectures/08-prolog.html
 
 [pdf0]: /static/raw/00-intro-annot.pdf
