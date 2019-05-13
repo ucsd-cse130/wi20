@@ -94,7 +94,6 @@ shout :: [Char] -> [Char]
 shout []     = []
 shout (c:cs) = toUpper c  : shout cs
 
--- >>> squares [1,2,3,4,5] 
 
 squares' = bar (\x -> x * x)
 shout'   = bar toUpper
@@ -106,6 +105,8 @@ bar f []     = []
 bar f (x:xs) = f x : bar f xs
 
 -- >>> squares [1,2,3,4,5] 
+-- [1,4,9,16,25]
 
+squares :: [Int] -> [Int]
 squares []     = []
 squares (x:xs) = x*x : squares xs 

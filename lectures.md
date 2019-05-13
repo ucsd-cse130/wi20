@@ -20,16 +20,13 @@ headerImg: books.jpg
 | 5/1        | contd.                          |                              | [hs-5-1]   |
 | 5/3        | contd.                          |                              | [hs-5-3]   |
 | 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
+| 5/8        | contd.                          |                              | [hs-5-10]  |
+| 5/10       | **Midterm**                     |                              |            |
 |            | Environments & Closures         | [html][lec5]                 |            |
 |            | Lexing and Parsing              | [html][lec6]                 | [hs][parsing] |
 |            | Overloading & TypeClasses       | [html][lec7-cl]              |            |
 
 <!-- 
- 1/30       | Datatypes and Recursion         | [html][lec3]              |               |
-| 1/1        | contd.                          |                           |               |
-| 2/4        | contd.                          |                           |               |
-| 2/8        | contd.                          |                           |               |
-| 2/11       | **Midterm**                     | [exam][midterm] [solution][midterm-sol] | |
 | 2/13       | Environments and Closures       | [html][lec5]              |               |
 | 2/15       | contd.                          |                           |               |
 | 2/18       | *No lecture: Presidents' Day*   |                           |               |
@@ -97,6 +94,10 @@ headerImg: books.jpg
 [hs-5-1]:  /static/raw/lec_5_1_2019.hs
 [hs-5-3]:  /static/raw/lec_5_3_2019.hs
 [hs-5-6]:  /static/raw/lec_5_6_2019.hs
+[hs-5-8]:  /static/raw/lec_5_8_2019.hs
+[hs-5-13]:  /static/raw/lec_5_13_2019.hs
+
+[pdf-hof]: /static/raw/04-hof.pdf 
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
