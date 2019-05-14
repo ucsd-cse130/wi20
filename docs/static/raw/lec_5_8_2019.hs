@@ -161,29 +161,50 @@ cat (x:xs) = x ++ cat xs
 
 
 
-len :: [a] -> Int
-len []     = 0
-len (x:xs) = 1 + len xs
-
 
 foldr op b []     = b
 foldr op b (x:xs) = x `op` (foldr op b xs)
 
 {- 
-foldr op b (x1:x2:x3:[])
+foldr op b (x1 : x2 : x3 : [])
  ==>  x1 `op` (foldr op b (x2:x3:[]))
  ==>  x1 `op` (x2 `op` foldr op b (x3:[]))
  ==>  x1 `op` (x2 `op` (x3 `op` (foldr op b [])))
  ==>  x1 `op` (x2 `op` (x3 `op` b))
 
+ ==>  x1 ++ (x2 ++ (x3 ++ ""))
+
  op == :
  b  == []
  ==>  x1 : (x2 : (x3 : []))
 
+
+len' ["cat", "horse"] ===> 2
+len' "cat"            ===> 3
+
+-}
+len' = foldr (\_ n -> 1 + n) 0
+
+{- 
+len' (x1 : x2 : x3 : [])
+ ==> foldr (\_ n -> 1 + n) 0 (x1: x2: x3: [])
+ ==> x1 `op` (x2 `op` (x3 `op` 0))          where op = \_ n -> 1 + n
+ ==> op x1 (op x2 (op x3 0))
+ ==> op x1 (op x2 (1 + 0))
+ ==> op x1 ((\_ n -> 1 + n) x2 (1 + 0))
+ ==> (\_ n -> 1 + n) x1 (1 + (1 + 0))
+ ==> 1 +  (1 + (1 + 0))
+
 -}
 
+len :: [a] -> Int
+len []     = 0
+len (x:xs) = 1 + len xs
 
-len' = foldr (\_ n -> 1 + n) 0 
+
+-- 1. What happened to extra param? A: don't need it!
+-- 
+
 
 -- >>> len' "september"
 -- 9
@@ -210,3 +231,62 @@ sum' = foldr (+)  0
 
 
 
+
+
+
+{- foldl op acc (x1 : x2 : x3 : [])
+    ==> foldl op  (op acc x1) (x2 : x3 : []) 
+    ==> foldl op  (op (op acc x1) x2) (x3 : []) 
+    ==> foldl op  (op (op (op acc x1) x2) x3) [] 
+    ==> (op (op (op acc x1) x2) x3) 
+    ==> ((acc `op` x1) `op` x2) `op` x3) `op` x4 `op` .... `op` xn
+
+    ==> ((acc `op` x1) `op` x2) `op` x3) `op` x4 `op` .... `op` xn
+
+foldl (++) ""  ("carne":"asada":"torta":[])
+==> foldl ++ ("carne") ("asada":"torta":[])
+==> foldl ++ ("carneasada") (torta":[])
+==> foldl ++ ("carneasadatorta") []
+==> "carneasadatorta"
+
+n1 = [0,2,3,4,2]
+n2 = [0,9,8,4,8]
+
+
+     [(2, 8), (4,4), (3,8), (2, 9), (0, 0)]
+
+   acc = 0, []
+    (2,8)
+   acc = 1, [0]   
+    (4,4)
+   acc = 0, [9, 0]
+    (3,8)
+   acc = 1, [1, 9, 0]
+    (2,9)
+   acc = 1, [2, 1, 9, 0]
+    (0, 0) 
+   acc = 0, [1, 2, 1, 9, 0]
+
+-} 
+
+
+foldl op acc []     = acc   
+foldl op acc (x:xs) = foldl op (op acc x) xs
+
+len'' = foldl (\acc x -> acc + 1) 0
+
+sum'' = foldl (\acc x -> acc + x) 0
+
+cat'' = foldl (\acc x -> acc ++ x) ""
+
+lenTR :: Int -> [a] -> Int 
+lenTR acc []     = acc
+lenTR acc (x:xs) = lenTR (acc + 1) xs
+
+sumTR :: Int -> [Int] -> Int 
+sumTR acc []     = acc
+sumTR acc (x:xs) = sumTR (acc + x) xs 
+
+catTR :: String -> [String] -> String 
+catTR acc []     = acc 
+catTR acc (x:xs) = catTR (acc ++ x) xs 
