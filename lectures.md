@@ -20,7 +20,7 @@ headerImg: books.jpg
 | 5/1        | contd.                          |                              | [hs-5-1]   |
 | 5/3        | contd.                          |                              | [hs-5-3]   |
 | 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
-| 5/8        | contd.                          |                              | [hs-5-10]  |
+| 5/8        | contd.                          |                              | [hs-5-8]  |
 | 5/10       | **Midterm**                     |                              |            |
 |            | Environments & Closures         | [html][lec5]                 |            |
 |            | Lexing and Parsing              | [html][lec6]                 | [hs][parsing] |
