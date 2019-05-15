@@ -1,131 +1,33 @@
 ---
-title: Environments and Closures
+title: Closures
 date: 2018-05-07
 headerImg: books.jpg
 ---
 
-## Roadmap
+## Past three weeks
 
+How to *use* essential language constructs?
 
-**Past three weeks:**
+- Data Types
+- Recursion
+- Higher-Order Functions
 
-- How do we *use* a functional language?
+## Next two weeks
 
+How to *implement* language constructs?
 
-**Next three weeks:**
+- Local variables and scope
+- Environments and Closures
+- Type Inference
 
-- How do we *implement* a functional language?
-- ... in a functional language (of course)
+### Interpreter
 
-**This week: Interpreter**
+How do we *represent* and *evaluate* a program?
 
-- How do we *evaluate* a program given its abstract syntax tree (AST)?
-- How do we *prove properties* about our interpreter 
+<!-- 
+- How do we *prove properties* about our interpreter
   (e.g. that certain programs never crash)?  
-  
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## The Nano Language
-
-Features of Nano:
-
-1. Arithmetic expressions
-2. Variables and let-bindings
-3. Functions
-4. Recursion
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Reminder: Calculator
-
-Arithmetic expressions:
-
-```haskell
-e ::= n
-    | e1 + e2
-    | e1 - e2
-    | e1 * e2
-```
-
-<br>
-
-Example:
-
-```haskell
-4 + 13
-
-==> 17
-```
-
-<br>
-<br>
-
-
-Haskell datatype to *represent* arithmetic expressions:
-
-```haskell
-data Expr = Num Int
-          | Add Expr Expr
-          | Sub Expr Expr
-          | Mul Expr Expr
-```
-
-<br>
-<br>
-
-Haskell function to  *evaluate* an expression:
-
-```haskell
-eval :: Expr -> Int
-eval (Num n)     = n
-eval (Add e1 e2) = eval e1 + eval e2
-eval (Sub e1 e2) = eval e1 - eval e2
-eval (Mul e1 e2) = eval e1 * eval e2
-```
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-Alternative representation:
-
-```haskell
-data Binop = Add | Sub | Mul
-
-data Expr = Num Int              -- number
-          | Bin Binop Expr Expr  -- binary expression
-```
-
-Evaluator for alternative representation:
-
-```haskell
-eval :: Expr -> Int
-eval (Num n)        = n
-eval (Bin Add e1 e2) = eval e1 + eval e2
-eval (Bin Sub e1 e2) = eval e1 - eval e2
-eval (Bin Mul e1 e2) = eval e1 * eval e2
-```
+  -->
 
 <br>
 <br>
@@ -141,221 +43,15 @@ eval (Bin Mul e1 e2) = eval e1 * eval e2
 
 Features of Nano:
 
-1. Arithmetic expressions **[done]**
-2. Variables and let-bindings
-3. Functions
-4. Recursion
+1. Arithmetic expressions *[done]*
+2. Variables              *[done]*
+3. Let-bindings           *[done]*
+4. **Functions**
+5. Recursion
 
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Extension: variables
-
-Let's add variables and `let` bindings!
-
-```haskell
-e ::= n | x
-    | e1 + e2 | e1 - e2 | e1 * e2
-    | let x = e1 in e2    
-```
-
-<br>
-
-Example:
-
-```haskell
-let x = 4 + 13 in  -- 17 
-let y = 7 - 5 in   -- 2
-x * y
-
-==> 34
-```
-
-<br>
-<br>
-
-Haskell representation:
-
-```haskell
-data Expr = Num Int              -- number
-          | ???                  -- variable
-          | Bin Binop Expr Expr  -- binary expression
-          | ???                  -- let expression
-```
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-```haskell
-type Id = String
-
-data Expr = Num Int              -- number
-          | Var Id               -- variable
-          | Bin Binop Expr Expr  -- binary expression
-          | Let Id Expr Expr     -- let expression
-```
-
-<br>
-<br>
-
-Haskell function to  *evaluate* an expression:
-
-```haskell
-eval :: Expr -> Int
-eval (Num n)         = n
-eval (Var x)         = ???
-...
-```
-
-<br>
-
-How do we evaluate a variable?
-
-<br>
-<br>
-
-We have to remember which *value* it was bound to!
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Environment
-
-An expression is evaluated in an **environment**,
-which maps all its *free variables* to *values*
-
-<br>
-
-Examples:
-
-(I) lecture
-
-    ```haskell
-    x * y 
-    =[x:17, y:2]=> 34
-
-    x * y
-    =[x:17]=> ???
-
-    x * (let y = 2 in y)
-    =[x:17]=> ???
-    ```
-    
-(I) final
-
-    ```haskell
-    x * y 
-    =[x:17, y:2]=> 34
-
-    x * y
-    =[x:17]=> Error: unbound variable y
-
-    x * (let y = 2 in y)
-    =[x:17]=> 34
-    ```
-    
-
-<br>
-<br>
-
-- How should we represent the environment?
-- Which operations does it support?
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## QUIZ
-
-What should this evaluate to?
-
-```haskell
-let x = 5 in
-let y = x + z in
-let z = 10 in
-y
-```
-
-**(A)** `15`
-
-**(B)** `5`
-
-**(C)** Error: unbound variable `x`
-
-**(D)** Error: unbound variable `y`
-
-**(E)** Error: unbound variable `z`
-
-
-<br>
-
-(I) final
-
-    *Answer:* E
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## QUIZ
-
-What should this evaluate to?
-
-```haskell
-let x = 1 in
-let y = (let x = 2 in 2 * x) + x in
-let x = 3 in
-x + y
-```
-
-**(A)** `8`
-
-**(B)** `9`
-
-**(C)** `12`
-
-**(D)** Error: unbound variable `x`
-
-**(E)** Error: multiple definitions of `x`
-
-<br>
-
-(I) final
 
-    *Answer:* A
-    
 <br>
 <br>
 <br>
@@ -363,289 +59,7 @@ x + y
 <br>
 <br>
 <br>
-
-## Environment: API
-
-To evaluate `let x = e1 in e2` in `env`:
-
-  * evaluate `e2` in an **extended** environment `env + [x:v]`
-  * where `v` is the result of evaluating `e1`
-  
-To evaluate `x` in `env`:
-
-  * **lookup** the most recently added binding for `x`  
-
-<br>
-
-```haskell
-type Value = Int
-
-data Env = ... -- representation not that important
-
--- | Add a new binding
-add    :: Id -> Value -> Env -> Env
-
--- | Lookup the most recently added binding
-lookup :: Id -> Env -> Value
-```
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Evaluating expressions
-
-Back to our expressions... now with environments!
-
-```haskell
-data Expr = Num Int              -- number
-          | Var Id               -- variable
-          | Bin Binop Expr Expr  -- binary expression
-          | Let Id Expr Expr     -- let expression
-```
-
-<br>
-<br>
-
-Haskell function to  *evaluate* an expression:
-
-```haskell
-eval :: Env -> Expr -> Value
-eval env (Num n)         = n
-eval env (Var x)         = lookup x env
-eval env (Bin op e1 e2)  = f v1 v2
-  where
-    v1 = eval env e1
-    v2 = eval env e2
-    f = case op of
-          Add -> (+)
-          Sub -> (-)
-          Mul -> (*)
-eval env (Let x e1 e2)   = eval env' e2
-  where
-    v    = eval env e1
-    env' = add x v env    
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Example evaluation
-
-Nano expression
-
-```haskell
-let x = 1 in
-let y = (let x = 2 in x) + x in
-let x = 3 in
-x + y
-```
-
-is represented in Haskell as:
-
-```haskell
-exp1 = 
-  Let "x" 
-    (Num 1) 
-    (Let "y" 
-      (Add 
-        (Let "x" (Num 2) (Var x)) 
-        (Var x))
-      (Let "x" 
-        (Num 3) 
-        (Add (Var x) (Var y))))
-```
-
-is evaluated as:
-
-```haskell
-eval [] exp1
-=> eval []                      (Let "x" (Num 1) exp2)
-=> eval [("x",eval [] (Num 1))] exp2
-=> eval [("x",1)] 
-    (Let "y" (Add exp3 exp4) exp2)
-=> eval [("y",(eval [("x",1)] (Add exp3 exp4))), ("x",1)] 
-    exp2
-=> eval [("y",(eval [("x",1)] (Let "x" (Num 2) (Var "x")) 
-             + eval [("x",1)] (Var "x"))), ("x",1)] 
-    exp2
-=> eval [("y",(eval [("x",2), ("x",1)] (Var "x") -- new binding for x
-             + 1)), ("x",1)]
-    exp2
-=> eval [("y",(2  -- use latest binding for x          
-             + 1)), ("x",1)] 
-    exp2
-=> eval [("y",3), ("x",1)] 
-    (Let "x" (Num 3) (Add (Var "x") (Var "y")))
-=> eval [("x",3), ("y",3), ("x",1)]              -- new binding for x
-    (Add (Var "x") (Var "y"))
-=> eval [("x",3), ("y",3), ("x",1)] (Var "x") 
- + eval [("x",3), ("y",3), ("x",1)] (Var "y")
-=> 3 + 3
-=> 6
-```
-
-<br>
-
-Same evaluation in a simplified format
-(Haskell `Expr` terms replaced by their "pretty-printed version"):
-
-```haskell
-   eval []
-   {let x = 1 in let y = (let x = 2 in x) + x in let x = 3 in x + y}
-=> eval [x:(eval [] 1)]
-                {let y = (let x = 2 in x) + x in let x = 3 in x + y}
-=> eval [x:1]
-                {let y = (let x = 2 in x) + x in let x = 3 in x + y}
-=> eval [y:(eval [x:1] {(let x = 2 in x) + x}), x:1] 
-                                                {let x = 3 in x + y}
-=> eval [y:(eval [x:1]  {let x = 2 in x} + eval [x:1] {x}), x:1] 
-                                                {let x = 3 in x + y}
-         -- new binding for x:
-=> eval [y:(eval [x:2,x:1] {x}           + eval [x:1] {x}), x:1] 
-                                                {let x = 3 in x + y}
-    -- use latest binding for x:
-=> eval [y:(                2            + eval [x:1] {x}), x:1] 
-                                                {let x = 3 in x + y}
-                                                
-=> eval [y:(                2            + 1)             , x:1] 
-                                                {let x = 3 in x + y}
-=> eval [y:3, x:1] 
-                                                {let x = 3 in x + y}
-   -- new binding for x:
-=> eval [x:3, y:3, x:1] 
-                                                             {x + y}
-=> eval [x:3, y:3, x:1] x + eval [x:3, y:3, x:1] y
-   -- use latest binding for x: 
-=> 3 + 3
-=> 6
-```
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
-<br>
-
-## Runtime errors
-
-Haskell function to  *evaluate* an expression:
-
-```haskell
-eval :: Env -> Expr -> Value
-eval env (Num n)         = n
-eval env (Var x)         = lookup x env -- can fail!
-eval env (Bin op e1 e2)  = f v1 v2
-  where
-    v1 = eval env e1
-    v2 = eval env e2
-    f = case op of
-          Add -> (+)
-          Sub -> (-)
-          Mul -> (*)
-eval env (Let x e1 e2)   = eval env' e2
-  where
-    v    = eval env e1
-    env' = add x v env    
-```
-
-<br>
-<br>
-
-How do we make sure `lookup` doesn't cause a run-time error?
-
-<br>
-<br>
-<br>
-<br>
-
-## Free vs bound variables
-
-In `eval env e`, `env` must contain bindings for *all free variables* of `e`!
-
-  - an occurrence of `x` is **free** if it is not **bound**
-  - an occurrence of `x` is **bound** if it's inside `e2` where `let x = e1 in e2`
-  - evaluation succeeds when an expression is **closed**!
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## QUIZ
-
-Which variables are free in the expression?
-
-```haskell
-let y = (let x = 2 in x) + x in
-let x = 3 in
-x + y
-```    
-
-**(A)** None
-
-**(B)** `x`
-
-**(C)** `y`
-
-**(D)** `x y`
-
-<br>
-
-(I) final
-
-    *Answer:* B
-    
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## The Nano Language
-
-Features of Nano:
-
-1. Arithmetic expressions **[done]**
-2. Variables and let-bindings **[done]**
-3. Functions
-4. Recursion
-    
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
 
 
 ## Extension: functions
@@ -657,7 +71,7 @@ e ::= n | x
     | e1 + e2 | e1 - e2 | e1 * e2
     | let x = e1 in e2
     | \x -> e  -- abstraction
-    | e1 e2    -- application    
+    | e1 e2    -- application
 ```
 
 <br>
@@ -665,7 +79,7 @@ e ::= n | x
 Example:
 
 ```haskell
-let c = 42 in
+let c      = 42 in
 let cTimes = \x -> c * x in 
 cTimes 2
 
@@ -2131,5 +1545,3 @@ We'll do that next week!
 <br>
 
 That's all folks!
-
-

@@ -20,10 +20,11 @@ headerImg: books.jpg
 | 5/1        | contd.                          |                              | [hs-5-1]   |
 | 5/3        | contd.                          |                              | [hs-5-3]   |
 | 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
-| 5/8        | contd.                          |                              | [hs-5-8]  |
+| 5/8        | contd.                          |                              | [hs-5-8]   |
 | 5/10       | **Midterm**                     |                              |            |
-|            | Environments & Closures         | [html][lec5]                 |            |
-|            | Lexing and Parsing              | [html][lec6]                 | [hs][parsing] |
+|            | Environments                    | [html][lec5]                 |            |
+|            | Closures                        | [html][lec5-clos]            |            |
+|            | Lexing and Parsing              | [html][lec6] [tutorial][parsing]     |    |
 |            | Overloading & TypeClasses       | [html][lec7-cl]              |            |
 
 <!-- 
@@ -63,7 +64,8 @@ headerImg: books.jpg
 [lec2]: lectures/02-haskell.html
 [lec3]: lectures/03-datatypes.html
 [lec4]: lectures/04-hof.html
-[lec5]: lectures/05-closure.html
+[lec5]: lectures/05-environments.html
+[lec5-clos]: lectures/05-closure.html
 [lec6]: lectures/06-parsing.html
 [lec7-ty]: lectures/07-types.html
 [lec7-cl]: lectures/07-classes.html
