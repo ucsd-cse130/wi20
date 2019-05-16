@@ -168,8 +168,12 @@ What is a suitable type for `evalOp`?
 
 ```haskell
 {- 1 -} evalOp :: BinOp -> Value
+
+
 {- 2 -} evalOp :: BinOp -> Value -> Value -> Value
-{- 3 -} evalOp :: BinOp -> Expr -> Expr -> Value
+{- 3 -} evalOp :: BinOp -> Expr  -> Expr -> Value
+
+
 {- 4 -} evalOp :: BinOp -> Expr -> Expr -> Expr
 {- 5 -} evalOp :: BinOp -> Expr -> Value
 ```
@@ -355,9 +359,19 @@ eval env (x + 1)   ==>   10
 
 **(E)** `[y := 10, z := 666, x := 9]`
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Evaluating Variables
 
-Using the above intuition, lets update our evaluator 
+Using the above intuition, lets update our evaluator
 to handle variables i.e. the `EVar` case:
 
 ```haskell
@@ -554,7 +568,17 @@ in
 
 **(E)** `2`
 
-## Principle: (Lexical) Static Scoping
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Principle: Static/Lexical Scoping
 
 Every variable *use* gets its value from a unique *definition*:
 
@@ -734,16 +758,37 @@ Will `eval env expr` always return a `value` ? Or, can it *crash*?
 <br>
 <br>
 
-
 ## Free vs bound variables
+
+## Undefined Variables
 
 How do we make sure `lookup` doesn't cause a run-time error?
 
-In `eval env e`, `env` must contain bindings for *all free variables* of `e`!
+**Bound Variables**
 
-- an occurrence of `x` is **free** if it is not **bound**
-- an occurrence of `x` is **bound** if it's inside `e2` where `let x = e1 in e2`
-- evaluation succeeds when an expression is **closed**!
+Consider an expression `let x = e1 in e2`
+
+- An occurrence of `x` is **bound** in `e2`
+
+- i.e. when occurrence of form `let x = ... in ... x ...`
+
+- i.e. when `x` occurs "under" a `let` binding for `x`.
+
+**Free Variables**
+
+An occurrence of `x` is **free** in `e` if it is **not bound** in `e`
+
+**Closed Expressions**
+
+An expression `e` is **closed** in environment `env`:
+
+- If all **free** variables of `e` are defined in `env`
+
+**Successful Evaluation**
+
+`lookup` will never fail
+
+- If `eval env e` is only called on `e` that is closed in `env`
 
 <br>
 <br>
@@ -757,13 +802,16 @@ In `eval env e`, `env` must contain bindings for *all free variables* of `e`!
 
 ## QUIZ
 
-Which variables are free in the expression?
+Which variables occur free in the expression?
 
 ```haskell
-let y = (let x = 2 in x) + x in
-let x = 3 in
-x + y
-```    
+let y = (let x = 2
+         in x      ) + x
+in
+  let x = 3
+  in
+    x + y
+```
 
 **(A)** None
 
@@ -771,7 +819,7 @@ x + y
 
 **(C)** `y`
 
-**(D)** `x y`
+**(D)** `x` and `y`
 
 <br>
 
@@ -781,6 +829,622 @@ x + y
     
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Exercise
+
+Consider the function
+
+```haskell
+evaluate :: Expr -> Value
+evaluate e
+  | isOk e    = eval emptyEnv e
+  | otherwise = error "Sorry! bad expression, it will crash `eval`!"  
+  where
+    emptyEnv  = []               -- has NO bindings
+```
+
+What should `isOk` check for? (Try to implement it for `nano`...)
+
+
+
+## The Nano Language
+
+Features of Nano:
+
+1. Arithmetic expressions *[done]*
+2. Variables              *[done]*
+3. Let-bindings           *[done]*
+4. **Functions**
+5. Recursion
+
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Nano: Functions
+
+Let's add
+
+- *lambda abstraction* (aka function definitions)
+
+- *application* (aka function calls)
+
+```haskell
+e ::= n                   -- OLD
+    | e1 `op` e2
+    | x
+    | let x = e1 in e2
+                          -- NEW
+    | \x -> e             -- abstraction
+    | e1 e2               -- application
+```
+
+### Example
+
+```haskell
+let incr = \x -> x + 1
+in
+   incr 10
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## Representation
+
+```haskell
+data Expr
+  = ENum Int              -- OLD
+  | EBin Binop Expr Expr  
+  | EVar Id
+  | ELet Id Expr Expr
+                         -- NEW
+  | ???                  -- abstraction \x -> e
+  | ???                  -- application (e1 e2)
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## Representation
+
+```haskell
+data Expr
+  = ENum Int              -- OLD
+  | EBin Binop Expr Expr  
+  | EVar Id
+  | ELet Id Expr Expr
+                         -- NEW
+  | ELam Id Expr         -- abstraction \x -> e
+  | EApp Expr Expr       -- application (e1 e2)
+```
+
+### Example
+
+```haskell
+let incr = \x -> x + 1
+in
+   incr 10
+```
+
+is represented as
+
+```haskell
+ELet "incr" (ELam "x" (EBin Add (EVar "x") (ENum 1)))
+  (
+    EApp (EVar "incr") (ENum 10)
+  )
+```
+
+## Functions are Values
+
+Recall the trinity
+
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
+
+But... what is the _value_ of a function?
+
+Lets build some intuition with examples.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## QUIZ 
+
+What does the following expression evaluate to?
+
+```haskell
+let incr = \x -> x + 1    -- abstraction ("definition")
+in
+   incr 10                -- application ("call")
+```
+
+**(A)** Error/Undefined
+
+**(B)** `10`
+
+**(C)** `11`
+
+**(D)** `0`
+
+**(E)** `1`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## What is the Value of `incr`?
+
+- Is it an `Int` ?
+
+- Is it a `Bool` ?
+
+- Is it a ???
+
+**What information** do we need to store (in the `Env`) about `incr`? 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## A Function's Value is its Code
+
+```haskell
+                        -- env
+let incr = \x -> x + 1
+in                      -- ("incr" := <code>) : env
+    incr 10             -- evaluate <code> with parameter := 10
+```
+
+What information do we store about `<code>` ?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## A Call's Value
+
+How to evaluate the "call" `incr 10` ?
+
+1. Lookup the `<code>` i.e. `<param, body>` for `incr` (stored in the environment),
+
+2. Evaluate `body` with `param` set to `10`!
+
+<br>
+<br>
+<br>
+<br>
+
+## Two kinds of Values
+
+We now have _two_ kinds of Values
+
+```haskell
+v ::= n               -- OLD
+    | <x, e>          -- <param, body>
+```
+
+1. Plain `Int` (as before)
+2. A function's "code": a pair of "parameter" and "body-expression"
+
+```haskell
+data Value
+  = VInt  Int          -- OLD
+  | VCode Id Expr      -- <x, e>
+```
+
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
+
+## Evaluating Lambdas and Applications
+
+```haskell
+eval :: Env -> Expr -> Value
+                                -- OLD
+eval env (ENum n)        = ???
+eval env (EVar x)        = ???
+eval env (EBin op e1 e2) = ???
+eval env (ELet x  e1 e2) = ???
+                                -- NEW
+eval env (ELam x e)      = ???
+eval env (EApp e1 e2)    = ???
+```
+
+Lets make sure our tests work properly!
+
+```haskell
+exLam1 = ELet "incr" (ELam "x" (EBin Add (EVar "x") (ENum 1)))
+          (
+            EApp (EVar "incr") (ENum 10)
+          )
+
+-- >>> eval [] exLam1
+-- 11
+```
+
+## QUIZ
+
+What should the following evaluate to?
+
+```haskell
+let c = 1
+in
+   let inc = \x -> x + c
+   in
+      inc 10
+```
+
+**(A)** Error/Undefined
+
+**(B)** `10`
+
+**(C)** `11`
+
+**(D)** `0`
+
+**(E)** `1`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```haskell
+exLam2 = ELet "c" (ENum 1)
+           (ELet "incr" (ELam "x" (EBin Add (EVar "x") (EVar "c")))
+              (
+              EApp (EVar "incr") (ENum 10)
+              )
+           )
+
+-- >>> eval [] exLam2
+-- ???
+```
+
+## QUIZ
+
+And what should _this_ expression evaluate to?
+
+```haskell
+let c = 1
+in
+   let inc = \x -> x + c
+   in
+      let c = 100
+      in
+        inc 10
+```
+
+**(A)** Error/Undefined
+
+**(B)** `110`
+
+**(C)** `11`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## The "Immutability Principle"
+
+A function's behavior should _never change_
+
+- A function must _always_ return the same output for a given input
+
+Why?
+
+```haskell
+> myFunc 10
+0
+
+> myFunc 10
+10
+```
+
+Oh no! How to find the bug? Is it 
+
+- In `myFunc` or
+- In a global variable or
+- In a library somewhere else or
+- ...
+
+**My worst debugging nightmare**
+
+[Colbert "Immutability Principle"](https://youtu.be/CWqzLgDc030?t=628)
+
+<!-- 
+The greatest thing about this man is that he’s steady. 
+You know where he stands.  He believes the same thing 
+Wednesday that he believed on Monday — no matter what 
+happened Tuesday. 
+-->
+
+## The Immutability Principle ?
+
+How does our `eval` work?
+
+```haskell
+exLam3 = ELet "c" (ENum 1)
+           (
+           ELet "incr" (ELam "x" (EBin Add (EVar "x") (EVar "c")))
+              (
+               ELet "c" (ENum 100)
+                 (
+                 EApp (EVar "incr") (ENum 10)
+                 )
+              )
+           )
+
+-- >>> eval [] exLam3
+-- ???
+```
+
+Oops?
+
+```haskell
+                          -- []
+let c = 1
+in                        -- ["c" := 1]
+   let inc = \x -> x + c
+   in                     -- ["inc" := <x, x+c>, c := 1]
+      let c = 100
+      in                  -- ["c" := 100, "inc" := <x, x+c", "c" := 1]   <<< env
+        inc 10
+```
+
+And so we get
+
+```haskell
+eval env (inc 10)
+
+  ==> eval ("x" := 10 : env) (x + c)
+
+  ==> 10 + 100
+
+  ==> 110
+```
+
+Ouch.
+
+## Enforcing Immutability with Closures
+
+How to enforce immutability principle
+
+- `inc 10` **always** returns `11`?
+
+<br>
+
+### Key Idea: Closures
+
+**At definition:**
+_Freeze_ the environment the function's value
+
+**At call:** 
+Use the _frozen_ environment to evaluate the _body_
+
+Ensures that `inc 10` _always_ evaluates to the _same_ result!
+
+```haskell
+                          -- []
+let c = 1
+in                        -- ["c" := 1]
+   let inc = \x -> x + c
+   in                     -- ["inc" := <frozenv, x, x+c>, c := 1]  <<< frozenv = ["c" := 1]
+      let c = 100
+      in                  -- ["c" := 100, "inc" := <frozenv, x, x+c>, "c" := 1]
+        inc 10
+```
+
+Now we evaluate
+
+```haskell
+eval env (inc 10)
+
+  ==> eval ("x" := 10 : frozenv) (x + c)  where frozenv = ["c" := 1]
+
+  ==> 10 + 1
+
+  ==> 1
+```
+
+tada!
+
+## Representing Closures
+
+Lets change the `Value` datatype to also store an `Env`
+
+```haskell
+data Value
+  = VInt  Int          -- OLD
+  | VClos Env Id Expr  -- <frozenv, param, body>  
+```
+
+## Evaluating Function Definitions
+
+How should we fix the definition of `eval` for `ELam`?
+
+```haskell
+eval :: Env -> Expr -> Value
+
+eval env (ELam x e) = ???
+```
+
+**Hint:** What value should we _bind_ `incr` to in our example above?
+
+<br>
+
+(Recall **At definition** _freeze_ the environment the function's value)
+
+<br>
+
+## Evaluating Function Calls
+
+How should we fix the definition of `eval` for `EApp`?
+
+```haskell
+eval :: Env -> Expr -> Value
+
+eval env (EApp e1 e2) = ???
+```
+
+<br>
+
+(Recall **At call:** Use the _frozen_ environment to evaluate the _body_)
+
+<br>
+
+**Hint:** What value should we _evaluate_ `incr 10` to? 
+
+1. Evaluate `incr`  to get `<frozenv, "x", x + c>`
+2. Evaluate `10`    to get `10`
+3. Evaluate `x + c` in ` x:=10 : frozenv`
+
+<br> 
+
+Let's generalize that recipe!
+
+1. Evaluate `e1`   to get `<frozenv, param, body>`
+2. Evaluate `e2`   to get `v2`
+3. Evaluate `body` in `param := v2 : frozenv`
+
+## Immutability Achieved
+
+Lets put our code to the test!
+
+```haskell
+exLam3 = ELet "c" (ENum 1)
+           (
+           ELet "incr" (ELam "x" (EBin Add (EVar "x") (EVar "c")))
+              (
+               ELet "c" (ENum 100)
+                 (
+                 EApp (EVar "incr") (ENum 10)
+                 )
+              )
+           )
+
+-- >>> eval [] exLam3
+-- ???
+```
+
+## QUIZ 
+
+What should the following evaluate to?
+
+```haskell
+let add = \x -> (\y -> x + y)
+in
+  let add10 = add 10
+  in
+    let add20 = add 20
+    in 
+      (add10 100) + (add20 1000)
+```
+
+TODO
+
+## Functions Returning Functions Achieved!
+
+```haskell
+exLam4 = ...
+
+-- >>> eval [] exLam4
+```
+
+TODO
+
+## QUIZ 
+
+What should the following evaluate to?
+
+```haskell
+let add = \x -> (\y -> x + y)
+in
+  let add10 = add 10
+  in
+    let doTwice = \f -> (\x -> f (f x))
+    in
+      doTwice add10 100
+```
+
+TODO
+
+## Functions Accepting Functions Achieved!
+
+```haskell
+exLam4 = ...
+
+-- >>> eval [] exLam4
+```
+
+TODO
+
+## The Nano Language
+
+![](/static/img/trinity.png){#fig:types .align-center width=60%}
+
+Features of Nano:
+
+1. Arithmetic expressions *[done]*
+2. Variables              *[done]*
+3. Let-bindings           *[done]*
+4. Functions              *[done]*
+5. **Recursion**
+
+... You figure it out **Hw4** ... :-)
+
 <br>
 <br>
 <br>

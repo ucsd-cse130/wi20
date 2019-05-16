@@ -986,18 +986,35 @@ What does this evaluate to?
 foldl f b xs          = helper b xs
   where
     helper acc []     = acc
-    helper acc (x:xs) = helper (f acc x) xs
+    helper acc (x:xs) = helper acc' xs
+      where acc'      = f x acc
 
 quiz = foldl (:) [] [1,2,3]
+
+[]    [1,2,3,4,5,6,7]
+=> 1:[]     [2,3,4,5,6,7]
+=> 2:1:[]     [3,4,5,6,7]
+=> 3:2:1:[]     [4,5,6,7]
+=> 4:3:2:1:[]     [5,6,7]
+=> 5:4:3:2:1:[]     [6,7]
+=> 7:6:5:4:3:2:1:[]    []
+
+foldl f b (x1: x2: x3 : [])
+  ==> helper b (x1: x2: x3 : [])
+  ==> helper (f x1 b)  (x2: x3 : [])
+  ==> helper (f x2 (f x1 b))  (x3 : [])
+  ==> helper (f x3 (f x2 (f x1 b)))  []
+  ==> ( x3 :  (x2 : (x1 : [])))
+
 ```
 
-<br>
+
 
 **(A)** Type error
 
-**(B)** `[1,2,3]`
+**(B)** `[1,2,3]`       -----------
 
-**(C)** `[3,2,1]`
+**(C)** `[3,2,1]`       -----------
 
 **(D)** `[[3],[2],[1]]`
 

@@ -1,6 +1,6 @@
 ---
 title: Closures
-date: 2018-05-07
+date: 2019-05-15
 headerImg: books.jpg
 ---
 
@@ -39,115 +39,11 @@ How do we *represent* and *evaluate* a program?
 <br>
 <br>
 
-## The Nano Language
-
-Features of Nano:
-
-1. Arithmetic expressions *[done]*
-2. Variables              *[done]*
-3. Let-bindings           *[done]*
-4. **Functions**
-5. Recursion
-
-![](/static/img/trinity.png){#fig:types .align-center width=60%}
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-## Extension: functions
-
-Let's add lambda abstraction and function application!
-
-```haskell
-e ::= n | x
-    | e1 + e2 | e1 - e2 | e1 * e2
-    | let x = e1 in e2
-    | \x -> e  -- abstraction
-    | e1 e2    -- application
-```
-
-<br>
-
-Example:
-
-```haskell
-let c      = 42 in
-let cTimes = \x -> c * x in 
-cTimes 2
-
-==> 84
-```
-
-<br>
-<br>
-
-Haskell representation:
-
-```haskell
-data Expr = Num Int              -- number
-          | Var Id               -- variable
-          | Bin Binop Expr Expr  -- binary expression
-          | Let Id Expr Expr     -- let expression
-          | ???                  -- abstraction
-          | ???                  -- application
-```
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-```haskell
-data Expr = Num Int              -- number
-          | Var Id               -- variable
-          | Bin Binop Expr Expr  -- binary expression
-          | Let Id Expr Expr     -- let expression
-          | Lam Id Expr          -- abstraction
-          | App Expr Expr        -- application
-```
-
-<br>
-
-Example:
-
-```haskell
-let c = 42 in
-let cTimes = \x -> c * x in 
-cTimes 2
-```
-
-represented as:
-
-```haskell
-Let "c" 
-  (Num 42)
-  (Let "cTimes" 
-    (Lam "x" (Mul (Var "c") (Var "x")))
-    (App (Var "cTimes") (Num 2)))
-```
-
-<br>
-<br>
-
 How should we evaluate this expression?
 
 
 ```haskell
-   eval []         
+   eval []
     {let c = 42 in let cTimes = \x -> c * x in cTimes 2}
 => eval [c:42] 
                   {let cTimes = \x -> c * x in cTimes 2}
@@ -222,11 +118,11 @@ Let's change our definition of values!
 ```haskell
 data Value = VNum Int
            | VLam ??? -- What info do we need to store?
-           
+
 -- Other types stay the same
 type Env = [(Id, Value)]
 
-eval :: Env -> Expr -> Value           
+eval :: Env -> Expr -> Value
 ```
 <br>
 <br>
@@ -373,7 +269,7 @@ cTimes 2
 ```haskell
 let cTimes = \x -> c * x in
 let c = 5 in
-let res1 = cTimes 2 in -- ==> 10 
+let res1 = cTimes 2 in -- ==> 10
 let c = 10 in
 let res2 = cTimes 2 in -- ==> 20!!!
 res2 - res1
@@ -734,6 +630,7 @@ Features of Nano:
 <br>
 <br>
 
+<!-- 
 ## Formalizing Nano
 
 **Goal:** we want to guarantee properties about programs, such as:
@@ -1545,3 +1442,6 @@ We'll do that next week!
 <br>
 
 That's all folks!
+
+
+-->
