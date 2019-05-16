@@ -334,10 +334,14 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb6-3" data-line-number="3">eval (<span class="dt">EBin</span> op e1 e2) <span class="fu">=</span> evalOp op (eval e1) (eval e2)</a></code></pre></div>
 <p>What is a suitable type for <code class="sourceCode haskell">evalOp</code>?</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">{- 1 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">{- 2 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">{- 3 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">{- 4 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">{- 5 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">{- 2 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">{- 3 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span>  <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">{- 4 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">{- 5 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-nano-language">The Nano Language</h2>
 <p>Features of Nano:</p>
@@ -411,6 +415,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(C)</strong> <code class="sourceCode haskell">[x <span class="fu">:=</span> <span class="dv">9</span>, y <span class="fu">:=</span> <span class="dv">0</span>]</code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">[x <span class="fu">:=</span> <span class="dv">9</span>, y <span class="fu">:=</span> <span class="dv">10</span>, z <span class="fu">:=</span> <span class="dv">666</span>]</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">[y <span class="fu">:=</span> <span class="dv">10</span>, z <span class="fu">:=</span> <span class="dv">666</span>, x <span class="fu">:=</span> <span class="dv">9</span>]</code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="evaluating-variables">Evaluating Variables</h2>
 <p>Using the above intuition, lets update our evaluator to handle variables i.e. the <code class="sourceCode haskell"><span class="dt">EVar</span></code> case:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb18-1" data-line-number="1">eval env (<span class="dt">EVar</span> x)        <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
@@ -508,7 +513,8 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dv">101</span></code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell"><span class="dv">102</span></code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell"><span class="dv">2</span></code></p>
-<h2 id="principle-lexical-static-scoping">Principle: (Lexical) Static Scoping</h2>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="principle-staticlexical-scoping">Principle: Static/Lexical Scoping</h2>
 <p>Every variable <em>use</em> gets its value from a unique <em>definition</em>:</p>
 <ul>
 <li>“Nearest” <code class="sourceCode haskell"><span class="kw">let</span></code>-binder in program <em>text</em></li>
@@ -597,26 +603,391 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><strong>(E)</strong> nah, its all good…, always returns a <code class="sourceCode haskell"><span class="dt">Value</span></code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="free-vs-bound-variables">Free vs bound variables</h2>
+<h2 id="undefined-variables">Undefined Variables</h2>
 <p>How do we make sure <code class="sourceCode haskell">lookup</code> doesn’t cause a run-time error?</p>
-<p>In <code class="sourceCode haskell">eval env e</code>, <code class="sourceCode haskell">env</code> must contain bindings for <em>all free variables</em> of <code class="sourceCode haskell">e</code>!</p>
+<p><strong>Bound Variables</strong></p>
+<p>Consider an expression <code class="sourceCode haskell"><span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2</code></p>
 <ul>
-<li>an occurrence of <code class="sourceCode haskell">x</code> is <strong>free</strong> if it is not <strong>bound</strong></li>
-<li>an occurrence of <code class="sourceCode haskell">x</code> is <strong>bound</strong> if it’s inside <code class="sourceCode haskell">e2</code> where <code class="sourceCode haskell"><span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2</code></li>
-<li>evaluation succeeds when an expression is <strong>closed</strong>!</li>
+<li><p>An occurrence of <code class="sourceCode haskell">x</code> is <strong>bound</strong> in <code class="sourceCode haskell">e2</code></p></li>
+<li><p>i.e. when occurrence of form <code class="sourceCode haskell"><span class="kw">let</span> x <span class="fu">=</span> <span class="fu">...</span> <span class="kw">in</span> <span class="fu">...</span> x <span class="fu">...</span></code></p></li>
+<li><p>i.e. when <code class="sourceCode haskell">x</code> occurs “under” a <code class="sourceCode haskell"><span class="kw">let</span></code> binding for <code class="sourceCode haskell">x</code>.</p></li>
+</ul>
+<p><strong>Free Variables</strong></p>
+<p>An occurrence of <code class="sourceCode haskell">x</code> is <strong>free</strong> in <code class="sourceCode haskell">e</code> if it is <strong>not bound</strong> in <code class="sourceCode haskell">e</code></p>
+<p><strong>Closed Expressions</strong></p>
+<p>An expression <code class="sourceCode haskell">e</code> is <strong>closed</strong> in environment <code class="sourceCode haskell">env</code>:</p>
+<ul>
+<li>If all <strong>free</strong> variables of <code class="sourceCode haskell">e</code> are defined in <code class="sourceCode haskell">env</code></li>
+</ul>
+<p><strong>Successful Evaluation</strong></p>
+<p><code class="sourceCode haskell">lookup</code> will never fail</p>
+<ul>
+<li>If <code class="sourceCode haskell">eval env e</code> is only called on <code class="sourceCode haskell">e</code> that is closed in <code class="sourceCode haskell">env</code></li>
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-12">QUIZ</h2>
-<p>Which variables are free in the expression?</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">let</span> y <span class="fu">=</span> (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">2</span> <span class="kw">in</span> x) <span class="fu">+</span> x <span class="kw">in</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span> <span class="kw">in</span></a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">x <span class="fu">+</span> y</a></code></pre></div>
+<p>Which variables occur free in the expression?</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">let</span> y <span class="fu">=</span> (<span class="kw">let</span> x <span class="fu">=</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">         <span class="kw">in</span> x      ) <span class="fu">+</span> x</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">  <span class="kw">let</span> x <span class="fu">=</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">  <span class="kw">in</span></a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">    x <span class="fu">+</span> y</a></code></pre></div>
 <p><strong>(A)</strong> None</p>
 <p><strong>(B)</strong> <code class="sourceCode haskell">x</code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell">y</code></p>
-<p><strong>(D)</strong> <code class="sourceCode haskell">x y</code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell">x</code> and <code class="sourceCode haskell">y</code></p>
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="exercise">Exercise</h2>
+<p>Consider the function</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="ot">evaluate ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">evaluate e</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">  <span class="fu">|</span> isOk e    <span class="fu">=</span> eval emptyEnv e</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">  <span class="fu">|</span> otherwise <span class="fu">=</span> error <span class="st">&quot;Sorry! bad expression, it will crash `eval`!&quot;</span>  </a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">  <span class="kw">where</span></a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">    emptyEnv  <span class="fu">=</span> []               <span class="co">-- has NO bindings</span></a></code></pre></div>
+<p>What should <code class="sourceCode haskell">isOk</code> check for? (Try to implement it for <code class="sourceCode haskell">nano</code>…)</p>
+<h2 id="the-nano-language-2">The Nano Language</h2>
+<p>Features of Nano:</p>
+<ol type="1">
+<li>Arithmetic expressions <em>[done]</em></li>
+<li>Variables <em>[done]</em></li>
+<li>Let-bindings <em>[done]</em></li>
+<li><strong>Functions</strong></li>
+<li>Recursion</li>
+</ol>
+<p><img src="../static/img/trinity.png" id="fig:types" class="align-center" style="width:60.0%" /></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="nano-functions">Nano: Functions</h2>
+<p>Let’s add</p>
+<ul>
+<li><p><em>lambda abstraction</em> (aka function definitions)</p></li>
+<li><p><em>application</em> (aka function calls)</p></li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb33-1" data-line-number="1">e <span class="ot">::</span><span class="fu">=</span> n                   <span class="co">-- OLD</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">    <span class="fu">|</span> e1 <span class="ot">`op`</span> e2</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3">    <span class="fu">|</span> x</a>
+<a class="sourceLine" id="cb33-4" data-line-number="4">    <span class="fu">|</span> <span class="kw">let</span> x <span class="fu">=</span> e1 <span class="kw">in</span> e2</a>
+<a class="sourceLine" id="cb33-5" data-line-number="5">                          <span class="co">-- NEW</span></a>
+<a class="sourceLine" id="cb33-6" data-line-number="6">    <span class="fu">|</span> \x <span class="ot">-&gt;</span> e             <span class="co">-- abstraction</span></a>
+<a class="sourceLine" id="cb33-7" data-line-number="7">    <span class="fu">|</span> e1 e2               <span class="co">-- application</span></a></code></pre></div>
+<h3 id="example">Example</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">let</span> incr <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">   incr <span class="dv">10</span></a></code></pre></div>
+<p><br> <br> <br> <br></p>
+<h2 id="representation">Representation</h2>
+<div class="sourceCode" id="cb35"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">  <span class="fu">=</span> <span class="dt">ENum</span> <span class="dt">Int</span>              <span class="co">-- OLD</span></a>
+<a class="sourceLine" id="cb35-3" data-line-number="3">  <span class="fu">|</span> <span class="dt">EBin</span> <span class="dt">Binop</span> <span class="dt">Expr</span> <span class="dt">Expr</span>  </a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">  <span class="fu">|</span> <span class="dt">EVar</span> <span class="dt">Id</span></a>
+<a class="sourceLine" id="cb35-5" data-line-number="5">  <span class="fu">|</span> <span class="dt">ELet</span> <span class="dt">Id</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb35-6" data-line-number="6">                         <span class="co">-- NEW</span></a>
+<a class="sourceLine" id="cb35-7" data-line-number="7">  <span class="fu">|</span> <span class="fu">???</span>                  <span class="co">-- abstraction \x -&gt; e</span></a>
+<a class="sourceLine" id="cb35-8" data-line-number="8">  <span class="fu">|</span> <span class="fu">???</span>                  <span class="co">-- application (e1 e2)</span></a></code></pre></div>
+<p><br> <br> <br> <br></p>
+<h2 id="representation-1">Representation</h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">  <span class="fu">=</span> <span class="dt">ENum</span> <span class="dt">Int</span>              <span class="co">-- OLD</span></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">  <span class="fu">|</span> <span class="dt">EBin</span> <span class="dt">Binop</span> <span class="dt">Expr</span> <span class="dt">Expr</span>  </a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">  <span class="fu">|</span> <span class="dt">EVar</span> <span class="dt">Id</span></a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">  <span class="fu">|</span> <span class="dt">ELet</span> <span class="dt">Id</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">                         <span class="co">-- NEW</span></a>
+<a class="sourceLine" id="cb36-7" data-line-number="7">  <span class="fu">|</span> <span class="dt">ELam</span> <span class="dt">Id</span> <span class="dt">Expr</span>         <span class="co">-- abstraction \x -&gt; e</span></a>
+<a class="sourceLine" id="cb36-8" data-line-number="8">  <span class="fu">|</span> <span class="dt">EApp</span> <span class="dt">Expr</span> <span class="dt">Expr</span>       <span class="co">-- application (e1 e2)</span></a></code></pre></div>
+<h3 id="example-1">Example</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">let</span> incr <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">   incr <span class="dv">10</span></a></code></pre></div>
+<p>is represented as</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="dt">ELet</span> <span class="st">&quot;incr&quot;</span> (<span class="dt">ELam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">EBin</span> <span class="dt">Add</span> (<span class="dt">EVar</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">ENum</span> <span class="dv">1</span>)))</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">  (</a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">    <span class="dt">EApp</span> (<span class="dt">EVar</span> <span class="st">&quot;incr&quot;</span>) (<span class="dt">ENum</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">  )</a></code></pre></div>
+<h2 id="functions-are-values">Functions are Values</h2>
+<p>Recall the trinity</p>
+<p><img src="../static/img/trinity.png" id="fig:types" class="align-center" style="width:60.0%" /></p>
+<p>But… what is the <em>value</em> of a function?</p>
+<p>Lets build some intuition with examples.</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="quiz-13">QUIZ</h2>
+<p>What does the following expression evaluate to?</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">let</span> incr <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span>    <span class="co">-- abstraction (&quot;definition&quot;)</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">   incr <span class="dv">10</span>                <span class="co">-- application (&quot;call&quot;)</span></a></code></pre></div>
+<p><strong>(A)</strong> Error/Undefined</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">10</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dv">11</span></code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell"><span class="dv">0</span></code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell"><span class="dv">1</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="what-is-the-value-of-incr">What is the Value of <code class="sourceCode haskell">incr</code>?</h2>
+<ul>
+<li><p>Is it an <code class="sourceCode haskell"><span class="dt">Int</span></code> ?</p></li>
+<li><p>Is it a <code class="sourceCode haskell"><span class="dt">Bool</span></code> ?</p></li>
+<li><p>Is it a ???</p></li>
+</ul>
+<p><strong>What information</strong> do we need to store (in the <code class="sourceCode haskell"><span class="dt">Env</span></code>) about <code class="sourceCode haskell">incr</code>?</p>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="a-functions-value-is-its-code">A Function’s Value is its Code</h2>
+<div class="sourceCode" id="cb40"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb40-1" data-line-number="1">                        <span class="co">-- env</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">let</span> incr <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="kw">in</span>                      <span class="co">-- (&quot;incr&quot; := &lt;code&gt;) : env</span></a>
+<a class="sourceLine" id="cb40-4" data-line-number="4">    incr <span class="dv">10</span>             <span class="co">-- evaluate &lt;code&gt; with parameter := 10</span></a></code></pre></div>
+<p>What information do we store about <code class="sourceCode haskell"><span class="fu">&lt;</span>code<span class="fu">&gt;</span></code> ?</p>
+<p><br> <br> <br> <br> <br> <br></p>
+<h2 id="a-calls-value">A Call’s Value</h2>
+<p>How to evaluate the “call” <code class="sourceCode haskell">incr <span class="dv">10</span></code> ?</p>
+<ol type="1">
+<li><p>Lookup the <code class="sourceCode haskell"><span class="fu">&lt;</span>code<span class="fu">&gt;</span></code> i.e. <code class="sourceCode haskell"><span class="fu">&lt;</span>param, body<span class="fu">&gt;</span></code> for <code class="sourceCode haskell">incr</code> (stored in the environment),</p></li>
+<li><p>Evaluate <code class="sourceCode haskell">body</code> with <code class="sourceCode haskell">param</code> set to <code class="sourceCode haskell"><span class="dv">10</span></code>!</p></li>
+</ol>
+<p><br> <br> <br> <br></p>
+<h2 id="two-kinds-of-values">Two kinds of Values</h2>
+<p>We now have <em>two</em> kinds of Values</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb41-1" data-line-number="1">v <span class="ot">::</span><span class="fu">=</span> n               <span class="co">-- OLD</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">    <span class="fu">|</span> <span class="fu">&lt;</span>x, e<span class="fu">&gt;</span>          <span class="co">-- &lt;param, body&gt;</span></a></code></pre></div>
+<ol type="1">
+<li>Plain <code class="sourceCode haskell"><span class="dt">Int</span></code> (as before)</li>
+<li>A function’s “code”: a pair of “parameter” and “body-expression”</li>
+</ol>
+<div class="sourceCode" id="cb42"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">  <span class="fu">=</span> <span class="dt">VInt</span>  <span class="dt">Int</span>          <span class="co">-- OLD</span></a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">  <span class="fu">|</span> <span class="dt">VCode</span> <span class="dt">Id</span> <span class="dt">Expr</span>      <span class="co">-- &lt;x, e&gt;</span></a></code></pre></div>
+<p><img src="../static/img/trinity.png" id="fig:types" class="align-center" style="width:60.0%" /></p>
+<h2 id="evaluating-lambdas-and-applications">Evaluating Lambdas and Applications</h2>
+<div class="sourceCode" id="cb43"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">                                <span class="co">-- OLD</span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">eval env (<span class="dt">ENum</span> n)        <span class="fu">=</span> <span class="fu">???</span></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">eval env (<span class="dt">EVar</span> x)        <span class="fu">=</span> <span class="fu">???</span></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5">eval env (<span class="dt">EBin</span> op e1 e2) <span class="fu">=</span> <span class="fu">???</span></a>
+<a class="sourceLine" id="cb43-6" data-line-number="6">eval env (<span class="dt">ELet</span> x  e1 e2) <span class="fu">=</span> <span class="fu">???</span></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7">                                <span class="co">-- NEW</span></a>
+<a class="sourceLine" id="cb43-8" data-line-number="8">eval env (<span class="dt">ELam</span> x e)      <span class="fu">=</span> <span class="fu">???</span></a>
+<a class="sourceLine" id="cb43-9" data-line-number="9">eval env (<span class="dt">EApp</span> e1 e2)    <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
+<p>Lets make sure our tests work properly!</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb44-1" data-line-number="1">exLam1 <span class="fu">=</span> <span class="dt">ELet</span> <span class="st">&quot;incr&quot;</span> (<span class="dt">ELam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">EBin</span> <span class="dt">Add</span> (<span class="dt">EVar</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">ENum</span> <span class="dv">1</span>)))</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">          (</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">            <span class="dt">EApp</span> (<span class="dt">EVar</span> <span class="st">&quot;incr&quot;</span>) (<span class="dt">ENum</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">          )</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb44-6" data-line-number="6"><span class="co">-- &gt;&gt;&gt; eval [] exLam1</span></a>
+<a class="sourceLine" id="cb44-7" data-line-number="7"><span class="co">-- 11</span></a></code></pre></div>
+<h2 id="quiz-14">QUIZ</h2>
+<p>What should the following evaluate to?</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">let</span> c <span class="fu">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">   <span class="kw">let</span> inc <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> c</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">   <span class="kw">in</span></a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">      inc <span class="dv">10</span></a></code></pre></div>
+<p><strong>(A)</strong> Error/Undefined</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">10</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dv">11</span></code></p>
+<p><strong>(D)</strong> <code class="sourceCode haskell"><span class="dv">0</span></code></p>
+<p><strong>(E)</strong> <code class="sourceCode haskell"><span class="dv">1</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb46-1" data-line-number="1">exLam2 <span class="fu">=</span> <span class="dt">ELet</span> <span class="st">&quot;c&quot;</span> (<span class="dt">ENum</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">           (<span class="dt">ELet</span> <span class="st">&quot;incr&quot;</span> (<span class="dt">ELam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">EBin</span> <span class="dt">Add</span> (<span class="dt">EVar</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">EVar</span> <span class="st">&quot;c&quot;</span>)))</a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">              (</a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">              <span class="dt">EApp</span> (<span class="dt">EVar</span> <span class="st">&quot;incr&quot;</span>) (<span class="dt">ENum</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">              )</a>
+<a class="sourceLine" id="cb46-6" data-line-number="6">           )</a>
+<a class="sourceLine" id="cb46-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb46-8" data-line-number="8"><span class="co">-- &gt;&gt;&gt; eval [] exLam2</span></a>
+<a class="sourceLine" id="cb46-9" data-line-number="9"><span class="co">-- ???</span></a></code></pre></div>
+<h2 id="quiz-15">QUIZ</h2>
+<p>And what should <em>this</em> expression evaluate to?</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">let</span> c <span class="fu">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">   <span class="kw">let</span> inc <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> c</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">   <span class="kw">in</span></a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">      <span class="kw">let</span> c <span class="fu">=</span> <span class="dv">100</span></a>
+<a class="sourceLine" id="cb47-6" data-line-number="6">      <span class="kw">in</span></a>
+<a class="sourceLine" id="cb47-7" data-line-number="7">        inc <span class="dv">10</span></a></code></pre></div>
+<p><strong>(A)</strong> Error/Undefined</p>
+<p><strong>(B)</strong> <code class="sourceCode haskell"><span class="dv">110</span></code></p>
+<p><strong>(C)</strong> <code class="sourceCode haskell"><span class="dv">11</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="the-immutability-principle">The “Immutability Principle”</h2>
+<p>A function’s behavior should <em>never change</em></p>
+<ul>
+<li>A function must <em>always</em> return the same output for a given input</li>
+</ul>
+<p>Why?</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="fu">&gt;</span> myFunc <span class="dv">10</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="dv">0</span></a>
+<a class="sourceLine" id="cb48-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="fu">&gt;</span> myFunc <span class="dv">10</span></a>
+<a class="sourceLine" id="cb48-5" data-line-number="5"><span class="dv">10</span></a></code></pre></div>
+<p>Oh no! How to find the bug? Is it</p>
+<ul>
+<li>In <code class="sourceCode haskell">myFunc</code> or</li>
+<li>In a global variable or</li>
+<li>In a library somewhere else or</li>
+<li>…</li>
+</ul>
+<p><strong>My worst debugging nightmare</strong></p>
+<p><a href="https://youtu.be/CWqzLgDc030?t=628">Colbert “Immutability Principle”</a></p>
+<!-- 
+The greatest thing about this man is that he’s steady. 
+You know where he stands.  He believes the same thing 
+Wednesday that he believed on Monday — no matter what 
+happened Tuesday. 
+-->
+<h2 id="the-immutability-principle-1">The Immutability Principle ?</h2>
+<p>How does our <code class="sourceCode haskell">eval</code> work?</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb49-1" data-line-number="1">exLam3 <span class="fu">=</span> <span class="dt">ELet</span> <span class="st">&quot;c&quot;</span> (<span class="dt">ENum</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">           (</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">           <span class="dt">ELet</span> <span class="st">&quot;incr&quot;</span> (<span class="dt">ELam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">EBin</span> <span class="dt">Add</span> (<span class="dt">EVar</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">EVar</span> <span class="st">&quot;c&quot;</span>)))</a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">              (</a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">               <span class="dt">ELet</span> <span class="st">&quot;c&quot;</span> (<span class="dt">ENum</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb49-6" data-line-number="6">                 (</a>
+<a class="sourceLine" id="cb49-7" data-line-number="7">                 <span class="dt">EApp</span> (<span class="dt">EVar</span> <span class="st">&quot;incr&quot;</span>) (<span class="dt">ENum</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb49-8" data-line-number="8">                 )</a>
+<a class="sourceLine" id="cb49-9" data-line-number="9">              )</a>
+<a class="sourceLine" id="cb49-10" data-line-number="10">           )</a>
+<a class="sourceLine" id="cb49-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb49-12" data-line-number="12"><span class="co">-- &gt;&gt;&gt; eval [] exLam3</span></a>
+<a class="sourceLine" id="cb49-13" data-line-number="13"><span class="co">-- ???</span></a></code></pre></div>
+<p>Oops?</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb50-1" data-line-number="1">                          <span class="co">-- []</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">let</span> c <span class="fu">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="kw">in</span>                        <span class="co">-- [&quot;c&quot; := 1]</span></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4">   <span class="kw">let</span> inc <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> c</a>
+<a class="sourceLine" id="cb50-5" data-line-number="5">   <span class="kw">in</span>                     <span class="co">-- [&quot;inc&quot; := &lt;x, x+c&gt;, c := 1]</span></a>
+<a class="sourceLine" id="cb50-6" data-line-number="6">      <span class="kw">let</span> c <span class="fu">=</span> <span class="dv">100</span></a>
+<a class="sourceLine" id="cb50-7" data-line-number="7">      <span class="kw">in</span>                  <span class="co">-- [&quot;c&quot; := 100, &quot;inc&quot; := &lt;x, x+c&quot;, &quot;c&quot; := 1]   &lt;&lt;&lt; env</span></a>
+<a class="sourceLine" id="cb50-8" data-line-number="8">        inc <span class="dv">10</span></a></code></pre></div>
+<p>And so we get</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb51-1" data-line-number="1">eval env (inc <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">  <span class="fu">==&gt;</span> eval (<span class="st">&quot;x&quot;</span> <span class="fu">:=</span> <span class="dv">10</span> <span class="fu">:</span> env) (x <span class="fu">+</span> c)</a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb51-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="dv">10</span> <span class="fu">+</span> <span class="dv">100</span></a>
+<a class="sourceLine" id="cb51-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb51-7" data-line-number="7">  <span class="fu">==&gt;</span> <span class="dv">110</span></a></code></pre></div>
+<p>Ouch.</p>
+<h2 id="enforcing-immutability-with-closures">Enforcing Immutability with Closures</h2>
+<p>How to enforce immutability principle</p>
+<ul>
+<li><code class="sourceCode haskell">inc <span class="dv">10</span></code> <strong>always</strong> returns <code class="sourceCode haskell"><span class="dv">11</span></code>?</li>
+</ul>
+<p><br></p>
+<h3 id="key-idea-closures">Key Idea: Closures</h3>
+<p><strong>At definition:</strong> <em>Freeze</em> the environment the function’s value</p>
+<p><strong>At call:</strong> Use the <em>frozen</em> environment to evaluate the <em>body</em></p>
+<p>Ensures that <code class="sourceCode haskell">inc <span class="dv">10</span></code> <em>always</em> evaluates to the <em>same</em> result!</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb52-1" data-line-number="1">                          <span class="co">-- []</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">let</span> c <span class="fu">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="kw">in</span>                        <span class="co">-- [&quot;c&quot; := 1]</span></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">   <span class="kw">let</span> inc <span class="fu">=</span> \x <span class="ot">-&gt;</span> x <span class="fu">+</span> c</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5">   <span class="kw">in</span>                     <span class="co">-- [&quot;inc&quot; := &lt;frozenv, x, x+c&gt;, c := 1]  &lt;&lt;&lt; frozenv = [&quot;c&quot; := 1]</span></a>
+<a class="sourceLine" id="cb52-6" data-line-number="6">      <span class="kw">let</span> c <span class="fu">=</span> <span class="dv">100</span></a>
+<a class="sourceLine" id="cb52-7" data-line-number="7">      <span class="kw">in</span>                  <span class="co">-- [&quot;c&quot; := 100, &quot;inc&quot; := &lt;frozenv, x, x+c&gt;, &quot;c&quot; := 1]</span></a>
+<a class="sourceLine" id="cb52-8" data-line-number="8">        inc <span class="dv">10</span></a></code></pre></div>
+<p>Now we evaluate</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb53-1" data-line-number="1">eval env (inc <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">  <span class="fu">==&gt;</span> eval (<span class="st">&quot;x&quot;</span> <span class="fu">:=</span> <span class="dv">10</span> <span class="fu">:</span> frozenv) (x <span class="fu">+</span> c)  <span class="kw">where</span> frozenv <span class="fu">=</span> [<span class="st">&quot;c&quot;</span> <span class="fu">:=</span> <span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb53-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="dv">10</span> <span class="fu">+</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb53-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb53-7" data-line-number="7">  <span class="fu">==&gt;</span> <span class="dv">1</span></a></code></pre></div>
+<p>tada!</p>
+<h2 id="representing-closures">Representing Closures</h2>
+<p>Lets change the <code class="sourceCode haskell"><span class="dt">Value</span></code> datatype to also store an <code class="sourceCode haskell"><span class="dt">Env</span></code></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">  <span class="fu">=</span> <span class="dt">VInt</span>  <span class="dt">Int</span>          <span class="co">-- OLD</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">  <span class="fu">|</span> <span class="dt">VClos</span> <span class="dt">Env</span> <span class="dt">Id</span> <span class="dt">Expr</span>  <span class="co">-- &lt;frozenv, param, body&gt;  </span></a></code></pre></div>
+<h2 id="evaluating-function-definitions">Evaluating Function Definitions</h2>
+<p>How should we fix the definition of <code class="sourceCode haskell">eval</code> for <code class="sourceCode haskell"><span class="dt">ELam</span></code>?</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">eval env (<span class="dt">ELam</span> x e) <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
+<p><strong>Hint:</strong> What value should we <em>bind</em> <code class="sourceCode haskell">incr</code> to in our example above?</p>
+<p><br></p>
+<p>(Recall <strong>At definition</strong> <em>freeze</em> the environment the function’s value)</p>
+<p><br></p>
+<h2 id="evaluating-function-calls">Evaluating Function Calls</h2>
+<p>How should we fix the definition of <code class="sourceCode haskell">eval</code> for <code class="sourceCode haskell"><span class="dt">EApp</span></code>?</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">eval env (<span class="dt">EApp</span> e1 e2) <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
+<p><br></p>
+<p>(Recall <strong>At call:</strong> Use the <em>frozen</em> environment to evaluate the <em>body</em>)</p>
+<p><br></p>
+<p><strong>Hint:</strong> What value should we <em>evaluate</em> <code class="sourceCode haskell">incr <span class="dv">10</span></code> to?</p>
+<ol type="1">
+<li>Evaluate <code class="sourceCode haskell">incr</code> to get <code class="sourceCode haskell"><span class="fu">&lt;</span>frozenv, <span class="st">&quot;x&quot;</span>, x <span class="fu">+</span> c<span class="fu">&gt;</span></code></li>
+<li>Evaluate <code class="sourceCode haskell"><span class="dv">10</span></code> to get <code class="sourceCode haskell"><span class="dv">10</span></code></li>
+<li>Evaluate <code class="sourceCode haskell">x <span class="fu">+</span> c</code> in <code class="sourceCode haskell">x<span class="fu">:=</span><span class="dv">10</span> <span class="fu">:</span> frozenv</code></li>
+</ol>
+<p><br></p>
+<p>Let’s generalize that recipe!</p>
+<ol type="1">
+<li>Evaluate <code class="sourceCode haskell">e1</code> to get <code class="sourceCode haskell"><span class="fu">&lt;</span>frozenv, param, body<span class="fu">&gt;</span></code></li>
+<li>Evaluate <code class="sourceCode haskell">e2</code> to get <code class="sourceCode haskell">v2</code></li>
+<li>Evaluate <code class="sourceCode haskell">body</code> in <code class="sourceCode haskell">param <span class="fu">:=</span> v2 <span class="fu">:</span> frozenv</code></li>
+</ol>
+<h2 id="immutability-achieved">Immutability Achieved</h2>
+<p>Lets put our code to the test!</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb57-1" data-line-number="1">exLam3 <span class="fu">=</span> <span class="dt">ELet</span> <span class="st">&quot;c&quot;</span> (<span class="dt">ENum</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">           (</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">           <span class="dt">ELet</span> <span class="st">&quot;incr&quot;</span> (<span class="dt">ELam</span> <span class="st">&quot;x&quot;</span> (<span class="dt">EBin</span> <span class="dt">Add</span> (<span class="dt">EVar</span> <span class="st">&quot;x&quot;</span>) (<span class="dt">EVar</span> <span class="st">&quot;c&quot;</span>)))</a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">              (</a>
+<a class="sourceLine" id="cb57-5" data-line-number="5">               <span class="dt">ELet</span> <span class="st">&quot;c&quot;</span> (<span class="dt">ENum</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb57-6" data-line-number="6">                 (</a>
+<a class="sourceLine" id="cb57-7" data-line-number="7">                 <span class="dt">EApp</span> (<span class="dt">EVar</span> <span class="st">&quot;incr&quot;</span>) (<span class="dt">ENum</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb57-8" data-line-number="8">                 )</a>
+<a class="sourceLine" id="cb57-9" data-line-number="9">              )</a>
+<a class="sourceLine" id="cb57-10" data-line-number="10">           )</a>
+<a class="sourceLine" id="cb57-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb57-12" data-line-number="12"><span class="co">-- &gt;&gt;&gt; eval [] exLam3</span></a>
+<a class="sourceLine" id="cb57-13" data-line-number="13"><span class="co">-- ???</span></a></code></pre></div>
+<h2 id="quiz-16">QUIZ</h2>
+<p>What should the following evaluate to?</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">let</span> add <span class="fu">=</span> \x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x <span class="fu">+</span> y)</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb58-3" data-line-number="3">  <span class="kw">let</span> add10 <span class="fu">=</span> add <span class="dv">10</span></a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">  <span class="kw">in</span></a>
+<a class="sourceLine" id="cb58-5" data-line-number="5">    <span class="kw">let</span> add20 <span class="fu">=</span> add <span class="dv">20</span></a>
+<a class="sourceLine" id="cb58-6" data-line-number="6">    <span class="kw">in</span> </a>
+<a class="sourceLine" id="cb58-7" data-line-number="7">      (add10 <span class="dv">100</span>) <span class="fu">+</span> (add20 <span class="dv">1000</span>)</a></code></pre></div>
+<p>TODO</p>
+<h2 id="functions-returning-functions-achieved">Functions Returning Functions Achieved!</h2>
+<div class="sourceCode" id="cb59"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb59-1" data-line-number="1">exLam4 <span class="fu">=</span> <span class="fu">...</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="co">-- &gt;&gt;&gt; eval [] exLam4</span></a></code></pre></div>
+<p>TODO</p>
+<h2 id="quiz-17">QUIZ</h2>
+<p>What should the following evaluate to?</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="kw">let</span> add <span class="fu">=</span> \x <span class="ot">-&gt;</span> (\y <span class="ot">-&gt;</span> x <span class="fu">+</span> y)</a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb60-3" data-line-number="3">  <span class="kw">let</span> add10 <span class="fu">=</span> add <span class="dv">10</span></a>
+<a class="sourceLine" id="cb60-4" data-line-number="4">  <span class="kw">in</span></a>
+<a class="sourceLine" id="cb60-5" data-line-number="5">    <span class="kw">let</span> doTwice <span class="fu">=</span> \f <span class="ot">-&gt;</span> (\x <span class="ot">-&gt;</span> f (f x))</a>
+<a class="sourceLine" id="cb60-6" data-line-number="6">    <span class="kw">in</span></a>
+<a class="sourceLine" id="cb60-7" data-line-number="7">      doTwice add10 <span class="dv">100</span></a></code></pre></div>
+<p>TODO</p>
+<h2 id="functions-accepting-functions-achieved">Functions Accepting Functions Achieved!</h2>
+<div class="sourceCode" id="cb61"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb61-1" data-line-number="1">exLam4 <span class="fu">=</span> <span class="fu">...</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb61-3" data-line-number="3"><span class="co">-- &gt;&gt;&gt; eval [] exLam4</span></a></code></pre></div>
+<p>TODO</p>
+<h2 id="the-nano-language-3">The Nano Language</h2>
+<p><img src="../static/img/trinity.png" id="fig:types" class="align-center" style="width:60.0%" /></p>
+<p>Features of Nano:</p>
+<ol type="1">
+<li>Arithmetic expressions <em>[done]</em></li>
+<li>Variables <em>[done]</em></li>
+<li>Let-bindings <em>[done]</em></li>
+<li>Functions <em>[done]</em></li>
+<li><strong>Recursion</strong></li>
+</ol>
+<p>… You figure it out <strong>Hw4</strong> … :-)</p>
+<p><br> <br> <br> <br> <br> <br> <br></p>
                 <hr>
             </div>
         </div>

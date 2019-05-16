@@ -665,13 +665,28 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <div class="sourceCode" id="cb44"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb44-1" data-line-number="1">foldl f b xs          <span class="fu">=</span> helper b xs</a>
 <a class="sourceLine" id="cb44-2" data-line-number="2">  <span class="kw">where</span></a>
 <a class="sourceLine" id="cb44-3" data-line-number="3">    helper acc []     <span class="fu">=</span> acc</a>
-<a class="sourceLine" id="cb44-4" data-line-number="4">    helper acc (x<span class="fu">:</span>xs) <span class="fu">=</span> helper (f acc x) xs</a>
-<a class="sourceLine" id="cb44-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb44-6" data-line-number="6">quiz <span class="fu">=</span> foldl (<span class="fu">:</span>) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
-<p><br></p>
+<a class="sourceLine" id="cb44-4" data-line-number="4">    helper acc (x<span class="fu">:</span>xs) <span class="fu">=</span> helper acc' xs</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5">      <span class="kw">where</span> acc'      <span class="fu">=</span> f x acc</a>
+<a class="sourceLine" id="cb44-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb44-7" data-line-number="7">quiz <span class="fu">=</span> foldl (<span class="fu">:</span>) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb44-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb44-9" data-line-number="9">[]    [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]</a>
+<a class="sourceLine" id="cb44-10" data-line-number="10"><span class="ot">=&gt;</span> <span class="dv">1</span><span class="fu">:</span>[]     [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]</a>
+<a class="sourceLine" id="cb44-11" data-line-number="11"><span class="ot">=&gt;</span> <span class="dv">2</span><span class="fu">:</span><span class="dv">1</span><span class="fu">:</span>[]     [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]</a>
+<a class="sourceLine" id="cb44-12" data-line-number="12"><span class="ot">=&gt;</span> <span class="dv">3</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span><span class="dv">1</span><span class="fu">:</span>[]     [<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]</a>
+<a class="sourceLine" id="cb44-13" data-line-number="13"><span class="ot">=&gt;</span> <span class="dv">4</span><span class="fu">:</span><span class="dv">3</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span><span class="dv">1</span><span class="fu">:</span>[]     [<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]</a>
+<a class="sourceLine" id="cb44-14" data-line-number="14"><span class="ot">=&gt;</span> <span class="dv">5</span><span class="fu">:</span><span class="dv">4</span><span class="fu">:</span><span class="dv">3</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span><span class="dv">1</span><span class="fu">:</span>[]     [<span class="dv">6</span>,<span class="dv">7</span>]</a>
+<a class="sourceLine" id="cb44-15" data-line-number="15"><span class="ot">=&gt;</span> <span class="dv">7</span><span class="fu">:</span><span class="dv">6</span><span class="fu">:</span><span class="dv">5</span><span class="fu">:</span><span class="dv">4</span><span class="fu">:</span><span class="dv">3</span><span class="fu">:</span><span class="dv">2</span><span class="fu">:</span><span class="dv">1</span><span class="fu">:</span>[]    []</a>
+<a class="sourceLine" id="cb44-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb44-17" data-line-number="17">foldl f b (x1<span class="fu">:</span> x2<span class="fu">:</span> x3 <span class="fu">:</span> [])</a>
+<a class="sourceLine" id="cb44-18" data-line-number="18">  <span class="fu">==&gt;</span> helper b (x1<span class="fu">:</span> x2<span class="fu">:</span> x3 <span class="fu">:</span> [])</a>
+<a class="sourceLine" id="cb44-19" data-line-number="19">  <span class="fu">==&gt;</span> helper (f x1 b)  (x2<span class="fu">:</span> x3 <span class="fu">:</span> [])</a>
+<a class="sourceLine" id="cb44-20" data-line-number="20">  <span class="fu">==&gt;</span> helper (f x2 (f x1 b))  (x3 <span class="fu">:</span> [])</a>
+<a class="sourceLine" id="cb44-21" data-line-number="21">  <span class="fu">==&gt;</span> helper (f x3 (f x2 (f x1 b)))  []</a>
+<a class="sourceLine" id="cb44-22" data-line-number="22">  <span class="fu">==&gt;</span> ( x3 <span class="fu">:</span>  (x2 <span class="fu">:</span> (x1 <span class="fu">:</span> [])))</a></code></pre></div>
 <p><strong>(A)</strong> Type error</p>
-<p><strong>(B)</strong> <code class="sourceCode haskell">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></p>
-<p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code></p>
+<p><strong>(B)</strong> <code class="sourceCode haskell">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code> ———–</p>
+<p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code> ———–</p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
 <p><br></p>
