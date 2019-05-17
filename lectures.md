@@ -22,8 +22,7 @@ headerImg: books.jpg
 | 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
 | 5/8        | contd.                          |                              | [hs-5-8]   |
 | 5/10       | **Midterm**                     |                              |            |
-|            | Environments                    | [html][lec5]                 |            |
-|            | Closures                        | [html][lec5-clos]            |            |
+|            | Environments & Closures         | [html][lec5]                 |            |
 |            | Lexing and Parsing              | [html][lec6] [tutorial][parsing]     |    |
 |            | Overloading & TypeClasses       | [html][lec7-cl]              |            |
 
