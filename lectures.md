@@ -22,7 +22,8 @@ headerImg: books.jpg
 | 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
 | 5/8        | contd.                          |                              | [hs-5-8]   |
 | 5/10       | **Midterm**                     |                              |            |
-|            | Environments & Closures         | [html][lec5]                 |            |
+|            | Environments & Closures         | [html][lec5] [pdf][pdf-env]  | [hs-5-15]  |
+|            | contd.                          |                              | [hs-5-17]  |
 |            | Lexing and Parsing              | [html][lec6] [tutorial][parsing]     |    |
 |            | Overloading & TypeClasses       | [html][lec7-cl]              |            |
 
@@ -96,9 +97,11 @@ headerImg: books.jpg
 [hs-5-3]:  /static/raw/lec_5_3_2019.hs
 [hs-5-6]:  /static/raw/lec_5_6_2019.hs
 [hs-5-8]:  /static/raw/lec_5_8_2019.hs
-[hs-5-13]:  /static/raw/lec_5_13_2019.hs
+[hs-5-15]:  /static/raw/lec_5_15_2019.hs
+[hs-5-17]:  /static/raw/lec_5_17_2019.hs
 
 [pdf-hof]: /static/raw/04-hof.pdf 
+[pdf-env]: /static/raw/05-environments.pdf 
 
 [disc1]: /static/raw/disc1-lambda_calc.pdf
 [disc5]: /static/raw/disc5-parsing.pdf
