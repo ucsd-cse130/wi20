@@ -22,10 +22,13 @@ headerImg: books.jpg
 | 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
 | 5/8        | contd.                          |                              | [hs-5-8]   |
 | 5/10       | **Midterm**                     |                              |            |
-|            | Environments & Closures         | [html][lec5] [pdf][pdf-env]  | [hs-5-15]  |
-|            | contd.                          |                              | [hs-5-17]  |
-|            | Lexing and Parsing              | [html][lec6] [tutorial][parsing]     |    |
-|            | Overloading & TypeClasses       | [html][lec7-cl]              |            |
+| 5/13       | Environments & Closures         | [html][lec5] [pdf][pdf-env]  | [hs-5-13]  |
+| 5/15       | contd.                          |                              | [hs-5-15]  |
+| 5/17       | contd.                          |                              | [hs-5-17]  |
+| 5/22       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]       |  |
+| 5/24       | contd.                          |                              |            |
+| 5/29       | Overloading & TypeClasses       | [html][lec7-cl]              | [hs-5-29]  |
+| 5/31       | contd.                          |                              | [hs-5-31]  |
 
 <!-- 
 | 2/13       | Environments and Closures       | [html][lec5]              |               |
@@ -99,6 +102,8 @@ headerImg: books.jpg
 [hs-5-8]:  /static/raw/lec_5_8_2019.hs
 [hs-5-15]:  /static/raw/lec_5_15_2019.hs
 [hs-5-17]:  /static/raw/lec_5_17_2019.hs
+[hs-5-29]:  /static/raw/lec_5_29_2019.hs
+[hs-5-31]:  /static/raw/lec_5_31_2019.hs
 
 [pdf-hof]: /static/raw/04-hof.pdf 
 [pdf-env]: /static/raw/05-environments.pdf 
