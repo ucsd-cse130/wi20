@@ -180,10 +180,10 @@ just point them to the above.
 
 To see the right type, lets ask:
 
-~~~~~{.haskell}
+```haskell
 λ> :type (+)
 (+) :: (Num a) => a -> a -> a
-~~~~~
+```
 
 We call the above a **qualified type**. Read it as `+`
 
@@ -272,7 +272,7 @@ Indeed, we can test this on different (built-in) types
 
 λ> show (1, "two", ([],[],[]))
 "(1,\"two\",([],[],[]))"
-~~~~~
+```
 
 (Hey, whats up with the funny `\"`?)
 
@@ -741,12 +741,12 @@ lunches = [ [("day", "monday"),    ("loc", "zanzibar")]
 
 because we have to go through gymnastics like
 
-~~~~~{.haskell}
+```haskell
 λ> xsToJSON (xysToJSON stringToJSON) lunches
 JArr [ JObj [("day",JStr "monday")   ,("loc",JStr "zanzibar")]
      , JObj [("day",JStr "tuesday")  ,("loc",JStr "farmers market")]
      ]
-~~~~~
+```
 
 Yikes. So much for _readability_
 
@@ -825,10 +825,10 @@ instance (JSON a) => JSON [(String, a)] where
 
 after which, we are all set!
 
-~~~~~{.haskell}
+```haskell
 λ> toJSON lunches
 JArr [JObj [("day",JStr "monday"),("loc",JStr "zanzibar")],JObj [("day",JStr "tuesday"),("loc",JStr "farmers market")]]
-~~~~~
+```
 
 It is also useful to bootstrap the serialization for tuples (upto some
 fixed size) so we can easily write "non-uniform" JSON objects where keys
