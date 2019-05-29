@@ -97,11 +97,20 @@ But then, what type do we give to *functions* like `+` and `==` ?
 Which of the following would be appropriate types for `(+)` ?
 
 **(A)** `(+) :: Integer -> Integer -> Integer`
+
 **(B)** `(+) :: Double  -> Double  -> Double`
+
 **(C)** `(+) :: a       -> a       -> a`
+
 **(D)** _All_ of the above
+
 **(E)** _None_ of the above
 
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -114,6 +123,16 @@ Which of the following would be appropriate types for `(+)` ?
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 `Double -> Double -> Double` is bad because?
 
@@ -121,12 +140,25 @@ Which of the following would be appropriate types for `(+)` ?
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 `a -> a -> a` is bad because?
 
 - That doesn't make sense, e.g. to add two `Bool` or two `[Int]` or two functions!
 
-## Type Classes: Make Ad Hoc Polymorphism Less Ad Hoc
+## Type Classes for Ad Hoc Polymorphism 
 
 Haskell solves this problem with an *insanely slick*
 mechanism called typeclasses, introduced by [Wadler and Blott](http://portal.acm.org/citation.cfm?id=75283) 
