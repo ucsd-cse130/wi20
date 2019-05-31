@@ -4,6 +4,31 @@ date: 2019-05-29
 headerImg: books.jpg
 ---
 
+## Announcements
+
+* HW 04-NANO -- deadline ===> May 31, 23:59:59
+
+```haskell
+let fac =                         -- env0
+  \n -> if n <= 0
+          then 1
+          else 1 * fac (n-1)
+in fac 5
+
+let f = e1 in e2 ...
+
+
+
+-- Somehow "hack the frozen env" so that the name `f`
+-- is "available" in the closure's frozen env that `e1`
+-- evaluates to
+
+VClos env0 "n" <if n <=0 ... >
+
+    eval (("n", 5):env0) <body>
+
+PROBLEM: 'fac' is unbound in `env0` and hence in `("n", 5) : env0`
+
 ## Past two Weeks
 
 How to *implement* language constructs?
@@ -500,9 +525,6 @@ Lets _delete_ the types of `add` and `get` and see what Haskell says their types
 ```haskell
 λ> :type get
 get :: (Eq k) => k -> v -> Env k v -> Env k v
-
-λ> :type add  
-add :: (Eq k) => k -> Env k v -> v
 ```
 
 Haskell tells us that we can use any `k` value as a *key*
@@ -510,7 +532,7 @@ as long as the value is an instance of the `Eq` typeclass.
 
 How, did GHC figure this out? 
 
-- If you look at the code for `get` and `add` you'll see that we compare two keys!
+- If you look at the code for `get` you'll see that we check if two keys _are equal_!
 
 <br>
 <br>
@@ -527,9 +549,9 @@ Write an optimized version of
 - `get` that gives up and returns the "default" the moment
    we see a key thats larger than the one we're looking for.
 
-(How) do you need to change the type of `Env`?
+_(How) do you need to change the type of `Env`?_
 
-(How) do you need to change the types of `get` and `add`?
+_(How) do you need to change the types of `get` and `add`?_
 
 <br>
 <br>
@@ -560,9 +582,13 @@ That is, `Read` is the _opposite_ of `Show`.
 What does the expression `read "2"` evaluate to?
 
 **(A)** compile time error
+
 **(B)** `"2" :: String`
+
 **(C)** `2   :: Integer`
+
 **(D)** `2.0 :: Double`
+
 **(E)** run-time exception
 
 <br>
@@ -803,10 +829,10 @@ recipe to convert lists of `a` values!
 
 ```haskell
 λ> toJSON [True, False, True]
-JArr [JBln True,JBln False,JBln True]
+JArr [JBln True, JBln False, JBln True]
 
 λ> toJSON ["cat", "dog", "Mouse"]
-JArr [JStr "cat",JStr "dog",JStr "Mouse"]
+JArr [JStr "cat", JStr "dog", JStr "Mouse"]
 ```
 
 or even lists-of-lists!
@@ -818,16 +844,18 @@ JArr [JArr [JStr "cat",JStr "dog"],JArr [JStr "mouse",JStr "rabbit"]]
 
 We can pull the same trick with key-value lists
 
-\begin{code}
+```haskell
 instance (JSON a) => JSON [(String, a)] where
   toJSON kvs = JObj [ (k, toJSON v) | (k, v) <- kvs ]
-\end{code}
+```
 
 after which, we are all set!
 
 ```haskell
 λ> toJSON lunches
-JArr [JObj [("day",JStr "monday"),("loc",JStr "zanzibar")],JObj [("day",JStr "tuesday"),("loc",JStr "farmers market")]]
+JArr [ JObj [ ("day",JStr "monday"), ("loc",JStr "zanzibar")]
+     , JObj [("day",JStr "tuesday"), ("loc",JStr "farmers market")]
+     ]
 ```
 
 It is also useful to bootstrap the serialization for tuples (upto some
@@ -875,7 +903,7 @@ js2 = toJSON hs
 To wrap everything up, lets write a routine to serialize our `Env`
 
 ```haskell
-instance JSON v => JSON (Env k v) where
+instance JSON (Env k v) where
   toJSON env = ???
 ```
 
