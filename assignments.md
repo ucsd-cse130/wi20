@@ -15,6 +15,8 @@ mins over the deadline is equal to 1 late day.
 - [HW #2](https://classroom.github.com/a/KlC4Cprt): Random Art (due Fri 5/3 by 23:59:59 pm) 
 - [HW #3](https://classroom.github.com/a/ku0jf6T7): All about Fold (due Wed 5/15 by 23:59:59 pm)
 - [HW #4](https://classroom.github.com/a/eKX2IXk2): Nano (due Wed 5/29 by 23:59:59 pm)
+- [HW #5](https://classroom.github.com/a/RpuOrpi4): Classes (due Sunday 6/9 by 23:59:59 pm)
+
 
 <!--
 - [HW #5](https://github.com/cse130-wi19/05-types): Type Inference for Nano (due ~~Wed 3/6~~ Fri 3/8 by 5pm)
