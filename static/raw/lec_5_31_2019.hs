@@ -114,7 +114,6 @@ instance Show MyNewType where
 data Env k v = Default v | Bind k v (Env k v)
   deriving (Show)
 
-
 -- lookupEnv :: (Eq k) => k -> Env k v -> v 
 lookupEnv key (Default val)= val
 lookupEnv key (Bind k v rest) 
@@ -122,3 +121,4 @@ lookupEnv key (Bind k v rest)
   | otherwise              = lookupEnv key rest
 
 insert key val env = Bind key val env
+
