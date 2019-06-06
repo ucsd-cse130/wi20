@@ -410,6 +410,7 @@ In most language related classes, we _start_ with a "Hello world!" program.
 
 With 130, we will _end_ with it.
 
+<!-- 
 For example, in Python you may write:
 
 ```python
@@ -425,6 +426,7 @@ and then you can run it:
 $ python hello.py
 hello world!
 ```
+-->
 
 ## Purity and the Immutability Principle
 
@@ -446,15 +448,15 @@ Haskell's most radical idea: `expression ==> value`
 
 Specifically, evaluation must not
 
-- _change a global variable_ or
+- _change_ a global variable or
 
-- _print to screen_ or
+- _print_ to screen or
 
-- _read a file_ or
+- _read_ a file or
 
-- _send an email_ or
+- _send_ an email or
 
-- _launch a missile.
+- _launch_ a missile.
 
 So **purity** means _functions may depend only on their inputs_
 
@@ -522,9 +524,9 @@ main :: Recipe ()
 
 The value associated with `main` is handed to the **runtime system and executed**
 
-![Baker](/static/img/baker-aker.jpg){#fig:types .align-center width=40%}
+![Baker Aker](/static/img/baker-aker.jpg){#fig:types .align-center width=70%}
 
-The Haskell runtime system as a _master chef_ who is the only one allowed to do any cooking!
+The Haskell runtime is a _master chef_ who is the only one allowed to cook!
 
 ## How to write an App in Haskell
 
