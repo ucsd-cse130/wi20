@@ -300,7 +300,7 @@ Lets **bottle** that common structure in two functions:
 - `>>=` (pronounced _bind_)
 - `return` (pronounced _return_)
 
-![Bottling a Magic Pattern](/static/img/fairy.png){#fig:types .align-center width=50%}
+![Bottling a Magic Pattern](/static/img/fairy.png){#fig:types .align-center width=20%}
 
 ```haskell
 (>>=) :: Result a -> (a -> Result b) -> Result b
