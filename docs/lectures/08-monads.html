@@ -576,8 +576,7 @@ hello world!
 <li>takes as input a <code class="sourceCode haskell"><span class="dt">String</span></code></li>
 <li>returns as output a <code class="sourceCode haskell"><span class="dt">Recipe</span> ()</code></li>
 </ul>
-<p>such that <code class="sourceCode haskell">putStrLn msg</code> is a <code class="sourceCode haskell"><span class="dt">Recipe</span> ()</code> that <em>when executed</em> prints out <code class="sourceCode haskell">msg</code> on the screen.</p>
-<p>So we can now write</p>
+<p><code class="sourceCode haskell">putStrLn msg</code> is a <code class="sourceCode haskell"><span class="dt">Recipe</span> ()</code> <em>when executed</em> prints out <code class="sourceCode haskell">msg</code> on the screen.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="ot">main ::</span> <span class="dt">Recipe</span> ()</a>
 <a class="sourceLine" id="cb33-2" data-line-number="2">main <span class="fu">=</span> putStrLn <span class="st">&quot;Hello, world!&quot;</span></a></code></pre></div>
 <p>… and we can compile and run it</p>
@@ -603,11 +602,11 @@ hello world!
 <ol type="1">
 <li><strong>Asks</strong> for the user’s <code class="sourceCode haskell">name</code> using</li>
 </ol>
-<div class="sourceCode" id="cb37"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb37-1" data-line-number="1">getLine<span class="ot"> ::</span> <span class="dt">Recipe</span> <span class="dt">String</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="ot">    getLine ::</span> <span class="dt">Recipe</span> <span class="dt">String</span></a></code></pre></div>
 <ol start="2" type="1">
 <li><strong>Prints</strong> out a greeting with that <code class="sourceCode haskell">name</code> using</li>
 </ol>
-<div class="sourceCode" id="cb38"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb38-1" data-line-number="1">putStrLn<span class="ot"> ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Recipe</span> ()</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="ot">    putStrLn ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Recipe</span> ()</a></code></pre></div>
 <p><strong>Problem:</strong> How to pass the <strong>output</strong> of <em>first</em> recipe into the <em>second</em> recipe?</p>
 <p><br> <br> <br> <br></p>
 <h2 id="quiz-using-yolks-to-make-batter">QUIZ: Using Yolks to Make Batter</h2>
@@ -618,11 +617,11 @@ hello world!
 <div class="sourceCode" id="cb40"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="ot">main ::</span> <span class="dt">Recipe</span> <span class="dt">Batter</span></a>
 <a class="sourceLine" id="cb40-2" data-line-number="2">main <span class="fu">=</span> crack <span class="ot">`combineWithResult`</span> mkBatter</a></code></pre></div>
 <p>What must the type of <code class="sourceCode haskell">combineWithResult</code> be?</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co">{- A -}</span><span class="ot"> combineWithResult ::</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> <span class="dt">Batter</span> <span class="ot">-&gt;</span> <span class="dt">Batter</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="co">{- B -}</span><span class="ot"> combineWithResult ::</span> <span class="dt">Recipe</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> (<span class="dt">Yolk</span>  <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span>) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="co">{- C -}</span><span class="ot"> combineWithResult ::</span> <span class="dt">Recipe</span> a    <span class="ot">-&gt;</span> (a     <span class="ot">-&gt;</span> <span class="dt">Recipe</span> a     ) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> a</a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="co">{- D -}</span><span class="ot"> combineWithResult ::</span> <span class="dt">Recipe</span> a    <span class="ot">-&gt;</span> (a     <span class="ot">-&gt;</span> <span class="dt">Recipe</span> b     ) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> b</a>
-<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="co">{- E -}</span><span class="ot"> combineWithResult ::</span> <span class="dt">Recipe</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> (<span class="dt">Yolk</span>  <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span>) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> ()</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co">{- A -}</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> <span class="dt">Batter</span> <span class="ot">-&gt;</span> <span class="dt">Batter</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="co">{- B -}</span> <span class="dt">Recipe</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> (<span class="dt">Yolk</span>  <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span>) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="co">{- C -}</span> <span class="dt">Recipe</span> a    <span class="ot">-&gt;</span> (a     <span class="ot">-&gt;</span> <span class="dt">Recipe</span> a     ) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> a</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="co">{- D -}</span> <span class="dt">Recipe</span> a    <span class="ot">-&gt;</span> (a     <span class="ot">-&gt;</span> <span class="dt">Recipe</span> b     ) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> b</a>
+<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="co">{- E -}</span> <span class="dt">Recipe</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> (<span class="dt">Yolk</span>  <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span>) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> ()</a></code></pre></div>
 <p><br> <br> <br> <br></p>
 <h2 id="looks-familar">Looks Familar</h2>
 <p>Wait a bit, the signature looks familiar!</p>
@@ -644,8 +643,9 @@ hello world!
 <ol type="1">
 <li><em>Compile</em> and run to make sure its ok!</li>
 <li><em>Modify</em> the above to repeatedly ask for names.</li>
-<li><em>Modify</em> the above to print a “prompt” that tells you how many iterations have occurred.</li>
+<li><em>Extend</em> the above to print a “prompt” that tells you how many iterations have occurred.</li>
 </ol>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="monads-are-amazing">Monads are Amazing</h2>
 <p>Monads have had a <em>revolutionary</em> influence in PL, well beyond Haskell</p>
 <ul>
@@ -653,31 +653,40 @@ hello world!
 <li><p>Asynchrony in JavaScript e.g. <a href="https://gist.github.com/MaiaVictor/bc0c02b6d1fbc7e3dbae838fb1376c80">this</a> and <a href="https://medium.com/@dtipson/building-a-better-promise-3dd366f80c16">that</a></p></li>
 <li><p>Big data piplelines e.g. <a href="https://www.microsoft.com/en-us/research/project/dryadlinq/">LinQ</a> and <a href="https://www.tensorflow.org/">TensorFlow</a></p></li>
 </ul>
+<p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="a-silly-app-to-end-cse-130">A Silly App to End CSE 130</h2>
 <p>Lets write an app called <a href="../static/raw/moo.hs">moo</a> inspired by <a href="https://medium.com/@jasonrigden/cowsay-is-the-most-important-unix-like-command-ever-35abdbc22b7f">cowsay</a></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb47-1" data-line-number="1">$ <span class="ex">./moo</span> Jhala, y u no make final easy!</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb47-3" data-line-number="3"> <span class="ex">--------------------------------</span></a>
-<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="op">&lt;</span> <span class="ex">Jhala</span>, y u no make final easy! <span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb47-5" data-line-number="5"> <span class="ex">--------------------------------</span></a>
-<a class="sourceLine" id="cb47-6" data-line-number="6">        <span class="ex">\ </span>  ^__^</a>
-<a class="sourceLine" id="cb47-7" data-line-number="7">         <span class="ex">\ </span> (oo)\<span class="ex">_______</span></a>
-<a class="sourceLine" id="cb47-8" data-line-number="8">            <span class="kw">(</span><span class="ex">__</span><span class="kw">)</span><span class="ex">\ </span>      )\/<span class="kw">\</span></a>
-<a class="sourceLine" id="cb47-9" data-line-number="9">                <span class="kw">||</span><span class="ex">----w</span> <span class="kw">|</span></a>
-<a class="sourceLine" id="cb47-10" data-line-number="10">                <span class="kw">||</span>     <span class="kw">||</span></a></code></pre></div>
-<p>or even using unix pipes</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb48-1" data-line-number="1">$ <span class="fu">ls</span> *pdf <span class="kw">|</span> <span class="ex">../moo</span></a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"> <span class="ex">------------------------------------</span></a>
-<a class="sourceLine" id="cb48-3" data-line-number="3"><span class="op">&lt;</span> <span class="ex">00-intro.pdf</span> 01-lambda.pdf         <span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="op">&lt;</span> <span class="ex">03-datatypes.pdf</span> 04-hof.pdf        <span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb48-5" data-line-number="5"><span class="op">&lt;</span> <span class="ex">05-environments.pdf</span> 06-parsing.pdf <span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="op">&lt;</span> <span class="ex">07-classes.pdf</span> 08-monads.pdf       <span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb48-7" data-line-number="7"> <span class="ex">------------------------------------</span></a>
-<a class="sourceLine" id="cb48-8" data-line-number="8">        <span class="ex">\ </span>  ^__^</a>
-<a class="sourceLine" id="cb48-9" data-line-number="9">         <span class="ex">\ </span> (oo)\<span class="ex">_______</span></a>
-<a class="sourceLine" id="cb48-10" data-line-number="10">            <span class="kw">(</span><span class="ex">__</span><span class="kw">)</span><span class="ex">\ </span>      )\/<span class="kw">\</span></a>
-<a class="sourceLine" id="cb48-11" data-line-number="11">                <span class="kw">||</span><span class="ex">----w</span> <span class="kw">|</span></a>
-<a class="sourceLine" id="cb48-12" data-line-number="12">                <span class="kw">||</span>     <span class="kw">||</span></a></code></pre></div>
+<figure>
+<img src="../static/img/moo1.png" alt="A CLI App: moo" id="fig:types" class="align-center" style="width:70.0%" /><figcaption>A CLI App: <code class="sourceCode haskell">moo</code></figcaption>
+</figure>
+<figure>
+<img src="../static/img/moo2.png" alt="moo works with unix pipes" id="fig:types" class="align-center" style="width:70.0%" /><figcaption><code class="sourceCode haskell">moo</code> works with unix pipes</figcaption>
+</figure>
+<figure>
+<img src="../static/img/moo3.png" alt="Thanks, and good luck for the final!" id="fig:types" class="align-center" style="width:70.0%" /><figcaption>Thanks, and good luck for the final!</figcaption>
+</figure>
+<!-- 
+```sh
+$ ./moo Jhala, y u no make final easy!
+
+ --------------------------------
+< Jhala, y u no make final easy! >
+ --------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
+
+or even using unix pipes
+
+```txt
+$ ./moo Thats all folks, thanks!
+ ------------------------------------>
+<p>&lt; 00-intro.pdf 01-lambda.pdf &gt; &lt; 03-datatypes.pdf 04-hof.pdf &gt; &lt; 05-environments.pdf 06-parsing.pdf &gt; &lt; 07-classes.pdf 08-monads.pdf &gt; ————————————   ^<strong>^   (oo)_</strong>__<strong> (</strong>)  )/<br />
+||—-w | || || ```</p>
+<p>Thats all, folks. –&gt;</p>
                 <hr>
             </div>
         </div>

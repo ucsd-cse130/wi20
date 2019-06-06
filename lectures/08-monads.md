@@ -548,9 +548,7 @@ The function `putStrLn`
 - takes as input a `String`
 - returns as output a `Recipe ()`
 
-such that `putStrLn msg` is a `Recipe ()` that _when executed_ prints out `msg` on the screen. 
-
-So we can now write
+`putStrLn msg` is a `Recipe ()` _when executed_ prints out `msg` on the screen.
 
 ```haskell
 main :: Recipe ()
@@ -599,13 +597,13 @@ Next, lets write a program that
 1. **Asks** for the user's `name` using
 
 ```haskell
-getLine :: Recipe String
+    getLine :: Recipe String
 ```
 
 2. **Prints** out a greeting with that `name` using
 
 ```haskell
-putStrLn :: String -> Recipe ()
+    putStrLn :: String -> Recipe ()
 ```
 
 **Problem:** How to pass the **output** of _first_ recipe into the _second_ recipe?
@@ -634,11 +632,11 @@ main = crack `combineWithResult` mkBatter
 What must the type of `combineWithResult` be?
 
 ```haskell
-{- A -} combineWithResult :: Yolk -> Batter -> Batter
-{- B -} combineWithResult :: Recipe Yolk -> (Yolk  -> Recipe Batter) -> Recipe Batter
-{- C -} combineWithResult :: Recipe a    -> (a     -> Recipe a     ) -> Recipe a
-{- D -} combineWithResult :: Recipe a    -> (a     -> Recipe b     ) -> Recipe b
-{- E -} combineWithResult :: Recipe Yolk -> (Yolk  -> Recipe Batter) -> Recipe ()
+{- A -} Yolk -> Batter -> Batter
+{- B -} Recipe Yolk -> (Yolk  -> Recipe Batter) -> Recipe Batter
+{- C -} Recipe a    -> (a     -> Recipe a     ) -> Recipe a
+{- D -} Recipe a    -> (a     -> Recipe b     ) -> Recipe b
+{- E -} Recipe Yolk -> (Yolk  -> Recipe Batter) -> Recipe ()
 ```
 
 <br>
@@ -688,7 +686,15 @@ main = do name <- getLine
 
 1. _Compile_ and run to make sure its ok!
 2. _Modify_ the above to repeatedly ask for names.
-3. _Modify_ the above to print a "prompt" that tells you how many iterations have occurred.
+3. _Extend_ the above to print a "prompt" that tells you how many iterations have occurred.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## Monads are Amazing
 
@@ -700,11 +706,26 @@ Monads have had a _revolutionary_ influence in PL, well beyond Haskell
 
 - Big data piplelines e.g. [LinQ](https://www.microsoft.com/en-us/research/project/dryadlinq/) and [TensorFlow](https://www.tensorflow.org/)
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## A Silly App to End CSE 130
 
 Lets write an app called [moo](/static/raw/moo.hs) inspired by [cowsay](https://medium.com/@jasonrigden/cowsay-is-the-most-important-unix-like-command-ever-35abdbc22b7f)
 
 
+![A CLI App: `moo`](/static/img/moo1.png){#fig:types .align-center width=70%}
+
+![`moo` works with unix pipes](/static/img/moo2.png){#fig:types .align-center width=70%}
+
+![Thanks, and good luck for the final!](/static/img/moo3.png){#fig:types .align-center width=70%}
+
+<!-- 
 ```sh
 $ ./moo Jhala, y u no make final easy!
 
@@ -720,9 +741,9 @@ $ ./moo Jhala, y u no make final easy!
 
 or even using unix pipes
 
-```sh
-$ ls *pdf | ../moo
- ------------------------------------
+```txt
+$ ./moo Thats all folks, thanks!
+ ------------------------------------>
 < 00-intro.pdf 01-lambda.pdf         >
 < 03-datatypes.pdf 04-hof.pdf        >
 < 05-environments.pdf 06-parsing.pdf >
@@ -734,5 +755,9 @@ $ ls *pdf | ../moo
                 ||----w |
                 ||     ||
 ```
+
+
+Thats all, folks.
+-->
 
 [brietner]: https://www.seas.upenn.edu/~cis194/fall16/lectures/06-io-and-monads.html
