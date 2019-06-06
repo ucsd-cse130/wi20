@@ -25,10 +25,15 @@ headerImg: books.jpg
 | 5/13       | Environments & Closures         | [html][lec5] [pdf][pdf-env]  | [hs-5-13]  |
 | 5/15       | contd.                          |                              | [hs-5-15]  |
 | 5/17       | contd.                          |                              | [hs-5-17]  |
-| 5/22       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]       |  |
+| 5/22       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]  [pdf][pdf-parse] |  |
 | 5/24       | contd.                          |                              |            |
 | 5/29       | Overloading & TypeClasses       | [html][lec7-cl]              | [hs-5-29]  |
 | 5/31       | contd.                          |                              | [hs-5-31]  |
+| 6/3        | contd.                          |                              | [hs-6-3]   |
+| 6/5        | Monads                          | [html][lec8-monads]          | [hs-6-5]   |
+|            | contd.                          |                              | [hs-6-7]   |
+
+
 
 <!-- 
 | 2/13       | Environments and Closures       | [html][lec5]              |               |
@@ -72,6 +77,7 @@ headerImg: books.jpg
 [lec6]: lectures/06-parsing.html
 [lec7-ty]: lectures/07-types.html
 [lec7-cl]: lectures/07-classes.html
+[lec8-monads]: lectures/08-monads.html
 [lec8]: lectures/08-prolog.html
 
 [pdf0]: /static/raw/00-intro-annot.pdf
@@ -104,6 +110,9 @@ headerImg: books.jpg
 [hs-5-17]:  /static/raw/lec_5_17_2019.hs
 [hs-5-29]:  /static/raw/lec_5_29_2019.hs
 [hs-5-31]:  /static/raw/lec_5_31_2019.hs
+[hs-5-31]:  /static/raw/lec_6_3_2019.hs
+[hs-6-5]:  /static/raw/lec_6_5_2019.hs
+[hs-6-7]:  /static/raw/lec_6_7_2019.hs
 
 [pdf-hof]: /static/raw/04-hof.pdf 
 [pdf-env]: /static/raw/05-environments.pdf 

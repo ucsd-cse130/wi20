@@ -504,8 +504,233 @@ A value of type `Recipe a` is
 
 They are different (_hint_: only one of them is delicious.)
 
+Merely having a `Recipe Cake` has no effects: holding the recipe
+
+- Does not make your oven _hot_
+
+- Does not make your your floor _dirty_
+
+## Executing Recipes
+
+There is **only one way** to execute a `Recipe a`
+
+Haskell looks for a special value
+
+```haskell
+main :: Recipe ()
+```
+
+The value associated with `main` is handed to the **runtime system and executed**
+
+![Baker](/static/img/baker-aker.jpg){#fig:types .align-center width=40%}
+
+The Haskell runtime system as a _master chef_ who is the only one allowed to do any cooking!
+
+## How to write an App in Haskell
+
+Make a `Recipe ()` that is handed off to the master chef `main`.
+
+- `main` can be arbitrarily complicated
+
+- will be composed of _many smaller_ recipes
+
+## Hello World
 
 
-## Monads: State
+```haskell
+putStrLn :: String -> Recipe ()
+```
+
+The function `putStrLn`
+
+- takes as input a `String`
+- returns as output a `Recipe ()`
+
+such that `putStrLn msg` is a `Recipe ()` that _when executed_ prints out `msg` on the screen. 
+
+So we can now write
+
+```haskell
+main :: Recipe ()
+main = putStrLn "Hello, world!"
+```
+
+... and we can compile and run it
+
+```sh
+$ ghc --make hello.hs
+$ ./hello
+Hello, world!
+```
+
+## QUIZ: Combining Recipes
+
+Next, lets write a program that prints multiple things:
+
+```haskell
+main :: IO ()
+main = combine (putStrLn "Hello,") (putStrLn "World!")
+
+-- putStrLn :: String -> Recipe ()
+-- combine  :: ???
+```
+
+What must the _type_ of `combine` be?
+
+```haskell
+{- A -} combine :: () -> () -> ()
+{- B -} combine :: Recipe () -> Recipe () -> Recipe ()
+{- C -} combine :: Recipe a  -> Recipe a  -> Recipe a
+{- D -} combine :: Recipe a  -> Recipe b  -> Recipe b
+{- E -} combine :: Recipe a  -> Recipe b  -> Recipe a
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## Using Intermediate Results
+
+Next, lets write a program that
+
+1. **Asks** for the user's `name` using
+
+```haskell
+getLine :: Recipe String
+```
+
+2. **Prints** out a greeting with that `name` using
+
+```haskell
+putStrLn :: String -> Recipe ()
+```
+
+**Problem:** How to pass the **output** of _first_ recipe into the _second_ recipe?
+
+<br>
+<br>
+<br>
+<br>
+
+## QUIZ: Using Yolks to Make Batter
+
+Suppose you have two recipes
+
+```haskell
+crack    :: Recipe Yolk
+mkbatter :: Yolk -> Recipe Batter
+```
+
+and we want to get 
+
+```haskell
+main :: Recipe Batter
+main = crack `combineWithResult` mkBatter
+```
+
+What must the type of `combineWithResult` be?
+
+```haskell
+{- A -} combineWithResult :: Yolk -> Batter -> Batter
+{- B -} combineWithResult :: Recipe Yolk -> (Yolk  -> Recipe Batter) -> Recipe Batter
+{- C -} combineWithResult :: Recipe a    -> (a     -> Recipe a     ) -> Recipe a
+{- D -} combineWithResult :: Recipe a    -> (a     -> Recipe b     ) -> Recipe b
+{- E -} combineWithResult :: Recipe Yolk -> (Yolk  -> Recipe Batter) -> Recipe ()
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## Looks Familar
+
+Wait a bit, the signature looks familiar!
+
+```haskell
+combineWithResult :: Recipe a -> (a -> Recipe b) -> Recipe b
+```
+
+Remember this
+
+```haskell
+(>>=)             :: Result a -> (a -> Result b) -> Result b
+```
+
+## `Recipe` is an instance of `Monad`
+
+In fact, in the standard library
+
+```haskell
+instance Monad Recipe where
+  (>>=) = {-... combineWithResult... -}
+```
+
+So we can put this together with `putStrLn` to get:
+
+```haskell
+main :: Recipe ()
+main = getLine >>= \name -> putStrLn ("Hello, " ++ name ++ "!")
+```
+
+or, using `do` notation the above becomes
+
+```haskell
+main :: Recipe ()
+main = do name <- getLine
+          putStrLn ("Hello, " ++ name ++ "!")
+```
+
+**Exercise** 
+
+1. _Compile_ and run to make sure its ok!
+2. _Modify_ the above to repeatedly ask for names.
+3. _Modify_ the above to print a "prompt" that tells you how many iterations have occurred.
+
+## Monads are Amazing
+
+Monads have had a _revolutionary_ influence in PL, well beyond Haskell
+
+- Error handling in `go` e.g. [this](https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go)  and [that](https://www.innoq.com/en/blog/golang-errors-monads/)
+
+- Asynchrony in JavaScript e.g. [this](https://gist.github.com/MaiaVictor/bc0c02b6d1fbc7e3dbae838fb1376c80) and [that](https://medium.com/@dtipson/building-a-better-promise-3dd366f80c16)
+
+- Big data piplelines e.g. [LinQ](https://www.microsoft.com/en-us/research/project/dryadlinq/) and [TensorFlow](https://www.tensorflow.org/)
+
+## A Silly App to End CSE 130
+
+Lets write an app called [moo](/static/raw/moo.hs) inspired by [cowsay](https://medium.com/@jasonrigden/cowsay-is-the-most-important-unix-like-command-ever-35abdbc22b7f)
+
+
+```sh
+$ ./moo Jhala, y u no make final easy!
+
+ --------------------------------
+< Jhala, y u no make final easy! >
+ --------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
+
+or even using unix pipes
+
+```sh
+$ ls *pdf | ../moo
+ ------------------------------------
+< 00-intro.pdf 01-lambda.pdf         >
+< 03-datatypes.pdf 04-hof.pdf        >
+< 05-environments.pdf 06-parsing.pdf >
+< 07-classes.pdf 08-monads.pdf       >
+ ------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
 
 [brietner]: https://www.seas.upenn.edu/~cis194/fall16/lectures/06-io-and-monads.html
