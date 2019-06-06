@@ -698,13 +698,13 @@ main = do name <- getLine
 
 ## Monads are Amazing
 
-Monads have had a _revolutionary_ influence in PL, well beyond Haskell
+Monads have had a _revolutionary_ influence in PL, well beyond Haskell, some recent examples
 
-- Error handling in `go` e.g. [this](https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go)  and [that](https://www.innoq.com/en/blog/golang-errors-monads/)
+- **Error handling** in `go` e.g. [1](https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go)  and [2](https://www.innoq.com/en/blog/golang-errors-monads/)
 
-- Asynchrony in JavaScript e.g. [this](https://gist.github.com/MaiaVictor/bc0c02b6d1fbc7e3dbae838fb1376c80) and [that](https://medium.com/@dtipson/building-a-better-promise-3dd366f80c16)
+- **Asynchrony** in JavaScript e.g. [1](https://gist.github.com/MaiaVictor/bc0c02b6d1fbc7e3dbae838fb1376c80) and [2](https://medium.com/@dtipson/building-a-better-promise-3dd366f80c16)
 
-- Big data piplelines e.g. [LinQ](https://www.microsoft.com/en-us/research/project/dryadlinq/) and [TensorFlow](https://www.tensorflow.org/)
+- **Big data** pipelines e.g. [LinQ](https://www.microsoft.com/en-us/research/project/dryadlinq/) and [TensorFlow](https://www.tensorflow.org/)
 
 <br>
 <br>
@@ -719,13 +719,17 @@ Monads have had a _revolutionary_ influence in PL, well beyond Haskell
 Lets write an app called [moo](/static/raw/moo.hs) inspired by [cowsay](https://medium.com/@jasonrigden/cowsay-is-the-most-important-unix-like-command-ever-35abdbc22b7f)
 
 
-![A CLI App: `moo`](/static/img/moo1.png){#fig:types .align-center width=70%}
+**A Command Line App**
 
-![`moo` works with unix pipes](/static/img/moo2.png){#fig:types .align-center width=70%}
+![`moo`](/static/img/moo1.png){#fig:types .align-center width=70%}
 
-![Thanks, and good luck for the final!](/static/img/moo3.png){#fig:types .align-center width=70%}
+**`moo` works with pipes**
 
-<!-- 
+![Thanks, and good luck for the final!](/static/img/moo2.png){#fig:types .align-center width=70%}
+
+<!--
+![](/static/img/moo3.png){#fig:types .align-center width=70%}
+
 ```sh
 $ ./moo Jhala, y u no make final easy!
 
@@ -743,7 +747,8 @@ or even using unix pipes
 
 ```txt
 $ ./moo Thats all folks, thanks!
- ------------------------------------>
+
+ ------------------------------------
 < 00-intro.pdf 01-lambda.pdf         >
 < 03-datatypes.pdf 04-hof.pdf        >
 < 05-environments.pdf 06-parsing.pdf >
@@ -756,8 +761,9 @@ $ ./moo Thats all folks, thanks!
                 ||     ||
 ```
 
-
 Thats all, folks.
+
 -->
+
 
 [brietner]: https://www.seas.upenn.edu/~cis194/fall16/lectures/06-io-and-monads.html

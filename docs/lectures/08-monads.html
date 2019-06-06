@@ -647,25 +647,26 @@ hello world!
 </ol>
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="monads-are-amazing">Monads are Amazing</h2>
-<p>Monads have had a <em>revolutionary</em> influence in PL, well beyond Haskell</p>
+<p>Monads have had a <em>revolutionary</em> influence in PL, well beyond Haskell, some recent examples</p>
 <ul>
-<li><p>Error handling in <code class="sourceCode haskell">go</code> e.g. <a href="https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go">this</a> and <a href="https://www.innoq.com/en/blog/golang-errors-monads/">that</a></p></li>
-<li><p>Asynchrony in JavaScript e.g. <a href="https://gist.github.com/MaiaVictor/bc0c02b6d1fbc7e3dbae838fb1376c80">this</a> and <a href="https://medium.com/@dtipson/building-a-better-promise-3dd366f80c16">that</a></p></li>
-<li><p>Big data piplelines e.g. <a href="https://www.microsoft.com/en-us/research/project/dryadlinq/">LinQ</a> and <a href="https://www.tensorflow.org/">TensorFlow</a></p></li>
+<li><p><strong>Error handling</strong> in <code class="sourceCode haskell">go</code> e.g. <a href="https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go">1</a> and <a href="https://www.innoq.com/en/blog/golang-errors-monads/">2</a></p></li>
+<li><p><strong>Asynchrony</strong> in JavaScript e.g. <a href="https://gist.github.com/MaiaVictor/bc0c02b6d1fbc7e3dbae838fb1376c80">1</a> and <a href="https://medium.com/@dtipson/building-a-better-promise-3dd366f80c16">2</a></p></li>
+<li><p><strong>Big data</strong> pipelines e.g. <a href="https://www.microsoft.com/en-us/research/project/dryadlinq/">LinQ</a> and <a href="https://www.tensorflow.org/">TensorFlow</a></p></li>
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="a-silly-app-to-end-cse-130">A Silly App to End CSE 130</h2>
 <p>Lets write an app called <a href="../static/raw/moo.hs">moo</a> inspired by <a href="https://medium.com/@jasonrigden/cowsay-is-the-most-important-unix-like-command-ever-35abdbc22b7f">cowsay</a></p>
+<p><strong>A Command Line App</strong></p>
 <figure>
-<img src="../static/img/moo1.png" alt="A CLI App: moo" id="fig:types" class="align-center" style="width:70.0%" /><figcaption>A CLI App: <code class="sourceCode haskell">moo</code></figcaption>
+<img src="../static/img/moo1.png" alt="moo" id="fig:types" class="align-center" style="width:70.0%" /><figcaption><code class="sourceCode haskell">moo</code></figcaption>
 </figure>
+<p><strong><code class="sourceCode haskell">moo</code> works with pipes</strong></p>
 <figure>
-<img src="../static/img/moo2.png" alt="moo works with unix pipes" id="fig:types" class="align-center" style="width:70.0%" /><figcaption><code class="sourceCode haskell">moo</code> works with unix pipes</figcaption>
+<img src="../static/img/moo2.png" alt="Thanks, and good luck for the final!" id="fig:types" class="align-center" style="width:70.0%" /><figcaption>Thanks, and good luck for the final!</figcaption>
 </figure>
-<figure>
-<img src="../static/img/moo3.png" alt="Thanks, and good luck for the final!" id="fig:types" class="align-center" style="width:70.0%" /><figcaption>Thanks, and good luck for the final!</figcaption>
-</figure>
-<!-- 
+<!--
+![](/static/img/moo3.png){#fig:types .align-center width=70%}
+
 ```sh
 $ ./moo Jhala, y u no make final easy!
 
@@ -683,10 +684,23 @@ or even using unix pipes
 
 ```txt
 $ ./moo Thats all folks, thanks!
- ------------------------------------>
-<p>&lt; 00-intro.pdf 01-lambda.pdf &gt; &lt; 03-datatypes.pdf 04-hof.pdf &gt; &lt; 05-environments.pdf 06-parsing.pdf &gt; &lt; 07-classes.pdf 08-monads.pdf &gt; ————————————   ^<strong>^   (oo)_</strong>__<strong> (</strong>)  )/<br />
-||—-w | || || ```</p>
-<p>Thats all, folks. –&gt;</p>
+
+ ------------------------------------
+< 00-intro.pdf 01-lambda.pdf         >
+< 03-datatypes.pdf 04-hof.pdf        >
+< 05-environments.pdf 06-parsing.pdf >
+< 07-classes.pdf 08-monads.pdf       >
+ ------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
+
+Thats all, folks.
+
+-->
                 <hr>
             </div>
         </div>
