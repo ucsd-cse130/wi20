@@ -507,7 +507,7 @@ hello world!
 <ul>
 <li>When you evaluate an expression you get a value and <strong>nothing else happens</strong></li>
 </ul>
-<p>Specifically, evaluation must not</p>
+<p>Specifically, evaluation must not have an <strong>side effects</strong></p>
 <ul>
 <li><p><em>change</em> a global variable or</p></li>
 <li><p><em>print</em> to screen or</p></li>
@@ -515,7 +515,8 @@ hello world!
 <li><p><em>send</em> an email or</p></li>
 <li><p><em>launch</em> a missile.</p></li>
 </ul>
-<p>So <strong>purity</strong> means <em>functions may depend only on their inputs</em></p>
+<h2 id="purity">Purity</h2>
+<p>Means <em>functions may depend only on their inputs</em></p>
 <ul>
 <li>i.e. <strong>functions should give the same output for the same input every time.</strong></li>
 </ul>

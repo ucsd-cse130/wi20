@@ -446,7 +446,7 @@ Haskell's most radical idea: `expression ==> value`
 
 - When you evaluate an expression you get a value and **nothing else happens**
 
-Specifically, evaluation must not
+Specifically, evaluation must not have an **side effects**
 
 - _change_ a global variable or
 
@@ -458,7 +458,9 @@ Specifically, evaluation must not
 
 - _launch_ a missile.
 
-So **purity** means _functions may depend only on their inputs_
+## Purity
+
+Means _functions may depend only on their inputs_
 
 - i.e. **functions should give the same output for the same input every time.**
 
@@ -717,7 +719,6 @@ Monads have had a _revolutionary_ influence in PL, well beyond Haskell, some rec
 ## A Silly App to End CSE 130
 
 Lets write an app called [moo](/static/raw/moo.hs) inspired by [cowsay](https://medium.com/@jasonrigden/cowsay-is-the-most-important-unix-like-command-ever-35abdbc22b7f)
-
 
 **A Command Line App**
 

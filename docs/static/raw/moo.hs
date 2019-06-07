@@ -2,9 +2,7 @@ import Text.Printf (printf)
 import System.Environment
 import System.IO
 
--- main :: IO ()
--- main = print "hello, world"
-
+main :: IO ()
 main = do 
   cow <- readFile "cow.txt"
   msg <- getInput 
@@ -36,11 +34,11 @@ blurb lines = unlines
     hdr   = " " ++ replicate (n + 2) '-' ++ " "
 
 msgLines :: Int -> String -> [String]
-msgLines n str  = go [] (words str)
+msgLines n str = go [] (words str)
   where 
-    go acc [] = reverse acc  
-    go acc ws = let (l, rest) = splitAtSize n ws
-                in go (unwords l: acc) rest 
+    go acc []  = reverse acc  
+    go acc ws  = let (l, rest) = splitAtSize n ws
+                 in go (unwords l: acc) rest 
 
 splitAtSize :: Int -> [String] -> ([String], [String])
 splitAtSize n words  = go n [] words
