@@ -404,6 +404,15 @@ eval (Div e1 e2)  = do v1 <- eval e1
                          else return (v1 `div` v2)
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Writing Applications
 
 In most language related classes, we _start_ with a "Hello world!" program.
@@ -438,6 +447,15 @@ Haskell is a **pure** language. Not a _value_ judgment, but a precise _technical
 
 - A function's behavior should _never change_
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## No Side Effects
 
 ![](/static/img/trinity.png){#fig:types .align-center width=60%}
@@ -458,11 +476,31 @@ Specifically, evaluation must not have an **side effects**
 
 - _launch_ a missile.
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 ## Purity
 
 Means _functions may depend only on their inputs_
 
 - i.e. **functions should give the same output for the same input every time.**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 ## But... how to write "Hello, world!"
 
@@ -475,6 +513,15 @@ But, we _want_ to ...
 A language that only lets you write `factorial` and `fibonacci` is ... _not very useful_!
 
 Thankfully, you _can_ do all the above via a very clever idea: `Recipe`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## Recipes
 
@@ -620,15 +667,15 @@ Next, lets write a program that
 Suppose you have two recipes
 
 ```haskell
-crack    :: Recipe Yolk
-mkbatter :: Yolk -> Recipe Batter
+crack     :: Recipe Yolk
+eggBatter :: Yolk -> Recipe Batter
 ```
 
 and we want to get 
 
 ```haskell
-main :: Recipe Batter
-main = crack `combineWithResult` mkBatter
+mkBatter :: Recipe Batter
+mkBatter = crack `combineWithResult` eggBatter
 ```
 
 What must the type of `combineWithResult` be?

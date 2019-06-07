@@ -474,6 +474,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb29-8" data-line-number="8">                       <span class="kw">if</span> v2 <span class="fu">==</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb29-9" data-line-number="9">                         <span class="kw">then</span> <span class="dt">Error</span> (<span class="st">&quot;yikes dbz:&quot;</span> <span class="fu">++</span> show e2)</a>
 <a class="sourceLine" id="cb29-10" data-line-number="10">                         <span class="kw">else</span> return (v1 <span class="ot">`div`</span> v2)</a></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="writing-applications">Writing Applications</h2>
 <p>In most language related classes, we <em>start</em> with a “Hello world!” program.</p>
 <p>With 130, we will <em>end</em> with it.</p>
@@ -501,6 +502,7 @@ hello world!
 <li><p>A function must <em>always</em> return the same output for a given input</p></li>
 <li><p>A function’s behavior should <em>never change</em></p></li>
 </ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="no-side-effects">No Side Effects</h2>
 <p><img src="../static/img/trinity.png" id="fig:types" class="align-center" style="width:60.0%" /></p>
 <p>Haskell’s most radical idea: <code class="sourceCode haskell">expression <span class="fu">==&gt;</span> value</code></p>
@@ -515,11 +517,13 @@ hello world!
 <li><p><em>send</em> an email or</p></li>
 <li><p><em>launch</em> a missile.</p></li>
 </ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="purity">Purity</h2>
 <p>Means <em>functions may depend only on their inputs</em></p>
 <ul>
 <li>i.e. <strong>functions should give the same output for the same input every time.</strong></li>
 </ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="but-how-to-write-hello-world">But… how to write “Hello, world!”</h2>
 <p>But, we <em>want</em> to …</p>
 <ul>
@@ -529,6 +533,7 @@ hello world!
 </ul>
 <p>A language that only lets you write <code class="sourceCode haskell">factorial</code> and <code class="sourceCode haskell">fibonacci</code> is … <em>not very useful</em>!</p>
 <p>Thankfully, you <em>can</em> do all the above via a very clever idea: <code class="sourceCode haskell"><span class="dt">Recipe</span></code></p>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="recipes">Recipes</h2>
 <p><a href="https://www.seas.upenn.edu/~cis194/fall16/lectures/06-io-and-monads.html">This analogy is due to Joachim Brietner</a></p>
 <p>Haskell has a special type called <code class="sourceCode haskell"><span class="dt">IO</span></code> – which you can think of as <code class="sourceCode haskell"><span class="dt">Recipe</span></code></p>
@@ -612,11 +617,11 @@ hello world!
 <p><br> <br> <br> <br></p>
 <h2 id="quiz-using-yolks-to-make-batter">QUIZ: Using Yolks to Make Batter</h2>
 <p>Suppose you have two recipes</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="ot">crack    ::</span> <span class="dt">Recipe</span> <span class="dt">Yolk</span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="ot">mkbatter ::</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="ot">crack     ::</span> <span class="dt">Recipe</span> <span class="dt">Yolk</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="ot">eggBatter ::</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span></a></code></pre></div>
 <p>and we want to get</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="ot">main ::</span> <span class="dt">Recipe</span> <span class="dt">Batter</span></a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">main <span class="fu">=</span> crack <span class="ot">`combineWithResult`</span> mkBatter</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="ot">mkBatter ::</span> <span class="dt">Recipe</span> <span class="dt">Batter</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">mkBatter <span class="fu">=</span> crack <span class="ot">`combineWithResult`</span> eggBatter</a></code></pre></div>
 <p>What must the type of <code class="sourceCode haskell">combineWithResult</code> be?</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co">{- A -}</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> <span class="dt">Batter</span> <span class="ot">-&gt;</span> <span class="dt">Batter</span></a>
 <a class="sourceLine" id="cb41-2" data-line-number="2"><span class="co">{- B -}</span> <span class="dt">Recipe</span> <span class="dt">Yolk</span> <span class="ot">-&gt;</span> (<span class="dt">Yolk</span>  <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span>) <span class="ot">-&gt;</span> <span class="dt">Recipe</span> <span class="dt">Batter</span></a>
