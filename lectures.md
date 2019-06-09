@@ -7,31 +7,31 @@ headerImg: books.jpg
 |:----------:|:--------------------------------|:--------------------------|:--------------|
 | 4/1        | Hello, World!                   | [html][lec0] [pdf][pdf0]  |               |
 | 4/3        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
-| 4/5        | contd.                          |              [pdf][pdf2]  | [lc2]         |
-| 4/8        | contd.                          |              [pdf][pdf3]  | [lc3]         |
-| 4/12       | contd.                          |              [pdf][pdf4]  | [lc3]         |
+| 4/5        | ""                          |              [pdf][pdf2]  | [lc2]         |
+| 4/8        | ""                          |              [pdf][pdf3]  | [lc3]         |
+| 4/12       | ""                          |              [pdf][pdf4]  | [lc3]         |
 | 4/15       | A crash course in Haskell       | [html][lec2] [pdf][pdf5]  | [hs-4-15]     |
-| 4/17       | contd.                          |              [pdf][pdf6]  | [hs-4-17]     |
-| 4/19       | contd.                          |                           | [hs-4-19]     |
-| 4/22       | contd.                          |                           | [hs-4-22]     |
+| 4/17       | ""                          |              [pdf][pdf6]  | [hs-4-17]     |
+| 4/19       | ""                          |                           | [hs-4-19]     |
+| 4/22       | ""                          |                           | [hs-4-22]     |
 | 4/24       | Datatypes & Recursion           | [html][lec3] [pdf][pdf-data] | [hs-4-24]  |
-| 4/26       | contd.                          | [pdf][pdf-data-b]            | [hs-4-26]  |
-| 4/29       | contd.                          |                              | [hs-4-29]  |
-| 5/1        | contd.                          |                              | [hs-5-1]   |
-| 5/3        | contd.                          |                              | [hs-5-3]   |
+| 4/26       | ""                          | [pdf][pdf-data-b]            | [hs-4-26]  |
+| 4/29       | ""                          |                              | [hs-4-29]  |
+| 5/1        | ""                          |                              | [hs-5-1]   |
+| 5/3        | ""                          |                              | [hs-5-3]   |
 | 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
-| 5/8        | contd.                          |                              | [hs-5-8]   |
+| 5/8        | ""                          |                              | [hs-5-8]   |
 | 5/10       | **Midterm**                     |                              |            |
 | 5/13       | Environments & Closures         | [html][lec5] [pdf][pdf-env]  |            |
-| 5/15       | contd.                          |                              | [hs-5-15]  |
-| 5/17       | contd.                          |                              | [hs-5-17]  |
+| 5/15       | ""                          |                              | [hs-5-15]  |
+| 5/17       | ""                          |                              | [hs-5-17]  |
 | 5/22       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]  [pdf][pdf-parse] |  |
-| 5/24       | contd.                          |                              |            |
+| 5/24       | ""                          |                              |            |
 | 5/29       | Overloading & TypeClasses       | [html][lec7-cl]              | [hs-5-29]  |
-| 5/31       | contd.                          |                              | [hs-5-31]  |
-| 6/3        | contd.                          |                              | [hs-6-3]   |
+| 5/31       | ""                          |                              | [hs-5-31]  |
+| 6/3        | ""                          |                              | [hs-6-3]   |
 | 6/5        | Monads                          | [html][lec8-monads]          | [hs-6-5]   |
-|            | contd.                          |                              | [hs-6-7] [hs-hello] [hs-moo] |
+|            | ""                          |                              | [hs-6-7] [hs-hello] [hs-moo] |
 
 
 
