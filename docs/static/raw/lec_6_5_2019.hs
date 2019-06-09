@@ -4,7 +4,7 @@
 
 module Lec_6_5_2019 where
 
-import Prelude hiding ((>>=), showList)
+import Prelude hiding (showList)
 -------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------
@@ -134,24 +134,45 @@ data Result a
   | Value a
   deriving (Show, Functor)
 
+{- 
+eval :: Expr -> Result Int
+eval (Number n)   = Value n
+eval (Plus e1 e2) = (eval e1) >>= (\v1 -> (eval e2) >>= (\v2 -> Value (v1 + v2)))
+eval (Div e1 e2)  = (eval e1) >>= (\v1 -> (eval e2) >>= (\v2 -> if v2 == 0 
+                                                                     then Error ("yikes dbz:" ++ show e2)
+                                                                     else Value (v1 `div` v2))
+-}
+bind :: Result a -> (a -> Result b) -> Result b
+bind (Error err) doStuff = Error err  
+bind (Value v)   doStuff = doStuff v 
 
-
+{-
 (>>=) :: Result a -> (a -> Result b) -> Result b 
 (Error msg) >>= _ = Error msg
 (Value x)   >>= f = f x
 
+return x = Value x
 
-
+-}
 eval :: Expr -> Result Int
-eval (Number n)   = Value n
-eval (Plus e1 e2) = eval e1 >>= \v1 ->
-                      eval e2 >>= \v2 -> 
-                        Value (v1 + v2)
-eval (Div e1 e2)  = eval e1 >>= \v1 ->
-                      eval e2 >>= \v2 -> 
-                        if v2 == 0 
-                          then Error ("yikes dbz:" ++ show e2)
-                          else Value (v1 `div` v2)
+eval (Number n)   = return n
+eval (Plus e1 e2) = do v1 <- eval e1
+                       v2 <- eval e2 
+                       Value (v1 + v2)
+eval (Div e1 e2)  = do v1 <- eval e1
+                       v2 <- eval e2 
+                       if v2 == 0 
+                         then Error ("yikes dbz:" ++ show e2)
+                         else return (v1 `div` v2)
+
+instance Monad Result where
+  -- (>>=) :: Either a -> (a -> Either b) -> Either b
+  (Error err) >>= _       = Error err
+  (Value v)   >>= process = process v
+                      
+  -- return :: a -> Result a
+  return v = Value v
+
 
 foldR :: (a -> b -> b) -> b -> [a] -> b
 foldR op b []     = b 
@@ -162,3 +183,6 @@ foldR op b (x:xs) = x `op` (foldR op b xs)
 -- foldR f b [x1,x2,x3] = x1 `f` (x2 `f` (x3 `f` b))
 
 -- >>> eval (Div (Number 6) (Number 2))
+
+
+instance Applicative Result where

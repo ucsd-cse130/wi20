@@ -5,7 +5,7 @@ import System.IO
 main :: IO ()
 main = do 
   cow <- readFile "cow.txt"
-  msg <- getInput
+  msg <- getInput 
   cowSays cow msg 
 
 cowSays :: String -> String -> IO ()  
@@ -47,3 +47,4 @@ splitAtSize n words  = go n [] words
       | length w < k = go (k - length w - 1) (w:acc) ws
       | otherwise    = (reverse acc, w:ws)
     go k acc []      = (reverse acc, [])
+

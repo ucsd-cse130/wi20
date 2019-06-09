@@ -22,7 +22,7 @@ headerImg: books.jpg
 | 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
 | 5/8        | contd.                          |                              | [hs-5-8]   |
 | 5/10       | **Midterm**                     |                              |            |
-| 5/13       | Environments & Closures         | [html][lec5] [pdf][pdf-env]  | [hs-5-13]  |
+| 5/13       | Environments & Closures         | [html][lec5] [pdf][pdf-env]  |            |
 | 5/15       | contd.                          |                              | [hs-5-15]  |
 | 5/17       | contd.                          |                              | [hs-5-17]  |
 | 5/22       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]  [pdf][pdf-parse] |  |
@@ -31,7 +31,7 @@ headerImg: books.jpg
 | 5/31       | contd.                          |                              | [hs-5-31]  |
 | 6/3        | contd.                          |                              | [hs-6-3]   |
 | 6/5        | Monads                          | [html][lec8-monads]          | [hs-6-5]   |
-|            | contd.                          |                              | [hs-6-7]   |
+|            | contd.                          |                              | [hs-6-7] [hs-hello] [hs-moo] |
 
 
 
@@ -91,7 +91,7 @@ headerImg: books.jpg
 [pdf6]: /static/raw/02-haskell-B.pdf
 [pdf-data]: /static/raw/03-datatypes.pdf
 [pdf-data-b]: /static/raw/03-datatypes-B.pdf
-
+[pdf-parse]: /static/raw/06-parsing.pdf
 [lc4]:  /static/raw/lec_4_10_2019.lc
 [pdf2]: /static/raw/01-lambda-B-annot.pdf
 
@@ -111,8 +111,11 @@ headerImg: books.jpg
 [hs-5-29]:  /static/raw/lec_5_29_2019.hs
 [hs-5-31]:  /static/raw/lec_5_31_2019.hs
 [hs-5-31]:  /static/raw/lec_6_3_2019.hs
+[hs-6-3]:  /static/raw/lec_6_3_2019.hs
 [hs-6-5]:  /static/raw/lec_6_5_2019.hs
-[hs-6-7]:  /static/raw/lec_6_7_2019.hs
+[hs-6-7]:  /static/raw/lec_6_5_2019.hs
+[hs-hello]:  /static/raw/hello.hs
+[hs-moo]:  /static/raw/moo.hs
 
 [pdf-hof]: /static/raw/04-hof.pdf 
 [pdf-env]: /static/raw/05-environments.pdf 
