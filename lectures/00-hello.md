@@ -390,7 +390,7 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 ## Course Logistics
 
-[webpage](https://ucsd-cse130.github.io/sp19)
+[webpage](https://ucsd-cse130.github.io/wi20)
 
 - Calendar
 - Lecture notes

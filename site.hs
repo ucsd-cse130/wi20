@@ -71,7 +71,7 @@ siteCtx =
     constField "github_username"    "ranjitjhala"                             `mappend`
     constField "google_username"    "rjhala@eng.ucsd.edu"                     `mappend`
     constField "google_userid"      "u/0/104385825850161331469"               `mappend`
-    constField "piazza_classid"     "https://piazza.com/class/k51a7s2xjuy736" `mappend`
+    constField "piazza_classid"     "class/k51a7s2xjuy736"                    `mappend`
     defaultContext
 
 
