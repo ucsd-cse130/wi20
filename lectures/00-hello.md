@@ -272,18 +272,15 @@ etc.
 
 ## The Crew
 
-
 ### Teaching Assistants
 
-- [Benjamin Cosman](https://cseweb.ucsd.edu/~blcosman/)
-- [Alex Sanchez-Stern](https://cseweb.ucsd.edu/~alexss/)
-- [Anish Tondwalkar](http://ani.sh/)
+- [Matt Kolosick](https://kolosick.com/)
+- [Rose Kunkel](https://github.com/rosekunkel)
+- [George Sakkas](https://www.linkedin.com/in/gsakkas)
 
 ### Tutors
 
-- Jiaxiao Zhou  `jiz417@ucsd.edu`
-- Nishil Macwan `macwan@ucsd.edu`
-- Daniel Wang   `daw086@ucsd.edu`
+- [Darya Verzhbinsky](https://darya-ver.github.io/)
 
 <br>
 <br>
@@ -426,7 +423,7 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 ## Assignments
 
-**7 programming assignments**
+**6 programming assignments**
 
 - Released [online](assignments.html)
 - At least a week before due date
@@ -450,25 +447,21 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 <br>
 <br>
 
-
 ## Exams
 
 ### Midterm
 
-- in-class on *Friday, May 10*
+- in-class on *Monday, Feb 10*
 - 2-sided "cheat sheet"
 
-### Final 
+### Final
 
-- Jun 14, 3-5p 
+- March 18, 8-11a
 - 2-sided "cheat sheet"
 - The final is cumulative
 - Midterm grade is calculated as `midterm > 0 ?  max(final, midterm) : 0`
-    - you get a second chance if you don’t do well on the midterm
-    - you must show up to both the midterm and the final
-
-
-
+  - you get a second chance if you don’t do well on the midterm
+  - you **must take** the midterm and the final
 
 <br>
 <br>
@@ -482,7 +475,7 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 Assigned Seating
 
 - From next lecture
-- See your [group](/static/raw/seating.txt) and [seat](/static/raw/Pepper_Canyon_106_groups.pdf) 
+- See your [group](/static/raw/seating.txt) and [seat](https://ucsd-cse130.github.io/wi20/static/raw/Center_113_groups.pdf)
 
 Make class interactive
 
@@ -547,18 +540,17 @@ Do you have a clicker?
 <br>
 <br>
 
-
 ## Your Resources
 
 ### Discussion section
 
-- Wed 10-11am
+- Wednesday    05:00-06:00pm in CENTER 113
 
 ### Office hours
 
 - Every day, check **calendar**
 
-### Piazza 
+### Piazza
 
 - We answer during work hours and office hours
 
@@ -636,10 +628,15 @@ experiences may be different than your own, and help us to
 build an environment where everyone is respected and feels
 comfortable.
 
-If you experience any sort of **harassment or discrimination**, 
-please contact the [Office of Prevention of Harassment and Discrimination](https://ophd.ucsd.edu/).
-Students may receive confidential assistance at the [Sexual Assault Resource Center](http://care.ucsd.edu) at (858) 534-5793
-or [Counseling and Psychological Services](http://caps.ucsd.edu.) (CAPS) at (858) 534-3755.
+## If you experience any **harassment or discrimination**
+
+Contact the [Office of Prevention of Harassment and Discrimination](https://ophd.ucsd.edu/)
+
+### Students may receive confidential assistance 
+
+- [Sexual Assault Resource Center](http://care.ucsd.edu) at (858) 534-5793
+
+- [Counseling and Psychological Services](http://caps.ucsd.edu.) (CAPS) at (858) 534-3755.
 
 <br>
 <br>
@@ -670,5 +667,5 @@ be aware of [Basic Needs](http://basicneeds.ucsd.edu)
 <br>
 <br>
 
-[groups]: https://forms.gle/G8eD7G9ADWcvjwKb8
-[clickers]: https://forms.gle/YHQCpmTnnRYXtnp18
+[clickers]: https://forms.gle/8gzTuqmVxRZ7anGX6
+[groups]: https://forms.gle/jP4fGinSii5vPmNW8

@@ -10,7 +10,7 @@ headerImg: beach.jpg
   - [See your assigned seat here](static/raw/Center_113_groups.pdf)
 
 - **Homework Assignments (30%)** :
-  There will be 7 programming assignments,
+  There will be *6 programming assignments*,
   assigned every one or two weeks.
   Instructions on turning them in will be posted with
   each assignment.
