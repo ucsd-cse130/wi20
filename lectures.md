@@ -5,7 +5,9 @@ headerImg: books.jpg
 
 | **Date**   | **Topic**                       | **Notes**                 | **Code**      |
 |:----------:|:--------------------------------|:--------------------------|:--------------|
-| 4/1        | Hello, World!                   | [html][lec0] [pdf][pdf0]  |               |
+| 1/6        | Hello, World!                   | [html][lec0] [pdf][pdf0]  |               |
+
+<!-- 
 | 4/3        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
 | 4/5        | ""                          |              [pdf][pdf2]  | [lc2]         |
 | 4/8        | ""                          |              [pdf][pdf3]  | [lc3]         |
@@ -35,7 +37,6 @@ headerImg: books.jpg
 
 
 
-<!-- 
 | 2/13       | Environments and Closures       | [html][lec5]              |               |
 | 2/15       | contd.                          |                           |               |
 | 2/18       | *No lecture: Presidents' Day*   |                           |               |

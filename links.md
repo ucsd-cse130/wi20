@@ -6,7 +6,7 @@ headerImg: sea.jpg
 ## Text
 
 There is **no text** for CSE 130. We will be using the
-lecture notes, and other course materials such as aticles, 
+lecture notes, and other course materials such as aticles,
 web sites, tutorials, etc. will be made available on
 this site as appropriate.  
 
@@ -43,7 +43,7 @@ that explore various class topics in more depth.
   [Emacs](https://commercialhaskell.github.io/intero/)
   [Atom](https://atom.io/packages/ide-haskell)
   [Vim](http://projects.haskell.org/haskellmode-vim/)
-
+  [Code](https://marketplace.visualstudio.com/items?itemName=dramforever.vscode-ghc-simple)
 
 ## Prolog
 
@@ -57,5 +57,3 @@ that explore various class topics in more depth.
 - [Can Your Programming Language Do This?](http://www.joelonsoftware.com/items/2006/08/01.html) by Joel Spolsky
 - [Closures in C++](http://herbsutter.wordpress.com/2008/03/29/trip-report-februarymarch-2008-iso-c-standards-meeting/)
 - [MapReduce](http://en.wikipedia.org/wiki/MapReduce)
-
-

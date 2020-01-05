@@ -63,15 +63,15 @@ postCtx =
 
 siteCtx :: Context String
 siteCtx =
-    constField "baseUrl"            "https://ucsd-cse130.github.io/sp19"  `mappend`
-    constField "site_name"          "cse130"                      `mappend`
-    constField "site_description"   "UCSD CSE 130"                `mappend`
-    constField "site_username"      "Ranjit Jhala"                `mappend`
-    constField "twitter_username"   "ranjitjhala"                 `mappend`
-    constField "github_username"    "ranjitjhala"                 `mappend`
-    constField "google_username"    "rjhala@eng.ucsd.edu"         `mappend`
-    constField "google_userid"      "u/0/104385825850161331469"   `mappend`
-    constField "piazza_classid"     "ucsd/spring2019/cse130/home" `mappend`
+    constField "baseUrl"            "https://ucsd-cse130.github.io/wi20"      `mappend`
+    constField "site_name"          "cse130"                                  `mappend`
+    constField "site_description"   "UCSD CSE 130"                            `mappend`
+    constField "site_username"      "Ranjit Jhala"                            `mappend`
+    constField "twitter_username"   "ranjitjhala"                             `mappend`
+    constField "github_username"    "ranjitjhala"                             `mappend`
+    constField "google_username"    "rjhala@eng.ucsd.edu"                     `mappend`
+    constField "google_userid"      "u/0/104385825850161331469"               `mappend`
+    constField "piazza_classid"     "https://piazza.com/class/k51a7s2xjuy736" `mappend`
     defaultContext
 
 
@@ -88,6 +88,3 @@ tops =
 fac  :: Int -> Int 
 fac 0 = 1
 fac n = n * fac (n-1)
-
-
-

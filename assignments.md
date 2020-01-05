@@ -10,24 +10,19 @@ mins over the deadline is equal to 1 late day.
 
 ## Assignments
 
-- [HW #0](https://classroom.github.com/a/8hzqrBLt): Lambda Calculus (due Wed 4/10 by 23:59:59 pm)
-- [HW #1](https://classroom.github.com/a/1aFt3eGO): Introduction to Haskell (due Wed 4/24 by 23:59:59 pm)
-- [HW #2](https://classroom.github.com/a/KlC4Cprt): Random Art (due Fri 5/3 by 23:59:59 pm) 
-- [HW #3](https://classroom.github.com/a/ku0jf6T7): All about Fold (due Wed 5/15 by 23:59:59 pm)
-- [HW #4](https://classroom.github.com/a/eKX2IXk2): Nano (due Wed 5/29 by 23:59:59 pm)
-- [HW #5](https://classroom.github.com/a/RpuOrpi4): Classes (due Sunday 6/9 by 23:59:59 pm)
-
-
-<!--
-- [HW #5](https://github.com/cse130-wi19/05-types): Type Inference for Nano (due ~~Wed 3/6~~ Fri 3/8 by 5pm)
-- [HW #6](https://github.com/cse130-wi19/06-prolog): The Logical Conclusion (due Fri 3/15 by 6pm)
--->
-
+| **HW-link** | **Name**                |  **Deadline (23:59:59pm)** |
+|:------------|:------------------------|:---------------------------|
+| [HW #0]     | Lambda Calculus         | Fri 1/17                   |
+| [HW #1]     | Introduction to Haskell | Fri 1/31                   |
+| [HW #2]     | Data types              | Fri 2/7                    |
+| [HW #3]     | Higher-Order Functions  | Fri 2/14                   |
+| [HW #4]     | Interpreting languages  | Fri 2/28                   |
+| [HW #5]     | Classes                 | Fri 3/13                   |
 
 ## Sample Exam Questions
 
 Note: 2018 exams are the most representative. Older exams use OCaml instead of Haskell.
-Check out these [lecture notes](https://ucsd-cse130.github.io/web/lectures/02-haskell.html) 
+Check out these [lecture notes](https://ucsd-cse130.github.io/web/lectures/02-haskell.html)
 for a comparison between the two languages.
 
 - [Midterm Sp 18](/static/raw/130-midterm-sp18.pdf) ([solution](/static/raw/130-midterm-sp18-solution.pdf)),
