@@ -48,9 +48,11 @@ L2: ...
 
 ## The above language is "equivalent to" every PL!
 
-- But good luck writing QuickSort ...
-- ... or Plants v. Zombies
-- ... or Spotify!
+But good luck writing
+
+- ... QuickSort
+- ... Fortnite
+- ... Spotify!
 
 <br>
 <br>

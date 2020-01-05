@@ -6,9 +6,9 @@ headerImg: books.jpg
 | **Date**   | **Topic**                       | **Notes**                 | **Code**      |
 |:----------:|:--------------------------------|:--------------------------|:--------------|
 | 1/6        | Hello, World!                   | [html][lec0] [pdf][pdf0]  |               |
+| 1/8        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
 
 <!-- 
-| 4/3        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
 | 4/5        | ""                          |              [pdf][pdf2]  | [lc2]         |
 | 4/8        | ""                          |              [pdf][pdf3]  | [lc3]         |
 | 4/12       | ""                          |              [pdf][pdf4]  | [lc3]         |
