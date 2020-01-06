@@ -255,6 +255,14 @@ Learning...
 
 etc.
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 ## Who am I?
 
 [Ranjit Jhala](https://ranjitjhala.github.io/)
@@ -304,8 +312,7 @@ etc.
 
 **Logic Programming**
 
-- Prolog (2 weeks)
-
+- Prolog (2 weeks?)
 
 
 <br>
@@ -361,15 +368,6 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 ```
 
 (not a wholly [fair comparison...](http://stackoverflow.com/questions/7717691/why-is-the-minimalist-example-haskell-quicksort-not-a-true-quicksort))
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 
 
@@ -497,24 +495,6 @@ Clickers Are Not Optional
 <br>
 <br>
 
-## TEST QUIZ
-
-Do you have a clicker?
-
-**A.**  Yes
-
-**B.**  No
-
-**C.**  What's a clicker?
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
 ## Clicker Protocol
 
 1. **Solo Vote**
@@ -532,8 +512,6 @@ Do you have a clicker?
 
 4. **Class Discuss**
     - What was easy or tricky?
-
-
 
 <br>
 <br>
@@ -578,9 +556,9 @@ Programming assignments: do not copy from classmates or from previous years
 
 Exams done **alone**
 
-  - Zero Tolerance
-  - Offenders punished ruthlessly
-  - Please see academic integrity statement
+- Zero Tolerance
+- Offenders punished ruthlessly
+- Please see academic integrity statement
 
 
 <br>
@@ -593,15 +571,15 @@ Exams done **alone**
 
 ## Students with Disabilites
 
-Students requesting accommodations for this course due to 
-a disability or current functional limitation must provide 
-a current **Authorization for Accommodation (AFA)** letter 
-issued by the Office for Students with Disabilities (OSD) 
+Students requesting accommodations for this course due to
+a disability or current functional limitation must provide
+a current **Authorization for Accommodation (AFA)** letter
+issued by the Office for Students with Disabilities (OSD)
 which is located in University Center 202 behind Center Hall.
   
 Students are required to present their AFA letters to Faculty 
 (please make arrangements to contact me privately) and to the 
-CSE OSD Liaison [Christina Rontell](https://cse.ucsd.edu/people/administrative-staff/christina-rontell) 
+CSE OSD Liaison [Christina Rontell](https://cse.ucsd.edu/people/administrative-staff/christina-rontell)
 in advance so that accommodations may be arranged.
 
 <br>
@@ -611,24 +589,28 @@ in advance so that accommodations may be arranged.
 <br>
 <br>
 
-
 ## Diversity and Inclusion
 
-Our goal is to create a diverse and inclusive learning environment
-where all students feel comfortable and can thrive.
-If there is a way we can make you feel more included please let one
-of the course staff know, either in person, via email/discussion board,
-or even in a note under the door.
+### Goal
 
-Our learning about diverse perspectives and identities is an ongoing
-process, and we welcome your perspectives and input.  
+- Create a diverse and inclusive learning environment
+- Where all students feel comfortable and can thrive.
+- *Please let us know* if there is a way to make you feel more included 
+- In person, via email/discussion board, or slip note under my door!
 
-We also expect that you, as a student in this course, will honor
-and respect your classmates, abiding by the UCSD [Principles of Community](https://ucsd.edu/about/principles.html).
-Please understand that others’ backgrounds, perspectives and
-experiences may be different than your own, and help us to
-build an environment where everyone is respected and feels
-comfortable.
+### Expectations 
+
+- Students will honor and respect your classmates!
+- Abide by the UCSD [Principles of Community](https://ucsd.edu/about/principles.html)
+- Understand that others’ backgrounds, perspectives and experiences will be different
+- Help build an environment where everyone is respected and comfortable.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## If you experience any **harassment or discrimination**
 
@@ -657,10 +639,9 @@ Contact the [Office of Prevention of Harassment and Discrimination](https://ophd
 If you or someone you know has food and/or housing insecurity, 
 be aware of [Basic Needs](http://basicneeds.ucsd.edu)
 
-- The [Triton Food Pantry](https://www.facebook.com/tritonfoodpantry/) (in the old Student Center), is free and anonymous, and includes produce. 
+- The [Triton Food Pantry](https://www.facebook.com/tritonfoodpantry/) (in the old Student Center), is free and anonymous, and includes produce.
 - Financial aid resources, the possibility of emergency grant funding, and off-campus housing referral resources are available.
 - CAPS and college deans can connect students to the above resources, as well as other community resources and support.  
-
 
 <br>
 <br>

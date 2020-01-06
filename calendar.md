@@ -14,7 +14,7 @@ headerImg: road.jpg
 |:----------|:-----------|:--------------|
 | *Lectures* |  MWF      | 09:00-09:50am |
 | *Section*  |  W        | 05:00-06:00pm |
-| *Midterm*  |  Mon 1/10 | 09:00-09:50am |
+| *Midterm*  |  Mon 2/10 | 09:00-09:50am |
 | *Final*    |  Wed 3/18 | 08:00-11:00am |
 
 <iframe src="https://calendar.google.com/calendar/embed?src=eng.ucsd.edu_qgeolh0hkudktfm6kmdru84ci0%40group.calendar.google.com&ctz=America%2FLos_Angeles"
