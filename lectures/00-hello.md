@@ -408,18 +408,18 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 ## Grading
 
 - 30% Assignments
-- 30% Midterm
-- 35% Final
+- 30% Midterm **(Feb 10)**
+- 35% Final   **(Mar 18)**
 - 05% Class participation (clickers)
 - 05% Piazza Extra Credit
-    - To **top 20** best participants
-    
+  - To **top 20** best participants
+
 <br>
 <br>
 <br>
 <br>
 <br>
-<br>    
+<br>
 
 ## Assignments
 
