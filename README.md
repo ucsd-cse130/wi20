@@ -97,3 +97,29 @@ originally published by Lucas Gatsas.
 ## Winter 20
 
 - [Roster](https://docs.google.com/spreadsheets/d/1DqB98XNyDpqsL1FWyReTOecj8GFD6KXVnkjM6iI2Lrs/edit?usp=sharing)
+
+## ieng6 Setup
+
+1. Set the `stack-root`
+
+```
+stack setup --stack-root=/software/CSE/cse130/.stack
+```
+
+2. Create a shell script
+
+```
+cat > fixpaths.sh
+
+cd ~/../public/bin && chmod -R a+rx *
+cd /software/CSE/cse130/.stack && chmod -R a+rx *
+```
+
+3. For each assignment,
+
+	- `git clone` it to download assignment as instructor
+	- `stack test` it to get the relevant libs added to the stack-path
+	- `./fixpaths.sh` to allow everyone else to read the libraries
+
+4. For each assignment,
+	- login as student to make sure that you can `git clone` and then run `stack test`
