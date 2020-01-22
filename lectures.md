@@ -7,6 +7,7 @@ headerImg: books.jpg
 |:----------:|:--------------------------------|:--------------------------|:--------------|
 | 1/6        | Hello, World!                   | [html][lec0] [pdf][pdf0]  |               |
 | 1/8        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
+| 1/22       | A crash course in Haskell       | [html][lec2] [pdf][pdf2]  |               |
 
 <!-- 
 | 4/5        | ""                          |              [pdf][pdf2]  | [lc2]         |
@@ -82,8 +83,10 @@ headerImg: books.jpg
 [lec8]: lectures/08-prolog.html
 
 [pdf0]: /static/raw/00-intro-annot.pdf
+
 [pdf1]: /static/raw/01-lambda-annot.pdf
-[pdf2]: /static/raw/01-lambda-B-annot.pdf
+[pdf2]: /static/raw/02-haskell-annot.pdf
+
 [pdf3]: /static/raw/01-lambda-C-annot.pdf
 [pdf4]: /static/raw/01-lambda-D-annot.pdf
 [lc2]:  /static/raw/lec_4_2_2019.lc

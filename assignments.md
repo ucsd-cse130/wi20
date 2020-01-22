@@ -13,7 +13,7 @@ mins over the deadline is equal to 1 late day.
 | **HW-link**                                      | **Name**                |  **Deadline (23:59:59pm)** |
 |:-------------------------------------------------|:------------------------|:---------------------------|
 | [HW #0](https://classroom.github.com/a/uZ3pZ6pP) | Lambda Calculus         | Fri 1/17                   |
-| [HW #1]                                          | Introduction to Haskell | Fri 1/31                   |
+| [HW #1](https://classroom.github.com/a/B5wdCjPJ) | Introduction to Haskell | Fri 1/31                   |
 | [HW #2]                                          | Data types              | Fri 2/7                    |
 | [HW #3]                                          | Higher-Order Functions  | Fri 2/14                   |
 | [HW #4]                                          | Interpreting languages  | Fri 2/28                   |
