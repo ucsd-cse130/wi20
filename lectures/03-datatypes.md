@@ -89,7 +89,7 @@ Tuples can do the job but there are two problems...
 
 ```haskell
 deadlineDate :: (Int, Int, Int)
-deadlineDate = (2, 4, 2019)
+deadlineDate = (2, 7, 2020)
 
 deadlineTime :: (Int, Int, Int)
 deadlineTime = (11, 59, 59)
@@ -117,7 +117,7 @@ type Date = (Int, Int, Int)
 type Time = (Int, Int, Int)
 
 deadlineDate :: Date
-deadlineDate = (2, 4, 2019)
+deadlineDate = (2, 7, 2020)
 
 deadlineTime :: Time
 deadlineTime = (11, 59, 59)
@@ -137,7 +137,7 @@ extension = ...
 
 ### 2. Unsafe
 
-We want this to fail at compile time!!!
+We want to catch this error at compile time!!!
 
 ```haskell
 extension deadlineTime
@@ -153,7 +153,7 @@ data Time = Time Int Int Int
 -- constructor^   ^parameter types
 
 deadlineDate :: Date
-deadlineDate = Date 2 4 2019
+deadlineDate = Date 2 7 2020
 
 deadlineTime :: Time
 deadlineTime = Time 11 59 59
@@ -410,7 +410,7 @@ data Paragraph
 What would GHCi say to
 
 ```haskell
->:t [PHeading 1 "Introduction", Pext "Hey there!"]
+>:t [PHeading 1 "Introduction", PText "Hey there!"]
 ```
 
 **A.**  Syntax error

@@ -47,10 +47,6 @@ Haskell = $\lambda$-calculus ++
 
 Haskell programs tend to be *simple* and *correct*   
 
-[Elizabeth Murnane](https://apol-recruit.ucsd.edu/analyst/application/100562/review)
-[Motahareh Eslamimehdiabadi](https://apol-recruit.ucsd.edu/analyst/application/100823/review)
-[Cesar Torres](https://apol-recruit.ucsd.edu/analyst/application/99113/review)
-
 ### QuickSort in Haskell
 
 ```haskell
