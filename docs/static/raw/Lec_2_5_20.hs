@@ -40,12 +40,30 @@ blub = unlines ["<li>foo</li>",
  </ol>
  -}
 
+{-
 quiz = case (PText "hey!") of
           PHeader lev _ -> lev
           PText str     -> str
           PList ord _   -> ord
+-}
 
+rev :: [a] -> [a]
+-- rev []    = []
+-- rev (h:t) = (rev t) ++ [h]
+rev xs           = helper [] xs
 
+helper acc []    = acc 
+helper acc (h:t) = helper (h:acc) t
+
+{-
+rev [1,2,3]
+
+==> helper [] [1,2,3] 
+==> helper [1]  [2,3] 
+==> helper [2,1]  [3] 
+==> helper [3,2,1] [] 
+
+-}
 data Para 
   = PHeader Int     String  
   | PText   String 
