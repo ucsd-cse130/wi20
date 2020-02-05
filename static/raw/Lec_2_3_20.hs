@@ -1,5 +1,8 @@
 module Lec_2_3_20 where
 
+type Name = String
+type Month = String 
+
 hello :: String 
 hello = "Hello!"
 
@@ -55,3 +58,5 @@ data Para
   | PTextC  String 
   | ListC   Bool    [String] 
   deriving (Eq, Show)
+
+ 

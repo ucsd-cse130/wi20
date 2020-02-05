@@ -9,6 +9,7 @@ headerImg: books.jpg
 | 1/8        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
 | 1/22       | A crash course in Haskell       | [html][lec2] [pdf][pdf2]  | [hs-1-20] [hs-1-29] |
 | 2/3        | Datatypes & Recursion           | [html][lec3] [pdf][pdf-data] | [hs-2-3]  |
+| 2/5        | ""                              |                              | [hs-2-5]  |
 <!-- 
 | 4/5        | ""                          |              [pdf][pdf2]  | [lc2]         |
 | 4/8        | ""                          |              [pdf][pdf3]  | [lc3]         |
@@ -103,6 +104,7 @@ headerImg: books.jpg
 [hs-1-20]:  /static/raw/Lec_1_20_20.hs
 [hs-1-29]:  /static/raw/Lec_1_29_20.hs
 [hs-2-3]:  /static/raw/Lec_2_3_20.hs
+[hs-2-5]:  /static/raw/Lec_2_5_20.hs
 
 [hs-4-15]:  /static/raw/lec_4_15_2019.hs
 [hs-4-17]:  /static/raw/lec_4_17_2019.hs
