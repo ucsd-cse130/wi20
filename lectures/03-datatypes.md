@@ -988,6 +988,86 @@ Lessons learned:
 <br>
 <br>
 
+
+## Example: Calculator
+
+I want to implement an arithmetic calculator 
+to evaluate expressions like:
+
+* `4.0 + 2.9`
+* `3.78 – 5.92`
+* `(4.0 + 2.9) * (3.78 - 5.92)`
+
+What is a Haskell datatype to *represent* these expressions?
+
+```haskell
+data Expr = ???
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```haskell
+data Expr = Num Float
+          | Add Expr Expr
+          | Sub Expr Expr
+          | Mul Expr Expr
+```
+
+<br>
+<br>
+
+How do we write a function to *evaluate* an expression?
+
+
+```haskell
+eval :: Expr -> Float
+eval e = ???
+```
+    
+(I) final
+
+    ```haskell
+    eval :: Expr -> Float
+    eval (Num f)     = f
+    eval (Add e1 e2) = eval e1 + eval e2
+    eval (Sub e1 e2) = eval e1 - eval e2
+    eval (Mul e1 e2) = eval e1 * eval e2
+    ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Recursion is...
+
+Building solutions for *big problems*
+from solutions for *sub-problems*
+
+  - **Base case:** what is the *simplest version* of this problem and how do I solve it?
+  - **Inductive strategy:** how do I *break down* this problem into sub-problems?
+  - **Inductive case:** how do I solve the problem *given* the solutions for subproblems?
+  
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Lists
 
 Lists aren't built-in! They are an *algebraic data type* like any other:
@@ -1198,84 +1278,8 @@ t12345 = Node
 <br>
 <br>
 
-## Example: Calculator
-
-I want to implement an arithmetic calculator 
-to evaluate expressions like:
-
-* `4.0 + 2.9`
-* `3.78 – 5.92`
-* `(4.0 + 2.9) * (3.78 - 5.92)`
-
-What is a Haskell datatype to *represent* these expressions?
-
-```haskell
-data Expr = ???
-```
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-```haskell
-data Expr = Num Float
-          | Add Expr Expr
-          | Sub Expr Expr
-          | Mul Expr Expr
-```
-
-<br>
-<br>
-
-How do we write a function to *evaluate* an expression?
 
 
-```haskell
-eval :: Expr -> Float
-eval e = ???
-```
-    
-(I) final
-
-    ```haskell
-    eval :: Expr -> Float
-    eval (Num f)     = f
-    eval (Add e1 e2) = eval e1 + eval e2
-    eval (Sub e1 e2) = eval e1 - eval e2
-    eval (Mul e1 e2) = eval e1 * eval e2
-    ```
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## Recursion is...
-
-Building solutions for *big problems*
-from solutions for *sub-problems*
-
-  - **Base case:** what is the *simplest version* of this problem and how do I solve it?
-  - **Inductive strategy:** how do I *break down* this problem into sub-problems?
-  - **Inductive case:** how do I solve the problem *given* the solutions for subproblems?
-  
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ## Why use Recursion?
 

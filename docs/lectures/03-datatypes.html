@@ -710,30 +710,58 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <li>The name of the game is to pick the right <strong>inductive strategy</strong>!</li>
 </ul>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="example-calculator">Example: Calculator</h2>
+<p>I want to implement an arithmetic calculator to evaluate expressions like:</p>
+<ul>
+<li><code class="sourceCode haskell"><span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span></code></li>
+<li><code class="sourceCode haskell"><span class="fl">3.78</span> – <span class="fl">5.92</span></code></li>
+<li><code class="sourceCode haskell">(<span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span>) <span class="fu">*</span> (<span class="fl">3.78</span> <span class="fu">-</span> <span class="fl">5.92</span>)</code></li>
+</ul>
+<p>What is a Haskell datatype to <em>represent</em> these expressions?</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Float</span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">          <span class="fu">|</span> <span class="dt">Add</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">          <span class="fu">|</span> <span class="dt">Sub</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">          <span class="fu">|</span> <span class="dt">Mul</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a></code></pre></div>
+<p><br> <br></p>
+<p>How do we write a function to <em>evaluate</em> an expression?</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Float</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">eval e <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
+
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
+<h2 id="recursion-is">Recursion is…</h2>
+<p>Building solutions for <em>big problems</em> from solutions for <em>sub-problems</em></p>
+<ul>
+<li><strong>Base case:</strong> what is the <em>simplest version</em> of this problem and how do I solve it?</li>
+<li><strong>Inductive strategy:</strong> how do I <em>break down</em> this problem into sub-problems?</li>
+<li><strong>Inductive case:</strong> how do I solve the problem <em>given</em> the solutions for subproblems?</li>
+</ul>
+<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="lists">Lists</h2>
 <p>Lists aren’t built-in! They are an <em>algebraic data type</em> like any other:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span>           <span class="co">-- base constructor</span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">          <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span> <span class="co">-- inductive constructor</span></a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span>           <span class="co">-- base constructor</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">          <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span> <span class="co">-- inductive constructor</span></a></code></pre></div>
 <ul>
 <li><p>List <code class="sourceCode haskell">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</code> is <em>represented</em> as <code class="sourceCode haskell"><span class="dt">Cons</span> <span class="dv">1</span> (<span class="dt">Cons</span> <span class="dv">2</span> (<span class="dt">Cons</span> <span class="dv">3</span> <span class="dt">Nil</span>))</code></p></li>
 <li><p>Built-in list constructors <code class="sourceCode haskell">[]</code> and <code class="sourceCode haskell">(<span class="fu">:</span>)</code> are just fancy syntax for <code class="sourceCode haskell"><span class="dt">Nil</span></code> and <code class="sourceCode haskell"><span class="dt">Cons</span></code></p></li>
 </ul>
 <p><br> <br></p>
 <p>Functions on lists follow the same general strategy:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb43-1" data-line-number="1">length<span class="ot"> ::</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">length <span class="dt">Nil</span>         <span class="fu">=</span> <span class="dv">0</span>              <span class="co">-- base case</span></a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">length (<span class="dt">Cons</span> _ xs) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> length xs  <span class="co">-- inductive case</span></a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb46-1" data-line-number="1">length<span class="ot"> ::</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">length <span class="dt">Nil</span>         <span class="fu">=</span> <span class="dv">0</span>              <span class="co">-- base case</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">length (<span class="dt">Cons</span> _ xs) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> length xs  <span class="co">-- inductive case</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br></p>
 <p>What is the right <em>inductive strategy</em> for appending two lists?</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="ot">append ::</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">append xs ys <span class="fu">=</span> <span class="fu">??</span></a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="ot">append ::</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span> <span class="ot">-&gt;</span> <span class="dt">List</span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">append xs ys <span class="fu">=</span> <span class="fu">??</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="trees">Trees</h2>
 <p>Lists are <em>unary trees</em> with elements stored in the nodes:</p>
 <figure>
 <img src="../static/img/list-tree.png" alt="Lists are unary trees" id="fig:types" class="align-center" style="width:90.0%" /><figcaption>Lists are unary trees</figcaption>
 </figure>
-<div class="sourceCode" id="cb45"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span> <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span></a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">data</span> <span class="dt">List</span> <span class="fu">=</span> <span class="dt">Nil</span> <span class="fu">|</span> <span class="dt">Cons</span> <span class="dt">Int</span> <span class="dt">List</span></a></code></pre></div>
 <p>How do we represent <em>binary trees</em> with elements stored in the nodes?</p>
 <figure>
 <img src="../static/img/tree-data-node.png" alt="Binary trees with data at nodes" id="fig:types" class="align-center" style="width:90.0%" /><figcaption>Binary trees with data at nodes</figcaption>
@@ -755,15 +783,15 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <figure>
 <img src="../static/img/tree-data-node.png" alt="Binary trees with data at nodes" id="fig:types" class="align-center" style="width:90.0%" /><figcaption>Binary trees with data at nodes</figcaption>
 </figure>
-<div class="sourceCode" id="cb46"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb46-3" data-line-number="3">t1234 <span class="fu">=</span> <span class="dt">Node</span> <span class="dv">1</span> </a>
-<a class="sourceLine" id="cb46-4" data-line-number="4">          (<span class="dt">Node</span> <span class="dv">2</span> (<span class="dt">Node</span> <span class="dv">3</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>) <span class="dt">Leaf</span>) </a>
-<a class="sourceLine" id="cb46-5" data-line-number="5">          (<span class="dt">Node</span> <span class="dv">4</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Int</span> <span class="dt">Tree</span> <span class="dt">Tree</span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">t1234 <span class="fu">=</span> <span class="dt">Node</span> <span class="dv">1</span> </a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">          (<span class="dt">Node</span> <span class="dv">2</span> (<span class="dt">Node</span> <span class="dv">3</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>) <span class="dt">Leaf</span>) </a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">          (<span class="dt">Node</span> <span class="dv">4</span> <span class="dt">Leaf</span> <span class="dt">Leaf</span>)</a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="functions-on-trees">Functions on trees</h2>
-<div class="sourceCode" id="cb47"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="ot">depth ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">depth t <span class="fu">=</span> <span class="fu">??</span></a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="ot">depth ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2">depth t <span class="fu">=</span> <span class="fu">??</span></a></code></pre></div>
 
 <p><br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-binary-trees-ii">QUIZ: Binary trees II</h2>
@@ -779,40 +807,12 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p><br></p>
 
 <p><br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">t12345 <span class="fu">=</span> <span class="dt">Node</span></a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">          (<span class="dt">Node</span> (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">1</span>) (<span class="dt">Leaf</span> <span class="dv">2</span>)) (<span class="dt">Leaf</span> <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb48-5" data-line-number="5">          (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">4</span>) (<span class="dt">Leaf</span> <span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Tree</span> <span class="fu">=</span> <span class="dt">Leaf</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Node</span> <span class="dt">Tree</span> <span class="dt">Tree</span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">t12345 <span class="fu">=</span> <span class="dt">Node</span></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4">          (<span class="dt">Node</span> (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">1</span>) (<span class="dt">Leaf</span> <span class="dv">2</span>)) (<span class="dt">Leaf</span> <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb51-5" data-line-number="5">          (<span class="dt">Node</span> (<span class="dt">Leaf</span> <span class="dv">4</span>) (<span class="dt">Leaf</span> <span class="dv">5</span>))</a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<h2 id="example-calculator">Example: Calculator</h2>
-<p>I want to implement an arithmetic calculator to evaluate expressions like:</p>
-<ul>
-<li><code class="sourceCode haskell"><span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span></code></li>
-<li><code class="sourceCode haskell"><span class="fl">3.78</span> – <span class="fl">5.92</span></code></li>
-<li><code class="sourceCode haskell">(<span class="fl">4.0</span> <span class="fu">+</span> <span class="fl">2.9</span>) <span class="fu">*</span> (<span class="fl">3.78</span> <span class="fu">-</span> <span class="fl">5.92</span>)</code></li>
-</ul>
-<p>What is a Haskell datatype to <em>represent</em> these expressions?</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span> <span class="fu">=</span> <span class="dt">Num</span> <span class="dt">Float</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2">          <span class="fu">|</span> <span class="dt">Add</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
-<a class="sourceLine" id="cb50-3" data-line-number="3">          <span class="fu">|</span> <span class="dt">Sub</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a>
-<a class="sourceLine" id="cb50-4" data-line-number="4">          <span class="fu">|</span> <span class="dt">Mul</span> <span class="dt">Expr</span> <span class="dt">Expr</span></a></code></pre></div>
-<p><br> <br></p>
-<p>How do we write a function to <em>evaluate</em> an expression?</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Float</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">eval e <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
-
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
-<h2 id="recursion-is">Recursion is…</h2>
-<p>Building solutions for <em>big problems</em> from solutions for <em>sub-problems</em></p>
-<ul>
-<li><strong>Base case:</strong> what is the <em>simplest version</em> of this problem and how do I solve it?</li>
-<li><strong>Inductive strategy:</strong> how do I <em>break down</em> this problem into sub-problems?</li>
-<li><strong>Inductive case:</strong> how do I solve the problem <em>given</em> the solutions for subproblems?</li>
-</ul>
-<p><br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="why-use-recursion">Why use Recursion?</h2>
 <ol type="1">
 <li><p>Often far simpler and cleaner than loops</p>
