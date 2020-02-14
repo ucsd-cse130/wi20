@@ -1,176 +1,122 @@
-module Lec_2_5_20 where
+module Lec_2_12_20 where
 
-import Text.Printf
-
-doc = [ (PHeader 1 "Notes from 130")                  -- Header
-      , (PText "There are two types of languages")   -- RawText
-      , (PList True [ "those people complain about" 
-                    , "those people use!"  
-                    ])
-      ]
-
-
-doc2Html :: [Para] -> String 
-doc2Html []     = ""
-doc2Html (p:ps) = (para2Html p) ++ "\n" ++ (doc2Html ps) 
-
-para2Html :: Para -> String
-para2Html p = case p of 
-                (PHeader lvl str)      -> printf "<h%d>%s</h%d>" lvl str lvl 
-                (PText   str)          -> printf "<p>%s</p>" str 
-                (PList   ord things)   -> printf "<%s>%s</%s>" tag (unlines (things2Html things)) tag
-                                          where 
-                                              tag = if ord then "ol" else "ul"
-
-things2Html :: [String] -> [String] 
-things2Html []       = [] 
-things2Html (t:rest) = (printf "<li>%s</li>" t) : (things2Html rest) 
-
-
-blub = unlines ["<li>foo</li>",
-                "<li>bar</li>",
-                "<li>baz</li>"]
 
 {- 
- PHeader 1 "Notes from 130"  --->    <h1>Notes from 130</h1>
- <p>There are two types of languages</p>
- <ol>
-    <li> those people complain about </li> 
-    <li> "those people use! </li>
- </ol>
+                Builtin vs Ours
+
+ name of type   []       List
+ name of empty  []       Null
+ name of "cons" :        Cons
+         "app"  ++       append      
+  
+
  -}
 
-quiz = case (PText "hey!") of
-          PHeader lev _ -> lev
-          PText str     -> 10 -- str
-          PList ord _   -> 1000 -- ord
+-- "datatype polymorphism"
+-- "generics"
 
-rev :: [a] -> [a]
--- rev []    = []
--- rev (h:t) = (rev t) ++ [h]
-rev xs           = helper [] xs
-
-helper acc []    = acc 
-helper acc (h:t) = helper (h:acc) t
-
-{-
-rev [1,2,3]
-
-==> helper [] [1,2,3] 
-==> helper [1]  [2,3] 
-==> helper [2,1]  [3] 
-==> helper [3,2,1] [] 
-
--}
-data Para 
-  = PHeader Int     String  
-  | PText   String 
-  | PList   Bool    [String] 
+data List t 
+  = Nul  
+  | Cons t (List t) 
   deriving (Eq, Show)
 
+hed :: List Int -> Int
+hed l = case l of
+          Cons x _ -> x
+          Nul      -> 0
 
-{- Represent "natural" numbers (non-negative)
+data ListInt 
+  = NulI
+  | ConsI Int ListInt
+  deriving (Eq, Show)
+
+len :: List t -> Int
+len Nul = 0 
+len (Cons h t) = 1 + len t 
 
 
-   0  --->  Zero
-   1  --->  (Plus1 Zero)   
-   2  --->  Plus1 (Plus1 Zero)   
-   3  --->  Plus1 (Plus1 (Plus1 Zero)) 
-   4  --->  Plus1 (Plus1 (Plus1 (Plus1 Zero))) 
-
- -}
-
-
-data Nat = Zero 
-         | Plus1 Nat
-         deriving (Eq, Show)
-
--- >>> toInt Zero
--- 0
-
--- >>> toInt (Plus1 Zero) 
--- 1
-
--- >>> toInt (Plus1 (Plus1 Zero))  
--- 2
-
--- >>> toInt (Plus1 (Plus1 (Plus1 Zero)))
--- 3
+-- >>> append (Cons 1 (Cons 2 (Nul))) (Cons 4 (Cons 5 (Nul))) 
+-- Cons 1 (Cons 2 (Cons 4 (Cons 5 Nul)))
 --
 
-toInt :: Nat -> Int 
-toInt Zero                 = 0
-toInt (Plus1 n)            = 1 + toInt n
-
--- toNat :: Int -> Nat
--- toNat n 
---   | n <= 0    = Zero 
---   | otherwise = Plus1 (toNat (n-1))
-
---  foo 2 
---  ==> if 2 <= 0 then Zero else Plus1 (foo (2-1))
---  ==> Plus1 (foo (2-1))
---  ==> Plus1 (foo 1)
---  ==> Plus1 (Plus1 (foo 0)) 
---  ==> Plus1 (Plus1 (Zero)) 
-
-
-
--- >>> add Zero Zero
--- Zero
-
--- >>> add Zero (Plus1 Zero)
--- (Plus1 Zero)
-
--- >>> add (Plus1 Zero) Zero
--- (Plus1 Zero)
-
--- >>> add (Plus1 (Plus1 Zero)) (Plus1 Zero)
--- Plus1 (Plus1 (Plus1 Zero))
+-- >>> append (Cons 1 (Cons 2 Nul)) Nul
+-- Cons 1 (Cons 2 Nul)
 --
 
--- add n1 n2 = toNat ((toInt n1) + (toInt n2))
-
-
--- add Zero        (Plus1 (Plus1 Zero))      ===> PLus1 (Plus1 Zero)
--- add Zero         m   ===> m 
--- add (Plus1 Zero) m   ===> Plus1 (add Zero m) ==> Plus1 m 
--- add (Plus1 (Plus1 Zero)) m   
---  ==> Plus1 (add (Plus1 Zero) m) 
---  ==> Plus1 (Plus1 (add Zero m))
---  ==> Plus1 (Plus1 m)
-
--- add Zero n2 = n2 
-add :: Nat -> Nat -> Nat
-add Zero       m = m 
-add (Plus1 n)  m = Plus1 (add n m)
-
-data Expr = ENum Double | EAdd Expr Expr | EMul Expr Expr
-  deriving (Show)
-
--- 2.9 + 4.5   ==> EAdd (ENum 2.9) (ENum 4.5)
--- 3.1 * 4.2   ==> EMul  (ENum 3.1) (ENum 4.2)
-
-
--- >>> eval (ENum 2.9)
--- 2.9
+-- >>> append Nul (Cons 4 (Cons 5 Nul))
+-- Cons 4 (Cons 5 Nul)
 --
 
--- >>> eval (EAdd (ENum 2.9) (ENum 4.5))
--- 7.4
---
-
--- >>> eval (EAdd (ENum 3.1) (ENum 4.2))
--- 7.300000000000001
---
+{- 
 
 
-eval :: Expr -> Double
-eval (ENum n)     = n
-eval (EAdd e1 e2) = eval e1 + eval e2
-eval (EMul e1 e2) = eval e1 * eval e2
+-}
 
-quiz = let p = PText "hey" 
-       in
-         case p of
-           PText _ -> 1
+
+-- []
+emp = Nul
+
+ex_3 = 3 `Cons` Nul 
+hs_3 = 3 : []
+
+ex_2_3 = Cons 2 (Cons 3 Nul) 
+ex_1_2_3 = Cons 1 (Cons 2 (Cons 3 Nul)) 
+
+ex_animals = Cons "cat" (Cons "dog" (Cons "hpippo" Nul)) 
+
+
+
+
+
+plus x y = x + y
+
+foo = plus 10 20
+bar = 10 `plus` 20
+
+
+hundred :: [Int] 
+hundred = [1..100]
+
+fav = 101
+
+fav_hundred = fav : hundred
+
+hundred_fav = hundred ++ [fav]
+{-
+fav : [1..100]
+
+([1..100]  ++ [fav] 
+ ==> 1 : (2...100) ++ [fav]
+ ==> 1 : 2 : (3..100) ++ [fav] 
+ ==> 1 : 2 : 3 : ... : 100 : ([] ++ [fav])
+ ==> 1 : 2 : 3 : ... : 100 : [fav]
+)
+
+-}
+append :: List t -> List t -> List t
+append Nul l2           = l2
+append (Cons h1 t1) l2  = Cons h1 (append t1 l2) 
+
+data Tree = Leaf | Node Int Tree Tree 
+  deriving (Eq,Show)
+
+node1 = Node 1 node2 node4
+node2 = (Node 2 node3 Leaf)
+node3 = (Node 3 Leaf  Leaf)
+node4 = (Node 4 Leaf  Leaf)
+
+tot :: Tree -> Int
+tot Leaf         = 0
+tot (Node v l r) = v + tot l + tot r
+
+size :: Tree -> Int
+size Leaf         = 1
+size (Node v l r) = 1 + size l + size r
+
+sizeN :: Tree -> Int
+sizeN Leaf         = 0
+sizeN (Node v l r) = 1 + sizeN l + sizeN r
+
+depth :: Tree -> Int
+depth Leaf         = 0
+depth (Node v l r) = 1 + max (depth l) (depth r)
