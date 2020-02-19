@@ -542,7 +542,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb31-1" data-line-number="1">foldr f b []     <span class="fu">=</span> b</a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)</a>
 <a class="sourceLine" id="cb31-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb31-4" data-line-number="4">quiz <span class="fu">=</span> foldr (<span class="fu">:</span>) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
+<a class="sourceLine" id="cb31-4" data-line-number="4">quiz <span class="fu">=</span> foldr (\x v <span class="ot">-&gt;</span> x <span class="fu">:</span> v) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
 <p><strong>(A)</strong> Type error</p>
 <p><strong>(B)</strong> <code class="sourceCode haskell">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code></p>

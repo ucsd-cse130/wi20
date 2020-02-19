@@ -680,8 +680,11 @@ What does this evaluate to?
 foldr f b []     = b
 foldr f b (x:xs) = f x (foldr f b xs)
 
-quiz = foldr (:) [] [1,2,3]
+quiz = foldr (\x v -> x : v) [] [1,2,3]
 ```
+
+
+
 
 
 **(A)** Type error
