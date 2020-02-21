@@ -1,0 +1,97 @@
+# Meeting Minutes
+
+## Notes for 2/5
+
+Gayane Vardoyan
+
+## Notes for 1/7
+
+ACTION ITEM: Please go over the files "assigned" to you to triage VIABLE applicants
+ACTION ITEM: If someone can figure out how to SEARCH-BY-FLAG let us know :)
+
+1. I WILL bin all the current (300+) applications on APOL, and am assigning each of you
+   the following FLAGs. (Some files have multiple tags, so will be looked at by multiple folks.)
+
+2. Recall that our goal right now is to just identify ~ 60 files that we can then look
+   at in greater detail. Once I classify (or you can help out too :-)) please start 
+   going over the files to mark off which ones are VIABLE (you can use that tag if you like) 
+   I am using "SKIP" to denote "NOT VIABLE".
+
+3. If someone can figure out how to coax the SEARCH mechanism to search by tag, let me know.
+   Right now I am just adding the FLAGS to the set of columns, and then sorting by FLAGS but
+   thats a bit gross.
+
+4. Next, EACH WEEK we will go roughly by AREA, discuss the candidates in that area and hopefully 
+   vote on 3-4 to invite.
+
+### Focus Areas
+
+Areas (primary – at least 2 interviews, if strong candidates found)
+  - Quantum Computing Systems (if find 2)
+  - AI (incl. Reinforcement Learning and Trustworthy AI)
+  - HCI (with possible focus on increased access to disadvantaged/disabled) 
+  - Security
+
+Secondary Focus Areas (if we see a strong candidate, we will interview them)
+  - Algorithms
+  - SW Engineering
+
+Tertiary Focus Areas
+  - All others
+
+### Area Leads
+
+[Kamalika]
+* AI
+++ THY
+
+[David]
+* GFX
+* ROB
+++ VIS
+++ DATA
+
+[Stefan]
+* SEC 
+* SYS
+* DB
+
+[Ranjit]
+++ CPS, EMB, DAC, ARCH
+* QC
+* OTHER 
+
+[Nadia]
+* PL
+* SWENGG
+* HCI
+
+
+### Interviews 
+
+We have 3-5 slots ~~ 16 interviews.
+
+### Rubric
+
+* Discuss BEFORE ranking ... ranking "hardens" positions/pros/cons
+* Only CLARIFICATIONs during talk, hold questions to the END
+* ALL comments read out & faculty who filled rubric speak FIRST
+* Rubrics serve to STRUCTURE the conversation
+
+PUBS    : SKIP/VIABLE
+AWARDS  : STAR (many fellowships etc, IEEE MICRO)
+LETTERS : STAR
+IMPACT  : STAR
+C2D     : SKIP/VIABLE
+
+PUBS    : STAR? (5x FOCS, 5x VLDB, 4x ICDE, 3x SODA, 2x NIPS)
+AWARDS  : VIABLE/STAR (CAREER, Google research, FOCS 16 'highlighted', HALG plenary talk. VLDB best paper, ICDE 12 finalist)
+LETTERS : VIABLE/STAR ... not ultra effusive, e.g. junior candidates letters were stronger?
+IMPACT  : STAR (HALG etc. several important open problems)
+C2D     : STAR (long, strong statement, various efforts, but of course, senior.)
+
+### Stefan's notes on Excellence Slots
+
+- Must have demonstrated ACTION (not merely INTENT)
+- Must have demonstrated AGENCY (vs e.g. advising URM student by chance)
+
