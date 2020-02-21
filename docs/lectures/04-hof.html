@@ -537,45 +537,41 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb30-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb30-3" data-line-number="3">cat <span class="fu">=</span> foldr (<span class="fu">++</span>) <span class="st">&quot;&quot;</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<!-- HEREHEREHERE -->
+<h2 id="the-fold-right-pattern-1">The “fold-right” pattern</h2>
+<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb31-1" data-line-number="1">foldr f b [x1, x2, x3, x4]</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">  <span class="fu">==&gt;</span> f x1 (foldr f b [x2, x3, x4])</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">  <span class="fu">==&gt;</span> f x1 (f x2 (foldr f b [x3, x4]))</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (foldr f b [x4])))</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (f x4 (foldr f b []))))</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (f x4 b)))</a></code></pre></div>
+<p>Accumulate the values from the <strong>right</strong></p>
+<p>For example:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb32-1" data-line-number="1">foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">1</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">3</span>, <span class="dv">4</span>]))</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">4</span>])))</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> []))))</a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">0</span>)))</a></code></pre></div>
+<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-2">QUIZ</h2>
 <p>What does this evaluate to?</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb31-1" data-line-number="1">foldr f b []     <span class="fu">=</span> b</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb31-4" data-line-number="4">quiz <span class="fu">=</span> foldr (\x v <span class="ot">-&gt;</span> x <span class="fu">:</span> v) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb33-1" data-line-number="1">foldr f b []     <span class="fu">=</span> b</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb33-4" data-line-number="4">quiz <span class="fu">=</span> foldr (\x v <span class="ot">-&gt;</span> x <span class="fu">:</span> v) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
 <p><strong>(A)</strong> Type error</p>
 <p><strong>(B)</strong> <code class="sourceCode haskell">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</code></p>
 <p><strong>(C)</strong> <code class="sourceCode haskell">[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>]</code></p>
 <p><strong>(D)</strong> <code class="sourceCode haskell">[[<span class="dv">3</span>],[<span class="dv">2</span>],[<span class="dv">1</span>]]</code></p>
 <p><strong>(E)</strong> <code class="sourceCode haskell">[[<span class="dv">1</span>],[<span class="dv">2</span>],[<span class="dv">3</span>]]</code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb32-1" data-line-number="1">foldr f b []     <span class="fu">=</span> b</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">foldr f b (x<span class="fu">:</span>xs) <span class="fu">=</span> f x (foldr f b xs)</a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb32-4" data-line-number="4">foldr (<span class="fu">:</span>) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb32-5" data-line-number="5">  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> (foldr (<span class="fu">:</span>) [] [<span class="dv">2</span>, <span class="dv">3</span>])</a>
-<a class="sourceLine" id="cb32-6" data-line-number="6">  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> (foldr (<span class="fu">:</span>) [] [<span class="dv">3</span>]))</a>
-<a class="sourceLine" id="cb32-7" data-line-number="7">  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> ((<span class="fu">:</span>) <span class="dv">3</span> (foldr (<span class="fu">:</span>) [] [])))</a>
-<a class="sourceLine" id="cb32-8" data-line-number="8">  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> ((<span class="fu">:</span>) <span class="dv">3</span> []))</a>
-<a class="sourceLine" id="cb32-9" data-line-number="9">  <span class="fu">==</span>  <span class="dv">1</span> <span class="fu">:</span> (<span class="dv">2</span> <span class="fu">:</span> (<span class="dv">3</span> <span class="fu">:</span> []))</a>
-<a class="sourceLine" id="cb32-10" data-line-number="10">  <span class="fu">==</span>  [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
-<p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
-<h2 id="the-fold-right-pattern-1">The “fold-right” pattern</h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb33-1" data-line-number="1">foldr f b [x1, x2, x3, x4]</a>
-<a class="sourceLine" id="cb33-2" data-line-number="2">  <span class="fu">==&gt;</span> f x1 (foldr f b [x2, x3, x4])</a>
-<a class="sourceLine" id="cb33-3" data-line-number="3">  <span class="fu">==&gt;</span> f x1 (f x2 (foldr f b [x3, x4]))</a>
-<a class="sourceLine" id="cb33-4" data-line-number="4">  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (foldr f b [x4])))</a>
-<a class="sourceLine" id="cb33-5" data-line-number="5">  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (f x4 (foldr f b []))))</a>
-<a class="sourceLine" id="cb33-6" data-line-number="6">  <span class="fu">==&gt;</span> f x1 (f x2 (f x3 (f x4 b)))</a></code></pre></div>
-<p>Accumulate the values from the <strong>right</strong></p>
-<p>For example:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb34-1" data-line-number="1">foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">1</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb34-3" data-line-number="3">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">3</span>, <span class="dv">4</span>]))</a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">4</span>])))</a>
-<a class="sourceLine" id="cb34-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> (foldr (<span class="fu">+</span>) <span class="dv">0</span> []))))</a>
-<a class="sourceLine" id="cb34-6" data-line-number="6">  <span class="fu">==&gt;</span> <span class="dv">1</span> <span class="fu">+</span> (<span class="dv">2</span> <span class="fu">+</span> (<span class="dv">3</span> <span class="fu">+</span> (<span class="dv">4</span> <span class="fu">+</span> <span class="dv">0</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb34-1" data-line-number="1">foldr (<span class="fu">:</span>) [] [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> (foldr (<span class="fu">:</span>) [] [<span class="dv">2</span>, <span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> (foldr (<span class="fu">:</span>) [] [<span class="dv">3</span>]))</a>
+<a class="sourceLine" id="cb34-4" data-line-number="4">  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> ((<span class="fu">:</span>) <span class="dv">3</span> (foldr (<span class="fu">:</span>) [] [])))</a>
+<a class="sourceLine" id="cb34-5" data-line-number="5">  <span class="fu">==&gt;</span> (<span class="fu">:</span>) <span class="dv">1</span> ((<span class="fu">:</span>) <span class="dv">2</span> ((<span class="fu">:</span>) <span class="dv">3</span> []))</a>
+<a class="sourceLine" id="cb34-6" data-line-number="6">  <span class="fu">==</span>  <span class="dv">1</span> <span class="fu">:</span> (<span class="dv">2</span> <span class="fu">:</span> (<span class="dv">3</span> <span class="fu">:</span> []))</a>
+<a class="sourceLine" id="cb34-7" data-line-number="7">  <span class="fu">==</span>  [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="quiz-3">QUIZ</h2>
 <p>What is the most general type of <code class="sourceCode haskell">foldr</code>?</p>
@@ -612,12 +608,12 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb37-2" data-line-number="2">facTR n <span class="fu">=</span> <span class="fu">...</span> </a></code></pre></div>
 <p><br> <br> <br> <br></p>
 <p>Lets see how <code class="sourceCode haskell">facTR</code> is evaluated:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="fu">&lt;</span>facTR <span class="dv">4</span><span class="fu">&gt;</span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2">  <span class="fu">==&gt;</span>    <span class="fu">&lt;&lt;</span>loop <span class="dv">1</span>  <span class="dv">4</span><span class="fu">&gt;&gt;</span> <span class="co">-- call loop 1 4</span></a>
-<a class="sourceLine" id="cb38-3" data-line-number="3">  <span class="fu">==&gt;</span>   <span class="fu">&lt;&lt;&lt;</span>loop <span class="dv">4</span>  <span class="dv">3</span><span class="fu">&gt;&gt;&gt;</span> <span class="co">-- rec call loop 4 3 </span></a>
-<a class="sourceLine" id="cb38-4" data-line-number="4">  <span class="fu">==&gt;</span>  <span class="fu">&lt;&lt;&lt;&lt;</span>loop <span class="dv">12</span> <span class="dv">2</span><span class="fu">&gt;&gt;&gt;&gt;</span> <span class="co">-- rec call loop 12 2</span></a>
-<a class="sourceLine" id="cb38-5" data-line-number="5">  <span class="fu">==&gt;</span> <span class="fu">&lt;&lt;&lt;&lt;&lt;</span>loop <span class="dv">24</span> <span class="dv">1</span><span class="fu">&gt;&gt;&gt;&gt;&gt;</span> <span class="co">-- rec call loop 24 1</span></a>
-<a class="sourceLine" id="cb38-6" data-line-number="6">  <span class="fu">==&gt;</span> <span class="dv">24</span>                  <span class="co">-- return result 24! </span></a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb38-1" data-line-number="1">facTR <span class="dv">4</span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">  <span class="fu">==&gt;</span> loop <span class="dv">1</span>  <span class="dv">4</span>     <span class="co">-- call loop 1 4</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">  <span class="fu">==&gt;</span> loop <span class="dv">4</span>  <span class="dv">3</span>     <span class="co">-- rec call loop 4 3 </span></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">  <span class="fu">==&gt;</span> loop <span class="dv">12</span> <span class="dv">2</span>     <span class="co">-- rec call loop 12 2</span></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">  <span class="fu">==&gt;</span> loop <span class="dv">24</span> <span class="dv">1</span>     <span class="co">-- rec call loop 24 1</span></a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">  <span class="fu">==&gt;</span> <span class="dv">24</span>            <span class="co">-- return result 24! </span></a></code></pre></div>
 <p>Each recursive call <strong>directly</strong> returns the result</p>
 <ul>
 <li><p>without further computation</p></li>

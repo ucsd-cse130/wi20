@@ -672,66 +672,6 @@ cat = foldr (++) ""
 <br>
 <br>
 
-<!-- HEREHEREHERE --> 
-
-## QUIZ
-
-What does this evaluate to?
-
-```haskell
-foldr f b []     = b
-foldr f b (x:xs) = f x (foldr f b xs)
-
-quiz = foldr (\x v -> x : v) [] [1,2,3]
-```
-
-
-
-
-
-**(A)** Type error
-
-**(B)** `[1,2,3]`
-
-**(C)** `[3,2,1]`
-
-**(D)** `[[3],[2],[1]]`
-
-**(E)** `[[1],[2],[3]]`
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-```haskell
-foldr f b []     = b
-foldr f b (x:xs) = f x (foldr f b xs)
-
-foldr (:) [] [1,2,3]
-  ==> (:) 1 (foldr (:) [] [2, 3])
-  ==> (:) 1 ((:) 2 (foldr (:) [] [3]))
-  ==> (:) 1 ((:) 2 ((:) 3 (foldr (:) [] [])))
-  ==> (:) 1 ((:) 2 ((:) 3 []))
-  ==  1 : (2 : (3 : []))
-  ==  [1,2,3]
-```
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
 
 ## The "fold-right" pattern
 
@@ -769,13 +709,64 @@ foldr (+) 0 [1, 2, 3, 4]
 
 ## QUIZ
 
+What does this evaluate to?
+
+```haskell
+foldr f b []     = b
+foldr f b (x:xs) = f x (foldr f b xs)
+
+quiz = foldr (\x v -> x : v) [] [1,2,3]
+```
+
+**(A)** Type error
+
+**(B)** `[1,2,3]`
+
+**(C)** `[3,2,1]`
+
+**(D)** `[[3],[2],[1]]`
+
+**(E)** `[[1],[2],[3]]`
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```haskell
+foldr (:) [] [1,2,3]
+  ==> (:) 1 (foldr (:) [] [2, 3])
+  ==> (:) 1 ((:) 2 (foldr (:) [] [3]))
+  ==> (:) 1 ((:) 2 ((:) 3 (foldr (:) [] [])))
+  ==> (:) 1 ((:) 2 ((:) 3 []))
+  ==  1 : (2 : (3 : []))
+  ==  [1,2,3]
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+## QUIZ
+
 What is the most general type of `foldr`?
 
 ```haskell
 foldr f b []     = b
 foldr f b (x:xs) = f x (foldr f b xs)
 ```
-
 
 **(A)** `(a -> a -> a) -> a -> [a] -> a`
 
@@ -882,12 +873,12 @@ Lets see how `facTR` is evaluated:
 
 
 ```haskell
-<facTR 4>
-  ==>    <<loop 1  4>> -- call loop 1 4
-  ==>   <<<loop 4  3>>> -- rec call loop 4 3 
-  ==>  <<<<loop 12 2>>>> -- rec call loop 12 2
-  ==> <<<<<loop 24 1>>>>> -- rec call loop 24 1
-  ==> 24                  -- return result 24! 
+facTR 4
+  ==> loop 1  4     -- call loop 1 4
+  ==> loop 4  3     -- rec call loop 4 3 
+  ==> loop 12 2     -- rec call loop 12 2
+  ==> loop 24 1     -- rec call loop 24 1
+  ==> 24            -- return result 24! 
 ```
 
 Each recursive call **directly** returns the result 
