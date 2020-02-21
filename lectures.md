@@ -14,54 +14,13 @@ headerImg: books.jpg
 | 2/10       |  **Midterm**  		           |                              |           |
 | 2/12       | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-2-12] |
 | 2/14       | ""                              |                              | [hs-2-14] |
-| 2/19       | "" [map-reduce][mapRed] [react HOComponents][rhoc]   |                              | [hs-2-19] |
-
-
+| 2/19       | "" [map-reduce][mapRed] [react HOComponents][rhoc] |           | [hs-2-19] |
+| 2/21       | Environments & Closures         | [html][lec5] 		      | [hs-2-21] |
 <!-- 
-| 4/5        | ""                          |              [pdf][pdf2]  | [lc2]         |
-| 4/8        | ""                          |              [pdf][pdf3]  | [lc3]         |
-| 4/12       | ""                          |              [pdf][pdf4]  | [lc3]         |
-| 4/15       | A crash course in Haskell       | [html][lec2] [pdf][pdf5]  | [hs-4-15]     |
-| 4/17       | ""                          |              [pdf][pdf6]  | [hs-4-17]     |
-| 4/19       | ""                          |                           | [hs-4-19]     |
-| 4/22       | ""                          |                           | [hs-4-22]     |
-| 4/24       | Datatypes & Recursion           | [html][lec3] [pdf][pdf-data] | [hs-4-24]  |
-| 4/26       | ""                          | [pdf][pdf-data-b]            | [hs-4-26]  |
-| 4/29       | ""                          |                              | [hs-4-29]  |
-| 5/1        | ""                          |                              | [hs-5-1]   |
-| 5/3        | ""                          |                              | [hs-5-3]   |
-| 5/6        | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-5-6]   |
-| 5/8        | ""                          |                              | [hs-5-8]   |
-| 5/10       | **Midterm**                     |                              |            |
 | 5/13       | Environments & Closures         | [html][lec5] [pdf][pdf-env]  |            |
-| 5/15       | ""                          |                              | [hs-5-15]  |
-| 5/17       | ""                          |                              | [hs-5-17]  |
 | 5/22       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]  [pdf][pdf-parse] |  |
-| 5/24       | ""                          |                              |            |
 | 5/29       | Overloading & TypeClasses       | [html][lec7-cl]              | [hs-5-29]  |
-| 5/31       | ""                          |                              | [hs-5-31]  |
-| 6/3        | ""                          |                              | [hs-6-3]   |
 | 6/5        | Monads                          | [html][lec8-monads]          | [hs-6-5]   |
-|            | ""                          |                              | [hs-6-7] [hs-hello] [hs-moo] |
-
-
-
-| 2/13       | Environments and Closures       | [html][lec5]              |               |
-| 2/15       | contd.                          |                           |               |
-| 2/18       | *No lecture: Presidents' Day*   |                           |               |
-| 2/20       | contd.                          |                           |               |
-| 2/22       | contd.                          |                           |               |
-| 2/25       | Lexing and Parsing              | [html][lec6] [tutorial][parsing]     |    |
-| 2/27       | Polymorphism and Type Inference | [html][lec7]              |               |
-| 3/1        | contd.                          |                           |               |
-| 3/4        | contd.                          |                           |               |
-| 3/6        | Logic Programming               |  [html][lec8]             |               |
-| 3/8        | contd.                          |                           |               |
-| 3/11       | contd.                          |                           |               |
-| 3/13       | contd.                          |                           |               |
-| 3/15       | contd.                          |                           |               |
-| 3/22       | **Final**                       |                           |               |
-
 -->
 
 ## Discussions
@@ -118,6 +77,7 @@ headerImg: books.jpg
 [hs-2-12]:  /static/raw/Lec_2_12_20.hs
 [hs-2-14]:  /static/raw/Lec_2_14_20.hs
 [hs-2-19]:  /static/raw/Lec_2_19_20.hs
+[hs-2-21]:  /static/raw/Lec_2_21_20.hs
 
 [hs-4-15]:  /static/raw/lec_4_15_2019.hs
 [hs-4-17]:  /static/raw/lec_4_17_2019.hs
