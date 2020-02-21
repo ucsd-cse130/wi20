@@ -672,6 +672,8 @@ cat = foldr (++) ""
 <br>
 <br>
 
+<!-- HEREHEREHERE --> 
+
 ## QUIZ
 
 What does this evaluate to?
@@ -801,6 +803,154 @@ foldr f b (x:xs) = f x (foldr f b xs)
 <br>
 <br>
 
+## Tail Recursion
+
+Recursive call is the *top-most* sub-expression in the function body
+
+  - i.e. no computations allowed on recursively returned value 
+
+  - i.e. value returned by the recursive call == value returned by function
+  
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+### QUIZ: Is this function tail recursive? 
+
+```haskell
+fac :: Int -> Int
+fac n
+  | n <= 1    = 1
+  | otherwise = n * fac (n - 1)
+```
+
+**A.** Yes
+
+**B.** No
+
+<br>
+
+(I) final
+
+    *Answer:* B
+    
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Tail recursive factorial
+
+Let's write a tail-recursive factorial!
+
+(I) lecture
+
+    ```haskell
+    facTR :: Int -> Int
+    facTR n = ... 
+    ```
+    
+(I) final
+
+    ```haskell
+    facTR :: Int -> Int
+    facTR n = loop 1 n
+      where
+        loop :: Int -> Int -> Int
+        loop acc n
+          | n <= 1    = acc
+          | otherwise = loop (acc * n) (n - 1)
+    ```      
+      
+<br>
+<br>
+<br>
+<br>    
+
+Lets see how `facTR` is evaluated:
+
+
+```haskell
+<facTR 4>
+  ==>    <<loop 1  4>> -- call loop 1 4
+  ==>   <<<loop 4  3>>> -- rec call loop 4 3 
+  ==>  <<<<loop 12 2>>>> -- rec call loop 12 2
+  ==> <<<<<loop 24 1>>>>> -- rec call loop 24 1
+  ==> 24                  -- return result 24! 
+```
+
+Each recursive call **directly** returns the result 
+
+  - without further computation
+
+  - no need to remember what to do next!
+  
+  - no need to store the "empty" stack frames!
+    
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>  
+
+## Why care about Tail Recursion?
+
+Because the _compiler_ can transform it into a _fast loop_
+
+```haskell
+facTR n = loop 1 n
+  where
+    loop acc n
+      | n <= 1    = acc
+      | otherwise = loop (acc * n) (n - 1)
+```
+
+<br>
+
+```javascript 
+function facTR(n){ 
+  var acc = 1;
+  while (true) {
+    if (n <= 1) { return acc ; }
+    else        { acc = acc * n; n = n - 1; }
+  }
+}
+```
+
+- Tail recursive calls can be optimized as a **loop**
+
+    - no stack frames needed! 
+
+- Part of the language specification of most functional languages
+
+    - compiler **guarantees** to optimize tail calls
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Tail Recursive Fold
+
+```haskell
+foldr f b []     = b
+foldr f b (x:xs) = f x (foldr f b xs)
+```
 
 Is `foldr` **tail recursive**?
 
@@ -971,7 +1121,6 @@ catTR = foldl ...  ...
 
 Factor the tail-recursion out!
 
-
 <br>
 <br>
 <br>
@@ -981,62 +1130,6 @@ Factor the tail-recursion out!
 <br>
 <br>
 
-## QUIZ
-
-What does this evaluate to?
-
-```haskell
-foldl f b xs          = helper b xs
-  where
-    helper acc []     = acc
-    helper acc (x:xs) = helper acc' xs
-      where acc'      = f x acc
-
-quiz = foldl (:) [] [1,2,3]
-
-[]    [1,2,3,4,5,6,7]
-=> 1:[]     [2,3,4,5,6,7]
-=> 2:1:[]     [3,4,5,6,7]
-=> 3:2:1:[]     [4,5,6,7]
-=> 4:3:2:1:[]     [5,6,7]
-=> 5:4:3:2:1:[]     [6,7]
-=> 7:6:5:4:3:2:1:[]    []
-
-foldl f b (x1: x2: x3 : [])
-  ==> helper b (x1: x2: x3 : [])
-  ==> helper (f x1 b)  (x2: x3 : [])
-  ==> helper (f x2 (f x1 b))  (x3 : [])
-  ==> helper (f x3 (f x2 (f x1 b)))  []
-  ==> ( x3 :  (x2 : (x1 : [])))
-
-```
-
-
-
-**(A)** Type error
-
-**(B)** `[1,2,3]`       -----------
-
-**(C)** `[3,2,1]`       -----------
-
-**(D)** `[[3],[2],[1]]`
-
-**(E)** `[[1],[2],[3]]`
-
-<br>
-
-(I) final
-    
-    *Answer:* A
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ## QUIZ
 
@@ -1068,6 +1161,16 @@ quiz = foldl (\xs x -> x : xs) [] [1,2,3]
 (I) final
     
     *Answer:* C
+
+```
+foldl f b (x1: x2: x3 : [])
+  ==> helper b (x1: x2: x3 : [])
+  ==> helper (f x1 b)  (x2: x3 : [])
+  ==> helper (f x2 (f x1 b))  (x3 : [])
+  ==> helper (f x3 (f x2 (f x1 b)))  []
+  ==> ( x3 :  (x2 : (x1 : [])))
+```
+
 
 <br>
 <br>
@@ -1148,78 +1251,6 @@ foldr :: (a -> b -> b) -> b -> [a] -> b  -- Right
 <br>
 <br>
 
-### Useful HOF: flip
-
-```haskell
--- you can write
-foldl (\xs x -> x : xs) [] [1,2,3]
-
--- more concisely like so:
-foldl (flip (:))        [] [1,2,3]
-```
-
-What is the type of `flip`?
-
-<br>
-
-(I) lecture
-    
-    ```haskell
-    flip :: ???
-    ```
-    
-(I) final
-    
-    ```haskell
-    flip :: (a -> b -> c) -> b -> a -> c
-    ```
-    
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-### Useful HOF: compose
-
-```haskell
--- you can write
-map (\x -> f (g x)) ys
-
--- more concisely like so:
-map (f . g) ys
-```
-
-What is the type of `(.)`?
-
-<br>
-
-(I) lecture
-    
-    ```haskell
-    (.) :: ???
-    ```
-    
-(I) final
-    
-    ```haskell
-    (.) :: (b -> c) -> (a -> b) -> a -> c
-    ```
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
 ## Higher Order Functions
 
 Iteration patterns over collections:
@@ -1227,11 +1258,6 @@ Iteration patterns over collections:
 - **Filter** values in a collection given a *predicate*
 - **Map** (iterate) a given *transformation* over a collection
 - **Fold** (reduce) a collection into a value, given a *binary operation* to combine results
-
-Useful helper HOFs:
-
-- **Flip** the order of function's (first two) arguments 
-- **Compose** two functions
 
 <br>
 
@@ -1248,7 +1274,11 @@ HOFs can be put into libraries to enable modularity
     
     - no need to know the implementation of the collection 
     
-Enabled the "big data" revolution e.g. _MapReduce_, _Spark_
+Crucial foundation of 
+
+- "big data" revolution e.g. _MapReduce_, _Spark_, _TensorFlow_
+
+- "web programming" revolution e.g. _Jquery_, _Angular_, _React_  
 
 <br>
 <br>
@@ -1262,4 +1292,3 @@ Enabled the "big data" revolution e.g. _MapReduce_, _Spark_
 <br>
 <br>
 
-That's all folks!

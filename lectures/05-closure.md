@@ -18,7 +18,10 @@ How to *implement* language constructs?
 
 - Local variables and scope
 - Environments and Closures
+
+<!--
 - Type Inference
+-->
 
 ### Interpreter
 

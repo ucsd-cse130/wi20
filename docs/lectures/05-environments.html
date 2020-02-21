@@ -334,14 +334,10 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb6-3" data-line-number="3">eval (<span class="dt">EBin</span> op e1 e2) <span class="fu">=</span> evalOp op (eval e1) (eval e2)</a></code></pre></div>
 <p>What is a suitable type for <code class="sourceCode haskell">evalOp</code>?</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">{- 1 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">{- 2 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">{- 3 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span>  <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">{- 4 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">{- 5 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">{- 2 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">{- 3 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span>  <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">{- 4 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">{- 5 -}</span><span class="ot"> evalOp ::</span> <span class="dt">BinOp</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="the-nano-language">The Nano Language</h2>
 <p>Features of Nano:</p>
@@ -391,7 +387,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>We write</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb13-1" data-line-number="1">(eval env expr) <span class="fu">==&gt;</span> value</a></code></pre></div>
 <p>to mean</p>
-<p>When <code class="sourceCode haskell">expr</code> is <strong>evaluated in environment</strong> <code class="sourceCode haskell">env</code> the result is <code class="sourceCode haskell">value</code>**</p>
+<p>When <code class="sourceCode haskell">expr</code> is <strong>evaluated in environment</strong> <code class="sourceCode haskell">env</code> the result is <code class="sourceCode haskell">value</code></p>
 <p>That is, when we have variables, we modify our <code class="sourceCode haskell">eval</code>uator to take an input environment <code class="sourceCode haskell">env</code> in which <code class="sourceCode haskell">expr</code> must be evaluated.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">eval env expr <span class="fu">=</span> <span class="fu">...</span> value<span class="fu">-</span><span class="kw">of</span><span class="fu">-</span>expr<span class="fu">-</span><span class="kw">in</span><span class="fu">-</span>env<span class="fu">...</span></a></code></pre></div>

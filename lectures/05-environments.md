@@ -168,12 +168,8 @@ What is a suitable type for `evalOp`?
 
 ```haskell
 {- 1 -} evalOp :: BinOp -> Value
-
-
 {- 2 -} evalOp :: BinOp -> Value -> Value -> Value
 {- 3 -} evalOp :: BinOp -> Expr  -> Expr -> Value
-
-
 {- 4 -} evalOp :: BinOp -> Expr -> Expr -> Expr
 {- 5 -} evalOp :: BinOp -> Expr -> Value
 ```
@@ -293,7 +289,7 @@ We write
 
 to mean
 
-When `expr` is **evaluated in environment** `env` the result is `value`**
+When `expr` is **evaluated in environment** `env` the result is `value`
 
 That is, when we have variables, we modify our `eval`uator to take an input 
 environment `env` in which `expr` must be evaluated.
