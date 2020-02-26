@@ -16,7 +16,7 @@ mins over the deadline is equal to 1 late day.
 | [HW #1](https://classroom.github.com/a/B5wdCjPJ) | Introduction to Haskell | Fri 1/31                   |
 | [HW #2](https://classroom.github.com/a/Rmz7BvXX) | Data types              | Fri 2/7                    |
 | [HW #3](https://classroom.github.com/a/qiPy2W1Q) | Higher-Order Functions  | Fri 2/21                   |
-| [HW #4]                                          | Interpreting languages  | Fri 2/28                   |
+| [HW #4](https://classroom.github.com/a/hbFGb_aj) | Interpreting languages  | Fri 3/4                    |
 | [HW #5]                                          | Classes                 | Fri 3/13                   |
 
 ## Sample Exam Questions
