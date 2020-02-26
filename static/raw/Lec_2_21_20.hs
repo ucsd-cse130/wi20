@@ -1,103 +1,79 @@
-module Lec_2_19_20 where
+module Lec_2_21_20 where
 
-import Prelude hiding (map, filter)
+import Prelude hiding (foldl, sum, map, filter)
 import Data.Char (toUpper)
 
--- >>> shout "hello"
--- "HELLO"
+incr :: Int -> Int
+incr x = x + 1
+
+sum :: [Int] -> Int
+sum []     = 0
+sum (x:xs) = x + sum xs
+
+-- >>> sumTR [1,2,3,4,5,6] 
+-- 21
 --
 
--- >>> squares [1..10]
--- [1,4,9,16,25,36,49,64,81,100]
---
 
 
-shout cs   = map toUpper cs  
-
-squares ns = map (\n -> n * n)     ns
-
-wordLens ws = map length ws
-
--- >>> wordLens ["I", "am", "happy"]
--- [1,2,5]
---
--- will not cover a conversion from Char -> Int ? 
--- map :: (Char -> Char) -> [Char] -> [Char]
--- map :: (Int -> Int) -> [Int] -> [Int]
--- map :: (a -> a) -> [a] -> [a]
-map :: (t -> a) -> [t] -> [a] 
-map f []     = []
-map f (x:xs) = f x : map f xs
-
-{- Q:  will error be at:   (A) line 15, (B) 17,    (C) 23     (D) 24    (E) no error   -}
-
-
-quiz = map (\(x, y) -> x + y) [(1,2), (2,3)]
-
-
-
-
-
-
-
-
-
--- >>> zum []
--- 0
---
--- >>> len ["carne","asada","torta"] 
--- 3
---
 {- 
-foo []     = 0
-foo (x:xs) = 1 + foo xs
-               --^^^^^^ valueFromTail 
-foo []     = 0
-foo (x:xs) = x + foo xs
-               --^^^^^^ valueFromTail 
-foo []     = ""
-foo (x:xs) = x ++ foo xs
-                --^^^^^^ valueFromTail 
-
+sumTR [1,2,3,4,5,6] 
+==> loop 0    [1,2,3]
+==> loop (0+1)  [2,3]
+==> loop (0+1+2)  [3]
+==> loop (0+1+2+3) []
+==> 6
 -}
 
-foo base op []     = base
-foo base op (x:xs) = op x (foo base op xs) 
+-- >>> cat ["hello", "goodbye", "back"]
+-- "hello, goodbye, back, "
+--
 
-len xs = foo 0  (\x v -> 1 +  v) xs
-zum xs = foo 0  (\x v -> x +  v) xs  
-cat xs = foo "" (\x v -> x ++ v) xs  
+cat :: [String] -> String
+cat [] = ""
+cat (x:xs) = x ++ ", " ++ cat xs
+
+-- >>> catTR ["hello", "goodbye", "back"]
+-- "hello, goodbye, back, "
+--
+{- 
+catTR ["hello", "goodbye", "back"]
+loop "" ["hello", "goodbye", "back"]
+==> loop "hello, " ["goodbye", "back"] 
+            acc       x
+==> loop "hello, goodbye, " ["back"] 
+            acc'
+==> "hello, goodbye, back, "
+-}
+
+catTR xs = foldl (\acc x -> acc ++ x ++ ", ") "" xs
+
+-- catTR xs = loop "" xs 
+--   where
+--     loop acc []     = acc  
+--     loop acc (x:xs) = loop (acc ++ x ++ ", ") xs
+
+sumTR xs = foldl (\acc x -> acc + x)  0 xs 
+-- sumTR xs = loop 0 xs
+--   where
+    -- loop acc []     = acc
+    -- loop acc (x:xs) = loop (acc + x) xs 
+
+foldl f b xs = loop b xs  
+  where
+    loop acc []     = acc
+    loop acc (x:xs) = loop (f acc x) xs 
 
 
 {- 
-
-foldr f b []     = b
-foldr f b (x:xs) = f x (foldr f b xs)
-
-
-foldr f b [x1,x2,x3,x4]
-
-==> f x1 (foldr f b [x2,x3,x4]) 
-
-==> f x1 (f x2 (foldr f b [x3,x4])) 
-
-==> f x1 (f x2 (f x3 (foldr f b [x4]))) 
-
-==> f x1 (f x2 (f x3 (f x4 (foldr f b [])))) 
-
-==> f x1 (f x2 (f x3 (f x4 b))) 
-
-==> x1 `f` (x2 `f` (x3 `f` (x4 `f` b))) 
-
-    x1  : x2     : x3   :  x4    : []
-
-
-zum [x1,x2,x3,x4] = foldr (+) 0 [x1,x2,x3,x4]
-
-    x1 : x2 : x3 : x4 : []
-    
-    x1 ++ x2 ++ x3 ++ x4 ++ ""
-
+foldl f b [a1, a2, a3, a4] 
+==> loop b [a1, a2, a3, a4] 
+==> loop (f b a1) [a2, a3, a4]
+==> loop (f (f b a1) a2) [a3, a4]
+==> loop (f (f (f b a1) a2) a3) [a4]
+==> loop (f (f (f (f b a1) a2) a3) a4) []
+==> (f (f (f (f b a1) a2) a3) a4) 
+==> ((((b `f` a1) `f` a2) `f` a3) `f` a4) 
 -}
 
 
@@ -113,17 +89,13 @@ zum [x1,x2,x3,x4] = foldr (+) 0 [x1,x2,x3,x4]
 
 
 
+{- 
+foldl (\acc x -> x : acc) [] [1,2,3]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+loop [] [1,2,3] 
+==> loop (1:[]) [2,3] 
+==> loop (2:1:[]) [3] 
+==> loop (3:2:1:[]) [] 
+==> (3:2:1:[]) 
+==> [3,2,1]
+-}

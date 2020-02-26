@@ -676,12 +676,12 @@ cat = foldr (++) ""
 ## The "fold-right" pattern
 
 ```haskell
-foldr f b [x1, x2, x3, x4]
-  ==> f x1 (foldr f b [x2, x3, x4])
-  ==> f x1 (f x2 (foldr f b [x3, x4]))
-  ==> f x1 (f x2 (f x3 (foldr f b [x4])))
-  ==> f x1 (f x2 (f x3 (f x4 (foldr f b []))))
-  ==> f x1 (f x2 (f x3 (f x4 b)))
+foldr f b [a1, a2, a3, a4]
+  ==> f a1 (foldr f b [a2, a3, a4])
+  ==> f a1 (f a2 (foldr f b [a3, a4]))
+  ==> f a1 (f a2 (f a3 (foldr f b [a4])))
+  ==> f a1 (f a2 (f a3 (f a4 (foldr f b []))))
+  ==> f a1 (f a2 (f a3 (f a4 b)))
 ```
 
 Accumulate the values from the **right**
@@ -690,7 +690,7 @@ For example:
 
 ```haskell
 foldr (+) 0 [1, 2, 3, 4]
-  ==> 1 + (foldr (+) 1 [2, 3, 4])
+  ==> 1 + (foldr (+) 0 [2, 3, 4])
   ==> 1 + (2 + (foldr (+) 0 [3, 4]))
   ==> 1 + (2 + (3 + (foldr (+) 0 [4])))
   ==> 1 + (2 + (3 + (4 + (foldr (+) 0 []))))
@@ -764,6 +764,8 @@ foldr (:) [] [1,2,3]
 What is the most general type of `foldr`?
 
 ```haskell
+
+foldr :: (a -> b -> b) -> b -> [a] -> b 
 foldr f b []     = b
 foldr f b (x:xs) = f x (foldr f b xs)
 ```
@@ -823,6 +825,18 @@ fac n
   | otherwise = n * fac (n - 1)
 ```
 
+fac 10000
+  ==> 10000 * (fac 9999)
+  ==> 10000 * 9999 * (fac 9998)
+
+facTR 10000
+  ==> loop 1 10000 
+  ==> loop 10000 (9999) 
+  ==> loop (10000 * 9999) (9998) 
+  ==> loop (10000 * 9999 * 9998) (9997) 
+
+
+
 **A.** Yes
 
 **B.** No
@@ -847,11 +861,30 @@ Let's write a tail-recursive factorial!
 
 (I) lecture
 
-    ```haskell
-    facTR :: Int -> Int
-    facTR n = ... 
-    ```
+```haskell
+facTR :: Int -> Int
+facTR n = loop 1 n 
+  where 
+    loop acc n 
+      | 1 <= n    = loop (acc * n) (n - 1)
+      | otherwise = acc
+```
     
+```python
+def fac(n):
+  acc = 1
+  while (1 <= n):
+    acc = acc * n
+    n   = n - 1  
+  return acc 
+```
+
+
+
+
+
+
+
 (I) final
 
     ```haskell

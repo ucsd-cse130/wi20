@@ -244,7 +244,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <ul>
 <li>Local variables and scope</li>
 <li>Environments and Closures</li>
-<li>Type Inference</li>
+<li><em>(skip)</em> Type Inference</li>
 </ul>
 <h3 id="interpreter">Interpreter</h3>
 <p>How do we <em>represent</em> and <em>evaluate</em> a program?</p>
@@ -576,27 +576,19 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <h2 id="run-time-errors">Run-time Errors</h2>
 <p>Haskell function to <em>evaluate</em> an expression:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Env</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Value</span></a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3">eval env (<span class="dt">Num</span> n)        <span class="fu">=</span> n</a>
-<a class="sourceLine" id="cb30-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb30-5" data-line-number="5">eval env (<span class="dt">Var</span> x)        <span class="fu">=</span> lookup x env      <span class="co">-- (A)</span></a>
-<a class="sourceLine" id="cb30-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb30-7" data-line-number="7">eval env (<span class="dt">Bin</span> op e1 e2) <span class="fu">=</span> evalOp op v1 v2   <span class="co">-- (B)</span></a>
-<a class="sourceLine" id="cb30-8" data-line-number="8">  <span class="kw">where</span></a>
-<a class="sourceLine" id="cb30-9" data-line-number="9">    v1                  <span class="fu">=</span> eval env  e1      <span class="fu">-</span>  (<span class="dt">C</span>)</a>
-<a class="sourceLine" id="cb30-10" data-line-number="10">    v2                  <span class="fu">=</span> eval env  e2      <span class="co">-- (C) </span></a>
-<a class="sourceLine" id="cb30-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb30-12" data-line-number="12">eval env (<span class="dt">Let</span> x e1 e2)  <span class="fu">=</span> eval env1 e2</a>
-<a class="sourceLine" id="cb30-13" data-line-number="13">  <span class="kw">where</span></a>
-<a class="sourceLine" id="cb30-14" data-line-number="14">    v1                  <span class="fu">=</span> eval env e1</a>
-<a class="sourceLine" id="cb30-15" data-line-number="15">    env1                <span class="fu">=</span> extend env x v1   <span class="co">-- (D)</span></a></code></pre></div>
+<a class="sourceLine" id="cb30-2" data-line-number="2">eval env (<span class="dt">Num</span> n)        <span class="fu">=</span> n</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">eval env (<span class="dt">Var</span> x)        <span class="fu">=</span> lookup x env      <span class="co">-- (A)</span></a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">eval env (<span class="dt">Bin</span> op e1 e2) <span class="fu">=</span> evalOp op v1 v2   <span class="co">-- (B)</span></a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">  <span class="kw">where</span></a>
+<a class="sourceLine" id="cb30-6" data-line-number="6">    v1                  <span class="fu">=</span> eval env  e1      <span class="co">-- (C)</span></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7">    v2                  <span class="fu">=</span> eval env  e2      <span class="co">-- (C) </span></a>
+<a class="sourceLine" id="cb30-8" data-line-number="8">eval env (<span class="dt">Let</span> x e1 e2)  <span class="fu">=</span> eval env1 e2</a>
+<a class="sourceLine" id="cb30-9" data-line-number="9">  <span class="kw">where</span></a>
+<a class="sourceLine" id="cb30-10" data-line-number="10">    v1                  <span class="fu">=</span> eval env e1</a>
+<a class="sourceLine" id="cb30-11" data-line-number="11">    env1                <span class="fu">=</span> (x, v1) <span class="fu">:</span> env     <span class="co">-- (D)</span></a></code></pre></div>
 <h2 id="quiz-11">QUIZ</h2>
 <p>Will <code class="sourceCode haskell">eval env expr</code> always return a <code class="sourceCode haskell">value</code> ? Or, can it <em>crash</em>?</p>
-<p><strong>(A)</strong> operation at <code class="sourceCode haskell"><span class="dt">A</span></code> may fail</p>
-<p><strong>(B)</strong> operation at <code class="sourceCode haskell"><span class="dt">B</span></code> may fail</p>
-<p><strong>(C)</strong> operation at <code class="sourceCode haskell"><span class="dt">C</span></code> may fail</p>
-<p><strong>(D)</strong> operation at <code class="sourceCode haskell"><span class="dt">D</span></code> may fail</p>
-<p><strong>(E)</strong> nah, its all good…, always returns a <code class="sourceCode haskell"><span class="dt">Value</span></code></p>
+<p><strong>(A)</strong> operation at <code class="sourceCode haskell"><span class="dt">A</span></code> may fail <strong>(B)</strong> operation at <code class="sourceCode haskell"><span class="dt">B</span></code> may fail <strong>(C)</strong> operation at <code class="sourceCode haskell"><span class="dt">C</span></code> may fail <strong>(D)</strong> operation at <code class="sourceCode haskell"><span class="dt">D</span></code> may fail <strong>(E)</strong> nah, its all good…, always returns a <code class="sourceCode haskell"><span class="dt">Value</span></code></p>
 <p><br> <br> <br> <br> <br> <br> <br> <br> <br> <br></p>
 <h2 id="free-vs-bound-variables">Free vs bound variables</h2>
 <h2 id="undefined-variables">Undefined Variables</h2>

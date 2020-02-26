@@ -1,6 +1,6 @@
 ---
 title: Environments
-date: 2019-05-15
+date: 2020-02-24
 headerImg: books.jpg
 ---
 
@@ -18,7 +18,8 @@ How to *implement* language constructs?
 
 - Local variables and scope
 - Environments and Closures
-- Type Inference
+- _(skip)_ Type Inference
+
 
 ### Interpreter
 
@@ -711,35 +712,26 @@ Haskell function to *evaluate* an expression:
 
 ```haskell
 eval :: Env -> Expr -> Value
-
 eval env (Num n)        = n
-
 eval env (Var x)        = lookup x env      -- (A)
-
 eval env (Bin op e1 e2) = evalOp op v1 v2   -- (B)
   where
-    v1                  = eval env  e1      -  (C)
+    v1                  = eval env  e1      -- (C)
     v2                  = eval env  e2      -- (C) 
-
 eval env (Let x e1 e2)  = eval env1 e2
   where
     v1                  = eval env e1
-    env1                = extend env x v1   -- (D)
+    env1                = (x, v1) : env     -- (D)
 ```
 
 ## QUIZ
 
 Will `eval env expr` always return a `value` ? Or, can it *crash*?
 
-
 **(A)** operation at `A` may fail
-
 **(B)** operation at `B` may fail
-
 **(C)** operation at `C` may fail
-
 **(D)** operation at `D` may fail
-
 **(E)** nah, its all good..., always returns a `Value`
 
 
