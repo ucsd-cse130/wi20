@@ -18,6 +18,7 @@ headerImg: books.jpg
 | 2/21       | Environments & Closures         | [html][lec5] 		      | [hs-2-21] |
 | 2/24       | ""                              |  		      | [hs-2-24] |
 | 2/26       | ""                              |  		      | [hs-2-26] |
+| 2/28       | ""                              |  		      | [hs-2-28] |
 | 3/2        | Lexing and Parsing              | [html][lec6] [tutorial][parsing]  [pdf][pdf-parse] |  |
 <!-- 
 | 5/29       | Overloading & TypeClasses       | [html][lec7-cl]              | [hs-5-29]  |
