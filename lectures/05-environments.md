@@ -1393,7 +1393,7 @@ exLam4 = ...
 
 TODO
 
-## QUIZ 
+## Practice
 
 What should the following evaluate to?
 
@@ -1407,17 +1407,14 @@ in
       doTwice add10 100
 ```
 
-TODO
 
 ## Functions Accepting Functions Achieved!
 
 ```haskell
-exLam4 = ...
+exLam5 = ...
 
 -- >>> eval [] exLam4
 ```
-
-TODO
 
 ## The Nano Language
 

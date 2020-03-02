@@ -15,11 +15,11 @@ headerImg: books.jpg
 | 2/12       | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-2-12] |
 | 2/14       | ""                              |                              | [hs-2-14] |
 | 2/19       | "" [map-reduce][mapRed] [react HOComponents][rhoc] |           | [hs-2-19] |
-| 2/21       | Environments & Closures         | [html][lec5] 		      | [hs-2-21] |
-| 2/24       | ""                              |  		      | [hs-2-24] |
-| 2/26       | ""                              |  		      | [hs-2-26] |
-| 2/28       | ""                              |  		      | [hs-2-28] |
-| 3/2        | Lexing and Parsing              | [html][lec6] [tutorial][parsing]  [pdf][pdf-parse] |  |
+| 2/21       | Environments & Closures         | [html][lec5] 		          | [hs-2-21] |
+| 2/24       | ""                              |  		                      | [hs-2-24] |
+| 2/26       | ""                              |  		                      | [hs-2-26] |
+| 2/28       | ""                              |  		                      | [hs-2-28] |
+| 3/2        | Lexing and Parsing              | [html][lec6] [tutorial][parsing]  [pdf][pdf-parse] | [hs-3-2] |
 <!-- 
 | 5/29       | Overloading & TypeClasses       | [html][lec7-cl]              | [hs-5-29]  |
 | 6/5        | Monads                          | [html][lec8-monads]          | [hs-6-5]   |
@@ -82,6 +82,8 @@ headerImg: books.jpg
 [hs-2-21]:  /static/raw/Lec_2_21_20.hs
 [hs-2-24]:  /static/raw/Lec_2_24_20.hs
 [hs-2-26]:  /static/raw/Lec_2_26_20.hs
+[hs-2-28]:  /static/raw/Lec_2_28_20.hs
+[hs-3-2]:  /static/raw/Lec_3_2_20.hs
 
 [hs-4-15]:  /static/raw/lec_4_15_2019.hs
 [hs-4-17]:  /static/raw/lec_4_17_2019.hs
