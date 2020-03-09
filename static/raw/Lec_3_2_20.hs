@@ -1,4 +1,4 @@
-module Lec_2_28_20 where
+module Lec_3_2_20 where
 
 import Prelude hiding (lookup)
 
@@ -21,22 +21,32 @@ data Expr  = ENum Int              -- ^ n
   deriving (Show)
 
 data Value = VInt Int
-           | VFun Id Expr
+           | VFun Id Expr Env
   deriving (Show)
 
 type FunValue = (Id, Expr)
 
 type Env = [(Id, Value)]
 
-{-
-                              -- ENV
-    let incr = \x -> x + 1 
-                              -- ("incr" := < "x", x + 1 > ) : ENV  
-    in 
-      incr 10
-                              -- How to USE  ?Q1 to get back 11 as result?
-    
+{- 
+                            -- EA: ENV
+let c = 1
+in                          -- EB: (c := 1) : ENV 
+   let inc = \x -> x + c
+   in                       -- EC: (inc := <"x", "x + c", EB>) : (c := 1) : ENV
+      let d = 100
+      in                    -- ED: (c := 100) : (inc := <code-for-inc>) : (c := 1) : ENV
+        inc d 
+                            code-for-arg = E2
+                            eval env E1 ---> VFun x body frozenEnv
+                            eval env E2 ---> v2
+                            -- eval ((x := v2) : frozenEnv) body 
+                            -- code-for-inc = VFun "x" (x + c) EB
+
+  QUIZ: which is the right env to eval "adityExpr"? 
+        (A) EA    (B) EB   (C) EC     (E) other
  -}
+
 
 -- How about "eval" body (x+1) after defining formal "x" to be the argument 10 
 -- let x = 10 in x + 1 
@@ -58,19 +68,54 @@ exIncrWithC_FLIP :: Expr
 exIncrWithC_FLIP = 
   ELet "c" (ENum 1)
    ( ELet "incr" (ELam "x" (EBin Add (EVar "x") (EVar "c")))  
-      ( ELet "c" (ENum 100) 
-          ( EApp (EVar "incr") (ENum 10)
+      ( -- ELet "c" (ENum 100) 
+          ( EApp (EVar "incr") (EVar "c")
           )
       )
    )
 
-funky n = n : funky (n + 1)
+exAdd_10_20 = 
+  ELet "add" (ELam "x" (ELam "y" (EBin Add (EVar "x") (EVar "y")))) 
+    (
+      ELet "add_10" (EApp (EVar "add") (ENum 10))
+        (
+          ELet "add_20" (EApp (EVar "add") (ENum 20))
+            (
+              EBin Add (EApp (EVar "add_10")  (ENum 100)) (EApp (EVar "add_20")  (ENum 1000))
+            )
+        )
+    )
 
--- >>> funky 0 
--- funky 0 = 0 : 1 : funky 2 
+-- >>> eval [] exAdd_10_20
+-- VInt 1130
+--
+
+
+
+{- 
+                               -- ENV
+let add = \x -> (\y -> x + y)
+in                             -- ("add" := <"x", "\y -> (x + y)", ENV) : ENV
+  add 10
+                                  eval ((x:= 10):ENV) BODY
+
+
+QUIZ
+                                    -- ENV
+let add = \x -> (\y -> x + y)
+in                                  -- ("add" := CLOSURE) : ENV
+  let add10 = add 10
+  in                                -- ("add_10" := ???) : ("add" := CLOSURE) : ENV
+    let add20 = add 20
+    in                              -- (add_20 := <"y", (x+y), ((x:= 20):ENV)>) : (add_10 := <"y", (x+y), ((x:= 10):ENV)>) : ENV
+      (add 10 100) + (add 20 1000)
+
+-}
+
+
 
 -- >>> eval [] exIncrWithC_FLIP
--- VInt 110
+-- VInt 2
 --
 
 {-
@@ -105,8 +150,10 @@ eval [] (ELet "incr" (ELam "x" (X_PLUS_ONE)) E2)
 -}
 
 
--- >>> eval [] exIncr
--- VInt 11
+-- >>> eval [] (ELet "x" (ENum 7) (EApp (EVar "x") (ENum 4)))
+-- *** Exception: EVar "x"is not a callable object!
+-- CallStack (from HasCallStack):
+--   error, called at /Users/rjhala/teaching/130-wi20/static/raw/Lec_3_2_20.hs:134:44 in main:Lec_3_2_20
 --
 
 
@@ -126,12 +173,14 @@ eval env (ELet x e1 e2) = eval newEnv e2
     newEnv              = (x, v1) : env
     v1                  = eval env e1 
 
-eval env (ELam x e)     = VFun x e
+eval env (ELam x e)     = VFun x e env
 
-eval env (EApp e1 e2)   = eval env adityaExpr
-  where 
-    adityaExpr          = ELet x e2 body 
-    VFun x body         = eval env e1
+eval env (EApp e1 e2)   = case eval env e1 of 
+                            VFun x body frozenEnv 
+                                        -> let v2 = eval env e2 
+                                           in
+                                             eval ((x, v2) : frozenEnv) body
+                            _           -> error (show e1 ++ "is not a callable object!")
 
 evalOp :: Binop -> Value -> Value -> Value
 evalOp Add (VInt v1) (VInt v2) = VInt (v1 + v2) 
@@ -232,15 +281,6 @@ in            -- ??? what env to use for `x + 1`?
    let x = E1 
    in            -- ("x" := eval ENV E1) : ENV ==== NEW_ENV 
      E2
-
-
-
-
-
-
-
-
-
 
                 -- ENV
 let x = E1

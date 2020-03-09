@@ -4,31 +4,6 @@ date: 2019-05-29
 headerImg: books.jpg
 ---
 
-## Announcements
-
-* HW 04-NANO -- deadline ===> May 31, 23:59:59
-
-```haskell
-let fac =                         -- env0
-  \n -> if n <= 0
-          then 1
-          else 1 * fac (n-1)
-in fac 5
-
-let f = e1 in e2 ...
-
-
-
--- Somehow "hack the frozen env" so that the name `f`
--- is "available" in the closure's frozen env that `e1`
--- evaluates to
-
-VClos env0 "n" <if n <=0 ... >
-
-    eval (("n", 5):env0) <body>
-
-PROBLEM: 'fac' is unbound in `env0` and hence in `("n", 5) : env0`
-
 ## Past two Weeks
 
 How to *implement* language constructs?

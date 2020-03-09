@@ -7,22 +7,21 @@ headerImg: books.jpg
 |:----------:|:--------------------------------|:--------------------------|:--------------|
 | 1/6        | Hello, World!                   | [html][lec0] [pdf][pdf0]  |               |
 | 1/8        | The Lambda Calculus             | [html][lec1] [pdf][pdf1]  |               |
-| 1/22       | A crash course in Haskell       | [html][lec2] [pdf][pdf2]  | [hs-1-20] [hs-1-29] |
+| 1/22       | A crash course in Haskell       | [html][lec2] [pdf][pdf2]  | [hs] [hs-1-29] |
 | 2/3        | Datatypes & Recursion           | [html][lec3] [pdf][pdf-data] | [hs-2-3]  |
 | 2/5        | ""                              |                              | [hs-2-5]  |
 | 2/7        | ""                              |                              | [hs-2-7]  |
-| 2/10       |  **Midterm**  		           |                              |           |
+| 2/10       |  **Midterm**  		       |                              |           |
 | 2/12       | Higher Order Functions          | [html][lec4] [pdf][pdf-hof]  | [hs-2-12] |
 | 2/14       | ""                              |                              | [hs-2-14] |
-| 2/19       | "" [map-reduce][mapRed] [react HOComponents][rhoc] |           | [hs-2-19] |
-| 2/21       | Environments & Closures         | [html][lec5] 		          | [hs-2-21] |
-| 2/24       | ""                              |  		                      | [hs-2-24] |
-| 2/26       | ""                              |  		                      | [hs-2-26] |
-| 2/28       | ""                              |  		                      | [hs-2-28] |
-| 3/2        | Lexing and Parsing              | [html][lec6] [tutorial][parsing]  [pdf][pdf-parse] | [hs-3-2] |
-<!-- 
-| 5/29       | Overloading & TypeClasses       | [html][lec7-cl]              | [hs-5-29]  |
-| 6/5        | Monads                          | [html][lec8-monads]          | [hs-6-5]   |
+| 2/19       | "" [map-reduce][mapRed], [react][rhoc] |                       | [hs-2-19] |
+| 2/21       | Environments & Closures         | [html][lec5] 	              | [hs-2-21] |
+| 2/24       | ""                              |  		              | [hs-2-24] |
+| 2/26       | ""                              |  		              | [hs-2-26] |
+| 2/28       | ""                              |  		              | [hs-2-28] |
+| 3/2        | Lexing and Parsing              | [html][lec6], [tutorial][parsing]  [pdf][pdf-parse] | [hs-3-2] |
+| 3/9        | Overloading & Type Classes      | [html][lec7-cl]              | [hs-3-9]  |
+| 3/11       | Monads                          | [html][lec8-monads]          | [hs-3-11] |
 -->
 
 ## Discussions
@@ -84,6 +83,9 @@ headerImg: books.jpg
 [hs-2-26]:  /static/raw/Lec_2_26_20.hs
 [hs-2-28]:  /static/raw/Lec_2_28_20.hs
 [hs-3-2]:  /static/raw/Lec_3_2_20.hs
+[hs-3-9]:  /static/raw/Lec_3_2_20.hs
+[hs-3-11]:  /static/raw/Lec_3_11_20.hs
+[hs-3-13]:  /static/raw/Lec_3_13_20.hs
 
 [hs-4-15]:  /static/raw/lec_4_15_2019.hs
 [hs-4-17]:  /static/raw/lec_4_17_2019.hs
