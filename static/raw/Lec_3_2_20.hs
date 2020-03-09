@@ -112,8 +112,6 @@ in                                  -- ("add" := CLOSURE) : ENV
 
 -}
 
-
-
 -- >>> eval [] exIncrWithC_FLIP
 -- VInt 2
 --

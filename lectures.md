@@ -22,7 +22,6 @@ headerImg: books.jpg
 | 3/2        | Lexing and Parsing              | [html][lec6], [tutorial][parsing]  [pdf][pdf-parse] | [hs-3-2] |
 | 3/9        | Overloading & Type Classes      | [html][lec7-cl]              | [hs-3-9]  |
 | 3/11       | Monads                          | [html][lec8-monads]          | [hs-3-11] |
--->
 
 ## Discussions
 
