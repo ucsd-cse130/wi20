@@ -302,15 +302,12 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb9-3" data-line-number="3">mapTree f (<span class="dt">Node</span> v l r) <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
 <h3 id="quiz">QUIZ</h3>
 <p>Wait … there is a common pattern across two <em>datatypes</em></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">type</span> <span class="dt">List</span> a <span class="fu">=</span> [a]</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="ot">mapList ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">List</span> a <span class="ot">-&gt;</span> <span class="dt">List</span> b    <span class="co">-- List</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="ot">mapTree ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Tree</span> a <span class="ot">-&gt;</span> <span class="dt">Tree</span> b    <span class="co">-- Tree</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="ot">gmap    ::</span> (<span class="dt">Mappable</span> t) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> t a  <span class="ot">-&gt;</span> t b</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="ot">mapList ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">List</span> a <span class="ot">-&gt;</span> <span class="dt">List</span> b    <span class="co">-- List</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="ot">mapTree ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Tree</span> a <span class="ot">-&gt;</span> <span class="dt">Tree</span> b    <span class="co">-- Tree</span></a></code></pre></div>
 <p>Lets make a <code class="sourceCode haskell"><span class="kw">class</span></code> for it!</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">class</span> <span class="dt">Functor</span> t <span class="kw">where</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="ot">  fmap ::</span> <span class="fu">???</span></a></code></pre></div>
-<p>What type should we give to <code class="sourceCode haskell">fmap</code>?</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">class</span> <span class="dt">Mappable</span> t <span class="kw">where</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="ot">  map ::</span> <span class="fu">???</span></a></code></pre></div>
+<p>What type should we give to <code class="sourceCode haskell">map</code>?</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co">{- A -}</span> (b <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> t b    <span class="ot">-&gt;</span> t a</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">{- B -}</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> t a    <span class="ot">-&gt;</span> t a</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">{- C -}</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a]    <span class="ot">-&gt;</span> [b]</a>
@@ -318,6 +315,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">{- E -}</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Tree</span> a <span class="ot">-&gt;</span> <span class="dt">Tree</span> b</a></code></pre></div>
 <p><br> <br> <br> <br> <br> <br></p>
 <h3 id="reuse-iteration-across-types">Reuse Iteration Across Types</h3>
+<p>Haskell’s libraries use the name <code class="sourceCode haskell"><span class="dt">Functor</span></code> instead of <code class="sourceCode haskell"><span class="dt">Mappable</span></code></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">instance</span> <span class="dt">Functor</span> [] <span class="kw">where</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">  fmap <span class="fu">=</span> mapList</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"></a>
@@ -338,8 +336,14 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <a class="sourceLine" id="cb15-6" data-line-number="6">  fmap f (<span class="dt">Error</span> msg) <span class="fu">=</span> <span class="fu">???</span></a>
 <a class="sourceLine" id="cb15-7" data-line-number="7">  fmap f (<span class="dt">Ok</span> val)    <span class="fu">=</span> <span class="fu">???</span></a></code></pre></div>
 <p>When you’re done you should see</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co">-- &gt;&gt;&gt; fmap (\n -&gt; n ^ 2) (Error &quot;oh no&quot;) Node 2 (Node 1 Leaf Leaf) (Node 3 Leaf Leaf))</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">-- (Node 4 (Node 1 Leaf Leaf) (Node 9 Leaf Leaf))</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co">-- &gt;&gt;&gt; fmap (\n -&gt; n ^ 2) (Node 2 (Node 1 Leaf Leaf) (Node 3 Leaf Leaf))</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">-- (Node 4 (Node 1 Leaf Leaf) (Node 9 Leaf Leaf))</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">-- &gt;&gt;&gt; fmap (\n -&gt; n ^ 2) (Error &quot;oh no&quot;) </span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">-- Error &quot;oh no&quot;</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">-- &gt;&gt;&gt; fmap (\n -&gt; n ^ 2) (Ok 9) </span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">-- Ok 81</span></a></code></pre></div>
 <h2 id="next-a-class-for-sequencing">Next: A Class for Sequencing</h2>
 <p>Recall our old <code class="sourceCode haskell"><span class="dt">Expr</span></code> datatype</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Expr</span></a>
@@ -400,7 +404,7 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <ol type="1">
 <li>Evaluate <code class="sourceCode haskell">e</code></li>
 <li>If the result is an <code class="sourceCode haskell"><span class="dt">Error</span></code> then <em>return</em> that error.</li>
-<li>If the result is a <code class="sourceCode haskell"><span class="dt">Value</span> v</code> then <em>do some further processing</em> on <code class="sourceCode haskell">v</code>.</li>
+<li>If the result is a <code class="sourceCode haskell"><span class="dt">Value</span> v</code> then <em>do further processing</em> on <code class="sourceCode haskell">v</code>.</li>
 </ol>
 <p>Lets <strong>bottle</strong> that common structure in two functions:</p>
 <ul>
@@ -422,13 +426,13 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="ot">eval ::</span> <span class="dt">Expr</span> <span class="ot">-&gt;</span> <span class="dt">Result</span> <span class="dt">Int</span></a>
 <a class="sourceLine" id="cb24-2" data-line-number="2">eval (<span class="dt">Number</span> n)   <span class="fu">=</span> return n</a>
 <a class="sourceLine" id="cb24-3" data-line-number="3">eval (<span class="dt">Plus</span> e1 e2) <span class="fu">=</span> eval e1 <span class="fu">&gt;&gt;=</span> \v1 <span class="ot">-&gt;</span></a>
-<a class="sourceLine" id="cb24-4" data-line-number="4">                    eval e2 <span class="fu">&gt;&gt;=</span> \v2 <span class="ot">-&gt;</span></a>
-<a class="sourceLine" id="cb24-5" data-line-number="5">                    return (v1 <span class="fu">+</span> v2)</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">                      eval e2 <span class="fu">&gt;&gt;=</span> \v2 <span class="ot">-&gt;</span></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">                        return (v1 <span class="fu">+</span> v2)</a>
 <a class="sourceLine" id="cb24-6" data-line-number="6">eval (<span class="dt">Div</span> e1 e2)  <span class="fu">=</span> eval e1 <span class="fu">&gt;&gt;=</span> \v1 <span class="ot">-&gt;</span></a>
-<a class="sourceLine" id="cb24-7" data-line-number="7">                    eval e2 <span class="fu">&gt;&gt;=</span> \v2 <span class="ot">-&gt;</span></a>
-<a class="sourceLine" id="cb24-8" data-line-number="8">                    <span class="kw">if</span> v2 <span class="fu">==</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb24-9" data-line-number="9">                      <span class="kw">then</span> <span class="dt">Error</span> (<span class="st">&quot;yikes dbz:&quot;</span> <span class="fu">++</span> show e2)</a>
-<a class="sourceLine" id="cb24-10" data-line-number="10">                      <span class="kw">else</span> return (v1 <span class="ot">`div`</span> v2)</a></code></pre></div>
+<a class="sourceLine" id="cb24-7" data-line-number="7">                      eval e2 <span class="fu">&gt;&gt;=</span> \v2 <span class="ot">-&gt;</span></a>
+<a class="sourceLine" id="cb24-8" data-line-number="8">                        <span class="kw">if</span> v2 <span class="fu">==</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb24-9" data-line-number="9">                          <span class="kw">then</span> <span class="dt">Error</span> (<span class="st">&quot;yikes dbz:&quot;</span> <span class="fu">++</span> show e2)</a>
+<a class="sourceLine" id="cb24-10" data-line-number="10">                          <span class="kw">else</span> return (v1 <span class="ot">`div`</span> v2)</a></code></pre></div>
 <p><strong>The gross <em>pattern matching</em> is all hidden inside <code class="sourceCode haskell"><span class="fu">&gt;&gt;=</span></code></strong></p>
 <p>Notice the <code class="sourceCode haskell"><span class="fu">&gt;&gt;=</span></code> takes <em>two</em> inputs of type:</p>
 <ul>
@@ -438,7 +442,8 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>In the above, the processing functions are written using <code class="sourceCode haskell">\v1 <span class="ot">-&gt;</span> <span class="fu">...</span></code> and <code class="sourceCode haskell">\v2 <span class="ot">-&gt;</span> <span class="fu">...</span></code></p>
 <p><strong>NOTE:</strong> It is <em>crucial</em> that you understand what the code above is doing, and why it is actually just a “shorter” version of the (gross) nested-case-of <code class="sourceCode haskell">eval</code>.</p>
 <h2 id="a-class-for">A Class for <code class="sourceCode haskell"><span class="fu">&gt;&gt;=</span></code></h2>
-<p>Like <code class="sourceCode haskell">fmap</code> or <code class="sourceCode haskell">show</code> or <code class="sourceCode haskell">jval</code> or <code class="sourceCode haskell"><span class="fu">==</span></code>, the <code class="sourceCode haskell"><span class="fu">&gt;&gt;=</span></code> operator is useful across many types, so we capture it in an interface/typeclass:</p>
+<p>Like <code class="sourceCode haskell">fmap</code> or <code class="sourceCode haskell">show</code> or <code class="sourceCode haskell">jval</code> or <code class="sourceCode haskell"><span class="fu">==</span></code>, or <code class="sourceCode haskell"><span class="fu">&lt;=</span></code>, the <code class="sourceCode haskell"><span class="fu">&gt;&gt;=</span></code> operator is useful across <strong>many</strong> types!</p>
+<p>Lets capture it in an interface/typeclass:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">class</span> <span class="dt">Monad</span> m <span class="kw">where</span></a>
 <a class="sourceLine" id="cb25-2" data-line-number="2"><span class="ot">  (&gt;&gt;=)  ::</span> m a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> m b</a>
 <a class="sourceLine" id="cb25-3" data-line-number="3"><span class="ot">  return ::</span> a <span class="ot">-&gt;</span> m a</a></code></pre></div>
@@ -454,9 +459,9 @@ if (window.navigator.appName == "Microsoft Internet Explorer") {
 <p>In fact <code class="sourceCode haskell"><span class="fu">&gt;&gt;=</span></code> is <em>so</em> useful there is special syntax for it.</p>
 <p>Instead of writing</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb27-1" data-line-number="1">e1 <span class="fu">&gt;&gt;=</span> \v1 <span class="ot">-&gt;</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">e2 <span class="fu">&gt;&gt;=</span> \v2 <span class="ot">-&gt;</span></a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">e3 <span class="fu">&gt;&gt;=</span> \v3 <span class="ot">-&gt;</span></a>
-<a class="sourceLine" id="cb27-4" data-line-number="4">e</a></code></pre></div>
+<a class="sourceLine" id="cb27-2" data-line-number="2">  e2 <span class="fu">&gt;&gt;=</span> \v2 <span class="ot">-&gt;</span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">    e3 <span class="fu">&gt;&gt;=</span> \v3 <span class="ot">-&gt;</span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">      e</a></code></pre></div>
 <p>you can write</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">do</span> v1 <span class="ot">&lt;-</span> e1</a>
 <a class="sourceLine" id="cb28-2" data-line-number="2">   v2 <span class="ot">&lt;-</span> e2</a>
