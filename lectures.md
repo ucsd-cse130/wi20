@@ -82,7 +82,7 @@ headerImg: books.jpg
 [hs-2-26]:  /static/raw/Lec_2_26_20.hs
 [hs-2-28]:  /static/raw/Lec_2_28_20.hs
 [hs-3-2]:  /static/raw/Lec_3_2_20.hs
-[hs-3-9]:  /static/raw/Lec_3_2_20.hs
+[hs-3-9]:  /static/raw/Lec_3_9_20.hs
 [hs-3-11]:  /static/raw/Lec_3_11_20.hs
 [hs-3-13]:  /static/raw/Lec_3_13_20.hs
 

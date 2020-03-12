@@ -137,21 +137,18 @@ mapTree f (Node v l r) = ???
 Wait ... there is a common pattern across two _datatypes_
 
 ```haskell
-type List a = [a]
 mapList :: (a -> b) -> List a -> List b    -- List
 mapTree :: (a -> b) -> Tree a -> Tree b    -- Tree
-
-gmap    :: (Mappable t) => (a -> b) -> t a  -> t b
 ```
 
 Lets make a `class` for it!
 
 ```haskell
-class Functor t where
-  fmap :: ???
+class Mappable t where
+  map :: ???
 ```
 
-What type should we give to `fmap`?
+What type should we give to `map`?
 
 ```haskell
 {- A -} (b -> a) -> t b    -> t a
@@ -169,6 +166,8 @@ What type should we give to `fmap`?
 <br>
 
 ### Reuse Iteration Across Types
+
+Haskell's libraries use the name `Functor` instead of `Mappable` 
 
 ```haskell
 instance Functor [] where
@@ -203,8 +202,14 @@ instance Functor Result where
 When you're done you should see
 
 ```haskell
--- >>> fmap (\n -> n ^ 2) (Error "oh no") Node 2 (Node 1 Leaf Leaf) (Node 3 Leaf Leaf))
+-- >>> fmap (\n -> n ^ 2) (Node 2 (Node 1 Leaf Leaf) (Node 3 Leaf Leaf))
 -- (Node 4 (Node 1 Leaf Leaf) (Node 9 Leaf Leaf))
+
+-- >>> fmap (\n -> n ^ 2) (Error "oh no") 
+-- Error "oh no"
+
+-- >>> fmap (\n -> n ^ 2) (Ok 9) 
+-- Ok 81
 ```
 
 ## Next: A Class for Sequencing
@@ -293,7 +298,7 @@ case e of
 
 1. Evaluate `e`
 2. If the result is an `Error` then _return_ that error.
-3. If the result is a `Value v` then _do some further processing_ on `v`.
+3. If the result is a `Value v` then _do further processing_ on `v`.
 
 Lets **bottle** that common structure in two functions:
 
@@ -321,13 +326,13 @@ The magic bottle lets us clean up our `eval`
 eval :: Expr -> Result Int
 eval (Number n)   = return n
 eval (Plus e1 e2) = eval e1 >>= \v1 ->
-                    eval e2 >>= \v2 ->
-                    return (v1 + v2)
+                      eval e2 >>= \v2 ->
+                        return (v1 + v2)
 eval (Div e1 e2)  = eval e1 >>= \v1 ->
-                    eval e2 >>= \v2 ->
-                    if v2 == 0
-                      then Error ("yikes dbz:" ++ show e2)
-                      else return (v1 `div` v2)
+                      eval e2 >>= \v2 ->
+                        if v2 == 0
+                          then Error ("yikes dbz:" ++ show e2)
+                          else return (v1 `div` v2)
 ```
 
 **The gross _pattern matching_ is all hidden inside `>>=`**
@@ -345,8 +350,10 @@ is doing, and why it is actually just a "shorter" version of the
 
 ## A Class for `>>=`
 
-Like `fmap` or `show` or `jval` or `==`, the `>>=` operator
-is useful across many types, so we capture it in an interface/typeclass:
+Like `fmap` or `show` or `jval` or `==`, or `<=`, 
+the `>>=` operator is useful across **many** types! 
+
+Lets capture it in an interface/typeclass:
 
 ```haskell
 class Monad m where
@@ -374,9 +381,9 @@ Instead of writing
 
 ```haskell
 e1 >>= \v1 ->
-e2 >>= \v2 ->
-e3 >>= \v3 ->
-e
+  e2 >>= \v2 ->
+    e3 >>= \v3 ->
+      e
 ```
 
 you can write
