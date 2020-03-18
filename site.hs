@@ -52,6 +52,7 @@ main = hakyll $ do
   match (fromList tops)    $ crunchWithCtx siteCtx
   match "lectures/*"       $ crunchWithCtxCustom "lecture" postCtx
   match "assignments/*"    $ crunchWithCtx postCtx
+  match "discussions/*"    $ crunchWithCtx postCtx
   match "templates/*"      $ compile templateCompiler
 
 --------------------------------------------------------------------------------

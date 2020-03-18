@@ -25,9 +25,10 @@ headerImg: books.jpg
 
 ## Discussions
 
-| Date       | Topic                    | Slides        | 
-|:----------:|:-------------------------|:-------------:|
-| 1/14       | Lambda Calculus          | [pdf][disc1]  |
+| Date       | Topic                    | Slides               | 
+|:----------:|:-------------------------|:--------------------:|
+| 1/14       | Lambda Calculus          | [pdf][disc1]         |
+| 3/17       | Final Review             | [html][final-review] |
 
 <!-- 
 | 2/25       | Nano: Parsing and Eval   | [pdf][disc5]  |
@@ -128,3 +129,5 @@ headerImg: books.jpg
 [final-prep]: /static/raw/appendix.pdf
 [final]: /static/raw/130-final-wi19.pdf
 [final-sol]: /static/raw/130-final-wi19-solution.pdf
+
+[final-review]: discussions/final-review.html
